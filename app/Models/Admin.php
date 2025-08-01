@@ -13,8 +13,6 @@ use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- *
- *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -24,6 +22,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon|null $updated_at
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ *
  * @method static Admin newModelQuery()
  * @method static Admin newQuery()
  * @method static Admin query()
@@ -34,8 +33,10 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static Admin wherePassword($value)
  * @method static Admin whereRole($value)
  * @method static Admin whereUpdatedAt($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
+ *
  * @mixin Eloquent
  */
 class Admin extends Authenticatable

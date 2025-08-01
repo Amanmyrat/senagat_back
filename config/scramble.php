@@ -109,6 +109,6 @@ return [
     ],
 
     'extensions' => [
-        AddLocalizationHeaderExtension::class
+        AddLocalizationHeaderExtension::class,
     ],
 ];

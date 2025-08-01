@@ -9,7 +9,7 @@ enum AdminRole: string
 
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::SUPER_ADMIN => 'Super Admin',
             self::OPERATOR => 'Operator',
         };

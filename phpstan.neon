@@ -1,0 +1,16 @@
+includes:
+    - vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    level: 5
+    paths:
+        - app
+        - routes
+        - database
+        - config
+    excludePaths:
+        - vendor
+        - storage
+        - bootstrap
+        # - .phpstorm.meta.php (?)  # Optional: keep if using PhpStorm
+    reportUnmatchedIgnoredErrors: false

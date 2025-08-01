@@ -17,7 +17,7 @@ class AddLocalizationHeaderExtension extends OperationExtension
             $operation->addParameters([
                 Parameter::make('Accept-Language', 'header')
                     ->setSchema(
-                        Schema::fromType(new StringType())
+                        Schema::fromType(new StringType)
                     ),
             ]);
         }
