@@ -50,7 +50,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'otp',
+        'otp_expires_at',
+        'otp_verified_at',
         'password',
+
     ];
 
     /**
@@ -74,5 +79,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function otps()
+    {
+        return $this->hasMany(Otp::class);
     }
 }
