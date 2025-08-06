@@ -32,7 +32,7 @@ class UsersResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('phone')
             ])
             ->filters([
                 //

@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\Models\Otp;
+use App\Models\OtpCode;
 use App\Models\User;
 
 class OtpHelper
@@ -19,7 +19,7 @@ class OtpHelper
     public static function getValidOtpByPhone(string $phone, string $code)
     {
 
-        return Otp::where('phone', $phone)
+        return OtpCode::where('phone', $phone)
             ->where('code', $code)
             ->where('used', false)
             ->where('expires_at', '>', now())

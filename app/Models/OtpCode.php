@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-class Otp extends Model
+class OtpCode extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['user_id', 'code', 'expires_at', 'used', 'phone'];
+    protected $table = 'otps';
+    protected $fillable = ['user_id', 'code', 'expires_at', 'phone'];
 
     protected $dates = ['expires_at'];
 
@@ -36,7 +36,6 @@ class Otp extends Model
             'phone' => $phone,
             'code' => $code,
             'expires_at' => now()->addMinutes($minutesValid),
-            'used' => false,
         ]);
     }
     public static function generateForPhone($phone, $length = 5, $minutesValid = 3)
@@ -47,7 +46,6 @@ class Otp extends Model
             'phone' => $phone,
             'code' => $code,
             'expires_at' => now()->addMinutes($minutesValid),
-            'used' => false,
         ]);
     }
 
