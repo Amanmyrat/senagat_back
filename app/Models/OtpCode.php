@@ -2,44 +2,37 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property int $id
+ * @property string $phone
+ * @property string $code
+ * @property string|null $expires_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ *
+ * @method static Builder<static>|OtpCode newModelQuery()
+ * @method static Builder<static>|OtpCode newQuery()
+ * @method static Builder<static>|OtpCode query()
+ * @method static Builder<static>|OtpCode whereCode($value)
+ * @method static Builder<static>|OtpCode whereCreatedAt($value)
+ * @method static Builder<static>|OtpCode whereExpiresAt($value)
+ * @method static Builder<static>|OtpCode whereId($value)
+ * @method static Builder<static>|OtpCode wherePhone($value)
+ * @method static Builder<static>|OtpCode whereUpdatedAt($value)
+ *
+ * @mixin Eloquent
+ */
 class OtpCode extends Model
 {
     use HasFactory;
 
-    protected $table = 'otps';
-
     protected $fillable = ['code', 'expires_at', 'phone'];
 
     protected $dates = ['expires_at'];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    // Static method to create OTP
-    public static function generateForUser( $phone, $length = 5, $minutesValid = 3)
-    {
-        $code = '00000';
-
-        return self::create([
-            'phone' => $phone,
-            'code' => $code,
-            'expires_at' => now()->addMinutes($minutesValid),
-        ]);
-    }
-
-    public static function generateForPhone($phone, $length = 5, $minutesValid = 3)
-    {
-        $code = '00000';
-
-        return self::create([
-            'phone' => $phone,
-            'code' => $code,
-            'expires_at' => now()->addMinutes($minutesValid),
-        ]);
-    }
 }

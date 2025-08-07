@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('otps', function (Blueprint $table) {
+        Schema::create('otp_sessions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('phone');
-            $table->string('code');
-            $table->timestamp('expires_at')->nullable();
-            $table->boolean('used')->default(false);
+            $table->string('token')->unique();
+            $table->enum('purpose', ['register', 'login']);
+            $table->timestamp('expires_at');
+            $table->boolean('is_verified')->default(false);
             $table->timestamps();
+
+            $table->index(['phone', 'purpose']);
+            $table->index('token');
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('otps');
+        Schema::dropIfExists('otp_sessions');
     }
 };

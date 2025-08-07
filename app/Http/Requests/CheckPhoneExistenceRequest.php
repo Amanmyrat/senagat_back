@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CheckRequest extends FormRequest
+class CheckPhoneExistenceRequest extends FormRequest
 {
     public function rules(): array
     {

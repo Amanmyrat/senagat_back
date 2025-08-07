@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use App\Enum\AdminRole;
-use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
@@ -11,6 +12,7 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\PersonalAccessToken;
 
 /**
  * @property int $id
@@ -22,22 +24,21 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon|null $updated_at
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- *
- * @method static Admin newModelQuery()
- * @method static Admin newQuery()
- * @method static Admin query()
- * @method static Admin whereCreatedAt($value)
- * @method static Admin whereEmail($value)
- * @method static Admin whereId($value)
- * @method static Admin whereName($value)
- * @method static Admin wherePassword($value)
- * @method static Admin whereRole($value)
- * @method static Admin whereUpdatedAt($value)
- *
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @property-read Collection<int, PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  *
- * @mixin Eloquent
+ * @method static Builder<static>|Admin newModelQuery()
+ * @method static Builder<static>|Admin newQuery()
+ * @method static Builder<static>|Admin query()
+ * @method static Builder<static>|Admin whereCreatedAt($value)
+ * @method static Builder<static>|Admin whereEmail($value)
+ * @method static Builder<static>|Admin whereId($value)
+ * @method static Builder<static>|Admin whereName($value)
+ * @method static Builder<static>|Admin wherePassword($value)
+ * @method static Builder<static>|Admin whereRole($value)
+ * @method static Builder<static>|Admin whereUpdatedAt($value)
+ *
+ * @mixin \Eloquent
  */
 class Admin extends Authenticatable
 {

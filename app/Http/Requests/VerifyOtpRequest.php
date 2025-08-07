@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class VerifyOtpRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -15,7 +15,7 @@ class LoginRequest extends FormRequest
     {
         return [
             /**
-             * Phone.
+             * Phone number.
              *
              * @var string
              *
@@ -30,7 +30,16 @@ class LoginRequest extends FormRequest
              *
              * @example 12345
              */
-            'otp' => ['required', 'string', 'size:5'],
+            'code' => ['required', 'string', 'size:5'],
+
+            /**
+             * Purpose of OTP verification.
+             *
+             * @var string
+             *
+             * @example register
+             */
+            'purpose' => ['required', 'string', 'in:register,login'],
         ];
     }
 }

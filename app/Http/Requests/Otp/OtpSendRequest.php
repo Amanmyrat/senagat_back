@@ -11,7 +11,7 @@ class OtpSendRequest extends FormRequest
         return true;
     }
 
-    public function rules():array
+    public function rules(): array
     {
         return [
             'phone' => ['required', 'string', 'regex:/^[0-9]{8}$/'],

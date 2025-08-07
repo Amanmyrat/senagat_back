@@ -2,25 +2,75 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\CheckRequest;
+use App\Http\Requests\CheckPhoneExistenceRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\PreLoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\RequestOtpRequest;
+use App\Http\Requests\VerifyOtpRequest;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\Services\AuthService;
-use App\Services\CheckService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
-class AuthController extends ApiBaseController
+class AuthController
 {
     public function __construct(
-        protected AuthService $service,
-        protected CheckService $checkService
+        protected AuthService $service
     ) {}
 
+    /**
+     * Request OTP for registration or login
+     *
+     * @unauthenticated
+     *
+     * @throws Exception
+     */
+    public function requestOtp(RequestOtpRequest $request): JsonResponse
+    {
+        try {
+            $this->service->requestOtp($request->validated());
+
+            return new JsonResponse([
+                'success' => true,
+                'message' => 'OTP sent successfully',
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'message' => 'Failed to send OTP',
+                'error' => $e->getMessage(),
+            ], 400);
+        }
+    }
 
     /**
-     * Create User
+     * Verify OTP and get session token
+     *
+     * @unauthenticated
+     *
+     * @throws Exception
+     */
+    public function verifyOtp(VerifyOtpRequest $request): JsonResponse
+    {
+        try {
+            $token = $this->service->verifyOtp($request->validated());
+
+            return new JsonResponse([
+                'success' => true,
+                'otp_session_token' => $token,
+                'message' => 'OTP verified successfully',
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'message' => 'OTP verification failed',
+                'error' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    /**
+     * Create User with OTP session token
      *
      * @unauthenticated
      *
@@ -30,23 +80,46 @@ class AuthController extends ApiBaseController
     {
         try {
             $user = $this->service->register($request->validated());
-
-            $token = $user->createToken('mobile', ['role:user'])->plainTextToken;
+            $token = $user->createToken('mobile')->plainTextToken;
 
             return (new UserResource($user))
                 ->additional(['token' => $token])
                 ->response()
                 ->setStatusCode(201);
         } catch (Exception $e) {
-            return  new JsonResponse([
+            return new JsonResponse([
                 'message' => 'Registration failed',
-                'error' => $e->getMessage()
-            ], 500);
+                'error' => $e->getMessage(),
+            ], 400);
         }
     }
 
     /**
-     * Login user
+     * Pre-login: validate password and send OTP
+     *
+     * @unauthenticated
+     *
+     * @throws Exception
+     */
+    public function preLogin(PreLoginRequest $request): JsonResponse
+    {
+        try {
+            $this->service->preLogin($request);
+
+            return new JsonResponse([
+                'success' => true,
+                'message' => 'Password verified, OTP sent for final authentication',
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'message' => 'Pre-login failed',
+                'error' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    /**
+     * Complete login with OTP
      *
      * @unauthenticated
      *
@@ -55,50 +128,36 @@ class AuthController extends ApiBaseController
     public function login(LoginRequest $request): JsonResponse
     {
         try {
-
-            $this->service->login($request);
-
-            $user = $request->user();
-
-            $token = $user->createToken('mobile', ['role:user'])->plainTextToken;
+            $user = $this->service->login($request);
+            $token = $user->createToken('mobile')->plainTextToken;
 
             return (new UserResource($user))
                 ->additional(['token' => $token])
                 ->response()
-                ->setStatusCode(201);
+                ->setStatusCode(200);
         } catch (Exception $e) {
-            return  new JsonResponse([
+            return new JsonResponse([
                 'message' => 'Login failed',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
 
     /**
-     * Check Number
-     *
-     *
+     * Check phone number
      */
-    public function check(CheckRequest $request): JsonResponse
+    public function checkPhoneExists(CheckPhoneExistenceRequest $request): JsonResponse
     {
         try {
             $phone = $request->validated('phone');
-            $exists = $this->checkService->checkPhoneExists($phone);
+            $exists = User::where('phone', $phone)->exists();
 
-            if ($exists) {
-                return new JsonResponse([
-                    'exists' => true,
-                    'message' => 'Phone number already registered.',
-                ]);
-            } else {
-                return new JsonResponse([
-                    'exists' => false,
-                    'message' => 'Phone number not found, can be registered.',
-                ]);
-            }
-        }catch (Exception $e){
             return new JsonResponse([
-                'error'=>$e->getMessage(),
+                'exists' => $exists,
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'error' => $e->getMessage(),
             ]);
         }
     }

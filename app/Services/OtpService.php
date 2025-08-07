@@ -11,7 +11,7 @@ class OtpService
 {
     public function sendOtp(array $validated): string
     {
-        $code = '00000';
+        $code = '12345';
 
         OtpCode::create([
             'phone' => $validated['phone'],
@@ -20,7 +20,6 @@ class OtpService
         ]);
 
         return $code;
-
     }
 
     /**

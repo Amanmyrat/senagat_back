@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class PreLoginRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -15,13 +15,13 @@ class RegisterRequest extends FormRequest
     {
         return [
             /**
-             * OTP session token from verify-otp step.
+             * Phone number.
              *
              * @var string
              *
-             * @example abc123def456
+             * @example 65021734
              */
-            'otp_session_token' => ['required', 'string'],
+            'phone' => ['required', 'string', 'regex:/^[0-9]{8}$/'],
 
             /**
              * Password.
