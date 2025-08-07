@@ -9,4 +9,6 @@ Route::prefix('users')->group(function () {
     Route::post('/otp/confirm', [OtpController::class, 'confirmOTP']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/check', [AuthController::class, 'check']);
+
 });

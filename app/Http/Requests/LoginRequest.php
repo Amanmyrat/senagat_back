@@ -23,6 +23,9 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function authenticate()
     {
         $credentials = $this->only('phone', 'password');

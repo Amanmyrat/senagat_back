@@ -22,7 +22,7 @@ class OtpController
     public function sendOTP(OtpSendRequest $request): JsonResponse
     {
         try {
-            $code = $this->service->sendOtp($request->validated());
+             $this->service->sendOtp($request->validated());
 
             return new JsonResponse([
                 'success' => true,

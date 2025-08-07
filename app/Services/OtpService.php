@@ -16,13 +16,16 @@ class OtpService
         OtpCode::create([
             'phone' => $validated['phone'],
             'code' => $code,
-            'expires_at' => Carbon::now()->addMinutes(config('otp.timeout'))->addMinute(),
+            'expires_at' => Carbon::now()->addMinutes(2),
         ]);
 
         return $code;
 
     }
 
+    /**
+     * @throws Exception
+     */
     public static function confirmOtp(array $validated): void
     {
         $otpCode = OtpCode::where('phone', $validated['phone'])->latest()->first();

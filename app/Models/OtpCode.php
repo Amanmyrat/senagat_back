@@ -24,7 +24,6 @@ class OtpCode extends Model
     public static function generateForUser( $phone, $length = 5, $minutesValid = 3)
     {
         $code = '00000';
-        // rand(pow(10, $length - 1), pow(10, $length) - 1);
 
         return self::create([
             'phone' => $phone,
