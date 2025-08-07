@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 
 class OtpCode extends Model
 {
     use HasFactory;
+
     protected $table = 'otps';
-    protected $fillable = ['user_id', 'code', 'expires_at', 'phone'];
+
+    protected $fillable = ['code', 'expires_at', 'phone'];
 
     protected $dates = ['expires_at'];
 
@@ -19,25 +20,19 @@ class OtpCode extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Check for valid and unused OTP
-    public function isValid()
-    {
-        return !$this->used && $this->expires_at->isFuture();
-    }
-
     // Static method to create OTP
-    public static function generateForUser($userId, $phone, $length = 5, $minutesValid = 3,)
+    public static function generateForUser( $phone, $length = 5, $minutesValid = 3)
     {
         $code = '00000';
-        //rand(pow(10, $length - 1), pow(10, $length) - 1);
+        // rand(pow(10, $length - 1), pow(10, $length) - 1);
 
         return self::create([
-            'user_id' => $userId,
             'phone' => $phone,
             'code' => $code,
             'expires_at' => now()->addMinutes($minutesValid),
         ]);
     }
+
     public static function generateForPhone($phone, $length = 5, $minutesValid = 3)
     {
         $code = '00000';
@@ -47,13 +42,5 @@ class OtpCode extends Model
             'code' => $code,
             'expires_at' => now()->addMinutes($minutesValid),
         ]);
-    }
-
-
-    // Flag when OTP is used
-    public function markUsed()
-    {
-        $this->used = true;
-        $this->save();
     }
 }

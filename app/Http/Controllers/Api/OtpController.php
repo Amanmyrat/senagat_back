@@ -24,12 +24,12 @@ class OtpController
         try {
             $code = $this->service->sendOtp($request->validated());
 
-            return response()->json([
+            return new JsonResponse([
                 'success' => true,
                 'data' => ['code' => $code],
             ]);
         } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 400);
+            return new JsonResponse(['message' => $e->getMessage()], 400);
         }
     }
 
@@ -43,9 +43,9 @@ class OtpController
         try {
             $this->service->confirmOtp($request->validated());
 
-            return response()->json(['success' => true]);
+            return new JsonResponse(['success' => true]);
         } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 400);
+            return new JsonResponse(['message' => $e->getMessage()], 400);
         }
     }
 }

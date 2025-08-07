@@ -7,7 +7,6 @@ use Illuminate\Http\JsonResponse;
 
 class ApiBaseController extends Controller
 {
-
     protected function respondSuccess($data = [], string $message = '', int $code = 200): JsonResponse
     {
         return response()->json([
@@ -16,7 +15,6 @@ class ApiBaseController extends Controller
             'data' => $data,
         ], $code);
     }
-
 
     protected function respondError(string $message = 'Error', int $code = 400, $errors = []): JsonResponse
     {
@@ -27,7 +25,6 @@ class ApiBaseController extends Controller
         ], $code);
     }
 
-
     protected function respondWithItem($item, $transformer, $message = '', $code = 200): JsonResponse
     {
         $data = $transformer->transform($item);
@@ -35,10 +32,9 @@ class ApiBaseController extends Controller
         return $this->respondSuccess($data, $message, $code);
     }
 
-
     protected function respondWithCollection($collection, $transformer, $message = '', $code = 200): JsonResponse
     {
-        $data = $collection->map(fn($item) => $transformer->transform($item));
+        $data = $collection->map(fn ($item) => $transformer->transform($item));
 
         return $this->respondSuccess($data, $message, $code);
     }

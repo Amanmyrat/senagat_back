@@ -6,7 +6,6 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
-use App\Transformers\UserTransformer;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
@@ -14,7 +13,7 @@ class AuthController extends ApiBaseController
 {
     public function __construct(protected AuthService $service)
     {
-        $this->service = $service;
+        //  $this->service = $service;
     }
 
     /**
@@ -28,11 +27,10 @@ class AuthController extends ApiBaseController
     {
         $user = $this->service->register($request->validated());
 
-        $user->token = $user->createToken('mobile', ['role:user'])->plainTextToken;
-
-
+        $token = $user->createToken('mobile', ['role:user'])->plainTextToken;
 
         return (new UserResource($user))
+            ->additional(['token' => $token])
             ->response()
             ->setStatusCode(201);
     }
@@ -50,11 +48,10 @@ class AuthController extends ApiBaseController
 
         $user = $request->user();
 
-        $user->token = $user->createToken('mobile', ['role:user'])->plainTextToken;
-
-
+        $token = $user->createToken('mobile', ['role:user'])->plainTextToken;
 
         return (new UserResource($user))
+            ->additional(['token' => $token])
             ->response()
             ->setStatusCode(201);
     }

@@ -10,12 +10,12 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize():bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules():array
     {
         return [
             'phone' => ['required', 'string', 'regex:/^[0-9]{8}$/'],
@@ -30,18 +30,18 @@ class LoginRequest extends FormRequest
         $password = $this->input('password');
         $user = User::where('phone', $phone)->first();
 
-        if (!$user) {
+        if (! $user) {
             throw ValidationException::withMessages([
                 'phone' => __('Not Registered number'),
             ]);
         }
 
-        if (!Hash::check($password, $user->password)) {
+        if (! Hash::check($password, $user->password)) {
             throw ValidationException::withMessages([
                 'password' => __('Incorrect password'),
             ]);
         }
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             throw ValidationException::withMessages([
                 'phone' => __('Not Registered number'),
             ]);
