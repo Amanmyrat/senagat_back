@@ -86,12 +86,12 @@ class AuthController extends ApiBaseController
             $exists = $this->checkService->checkPhoneExists($phone);
 
             if ($exists) {
-                return response()->json([
+                return new JsonResponse([
                     'exists' => true,
                     'message' => 'Phone number already registered.',
                 ]);
             } else {
-                return response()->json([
+                return new JsonResponse([
                     'exists' => false,
                     'message' => 'Phone number not found, can be registered.',
                 ]);
