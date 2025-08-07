@@ -26,7 +26,6 @@ class OtpController
 
             return new JsonResponse([
                 'success' => true,
-                'data' => ['code' => $code],
             ]);
         } catch (Exception $e) {
             return new JsonResponse(['message' => $e->getMessage()], 400);
