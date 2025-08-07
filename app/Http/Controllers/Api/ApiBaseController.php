@@ -9,7 +9,7 @@ class ApiBaseController extends Controller
 {
     protected function respondSuccess($data = [], string $message = '', int $code = 200): JsonResponse
     {
-        return response()->json([
+        return new JsonResponse([
             'success' => true,
             'message' => $message,
             'data' => $data,
@@ -18,7 +18,7 @@ class ApiBaseController extends Controller
 
     protected function respondError(string $message = 'Error', int $code = 400, $errors = []): JsonResponse
     {
-        return response()->json([
+        return  new JsonResponse([
             'success' => false,
             'message' => $message,
             'errors' => $errors,
