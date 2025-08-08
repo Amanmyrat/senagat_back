@@ -81,9 +81,9 @@ class AuthController
         try {
             $user = $this->service->register($request->validated());
             $token = $user->createToken('mobile')->plainTextToken;
+            $user->token = $token;
 
             return (new UserResource($user))
-                ->additional(['token' => $token])
                 ->response()
                 ->setStatusCode(201);
         } catch (Exception $e) {
@@ -130,9 +130,9 @@ class AuthController
         try {
             $user = $this->service->login($request);
             $token = $user->createToken('mobile')->plainTextToken;
+            $user->token = $token;
 
             return (new UserResource($user))
-                ->additional(['token' => $token])
                 ->response()
                 ->setStatusCode(200);
         } catch (Exception $e) {
