@@ -13,6 +13,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Resources\Concerns\Translatable;
+
 use Filament\Tables\Table;
 
 
@@ -21,6 +23,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LocationResource extends Resource
 {
+    use Translatable;
+
+    public static function getTranslatableLocales(): array
+    {
+        return ['en', 'tk', 'ru'];
+    }
     protected static ?string $model = Location::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -43,8 +51,35 @@ class LocationResource extends Resource
                 ->required(),
                 LocationPickr::make('location')
                     ->label('Location')
-                    ->required(),
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        if ($state) {
+                            $set('lat', $state['lat']);
+                            $set('lng', $state['lng']);
+                        }
+                    }),
 
+                TextInput::make('lat')
+                    ->label('Latitude')
+                    ->required()
+                    ->reactive()
+                    ->default(fn ( $get) => $get('location')['lat'] ?? null)
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                        $location = $get('location') ?? ['lat' => null, 'lng' => null];
+                        $location['lat'] = $state;
+                        $set('location', $location);
+                    }),
+
+                TextInput::make('lng')
+                    ->label('Longitude')
+                    ->required()
+                    ->reactive()
+                    ->default(fn ( $get) => $get('location')['lng'] ?? null)
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                        $location = $get('location') ?? ['lat' => null, 'lng' => null];
+                        $location['lng'] = $state;
+                        $set('location', $location);
+                    }),
             ]);
     }
 
@@ -56,6 +91,7 @@ class LocationResource extends Resource
                 TextColumn::make('name'),
                 TextColumn::make('address'),
                 TextColumn::make('location')
+
 
             ])
             ->filters([])
