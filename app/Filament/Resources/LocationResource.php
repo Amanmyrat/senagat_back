@@ -62,24 +62,27 @@ class LocationResource extends Resource
                 TextInput::make('lat')
                     ->label('Latitude')
                     ->required()
+                    ->numeric()
                     ->reactive()
-                    ->default(fn ( $get) => $get('location')['lat'] ?? null)
+                    ->default(fn ($get) => $get('location')['lat'] ?? null)
                     ->afterStateUpdated(function ($state, callable $set, callable $get) {
                         $location = $get('location') ?? ['lat' => null, 'lng' => null];
-                        $location['lat'] = $state;
+                        $location['lat'] = $state !== null ? (float) $state : null; // ✅ doğru alan
                         $set('location', $location);
                     }),
 
                 TextInput::make('lng')
                     ->label('Longitude')
                     ->required()
+                    ->numeric()
                     ->reactive()
-                    ->default(fn ( $get) => $get('location')['lng'] ?? null)
+                    ->default(fn ($get) => $get('location')['lng'] ?? null)
                     ->afterStateUpdated(function ($state, callable $set, callable $get) {
                         $location = $get('location') ?? ['lat' => null, 'lng' => null];
-                        $location['lng'] = $state;
+                        $location['lng'] = $state !== null ? (float) $state : null; // ✅ doğru alan
                         $set('location', $location);
                     }),
+
             ]);
     }
 

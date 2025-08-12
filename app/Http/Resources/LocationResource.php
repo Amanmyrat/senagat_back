@@ -17,13 +17,13 @@ class LocationResource extends JsonResource
         $lang = $request->query('lang', app()->getLocale());
 
         return [
-            'id' => $this->id,
-            'type' => $this->type,
-            'name' => $this->getTranslation('name', $lang),
-            'address' => $this->getTranslation('address', $lang),
-            'location' => $this->location,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'id'         => $this->resource->id,
+            'type'       => $this->resource->type,
+            'name'       => $this->resource->getTranslation('name', $lang),
+            'address'    => $this->resource->getTranslation('address', $lang),
+            'location'   => $this->resource->location,
+            'created_at' => $this->resource->created_at,
+            'updated_at' => $this->resource->updated_at,
 
         ];
     }

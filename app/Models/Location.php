@@ -10,12 +10,14 @@ class Location extends Model
 {
     use HasTranslations;
 
-    public $translatable = ['name','address',];
+    public array $translatable = ['name','address',];
 
     protected $fillable =['type','name','address','location'];
     protected $casts = [
                'location' => 'array',
 
     ];
+
+
 
 }
