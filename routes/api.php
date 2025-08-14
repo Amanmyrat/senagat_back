@@ -15,6 +15,6 @@ Route::prefix('users')->group(function () {
     });
 
     Route::post('/check', [AuthController::class, 'checkPhoneExists']);
-    Route::get('/location',[LocationController::class,'index']);
+    Route::get('/location', [LocationController::class, 'index']);
 
 });

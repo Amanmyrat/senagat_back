@@ -8,7 +8,6 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateLocation extends CreateRecord
 {
-
     use CreateRecord\Concerns\Translatable;
 
     protected function getHeaderActions(): array
@@ -18,5 +17,6 @@ class CreateLocation extends CreateRecord
 
         ];
     }
+
     protected static string $resource = LocationResource::class;
 }
