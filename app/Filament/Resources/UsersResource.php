@@ -16,6 +16,26 @@ class UsersResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.users');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.users');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('navigation.users');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('navigation.users');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -28,13 +48,14 @@ class UsersResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('phone'),
+                TextColumn::make('phone')->translateLabel()
+                    ->label(_('resource.phone')),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

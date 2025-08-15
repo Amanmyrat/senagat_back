@@ -27,21 +27,45 @@ class LocationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.location');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.location');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('navigation.location');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('navigation.location');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Select::make('type')
-                    ->label('Type')
+                    ->translateLabel()
+                    ->label(_('resource.type'))
                     ->options([
                         'ATM' => 'ATM',
                         'Branch' => 'Branch',
                     ])
                     ->required(),
                 TextInput::make('name')
-                    ->label('Name')->required(),
+                    ->translateLabel()
+                    ->label(_('resource.name'))
+                    ->required(),
                 TextInput::make('address')
-                    ->label('Address')
+                    ->translateLabel()
+                    ->label(_('resource.address'))
                     ->required(),
                 LocationPickr::make('location')
                     ->label('Location')
@@ -84,9 +108,14 @@ class LocationResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('type')->badge(),
-                TextColumn::make('name'),
-                TextColumn::make('address'),
+                TextColumn::make('type')
+                    ->translateLabel()
+                    ->label(_('resource.type'))
+                    ->badge(),
+                TextColumn::make('name')->translateLabel()
+                    ->label(_('resource.name')),
+                TextColumn::make('address')->translateLabel()
+                    ->label(_('resource.address')),
 
             ])
             ->filters([])
@@ -101,7 +130,9 @@ class LocationResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->translateLabel()
+                    ->label(_('resource.edit')),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

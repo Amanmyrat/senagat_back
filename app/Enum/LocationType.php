@@ -5,12 +5,12 @@ namespace App\Enum;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
-enum LocationType: string implements HasLabel, HasColor
+enum LocationType: string implements HasColor, HasLabel
 {
     case ATM = 'ATM';
     case BRANCH = 'Branch';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::ATM => 'ATM',
@@ -18,7 +18,7 @@ enum LocationType: string implements HasLabel, HasColor
         };
     }
 
-    public function getColor(): string | array | null
+    public function getColor(): string
     {
         return match ($this) {
             self::ATM => 'success',

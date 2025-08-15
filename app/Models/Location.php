@@ -39,10 +39,13 @@ use Spatie\Translatable\HasTranslations;
 class Location extends Model
 {
     use HasTranslations;
+
     public array $translatable = ['name', 'address'];
+
     protected $fillable = ['type', 'name', 'address', 'location'];
+
     protected $casts = [
         'location' => 'array',
-        'type' => LocationType::class
+        'type' => LocationType::class,
     ];
 }

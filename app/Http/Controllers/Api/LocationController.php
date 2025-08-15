@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 class LocationController extends Controller
 {
     /**
-     * Location.
+     * Location List
      *
      * @localizationHeader
      */
