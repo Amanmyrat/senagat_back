@@ -15,6 +15,7 @@ class LocationResource extends JsonResource
     public function toArray(Request $request): array
     {
         $locale = app()->getLocale();
+        $hours = $this->resource->getTranslation('hours', $locale);
 
         return [
             'id' => $this->resource->id,
@@ -22,6 +23,10 @@ class LocationResource extends JsonResource
             'name' => $this->resource->getTranslation('name', $locale),
             'address' => $this->resource->getTranslation('address', $locale),
             'location' => $this->resource->location,
+            'phone_number' => $this->resource->phoneNumber,
+            'fax_number' => $this->resource->fax,
+            'help_desk_number' => $this->resource->homeNumber,
+            'working_hours' => array_values($hours ?? []),
 
         ];
     }

@@ -15,7 +15,6 @@ use Illuminate\Support\Carbon;
  * @property string|null $expires_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @method static Builder<static>|OtpCode newModelQuery()
  * @method static Builder<static>|OtpCode newQuery()
  * @method static Builder<static>|OtpCode query()
@@ -25,7 +24,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|OtpCode whereId($value)
  * @method static Builder<static>|OtpCode wherePhone($value)
  * @method static Builder<static>|OtpCode whereUpdatedAt($value)
- *
  * @mixin Eloquent
  */
 class OtpCode extends Model

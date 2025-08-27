@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\LocationResource\Pages;
 use App\Models\Location;
 use ArberMustafa\FilamentLocationPickrField\Forms\Components\LocationPickr;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -85,7 +86,7 @@ class LocationResource extends Resource
                     ->default(fn ($get) => $get('location')['lat'] ?? null)
                     ->afterStateUpdated(function ($state, callable $set, callable $get) {
                         $location = $get('location') ?? ['lat' => null, 'lng' => null];
-                        $location['lat'] = $state !== null ? (float) $state : null; // ✅ doğru alan
+                        $location['lat'] = $state !== null ? (float) $state : null;
                         $set('location', $location);
                     }),
 
@@ -97,9 +98,26 @@ class LocationResource extends Resource
                     ->default(fn ($get) => $get('location')['lng'] ?? null)
                     ->afterStateUpdated(function ($state, callable $set, callable $get) {
                         $location = $get('location') ?? ['lat' => null, 'lng' => null];
-                        $location['lng'] = $state !== null ? (float) $state : null; // ✅ doğru alan
+                        $location['lng'] = $state !== null ? (float) $state : null;
                         $set('location', $location);
                     }),
+                TextInput::make('phoneNumber')
+                    ->label('Phone Number'),
+                TextInput::make('fax')
+                    ->label('Fax Number'),
+                TextInput::make('homeNumber')
+                    ->label('Help desk number'),
+                Repeater::make('hours')
+                    ->label('Working Hours')
+                    ->schema([
+                        TextInput::make('day')
+                            ->label('Day'),
+                        TextInput::make('from')
+                            ->label('From'),
+                        TextInput::make('to')
+                            ->label('To'),
+                    ])
+                    ->columns(3),
 
             ]);
     }
