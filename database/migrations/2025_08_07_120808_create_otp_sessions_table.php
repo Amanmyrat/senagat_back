@@ -19,7 +19,6 @@ return new class extends Migration
             $table->timestamp('expires_at');
             $table->boolean('is_verified')->default(false);
             $table->timestamps();
-
             $table->index(['phone', 'purpose']);
             $table->index('token');
         });

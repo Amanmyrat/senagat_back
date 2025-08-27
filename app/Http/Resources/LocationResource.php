@@ -23,9 +23,9 @@ class LocationResource extends JsonResource
             'name' => $this->resource->getTranslation('name', $locale),
             'address' => $this->resource->getTranslation('address', $locale),
             'location' => $this->resource->location,
-            'phone_number' => $this->resource->phoneNumber,
-            'fax_number' => $this->resource->fax,
-            'help_desk_number' => $this->resource->homeNumber,
+            'phone_number' => $this->resource->phone_number,
+            'fax_number' => $this->resource->fax_number,
+            'help_desk_number' => $this->resource->home_number,
             'working_hours' => array_values($hours ?? []),
 
         ];

@@ -101,11 +101,11 @@ class LocationResource extends Resource
                         $location['lng'] = $state !== null ? (float) $state : null;
                         $set('location', $location);
                     }),
-                TextInput::make('phoneNumber')
+                TextInput::make('phone_number')
                     ->label('Phone Number'),
-                TextInput::make('fax')
+                TextInput::make('fax_number')
                     ->label('Fax Number'),
-                TextInput::make('homeNumber')
+                TextInput::make('home_number')
                     ->label('Help desk number'),
                 Repeater::make('hours')
                     ->label('Working Hours')
