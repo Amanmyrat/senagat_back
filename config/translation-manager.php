@@ -103,7 +103,7 @@ return [
     |
     */
 
-    'quick_translate_navigation_registration' => true,
+    'quick_translate_navigation_registration' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -140,4 +140,5 @@ return [
    */
 
     'prepend_directory_path_to_group_name' => false,
+
 ];
