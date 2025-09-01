@@ -17,10 +17,9 @@ use Spatie\Translatable\HasTranslations;
  * @property array<array-key, mixed> $location
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property string|null $phoneNumber
- * @property string|null $fax
- * @property string|null $homeNumber
- * @property string|null $title
+ * @property string|null $phone_number
+ * @property string|null $fax_number
+ * @property string|null $home_number
  * @property array<array-key, mixed>|null $hours
  * @property-read mixed $translations
  * @method static Builder<static>|Location newModelQuery()
@@ -28,7 +27,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static Builder<static>|Location query()
  * @method static Builder<static>|Location whereAddress($value)
  * @method static Builder<static>|Location whereCreatedAt($value)
- * @method static Builder<static>|Location whereFax($value)
+ * @method static Builder<static>|Location whereFaxNumber($value)
  * @method static Builder<static>|Location whereHomeNumber($value)
  * @method static Builder<static>|Location whereHours($value)
  * @method static Builder<static>|Location whereId($value)
@@ -39,7 +38,6 @@ use Spatie\Translatable\HasTranslations;
  * @method static Builder<static>|Location whereLocation($value)
  * @method static Builder<static>|Location whereName($value)
  * @method static Builder<static>|Location wherePhoneNumber($value)
- * @method static Builder<static>|Location whereTitle($value)
  * @method static Builder<static>|Location whereType($value)
  * @method static Builder<static>|Location whereUpdatedAt($value)
  * @mixin Eloquent
