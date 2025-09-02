@@ -11,6 +11,11 @@ use Illuminate\Http\JsonResponse;
 
 class ContactMessageController extends Controller
 {
+    /**
+     *  Contact Messages
+     *
+     * @localizationHeader
+     */
     public function store(ContactMessageRequest $request)
     {
         try {

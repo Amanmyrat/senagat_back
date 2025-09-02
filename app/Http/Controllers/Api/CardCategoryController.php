@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CardCategoryResource;
+use App\Models\CardCategory;
+use Illuminate\Http\JsonResponse;
+
+class CardCategoryController extends Controller
+{
+    /**
+     * Our Contact Address List
+     *
+     * @localizationHeader
+     */
+    public function cards(): JsonResponse
+    {
+        $card = CardCategory::get();
+
+        return new JsonResponse([
+            'success' => true,
+            'data' => CardCategoryResource::collection($card),
+        ], 200);
+    }
+}

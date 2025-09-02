@@ -14,6 +14,7 @@ use Spatie\Translatable\HasTranslations;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $translations
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactAddress newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactAddress newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactAddress query()
@@ -28,6 +29,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactAddress wherePhoneNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactAddress whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactAddress whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class ContactAddress extends Model

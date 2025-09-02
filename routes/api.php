@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CardCategoryController;
 use App\Http\Controllers\Api\ContactAddressController;
 use App\Http\Controllers\Api\ContactMessageController;
 use App\Http\Controllers\Api\LocationController;
@@ -34,4 +35,7 @@ Route::prefix('contact-address')->group(function () {
 
 Route::prefix('contact-message')->group(function () {
     Route::post('/', [ContactMessageController::class, 'store']);
+});
+Route::prefix('card')->group(function () {
+    Route::post('/categories', [CardCategoryController::class, 'cards']);
 });
