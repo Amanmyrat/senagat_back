@@ -17,7 +17,6 @@ use Illuminate\Support\Carbon;
  * @property bool $is_verified
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @method static Builder<static>|OtpSession forPurpose(string $purpose)
  * @method static Builder<static>|OtpSession newModelQuery()
  * @method static Builder<static>|OtpSession newQuery()
@@ -31,7 +30,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|OtpSession wherePurpose($value)
  * @method static Builder<static>|OtpSession whereToken($value)
  * @method static Builder<static>|OtpSession whereUpdatedAt($value)
- *
  * @mixin Eloquent
  */
 class OtpSession extends Model

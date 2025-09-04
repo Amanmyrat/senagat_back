@@ -26,7 +26,6 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read int|null $notifications_count
  * @property-read Collection<int, PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- *
  * @method static Builder<static>|Admin newModelQuery()
  * @method static Builder<static>|Admin newQuery()
  * @method static Builder<static>|Admin query()
@@ -37,7 +36,6 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder<static>|Admin wherePassword($value)
  * @method static Builder<static>|Admin whereRole($value)
  * @method static Builder<static>|Admin whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Admin extends Authenticatable

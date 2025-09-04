@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ContactAddressController;
 use App\Http\Controllers\Api\ContactMessageController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('users')->group(function () {
@@ -16,6 +17,8 @@ Route::prefix('users')->group(function () {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/pre-login', [AuthController::class, 'preLogin']);
         Route::post('/login', [AuthController::class, 'login']);
+        Route::middleware('auth:sanctum')->post('/profile', [UserProfileController::class, 'store']);
+
     });
 
     Route::post('/check', [AuthController::class, 'checkPhoneExists']);

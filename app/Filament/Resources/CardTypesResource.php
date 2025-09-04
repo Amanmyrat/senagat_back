@@ -46,7 +46,8 @@ class CardTypesResource extends Resource
                 Select::make('cardCategories')
                     ->multiple()
                     ->preload()
-                    ->relationship('cardCategories', 'title'),
+                    ->relationship('cardCategories', 'title')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->getTranslation('title', app()->getLocale())),
             ]);
     }
 
