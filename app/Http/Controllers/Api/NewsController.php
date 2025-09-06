@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 class NewsController extends Controller
 {
     /**
-     * News List
+     * News
      *
      * @localizationHeader
      */
