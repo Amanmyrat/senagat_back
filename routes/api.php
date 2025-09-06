@@ -17,7 +17,6 @@ Route::prefix('users')->group(function () {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/pre-login', [AuthController::class, 'preLogin']);
         Route::post('/login', [AuthController::class, 'login']);
-        Route::middleware('auth:sanctum')->post('/profile', [UserProfileController::class, 'store']);
 
     });
 
@@ -41,4 +40,8 @@ Route::prefix('contact-message')->group(function () {
 });
 Route::prefix('card')->group(function () {
     Route::post('/categories', [CardCategoryController::class, 'cards']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/profile', [UserProfileController::class, 'storeOrUpdate']);
 });

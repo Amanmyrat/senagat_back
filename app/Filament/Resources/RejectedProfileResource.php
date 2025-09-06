@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UsersResource\Pages;
-use App\Models\User;
+use App\Filament\Resources\RejectedProfileResource\Pages;
+use App\Models\UserProfile;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
@@ -15,38 +15,38 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class UsersResource extends Resource
+class RejectedProfileResource extends Resource
 {
-    protected static ?string $model = User::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $model = UserProfile::class;
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.users');
-    }
-
-    public static function getPluralModelLabel(): string
-    {
-        return __('navigation.users');
+        return __('Rejected Profiles');
     }
 
     public static function getModelLabel(): string
     {
-        return __('navigation.users');
+        return __('Rejected Profile');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Rejected Profiles');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('navigation.users');
+        return $record ? (string) $record->user?->name : __('Rejected Profile');
     }
+
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Section::make('Profile')
-                    ->relationship('profile')
+
                     ->schema([
                         TextInput::make('first_name')->label('First Name'),
                         TextInput::make('last_name')->label('Last Name'),
@@ -87,7 +87,6 @@ class UsersResource extends Resource
 
                     ])
                     ->columns(2),
-
             ]);
     }
 
@@ -95,28 +94,15 @@ class UsersResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('phone')->translateLabel()
-                    ->label(_('resource.phone')),
-                TextColumn::make('profile.first_name')
-                    ->label('First Name')
-                    ->default('No Profile')
-                    ->sortable(),
-                TextColumn::make('profile.last_name')
-                    ->label('Last Name')
-                    ->default('No Profile')
-                    ->sortable(),
-                TextColumn::make('profile.approved')
-                    ->label('Approval Status')
-                    ->default('No Profile')
-                    ->badge()
-                    ->sortable(),
-
+                TextColumn::make('first_name')->label('First Name'),
+                TextColumn::make('last_name')->label('Last Name'),
+                TextColumn::make('approved')->label('Approval Status')->badge(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -135,9 +121,15 @@ class UsersResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUsers::route('/create'),
-            'edit' => Pages\EditUsers::route('/{record}/edit'),
+            'index' => Pages\ListRejectedProfiles::route('/'),
+            'create' => Pages\CreateRejectedProfile::route('/create'),
+            'edit' => Pages\EditRejectedProfile::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+
+        return parent::getEloquentQuery()->where('approved', 'rejected');
     }
 }

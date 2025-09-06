@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserProfileRequest;
 use App\Http\Resources\UserProfileResource;
+use App\Services\UserProfileService;
 
 class UserProfileController extends Controller
 {
@@ -13,17 +14,24 @@ class UserProfileController extends Controller
      *
      * @localizationHeader
      */
-    public function store(UserProfileRequest $request)
+    protected UserProfileService $service;
+
+    public function __construct(UserProfileService $service)
+    {
+        $this->service = $service;
+    }
+
+    public function storeOrUpdate(UserProfileRequest $request)
     {
         $user = auth()->user();
 
         if ($user->profile) {
-            return response()->json([
-                'message' => 'Profile already exists for this user.',
-            ], 400);
-        }
 
-        $profile = $user->profile()->create($request->validated());
+            $profile = $this->service->update($user->profile, $request->validated(), $request);
+        } else {
+
+            $profile = $this->service->create($user, $request->validated(), $request);
+        }
 
         return new UserProfileResource($profile);
     }

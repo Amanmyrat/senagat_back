@@ -17,8 +17,13 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('middle_name');
-            $table->date('birth_date');
-            $table->string('passport_number')->unique();
+            $table->string('birth_date');
+            $table->string('passport_number');
+            $table->enum('gender', ['male', 'female']);
+            $table->string('issued_date');
+            $table->string('issued_by');
+            $table->string('scan_passport');
+            $table->enum('approved', ['approved', 'rejected'])->default('rejected');
             $table->timestamps();
         });
     }

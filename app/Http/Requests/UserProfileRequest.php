@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Date;
 
@@ -53,7 +52,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example 24-02-1992
              */
-            'birth_date' => ['required', 'string'],
+            'birth_date' => ['required', 'date_format:d-m-Y'],
 
             /**
              * Passport Number
@@ -62,7 +61,52 @@ class UserProfileRequest extends FormRequest
              *
              * @example 123456
              */
-            'passport_number' => ['required', 'string', 'unique:user_profiles,passport_number'],
+            'passport_number' => ['required', 'string'],
+
+            /**
+             * Gender
+             *
+             * @var string
+             *
+             * @example male
+             */
+            'gender' => ['required', 'string'],
+
+            /**
+             * Issued Date
+             *
+             * @var string
+             *
+             * @example 24-02-2001
+             */
+            'issued_date' => ['required', 'date_format:d-m-Y'],
+
+            /**
+             * Issued By
+             *
+             * @var string
+             *
+             * @example Asgabat
+             */
+            'issued_by' => ['required', 'string'],
+
+            /**
+             * Scan Passport
+             *
+             * @var string
+             *
+             * @example file
+             */
+            'scan_passport' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:10240'],
+
+            /**
+             * approved
+             *
+             * @var string
+             *
+             * @example rejected
+             */
+            'approved' => ['required', 'string'],
 
         ];
     }
@@ -71,9 +115,10 @@ class UserProfileRequest extends FormRequest
     {
         $data = parent::validated();
 
-        if (isset($data['birth_date'])) {
-            // d-m-Y → Y-m-d
-            $data['birth_date'] = Carbon::createFromFormat('d-m-Y', $data['birth_date'])->format('Y-m-d');
+        if ($this->hasFile('scan_path')) {
+            $file = $this->file('scan_path');
+            $fileName = uniqid().'_'.$file->getClientOriginalName();
+            $data['scan_path'] = $file->storeAs('uploads/passports', $fileName, 'public');
         }
 
         return $data;
