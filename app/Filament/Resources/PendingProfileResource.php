@@ -151,14 +151,16 @@ class PendingProfileResource extends Resource
                                                     'value' => $old,
                                                     'color' => 'brown',
                                                     'field' => $field,
+                                                    'type' => 'old'
                                                 ]),
                                             Placeholder::make("{$field}_new")
                                                 ->label('Scan Passport (New)')
                                                 ->content($new)
                                                 ->view('filament.components.change-field', [
-                                                    'value' => $old,
+                                                    'value' => $new,
                                                     'color' => 'green',
                                                     'field' => $field,
+                                                    'type' => 'new'
                                                 ]),
 
                                         ])->columns(1);
@@ -174,15 +176,17 @@ class PendingProfileResource extends Resource
                                             'value' => $old,
                                             'color' => 'brown',
                                             'field' => $field,
+                                            'type' => 'old'
                                         ]);
 
                                     $columns[] = Placeholder::make("{$field}_new")
                                         ->label(ucwords(str_replace('_', ' ', $field)).' (New)')
                                         ->content($new)
                                         ->view('filament.components.change-field', [
-                                            'value' => $old,
+                                            'value' => $new,
                                             'color' => 'green',
                                             'field' => $field,
+                                            'type' => 'new'
                                         ]);
                                 }
 
