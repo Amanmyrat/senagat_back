@@ -17,6 +17,8 @@ class UserProfileRequest extends FormRequest
 
     public function rules(): array
     {
+        $userHasProfile = $this->profileExists();
+
         return [
             /**
              * First Name.
@@ -34,7 +36,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example Jumayev
              */
-            'last_name' => ['required', 'string'],
+            'last_name' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
 
             /**
              * Middle Name.
@@ -43,7 +45,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example Mergenovic
              */
-            'middle_name' => ['required', 'string'],
+            'middle_name' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
 
             /**
              *  Birth Date
@@ -52,7 +54,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example 24-02-1992
              */
-            'birth_date' => ['required', 'date_format:d-m-Y'],
+            'birth_date' => $userHasProfile ? ['sometimes', 'date_format:d-m-Y'] : ['required', 'date_format:d-m-Y'],
 
             /**
              * Passport Number
@@ -61,7 +63,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example 123456
              */
-            'passport_number' => ['required', 'string'],
+            'passport_number' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
 
             /**
              * Gender
@@ -70,7 +72,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example male
              */
-            'gender' => ['required', 'string'],
+            'gender' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
 
             /**
              * Issued Date
@@ -79,7 +81,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example 24-02-2001
              */
-            'issued_date' => ['required', 'date_format:d-m-Y'],
+            'issued_date' => $userHasProfile ? ['sometimes', 'date_format:d-m-Y'] : ['required', 'date_format:d-m-Y'],
 
             /**
              * Issued By
@@ -88,7 +90,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example Asgabat
              */
-            'issued_by' => ['required', 'string'],
+            'issued_by' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
 
             /**
              * Scan Passport
@@ -97,28 +99,50 @@ class UserProfileRequest extends FormRequest
              *
              * @example file
              */
-            'scan_passport' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:10240'],
-
-            /**
-             * approved
-             *
-             * @var string
-             *
-             * @example rejected
-             */
-            'approved' => ['required', 'string'],
+            'scan_passport' => $userHasProfile ? ['sometimes', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:10240'] : ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:10240'],
 
         ];
+    }
+
+    public function messages(): array
+    {
+        if ($this->profileExists()) {
+            return [];
+        }
+
+        return [
+            'first_name.required' => 'First name is required when creating a new profile.',
+            'last_name.required' => 'Last name is required when creating a new profile.',
+            'middle_name.required' => 'Middle name is required when creating a new profile.',
+            'birth_date.required' => 'Birth date is required when creating a new profile.',
+            'birth_date.date_format' => 'Birth date must be in the format DD-MM-YYYY.',
+            'passport_number.required' => 'Passport number is required when creating a new profile.',
+            'gender.required' => 'Gender is required when creating a new profile.',
+            'gender.in' => 'Gender must be either male or female.',
+            'issued_date.required' => 'Issued date is required when creating a new profile.',
+            'issued_date.date_format' => 'Issued date must be in the format DD-MM-YYYY.',
+            'issued_by.required' => 'Issued by is required when creating a new profile.',
+            'scan_passport.required' => 'Passport scan file is required when creating a new profile.',
+            'scan_passport.mimes' => 'Passport scan must be a JPG, JPEG, PNG, or PDF file.',
+            'scan_passport.max' => 'Passport scan cannot be larger than 10MB.',
+        ];
+    }
+
+    private function profileExists(): bool
+    {
+        $user = auth()->user();
+
+        return $user && $user->profile !== null;
     }
 
     public function validated($key = null, $default = null)
     {
         $data = parent::validated();
 
-        if ($this->hasFile('scan_path')) {
-            $file = $this->file('scan_path');
+        if ($this->hasFile('scan_passport')) {
+            $file = $this->file('scan_passport');
             $fileName = uniqid().'_'.$file->getClientOriginalName();
-            $data['scan_path'] = $file->storeAs('uploads/passports', $fileName, 'public');
+            $data['scan_passport'] = $file->storeAs('uploads/passports', $fileName, 'public');
         }
 
         return $data;

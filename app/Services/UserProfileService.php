@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\ChangeLog;
 use App\Models\User;
 use App\Models\UserProfile;
 use Carbon\Carbon;
@@ -28,9 +29,7 @@ class UserProfileService
             $path = $request->file('scan_passport')->store('scans', 'public');
             $data['scan_passport'] = $path;
         }
-        if (isset($data['approved'])) {
-            $data['approved'] = 'rejected';
-        }
+        $data['approved'] = 'pending';
         $profile = new UserProfile($data);
         $profile->user()->associate($user);
         $profile->save();
@@ -49,10 +48,30 @@ class UserProfileService
             $path = $request->file('scan_passport')->store('scans', 'public');
             $data['scan_passport'] = $path;
         }
-        if (isset($data['approved'])) {
-            $data['approved'] = 'rejected';
+
+        $data['approved'] = 'pending';
+        $original = $profile->getOriginal();
+        $profile->fill($data);
+        $dirty = $profile->getDirty();
+        $changes = [];
+        if (! empty($dirty)) {
+            $changes = [];
+            foreach ($dirty as $field => $newValue) {
+                $changes[$field] = [
+                    'old' => $original[$field] ?? null,
+                    'new' => $newValue,
+                ];
+
+            }
+            ChangeLog::create([
+                'model_type' => UserProfile::class,
+                'model_id' => $profile->id,
+                'changes' => $changes,
+                'user_id' => auth()->id(),
+            ]);
         }
-        $profile->update($data);
+
+        $profile->save();
 
         return $profile;
     }

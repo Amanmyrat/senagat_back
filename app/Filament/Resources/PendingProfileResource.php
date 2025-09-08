@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UsersResource\Pages;
-use App\Models\User;
+use App\Filament\Resources\PendingProfileResource\Pages;
+use App\Models\UserProfile;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -18,31 +20,31 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class UsersResource extends Resource
+class PendingProfileResource extends Resource
 {
-    protected static ?string $model = User::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $model = UserProfile::class;
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.users');
-    }
-
-    public static function getPluralModelLabel(): string
-    {
-        return __('navigation.users');
+        return __('Pending Profiles');
     }
 
     public static function getModelLabel(): string
     {
-        return __('navigation.users');
+        return __('Pending Profile');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Pending Profiles');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('navigation.users');
+        return $record ? (string) $record->user?->name : __('Pending Profile');
     }
+
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -53,7 +55,6 @@ class UsersResource extends Resource
                         ->icon('heroicon-o-check-badge')
                         ->schema([
                             Section::make('Approval Status')
-                                ->relationship('profile')
                                 ->schema([
                                     ToggleButtons::make('approved')
                                         ->label('Approval Status')
@@ -74,9 +75,9 @@ class UsersResource extends Resource
                         ]),
                     Step::make('Profile Information')
                         ->icon('heroicon-o-user')
+
                         ->schema([
                             Section::make('Profile')
-                                ->relationship('profile')
 
                                 ->schema([
                                     TextInput::make('first_name')->label('First Name')->disabled(),
@@ -112,6 +113,63 @@ class UsersResource extends Resource
                                 ])
                                 ->columns(2),
                         ]),
+                    Step::make('Changes')
+                        ->icon('heroicon-o-arrow-path')
+                        ->schema(function ($record) {
+                            if (! $record || ! $record->latestChangeLog) {
+                                return [
+                                    Placeholder::make('no_changes')
+                                        ->content('No changes logged.'),
+                                ];
+                            }
+
+                            $columns = [];
+
+                            foreach ($record->latestChangeLog->changes as $field => $values) {
+                                $old = $values['old'] ?? '-';
+                                $new = $values['new'] ?? '-';
+
+                                if (in_array($field, ['birth_date', 'issued_date'])) {
+                                    try {
+                                        $old = $old ? \Carbon\Carbon::parse($old)->format('d-m-Y') : '-';
+                                        $new = $new ? \Carbon\Carbon::parse($new)->format('d-m-Y') : '-';
+                                    } catch (\Exception $e) {
+                                    }
+                                }
+                                if ($field === 'scan_passport') {
+                                    $old = $old ? asset('storage/'.$old) : '-';
+                                    $new = $new ? asset('storage/'.$new) : '-';
+
+                                }
+                                if ($field === 'scan_passport') {
+                                    $columns[] = Grid::make()->schema([
+                                        Placeholder::make("{$field}_old")
+                                            ->label('Scan Passport (Old)')
+                                            ->content($old),
+                                        Placeholder::make("{$field}_new")
+                                            ->label('Scan Passport (New)')
+                                            ->content($new),
+
+                                    ])->columns(1);
+                                } else {
+                                    $columns[] = Placeholder::make("{$field}_old")
+                                        ->label(ucwords(str_replace('_', ' ', $field)).' (Old)')
+                                        ->content($old);
+
+                                    $columns[] = Placeholder::make("{$field}_new")
+                                        ->label(ucwords(str_replace('_', ' ', $field)).' (New)')
+                                        ->content($new);
+                                }
+
+                            }
+
+                            return [
+                                Grid::make(2)
+                                    ->schema($columns)
+                                    ->columnSpanFull(),
+                            ];
+                        }),
+
                 ])->skippable()
                     ->columnSpanFull(),
 
@@ -122,28 +180,15 @@ class UsersResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('phone')->translateLabel()
-                    ->label(_('resource.phone')),
-                TextColumn::make('profile.first_name')
-                    ->label('First Name')
-                    ->default('No Profile')
-                    ->sortable(),
-                TextColumn::make('profile.last_name')
-                    ->label('Last Name')
-                    ->default('No Profile')
-                    ->sortable(),
-                TextColumn::make('profile.approved')
-                    ->label('Approval Status')
-                    ->default('Pending')
-                    ->badge()
-                    ->sortable(),
-
+                TextColumn::make('first_name')->label('First Name'),
+                TextColumn::make('last_name')->label('Last Name'),
+                TextColumn::make('approved')->label('Approval Status')->badge(),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
-
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -162,8 +207,14 @@ class UsersResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'edit' => Pages\EditUsers::route('/{record}/edit'),
+            'index' => Pages\ListPendingProfiles::route('/'),
+            'edit' => Pages\EditPendingProfile::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+
+        return parent::getEloquentQuery()->whereIn('approved', ['pending', 'rejected']);
     }
 }

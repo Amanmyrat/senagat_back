@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Enum\UserStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int $id
@@ -21,6 +23,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property UserStatus $approved
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChangeLog> $changeLogs
+ * @property-read int|null $change_logs_count
+ * @property-read \App\Models\ChangeLog|null $latestChangeLog
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile newQuery()
@@ -66,5 +71,18 @@ class UserProfile extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function changeLogs(): HasMany
+    {
+        return $this->hasMany(ChangeLog::class, 'model_id')
+            ->where('model_type', '=', self::class);
+    }
+
+    public function latestChangeLog(): HasOne
+    {
+        return $this->hasOne(ChangeLog::class, 'model_id')
+            ->where('model_type', '=', self::class)
+            ->latestOfMany();
     }
 }

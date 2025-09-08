@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('issued_date');
             $table->string('issued_by');
             $table->string('scan_passport');
-            $table->enum('approved', ['approved', 'rejected'])->default('rejected');
+            $table->enum('approved', ['approved', 'pending', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }
