@@ -142,23 +142,48 @@ class PendingProfileResource extends Resource
 
                                 }
                                 if ($field === 'scan_passport') {
-                                    $columns[] = Grid::make()->schema([
-                                        Placeholder::make("{$field}_old")
-                                            ->label('Scan Passport (Old)')
-                                            ->content($old),
-                                        Placeholder::make("{$field}_new")
-                                            ->label('Scan Passport (New)')
-                                            ->content($new),
+                                    if ($old !== $new) {
+                                        $columns[] = Grid::make()->schema([
+                                            Placeholder::make("{$field}_old")
+                                                ->label('Scan Passport (Old)')
+                                                ->content($old)
+                                                ->view('filament.components.change-field', [
+                                                    'value' => $old,
+                                                    'color' => 'brown',
+                                                    'field' => $field,
+                                                ]),
+                                            Placeholder::make("{$field}_new")
+                                                ->label('Scan Passport (New)')
+                                                ->content($new)
+                                                ->view('filament.components.change-field', [
+                                                    'value' => $old,
+                                                    'color' => 'green',
+                                                    'field' => $field,
+                                                ]),
 
-                                    ])->columns(1);
+                                        ])->columns(1);
+                                    }
                                 } else {
+                                    if ($field === 'approved') {
+                                        continue;
+                                    }
                                     $columns[] = Placeholder::make("{$field}_old")
                                         ->label(ucwords(str_replace('_', ' ', $field)).' (Old)')
-                                        ->content($old);
+                                        ->content($old)
+                                        ->view('filament.components.change-field', [
+                                            'value' => $old,
+                                            'color' => 'brown',
+                                            'field' => $field,
+                                        ]);
 
                                     $columns[] = Placeholder::make("{$field}_new")
                                         ->label(ucwords(str_replace('_', ' ', $field)).' (New)')
-                                        ->content($new);
+                                        ->content($new)
+                                        ->view('filament.components.change-field', [
+                                            'value' => $old,
+                                            'color' => 'green',
+                                            'field' => $field,
+                                        ]);
                                 }
 
                             }

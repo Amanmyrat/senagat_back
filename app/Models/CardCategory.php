@@ -14,6 +14,7 @@ use Spatie\Translatable\HasTranslations;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CardType> $cardTypes
  * @property-read int|null $card_types_count
  * @property-read mixed $translations
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardCategory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardCategory newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardCategory query()
@@ -25,6 +26,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardCategory whereLocales(string $column, array $locales)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardCategory whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardCategory whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class CardCategory extends Model

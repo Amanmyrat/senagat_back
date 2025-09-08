@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserProfile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserProfileService
 {
@@ -45,15 +46,33 @@ class UserProfileService
         $data = $this->formatDates($data);
 
         if ($request->hasFile('scan_passport')) {
-            $path = $request->file('scan_passport')->store('scans', 'public');
-            $data['scan_passport'] = $path;
+            $uploadedFile = $request->file('scan_passport');
+
+            if ($profile->scan_passport && Storage::disk('public')->exists($profile->scan_passport)) {
+                $oldHash = md5_file(Storage::disk('public')->path($profile->scan_passport));
+                $newHash = md5_file($uploadedFile->getRealPath());
+
+                if ($oldHash === $newHash) {
+                    $data['scan_passport'] = $profile->scan_passport;
+                } else {
+                    Storage::disk('public')->delete($profile->scan_passport);
+                    $path = $uploadedFile->store('scans', 'public');
+                    $data['scan_passport'] = $path;
+                }
+            } else {
+
+                $path = $uploadedFile->store('scans', 'public');
+                $data['scan_passport'] = $path;
+            }
+        } else {
+            $data['scan_passport'] = $profile->scan_passport;
         }
 
         $data['approved'] = 'pending';
         $original = $profile->getOriginal();
         $profile->fill($data);
         $dirty = $profile->getDirty();
-        $changes = [];
+
         if (! empty($dirty)) {
             $changes = [];
             foreach ($dirty as $field => $newValue) {
