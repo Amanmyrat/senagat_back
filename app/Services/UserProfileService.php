@@ -51,11 +51,9 @@ class UserProfileService
             if ($profile->scan_passport && Storage::disk('public')->exists($profile->scan_passport)) {
                 $oldHash = md5_file(Storage::disk('public')->path($profile->scan_passport));
                 $newHash = md5_file($uploadedFile->getRealPath());
-
                 if ($oldHash === $newHash) {
                     $data['scan_passport'] = $profile->scan_passport;
                 } else {
-                    Storage::disk('public')->delete($profile->scan_passport);
                     $path = $uploadedFile->store('scans', 'public');
                     $data['scan_passport'] = $path;
                 }

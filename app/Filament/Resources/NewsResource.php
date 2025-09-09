@@ -26,15 +26,36 @@ class NewsResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.news');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.news');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('navigation.news');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('navigation.news');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('title')
                     ->translateLabel()
-                    ->label('Title')
+                    ->label(__('resource.title'))
                     ->required(),
-                RichEditor::make('description'),
+                RichEditor::make('description')
+                    ->label(__('resource.created_at')),
             ]);
     }
 
@@ -42,8 +63,10 @@ class NewsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title'),
+                TextColumn::make('title')
+                    ->label(__('resource.title')),
                 TextColumn::make('created_at')
+                    ->label(__('resource.created_at'))
                     ->dateTime('d.m.Y'),
             ])
             ->filters([

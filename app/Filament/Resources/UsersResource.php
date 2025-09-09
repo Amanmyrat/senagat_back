@@ -50,16 +50,18 @@ class UsersResource extends Resource
             ->schema([
                 Wizard::make([
                     Step::make('Approval Status')
+                        ->label(__('resource.passport_scan'))
                         ->icon('heroicon-o-check-badge')
+                        ->completedIcon('heroicon-o-check-badge')
                         ->schema([
-                            Section::make('Approval Status')
+                            Section::make(__('resource.passport_scan'))
                                 ->relationship('profile')
                                 ->schema([
                                     ToggleButtons::make('approved')
-                                        ->label('Approval Status')
+                                        ->label(__('resource.passport_scan'))
                                         ->options([
-                                            'approved' => 'Approved',
-                                            'rejected' => 'Rejected',
+                                            'approved' => __('resource.approved'),
+                                            'rejected' => __('resource.rejected'),
                                         ])
                                         ->icons([
                                             'approved' => 'heroicon-o-check-badge',
@@ -73,23 +75,25 @@ class UsersResource extends Resource
                                 ]),
                         ]),
                     Step::make('Profile Information')
+                        ->label(__('resource.profile_information'))
                         ->icon('heroicon-o-user')
+                        ->completedIcon('heroicon-o-user')
                         ->schema([
-                            Section::make('Profile')
+                            Section::make(__('resource.profile_information'))
                                 ->relationship('profile')
 
                                 ->schema([
-                                    TextInput::make('first_name')->label('First Name')->disabled(),
-                                    TextInput::make('last_name')->label('Last Name')->disabled(),
-                                    TextInput::make('middle_name')->label('Middle Name')->disabled(),
+                                    TextInput::make('first_name')->label(__('resource.first_name'))->disabled(),
+                                    TextInput::make('last_name')->label(__('resource.last_name'))->disabled(),
+                                    TextInput::make('middle_name')->label(__('resource.middle_name'))->disabled(),
                                     DatePicker::make('birth_date')
-                                        ->label('Birth Date')
+                                        ->label(__('resource.birth_date'))
                                         ->disabled()
                                         ->displayFormat('Y-m-d')
                                         ->format('Y-m-d'),
-                                    TextInput::make('passport_number')->label('Passport Number')->disabled(),
+                                    TextInput::make('passport_number')->label(__('resource.passport_number'))->disabled(),
                                     Select::make('gender')->disabled()
-                                        ->label('Gender')
+                                        ->label(__('resource.gender'))
                                         ->options([
                                             'male' => 'Male',
                                             'female' => 'Female',
@@ -97,14 +101,14 @@ class UsersResource extends Resource
                                         ->nullable()
                                         ->searchable()
                                         ->native(false),
-                                    TextInput::make('issued_by')->label('Issued By')->disabled(),
+                                    TextInput::make('issued_by')->label(__('resource.issued_by'))->disabled(),
                                     DatePicker::make('issued_date')->disabled()
-                                        ->label('Issued Date')
+                                        ->label(__('resource.issued_date'))
                                         ->nullable()
                                         ->displayFormat('Y-m-d')
                                         ->format('Y-m-d'),
                                     FileUpload::make('scan_passport')->disabled()
-                                        ->label('Passport Scan')
+                                        ->label(__('resource.passport_scan'))
                                         ->directory('scans')
                                         ->disk('public')
                                         ->downloadable(),
@@ -125,15 +129,15 @@ class UsersResource extends Resource
                 TextColumn::make('phone')->translateLabel()
                     ->label(_('resource.phone')),
                 TextColumn::make('profile.first_name')
-                    ->label('First Name')
+                    ->label(__('resource.first_name'))
                     ->default('No Profile')
                     ->sortable(),
                 TextColumn::make('profile.last_name')
-                    ->label('Last Name')
+                    ->label(__('resource.last_name'))
                     ->default('No Profile')
                     ->sortable(),
                 TextColumn::make('profile.approved')
-                    ->label('Approval Status')
+                    ->label(__('resource.approval_status'))
                     ->default('Pending')
                     ->badge()
                     ->sortable(),

@@ -26,22 +26,22 @@ class PendingProfileResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('Pending Profiles');
+        return __('navigation.pending_profiles');
     }
 
     public static function getModelLabel(): string
     {
-        return __('Pending Profile');
+        return __('navigation.pending_profiles');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('Pending Profiles');
+        return __('navigation.pending_profiles');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->user?->name : __('Pending Profile');
+        return $record ? (string) $record->user?->name : __('navigation.pending_profiles');
     }
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -52,15 +52,17 @@ class PendingProfileResource extends Resource
             ->schema([
                 Wizard::make([
                     Step::make('Approval Status')
+                        ->label(__('resource.approval_status'))
                         ->icon('heroicon-o-check-badge')
+                        ->completedIcon('heroicon-o-check-badge')
                         ->schema([
-                            Section::make('Approval Status')
+                            Section::make(__('resource.approval_status'))
                                 ->schema([
                                     ToggleButtons::make('approved')
-                                        ->label('Approval Status')
+                                        ->label(__('resource.approval_status'))
                                         ->options([
-                                            'approved' => 'Approved',
-                                            'rejected' => 'Rejected',
+                                            'approved' => __('resource.approved'),
+                                            'rejected' => __('resource.rejected'),
                                         ])
                                         ->icons([
                                             'approved' => 'heroicon-o-check-badge',
@@ -74,23 +76,24 @@ class PendingProfileResource extends Resource
                                 ]),
                         ]),
                     Step::make('Profile Information')
+                        ->label(__('resource.profile_information'))
                         ->icon('heroicon-o-user')
-
+                        ->completedIcon('heroicon-o-user')
                         ->schema([
-                            Section::make('Profile')
+                            Section::make(__('resource.profile_information'))
 
                                 ->schema([
-                                    TextInput::make('first_name')->label('First Name')->disabled(),
-                                    TextInput::make('last_name')->label('Last Name')->disabled(),
-                                    TextInput::make('middle_name')->label('Middle Name')->disabled(),
+                                    TextInput::make('first_name')->label(__('resource.first_name'))->disabled(),
+                                    TextInput::make('last_name')->label(__('resource.last_name'))->disabled(),
+                                    TextInput::make('middle_name')->label(__('resource.middle_name'))->disabled(),
                                     DatePicker::make('birth_date')
-                                        ->label('Birth Date')
+                                        ->label(__('resource.birth_date'))
                                         ->disabled()
                                         ->displayFormat('Y-m-d')
                                         ->format('Y-m-d'),
-                                    TextInput::make('passport_number')->label('Passport Number')->disabled(),
+                                    TextInput::make('passport_number')->label(__('resource.passport_number'))->disabled(),
                                     Select::make('gender')->disabled()
-                                        ->label('Gender')
+                                        ->label(__('resource.gender'))
                                         ->options([
                                             'male' => 'Male',
                                             'female' => 'Female',
@@ -98,14 +101,14 @@ class PendingProfileResource extends Resource
                                         ->nullable()
                                         ->searchable()
                                         ->native(false),
-                                    TextInput::make('issued_by')->label('Issued By')->disabled(),
+                                    TextInput::make('issued_by')->label(__('resource.issued_by'))->disabled(),
                                     DatePicker::make('issued_date')->disabled()
-                                        ->label('Issued Date')
+                                        ->label(__('resource.issued_date'))
                                         ->nullable()
                                         ->displayFormat('Y-m-d')
                                         ->format('Y-m-d'),
                                     FileUpload::make('scan_passport')->disabled()
-                                        ->label('Passport Scan')
+                                        ->label(__('resource.passport_scan'))
                                         ->directory('scans')
                                         ->disk('public')
                                         ->downloadable(),
@@ -114,6 +117,7 @@ class PendingProfileResource extends Resource
                                 ->columns(2),
                         ]),
                     Step::make('Changes')
+                        ->label(__('resource.changes'))
                         ->icon('heroicon-o-arrow-path')
                         ->schema(function ($record) {
                             if (! $record || ! $record->latestChangeLog) {
@@ -145,22 +149,22 @@ class PendingProfileResource extends Resource
                                     if ($old !== $new) {
                                         $columns[] = Grid::make()->schema([
                                             Placeholder::make("{$field}_old")
-                                                ->label('Scan Passport (Old)')
+                                                ->label(__('resource.passport_scan'))
                                                 ->content($old)
                                                 ->view('filament.components.change-field', [
                                                     'value' => $old,
                                                     'color' => 'brown',
                                                     'field' => $field,
-                                                    'type' => 'old'
+                                                    'type' => 'old',
                                                 ]),
                                             Placeholder::make("{$field}_new")
-                                                ->label('Scan Passport (New)')
+                                                ->label(__('resource.passport_scan'))
                                                 ->content($new)
                                                 ->view('filament.components.change-field', [
                                                     'value' => $new,
                                                     'color' => 'green',
                                                     'field' => $field,
-                                                    'type' => 'new'
+                                                    'type' => 'new',
                                                 ]),
 
                                         ])->columns(1);
@@ -176,7 +180,7 @@ class PendingProfileResource extends Resource
                                             'value' => $old,
                                             'color' => 'brown',
                                             'field' => $field,
-                                            'type' => 'old'
+                                            'type' => 'old',
                                         ]);
 
                                     $columns[] = Placeholder::make("{$field}_new")
@@ -186,7 +190,7 @@ class PendingProfileResource extends Resource
                                             'value' => $new,
                                             'color' => 'green',
                                             'field' => $field,
-                                            'type' => 'new'
+                                            'type' => 'new',
                                         ]);
                                 }
 
@@ -209,9 +213,9 @@ class PendingProfileResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('first_name')->label('First Name'),
-                TextColumn::make('last_name')->label('Last Name'),
-                TextColumn::make('approved')->label('Approval Status')->badge(),
+                TextColumn::make('first_name')->label(__('resource.first_name')),
+                TextColumn::make('last_name')->label(__('resource.last_name')),
+                TextColumn::make('approved')->label(__('resource.approved'))->badge(),
             ])
             ->filters([
 

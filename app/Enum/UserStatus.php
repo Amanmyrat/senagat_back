@@ -14,9 +14,9 @@ enum UserStatus: string implements HasColor, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Approved => 'approved',
-            self::Pending => 'pending',
-            self::Rejected => 'rejected',
+            self::Approved => __('resource.approved'),
+            self::Pending => __('resource.pending'),
+            self::Rejected => __('resource.rejected'),
 
         };
     }
