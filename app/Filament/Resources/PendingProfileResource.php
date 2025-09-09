@@ -108,7 +108,7 @@ class PendingProfileResource extends Resource
                                         ->displayFormat('Y-m-d')
                                         ->format('Y-m-d'),
                                     FileUpload::make('scan_passport')->disabled()
-                                        ->label(__('resource.passport_scan'))
+                                        ->label(__('resource.scan_passport'))
                                         ->directory('scans')
                                         ->disk('public')
                                         ->downloadable(),
@@ -149,7 +149,7 @@ class PendingProfileResource extends Resource
                                     if ($old !== $new) {
                                         $columns[] = Grid::make()->schema([
                                             Placeholder::make("{$field}_old")
-                                                ->label(__('resource.passport_scan'))
+                                                ->label(__('resource.scan_passport'))
                                                 ->content($old)
                                                 ->view('filament.components.change-field', [
                                                     'value' => $old,
@@ -158,7 +158,7 @@ class PendingProfileResource extends Resource
                                                     'type' => 'old',
                                                 ]),
                                             Placeholder::make("{$field}_new")
-                                                ->label(__('resource.passport_scan'))
+                                                ->label(__('resource.scan_passport'))
                                                 ->content($new)
                                                 ->view('filament.components.change-field', [
                                                     'value' => $new,

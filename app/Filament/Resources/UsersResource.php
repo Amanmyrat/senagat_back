@@ -108,7 +108,7 @@ class UsersResource extends Resource
                                         ->displayFormat('Y-m-d')
                                         ->format('Y-m-d'),
                                     FileUpload::make('scan_passport')->disabled()
-                                        ->label(__('resource.passport_scan'))
+                                        ->label(__('resource.scan_passport'))
                                         ->directory('scans')
                                         ->disk('public')
                                         ->downloadable(),
