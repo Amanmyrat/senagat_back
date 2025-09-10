@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('middle_name');
             $table->string('birth_date');
             $table->string('passport_number');
-            $table->enum('gender', ['male', 'female']);
+            $table->string('gender');
             $table->string('issued_date');
             $table->string('issued_by');
             $table->string('scan_passport');

@@ -50,15 +50,15 @@ class UsersResource extends Resource
             ->schema([
                 Wizard::make([
                     Step::make('Approval Status')
-                        ->label(__('resource.passport_scan'))
+                        ->label(__('resource.approval_status'))
                         ->icon('heroicon-o-check-badge')
                         ->completedIcon('heroicon-o-check-badge')
                         ->schema([
-                            Section::make(__('resource.passport_scan'))
+                            Section::make(__('resource.approval_status'))
                                 ->relationship('profile')
                                 ->schema([
                                     ToggleButtons::make('approved')
-                                        ->label(__('resource.passport_scan'))
+                                        ->label(__('resource.approval_status'))
                                         ->options([
                                             'approved' => __('resource.approved'),
                                             'rejected' => __('resource.rejected'),

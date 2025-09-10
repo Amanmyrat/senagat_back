@@ -72,7 +72,8 @@ class UserProfileRequest extends FormRequest
              *
              * @example male
              */
-            'gender' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
+            'gender' => $userHasProfile    ? ['sometimes', 'string', 'in:male,female']
+                : ['required', 'string', 'in:male,female'],
 
             /**
              * Issued Date
