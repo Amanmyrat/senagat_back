@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CardCategoryController;
 use App\Http\Controllers\Api\ContactAddressController;
 use App\Http\Controllers\Api\ContactMessageController;
+use App\Http\Controllers\Api\CreditApplicationController;
+use App\Http\Controllers\Api\CreditTypeController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\UserProfileController;
@@ -39,9 +41,16 @@ Route::prefix('contact-message')->group(function () {
     Route::post('/', [ContactMessageController::class, 'store']);
 });
 Route::prefix('card')->group(function () {
-    Route::post('/categories', [CardCategoryController::class, 'cards']);
+    Route::get('/categories', [CardCategoryController::class, 'cards']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/profile', [UserProfileController::class, 'storeOrUpdate']);
+    Route::post('/application/credit-details', [CreditApplicationController::class, 'submitCreditDetails']);
+    Route::post('/application/work-info', [CreditApplicationController::class, 'submitWorkInfo']);
+    Route::post('/application/branch-info', [CreditApplicationController::class, 'submitBranchInfo']);
+});
+
+Route::prefix('credit')->group(function () {
+    Route::post('/', [CreditTypeController::class, 'index']);
 });

@@ -27,6 +27,4 @@ return [
     'profile_information' => 'Profile Information',
     'changes' => 'Changes',
 
-
-
 ];

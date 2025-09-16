@@ -72,7 +72,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example male
              */
-            'gender' => $userHasProfile    ? ['sometimes', 'string', 'in:male,female']
+            'gender' => $userHasProfile ? ['sometimes', 'string', 'in:male,female']
                 : ['required', 'string', 'in:male,female'],
 
             /**
