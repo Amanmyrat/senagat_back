@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('term');
             $table->decimal('amount', 15, 2);
             $table->decimal('interest', 5, 2);
+            $table->decimal('monthly_payment', 15, 2);
 
             // Entrepreneur
             $table->string('role')->nullable();
@@ -33,6 +34,7 @@ return new class extends Migration
             $table->decimal('salary', 15, 2)->nullable();
             $table->string('country')->nullable();
             $table->string('bank_name')->nullable();
+            $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }

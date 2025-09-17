@@ -63,10 +63,11 @@ class CreditApplication extends Model
         'term',
         'amount',
         'interest',
+        'monthly_payment',
         'role',
         'patent_number', 'registration_number', 'work_address',
         'workplace', 'position', 'manager_work_address', 'phone_number', 'salary',
-        'country', 'bank_name',
+        'country', 'bank_name','status',
 
     ];
 

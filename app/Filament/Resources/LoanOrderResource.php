@@ -2,12 +2,15 @@
 
 namespace App\Filament\Resources;
 
+use App\Enum\UserStatus;
 use App\Filament\Resources\LoanOrderResource\Pages;
 use App\Models\CreditApplication;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
@@ -47,6 +50,24 @@ class LoanOrderResource extends Resource
     {
         return $form
             ->schema([
+                Section::make(__('Loan Status'))
+                    ->schema([
+                        ToggleButtons::make('status')
+                            ->label(__('Loan Status'))
+                            ->options([
+                                'approved' => __('resource.approved'),
+                                'rejected' => __('resource.rejected'),
+                            ])
+                            ->icons([
+                                'approved' => 'heroicon-o-check-badge',
+                                'rejected' => 'heroicon-o-x-circle',
+                            ])
+                            ->colors([
+                                'approved' => 'success',
+                                'rejected' => 'danger',
+                            ])
+                            ->inline(),
+                    ]),
                 Wizard::make([
                     Step::make('Credit Details')
                         ->schema([
@@ -54,6 +75,7 @@ class LoanOrderResource extends Resource
                             TextInput::make('term')->numeric()->required()->disabled(),
                             TextInput::make('amount')->numeric()->required()->disabled(),
                             TextInput::make('interest')->numeric()->required()->disabled(),
+                            TextInput::make('monthly_payment')->numeric()->required()->disabled(),
                         ]),
                     Step::make('Profile Information')
                         ->schema([
@@ -164,6 +186,14 @@ class LoanOrderResource extends Resource
                     ->label('Last Name'),
                 TextColumn::make('credit.name')
                     ->label('Credit Type'),
+                TextColumn::make('status')
+                    ->default('Pending')
+                    ->colors([
+                        'warning' => 'pending',
+                        'success' => 'approved',
+                        'danger' => 'rejected',
+                    ])
+                    ->badge(),
             ])
             ->filters([
                 //

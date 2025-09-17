@@ -17,11 +17,14 @@ class SubmitCreditDetailsResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'user_id' => $this->resource->user_id,
+            'profile_id' => $this->resource->profile_id,
             'credit_id' => $this->resource->credit_id,
             'term' => $this->resource->term,
             'amount' => $this->resource->amount,
             'interest' => $this->resource->interest,
-            'profile_id' => $this->resource->profile_id,
+            'monthly_payment'=>$this->resource->monthly_payment,
+
+
         ];
     }
 }

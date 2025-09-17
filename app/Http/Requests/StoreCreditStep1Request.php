@@ -45,13 +45,14 @@ class StoreCreditStep1Request extends FormRequest
             'amount' => ['required', 'numeric', 'min:1'],
 
             /**
-             * Interest rate
+             * Monthly payment
              *
              * @var float
              *
              * @example 12.5
              */
-            'interest' => ['required', 'numeric', 'min:0'],
+            'monthly_payment' => ['required', 'numeric',],
+
         ];
     }
 

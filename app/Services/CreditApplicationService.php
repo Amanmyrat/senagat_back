@@ -3,29 +3,43 @@
 namespace App\Services;
 
 use App\Models\CreditApplication;
+use App\Models\CreditType;
 
 class CreditApplicationService
 {
     public function saveStep(array $data, $user)
     {
-        //        $lastApplication = $user->applications()->latest()->first();
-        //        if ($lastApplication && !$lastApplication->submitted_at) {
-        //            throw new \Exception('The user has an incomplete application.');
-        //        }
-        return CreditApplication::updateOrCreate(
-            ['user_id' => $user->id],
-            array_merge($data, [
+        $application = CreditApplication::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->latest()
+            ->first();
+        if (isset($data['credit_id'])) {
+            $credit = CreditType::findOrFail($data['credit_id']);
+            $data['interest'] = $credit->interest;
+        }
+        $data['status'] = 'pending';
+        unset($data['step']);
+        if ($application) {
+            $application->update($data);
+        } else {
+            $application = CreditApplication::create(array_merge($data, [
                 'user_id' => $user->id,
                 'profile_id' => $user->profile?->id,
-            ])
-        );
+            ]));
+        }
+        return $application;
+
     }
 
-    public function submitDraft($user)
+    public function getPending($user)
     {
-        //        $application = $user->applications()->where('status','draft')->firstOrFail();
-        //        $application->update(['status' => 'pending']);
-        return $user->applications()->latest()->firstOrFail();
-
+        return $user->applications()->where('status', 'pending')->latest()->firstOrFail();
     }
+//    public function submitDraft($user)
+//    {
+//        //        $application = $user->applications()->where('status','draft')->firstOrFail();
+//        //        $application->update(['status' => 'pending']);
+//        return $user->applications()->latest()->firstOrFail();
+//
+//    }
 }

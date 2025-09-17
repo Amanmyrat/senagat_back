@@ -52,7 +52,7 @@ class CreditApplicationController extends Controller
     public function submitBranchInfo(StoreCreditStep3Request $request)
     {
         $this->service->saveStep($request->validated(), $request->user());
-        $application = $this->service->submitDraft($request->user());
+        $application = $this->service->getPending($request->user());
 
         return response()->json([
             'message' => 'Application submitted',
