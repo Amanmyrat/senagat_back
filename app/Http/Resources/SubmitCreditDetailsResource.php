@@ -18,7 +18,7 @@ class SubmitCreditDetailsResource extends JsonResource
             'id' => $this->resource->id,
             'user_id' => $this->resource->user_id,
             'credit_id' => $this->resource->credit_id,
-            'years' => $this->resource->years,
+            'term' => $this->resource->term,
             'amount' => $this->resource->amount,
             'interest' => $this->resource->interest,
             'profile_id' => $this->resource->profile_id,

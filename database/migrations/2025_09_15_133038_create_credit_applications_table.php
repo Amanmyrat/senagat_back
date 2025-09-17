@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('credit_applications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('profile_id')->nullable()->constrained('user_profiles')->onDelete('cascade');
-            $table->foreignId('credit_id')->nullable()->constrained('credit_types');
-            $table->integer('years')->nullable();
-            $table->decimal('amount', 15, 2)->nullable();
-            $table->decimal('interest', 5, 2)->nullable();
-            $table->string('role')->nullable();
+            $table->foreignId('profile_id')->constrained('user_profiles')->onDelete('cascade');
+            $table->foreignId('credit_id')->constrained('credit_types');
+            $table->integer('term');
+            $table->decimal('amount', 15, 2);
+            $table->decimal('interest', 5, 2);
+            $table->string('role');
             // Entrepreneur
             $table->string('patent_number')->nullable();
             $table->string('registration_number')->nullable();
@@ -32,7 +32,6 @@ return new class extends Migration
             $table->decimal('salary', 15, 2)->nullable();
             $table->string('country')->nullable();
             $table->string('bank_name')->nullable();
-
             $table->timestamps();
         });
     }

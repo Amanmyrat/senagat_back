@@ -4,8 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CreditTypesResource\Pages;
 use App\Models\CreditType;
+use Filament\Forms\Components\HasManyRepeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Wizard;
+use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
@@ -30,26 +33,57 @@ class CreditTypesResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->label('Credit Type Name')
-                    ->required(),
-                Textarea::make('description')
-                    ->label('Description'),
-                TextInput::make('years')
-                    ->label('maximum term')
-                    ->numeric()
-                    ->minValue(1)
-                    ->required(),
-                TextInput::make('amount')
-                    ->label('Amount')
-                    ->numeric()
-                    ->required(),
-                TextInput::make('interest')
-                    ->label('Interest (%)')
-                    ->numeric()
-                    ->suffix('%')
-                    ->step(0.01)
-                    ->required(),
+                Wizard::make(
+                    [
+                        Step::make('Credit Type')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Credit Type Name')
+                                    ->required(),
+                                Textarea::make('description')
+                                    ->label('Description'),
+                                TextInput::make('term')
+                                    ->label('maximum term')
+                                    ->numeric()
+                                    ->minValue(1)
+                                    ->required(),
+                                TextInput::make('amount')
+                                    ->label('Amount')
+                                    ->numeric()
+                                    ->required(),
+                                TextInput::make('interest')
+                                    ->label('Interest (%)')
+                                    ->numeric()
+                                    ->suffix('%')
+                                    ->step(0.01)
+                                    ->required(),
+                            ]),
+                        Step::make('Requirments')
+                            ->schema([
+                                HasManyRepeater::make('requirementGroups')
+                                    ->relationship('requirementGroups')
+                                    ->label('Requirements / Documents')
+                                    ->schema([
+                                        TextInput::make('title')->label('Group Title'),
+                                        HasManyRepeater::make('categories')
+                                            ->relationship('categories')
+                                            ->label('Categories')
+                                            ->schema([
+                                                TextInput::make('name')->required()->label('Category Name'),
+
+                                                HasManyRepeater::make('items')
+                                                    ->relationship('items')
+                                                    ->label('Items / Rules')
+                                                    ->schema([
+                                                        TextInput::make('name')->required()->label('Item / Rule'),
+                                                    ]),
+                                            ]),
+                                    ]),
+                            ]),
+                    ]
+                )
+                    ->skippable()
+                    ->columnSpanFull(),
 
             ]);
     }

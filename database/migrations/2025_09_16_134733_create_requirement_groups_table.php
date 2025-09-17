@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('credit_types', function (Blueprint $table) {
+        Schema::create('requirement_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->integer('term');
-            $table->decimal('amount', 15, 2);
-            $table->decimal('interest', 5, 2);
-            $table->string('image_url')->nullable();
-
+            $table->foreignId('credit_type_id')->constrained()->onDelete('cascade');
+            $table->string('title')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('credit_types');
+        Schema::dropIfExists('requirement_groups');
     }
 };

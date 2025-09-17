@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property int $user_id
- * @property int|null $profile_id
- * @property int|null $credit_id
- * @property int|null $years
- * @property string|null $amount
- * @property string|null $interest
- * @property string|null $role
+ * @property int $profile_id
+ * @property int $credit_id
+ * @property int $term
+ * @property string $amount
+ * @property string $interest
+ * @property string $role
  * @property string|null $patent_number
  * @property string|null $registration_number
  * @property string|null $work_address
@@ -26,8 +26,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $bank_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\CreditType|null $credit
- * @property-read \App\Models\UserProfile|null $profile
+ * @property-read \App\Models\CreditType $credit
+ * @property-read \App\Models\UserProfile $profile
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication newQuery()
@@ -47,11 +47,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereRegistrationNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereSalary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereTerm($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereWorkAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereWorkplace($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereYears($value)
  * @mixin \Eloquent
  */
 class CreditApplication extends Model
@@ -60,7 +60,7 @@ class CreditApplication extends Model
         'user_id',
         'profile_id',
         'credit_id',
-        'years',
+        'term',
         'amount',
         'interest',
         'role',

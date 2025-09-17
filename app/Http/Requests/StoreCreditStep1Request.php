@@ -33,7 +33,7 @@ class StoreCreditStep1Request extends FormRequest
              *
              * @example 5
              */
-            'years' => ['required', 'integer', 'min:1'],
+            'term' => ['required', 'integer', 'min:1'],
 
             /**
              * Amount

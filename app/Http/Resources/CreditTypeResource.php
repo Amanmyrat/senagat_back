@@ -20,9 +20,20 @@ class CreditTypeResource extends JsonResource
             'id' => $this->resource->id,
             'name' => $this->resource->getTranslation('name', $locale),
             'description' => $this->resource->getTranslation('description', $locale),
-            'years' => $this->resource->years,
+            'term' => $this->resource->term,
             'amount' => $this->resource->amount,
             'interest' => $this->resource->interest,
+            'requirement_groups' => $this->resource->requirementGroups->map(function ($group) {
+                return [
+                    'title' => $group->title,
+                    'categories' => $group->categories->map(function ($category) {
+                        return [
+                            'name' => $category->name,
+                            'items' => $category->items->pluck('name'),
+                        ];
+                    }),
+                ];
+            }),
 
         ];
     }

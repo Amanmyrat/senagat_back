@@ -51,7 +51,7 @@ class LoanOrderResource extends Resource
                     Step::make('Credit Details')
                         ->schema([
                             Select::make('credit_id')->relationship('credit', 'name')->required()->disabled(),
-                            TextInput::make('years')->numeric()->required()->disabled(),
+                            TextInput::make('term')->numeric()->required()->disabled(),
                             TextInput::make('amount')->numeric()->required()->disabled(),
                             TextInput::make('interest')->numeric()->required()->disabled(),
                         ]),
