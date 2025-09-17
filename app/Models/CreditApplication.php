@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $term
  * @property string $amount
  * @property string $interest
- * @property string $role
+ * @property string $monthly_payment
+ * @property string|null $role
  * @property string|null $patent_number
  * @property string|null $registration_number
  * @property string|null $work_address
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $salary
  * @property string|null $country
  * @property string|null $bank_name
+ * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\CreditType $credit
@@ -40,6 +42,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereInterest($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereManagerWorkAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereMonthlyPayment($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication wherePatentNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication wherePhoneNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication wherePosition($value)
@@ -47,6 +50,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereRegistrationNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereSalary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereTerm($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereUserId($value)

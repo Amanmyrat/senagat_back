@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('amount', 15, 2);
             $table->decimal('interest', 5, 2);
             $table->string('image_url')->nullable();
-
+            $table->json('requirements')->nullable();
             $table->timestamps();
         });
     }

@@ -14,14 +14,9 @@ use Spatie\Translatable\HasTranslations;
  * @property string $amount
  * @property string $interest
  * @property string|null $image_url
+ * @property array<array-key, mixed>|null $requirements
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequirementCategory> $categories
- * @property-read int|null $categories_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequirementItem> $items
- * @property-read int|null $items_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequirementGroup> $requirementGroups
- * @property-read int|null $requirement_groups_count
  * @property-read mixed $translations
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType newQuery()
@@ -37,6 +32,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereLocale(string $column, string $locale)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereLocales(string $column, array $locales)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereRequirements($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereTerm($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereUpdatedAt($value)
  * @mixin \Eloquent
@@ -47,20 +43,11 @@ class CreditType extends Model
 
     public array $translatable = ['name', 'description'];
 
-    protected $fillable = ['name', 'description', 'term', 'amount', 'interest'];
+    protected $fillable = ['name', 'description', 'term', 'amount', 'interest','requirements',];
 
-    public function requirementGroups(): HasMany
-    {
-        return $this->hasMany(RequirementGroup::class);
-    }
+    protected $casts = [
+        'requirements' => 'array',
+    ];
 
-    public function categories(): HasMany
-    {
-        return $this->hasMany(RequirementCategory::class);
-    }
 
-    public function items(): HasMany
-    {
-        return $this->hasMany(RequirementItem::class);
-    }
 }

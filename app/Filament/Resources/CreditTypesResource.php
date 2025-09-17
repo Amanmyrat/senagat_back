@@ -2,9 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use App\Enum\RequirementType;
 use App\Filament\Resources\CreditTypesResource\Pages;
 use App\Models\CreditType;
 use Filament\Forms\Components\HasManyRepeater;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
@@ -60,25 +63,31 @@ class CreditTypesResource extends Resource
                             ]),
                         Step::make('Requirments')
                             ->schema([
-                                HasManyRepeater::make('requirementGroups')
-                                    ->relationship('requirementGroups')
-                                    ->label('Requirements / Documents')
+                                Repeater::make('requirements')
+                                    ->label(__('Requirements / Documents'))
                                     ->schema([
-                                        TextInput::make('title')->label('Group Title'),
-                                        HasManyRepeater::make('categories')
-                                            ->relationship('categories')
-                                            ->label('Categories')
-                                            ->schema([
-                                                TextInput::make('name')->required()->label('Category Name'),
-
-                                                HasManyRepeater::make('items')
-                                                    ->relationship('items')
-                                                    ->label('Items / Rules')
-                                                    ->schema([
-                                                        TextInput::make('name')->required()->label('Item / Rule'),
-                                                    ]),
+                                        TextInput::make('title')->label(__('Title'))->required(),
+                                        Select::make('type')
+                                            ->label(__('Type'))
+                                            ->options([
+                                                RequirementType::Borrower->value => RequirementType::Borrower->label(),
+                                                RequirementType::CoBorrower->value => RequirementType::CoBorrower->label(),
                                             ]),
-                                    ]),
+                                        Repeater::make('rules')
+                                            ->label(__('Rules'))
+                                            ->schema([
+                                                TextInput::make('rule')
+                                                    ->label(__('Rule'))
+                                                    ->required(),
+                                            ])
+                                            ->columns(1)
+                                            ->minItems(1)
+
+
+                                    ])
+                                    ->columns(1)
+
+
                             ]),
                     ]
                 )
