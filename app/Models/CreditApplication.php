@@ -67,7 +67,7 @@ class CreditApplication extends Model
         'patent_number', 'registration_number', 'work_address',
         'workplace', 'position', 'manager_work_address', 'phone_number', 'salary',
         'country', 'bank_name',
-        'status',
+
     ];
 
     public function user(): BelongsTo

@@ -19,8 +19,9 @@ return new class extends Migration
             $table->integer('term');
             $table->decimal('amount', 15, 2);
             $table->decimal('interest', 5, 2);
-            $table->string('role');
+
             // Entrepreneur
+            $table->string('role')->nullable();
             $table->string('patent_number')->nullable();
             $table->string('registration_number')->nullable();
             $table->string('work_address')->nullable();
