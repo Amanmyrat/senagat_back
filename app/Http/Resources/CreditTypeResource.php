@@ -23,7 +23,16 @@ class CreditTypeResource extends JsonResource
             'term' => $this->resource->term,
             'amount' => $this->resource->amount,
             'interest' => $this->resource->interest,
-            'requirements' => $this->resource->requirements
+            'requirements' => collect(
+                $this->resource->getTranslation('requirements', $locale) ?? []
+            )->map(function ($item) {
+                return [
+                    'title' => $item['title'] ?? null,
+                    'type'  => $item['type'] ?? null,
+                    'rules' => array_values($item['rules'] ?? []),
+                ];
+            })->values(),
+
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Enum\UserStatus;
 use App\Filament\Resources\LoanOrderResource\Pages;
+use App\Forms\Components\ProfileInfo;
 use App\Models\CreditApplication;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
@@ -79,72 +80,7 @@ class LoanOrderResource extends Resource
                         ]),
                     Step::make('Profile Information')
                         ->schema([
-                            Fieldset::make('User Info')
-                                ->schema([
-                                    TextInput::make('first_name')
-                                        ->label('First Name')
-                                        ->afterStateHydrated(function (TextInput $component, $state, $record) {
-                                            $component->state($record->profile?->first_name);
-                                        })
-                                        ->disabled(),
-
-                                    TextInput::make('last_name')
-                                        ->label('Last Name')
-                                        ->afterStateHydrated(function (TextInput $component, $state, $record) {
-                                            $component->state($record->profile?->last_name);
-                                        })
-                                        ->disabled(),
-
-                                    TextInput::make('middle_name')
-                                        ->label('Middle Name')
-                                        ->afterStateHydrated(function (TextInput $component, $state, $record) {
-                                            $component->state($record->profile?->middle_name);
-                                        })
-                                        ->disabled(),
-
-                                    TextInput::make('birth_date')
-                                        ->label('Birth Date')
-                                        ->afterStateHydrated(function (TextInput $component, $state, $record) {
-                                            $component->state($record->profile?->birth_date?->format('d-m-Y'));
-                                        })
-                                        ->disabled(),
-
-                                    TextInput::make('passport_number')
-                                        ->label('Passport Number')
-                                        ->afterStateHydrated(function (TextInput $component, $state, $record) {
-                                            $component->state($record->profile?->passport_number);
-                                        })
-                                        ->disabled(),
-
-                                    TextInput::make('issued_date')
-                                        ->label('Issued Date')
-                                        ->afterStateHydrated(function (TextInput $component, $state, $record) {
-                                            $component->state($record->profile?->issued_date?->format('d-m-Y'));
-                                        })
-                                        ->disabled(),
-
-                                    TextInput::make('issued_by')
-                                        ->label('Issued By')
-                                        ->afterStateHydrated(function (TextInput $component, $state, $record) {
-                                            $component->state($record->profile?->issued_by);
-                                        })
-                                        ->disabled(),
-                                    FileUpload::make('scan_passport')
-                                        ->label('Passport Scan')
-                                        ->afterStateHydrated(function ($component, $state, $record) {
-                                            if ($record->profile?->scan_passport) {
-                                                $component->state([
-                                                    $record->profile->scan_passport,
-                                                ]);
-                                            }
-                                        })
-                                        ->disabled()
-                                        ->downloadable()
-                                        ->disk('public')
-                                        ->directory('scans')
-                                        ->image(),
-
-                                ]),
+                            ProfileInfo::make(),
                         ]),
 
                     Step::make('Work Info')

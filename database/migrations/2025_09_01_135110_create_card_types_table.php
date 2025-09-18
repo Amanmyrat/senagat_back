@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('image_url')->nullable();
+            $table->decimal('price', 10, 2);
             $table->json('advantages')->nullable();
             $table->timestamps();
         });

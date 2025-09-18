@@ -40,11 +40,13 @@ class CardType extends Model
 
     public array $translatable = ['title', 'advantages'];
 
-    protected $fillable = ['category_id', 'title', 'advantages', 'image_url'];
+    protected $fillable = ['category_id', 'title', 'advantages', 'image_url','price'];
 
     protected $casts = [
         'advantages' => 'array',
+
     ];
+
 
     protected $appends = ['image_path'];
 

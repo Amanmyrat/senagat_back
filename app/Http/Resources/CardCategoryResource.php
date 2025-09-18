@@ -22,6 +22,7 @@ class CardCategoryResource extends JsonResource
                     'id' => $cardTypes->id,
                     'title' => $cardTypes->title,
                     'image_path' => $cardTypes->image_path,
+                    'price'=> $cardTypes->price,
                     'advantages' => array_values($cardTypes->advantages ?? []),
 
                 ];

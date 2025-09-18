@@ -34,6 +34,10 @@ class CardTypesResource extends Resource
         return $form
             ->schema([
                 TextInput::make('title')->required(),
+                TextInput::make('price')
+                    ->label('Card Price')
+            ->numeric()
+            ->required(),
                 FileUpload::make('image_url')->image(),
 
                 Repeater::make('advantages')
@@ -46,6 +50,7 @@ class CardTypesResource extends Resource
                 Select::make('cardCategories')
                     ->multiple()
                     ->preload()
+                    ->required()
                     ->relationship('cardCategories', 'title')
                     ->getOptionLabelFromRecordUsing(fn ($record) => $record->getTranslation('title', app()->getLocale())),
             ]);

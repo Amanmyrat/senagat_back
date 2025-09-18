@@ -10,6 +10,7 @@ use App\Http\Resources\SubmitBranchInfoResource;
 use App\Http\Resources\SubmitCreditDetailsResource;
 use App\Http\Resources\SubmitWorkInfoResource;
 use App\Services\CreditApplicationService;
+use Illuminate\Http\JsonResponse;
 
 class CreditApplicationController extends Controller
 {
@@ -54,7 +55,7 @@ class CreditApplicationController extends Controller
         $this->service->saveStep($request->validated(), $request->user());
         $application = $this->service->getPending($request->user());
 
-        return response()->json([
+        return new JsonResponse([
             'message' => 'Application submitted',
             'data' => new SubmitBranchInfoResource($application),
         ]);

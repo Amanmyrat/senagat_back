@@ -41,7 +41,7 @@ class CreditType extends Model
 {
     use HasTranslations;
 
-    public array $translatable = ['name', 'description'];
+    public array $translatable = ['name', 'description','requirements'];
 
     protected $fillable = ['name', 'description', 'term', 'amount', 'interest','requirements',];
 
