@@ -11,6 +11,7 @@ use Spatie\Translatable\HasTranslations;
  * @property int $id
  * @property array<array-key, mixed> $title
  * @property string|null $image_url
+ * @property string $price
  * @property array<array-key, mixed>|null $advantages
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -29,6 +30,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType whereJsonContainsLocales(string $column, array $locales, ?mixed $value, string $operand = '=')
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType whereLocale(string $column, string $locale)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType whereLocales(string $column, array $locales)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType whereUpdatedAt($value)
  * @mixin \Eloquent
