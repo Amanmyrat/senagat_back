@@ -20,6 +20,10 @@ use Filament\Tables\Table;
 
 class UsersResource extends Resource
 {
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Users';
+    }
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

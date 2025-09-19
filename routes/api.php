@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CardCategoryController;
 use App\Http\Controllers\Api\CardOrderController;
+use App\Http\Controllers\Api\CardTypeController;
 use App\Http\Controllers\Api\ContactAddressController;
 use App\Http\Controllers\Api\ContactMessageController;
 use App\Http\Controllers\Api\CreditApplicationController;
@@ -48,7 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [ContactMessageController::class, 'store']);
     });
     Route::prefix('card')->group(function () {
-        Route::get('/categories', [CardCategoryController::class, 'cards']);
+        Route::post('/types', [CardTypeController::class, 'index']);
         Route::post('/order', [CardOrderController::class, 'store']);
     });
 

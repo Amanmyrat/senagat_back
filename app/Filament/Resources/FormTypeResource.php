@@ -18,6 +18,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FormTypeResource extends Resource
 {
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Certification';
+    }
     protected static ?string $model = FormType::class;
     use Translatable;
 

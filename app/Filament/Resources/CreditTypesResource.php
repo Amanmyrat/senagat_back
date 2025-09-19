@@ -21,6 +21,10 @@ use Filament\Tables\Table;
 
 class CreditTypesResource extends Resource
 {
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Credit';
+    }
     use Translatable;
 
     public static function getTranslatableLocales(): array

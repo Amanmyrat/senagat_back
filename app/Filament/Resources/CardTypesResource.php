@@ -6,6 +6,7 @@ use App\Filament\Resources\CardTypesResource\Pages;
 use App\Models\CardType;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -18,6 +19,10 @@ use Filament\Tables\Table;
 
 class CardTypesResource extends Resource
 {
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Card';
+    }
     use Translatable;
 
     public static function getTranslatableLocales(): array
@@ -38,6 +43,12 @@ class CardTypesResource extends Resource
                     ->label('Card Price')
             ->numeric()
             ->required(),
+                Select::make('category')
+                    ->label('Category')
+                    ->options([
+                        'For the individual' => __('resource.individual'),
+                        'For the entrepreneur' => __('resource.entrepreneur'),
+                    ]),
                 FileUpload::make('image_url')->image(),
 
                 Repeater::make('advantages')
@@ -46,14 +57,10 @@ class CardTypesResource extends Resource
                         Textarea::make('description'),
                     ])
                     ->collapsible(),
+                RichEditor::make('text')
+                    ->columnSpan('full')
+              ]);
 
-                Select::make('cardCategories')
-                    ->multiple()
-                    ->preload()
-                    ->required()
-                    ->relationship('cardCategories', 'title')
-                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->getTranslation('title', app()->getLocale())),
-            ]);
     }
 
     public static function table(Table $table): Table

@@ -14,6 +14,10 @@ use Filament\Tables\Table;
 
 class ContactAddressResource extends Resource
 {
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Contact';
+    }
     use Translatable;
 
     public static function getTranslatableLocales(): array

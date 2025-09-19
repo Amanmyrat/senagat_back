@@ -22,6 +22,10 @@ use Filament\Tables\Table;
 
 class PendingProfileResource extends Resource
 {
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Users';
+    }
     protected static ?string $model = UserProfile::class;
 
     public static function getNavigationLabel(): string

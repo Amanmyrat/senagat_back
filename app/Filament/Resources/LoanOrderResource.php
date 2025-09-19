@@ -23,6 +23,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class LoanOrderResource extends Resource
 {
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Credit';
+    }
     protected static ?string $model = CreditApplication::class;
 
     public static function getNavigationLabel(): string

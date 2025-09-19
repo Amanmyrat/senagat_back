@@ -26,6 +26,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CardOrderResource extends Resource
 {
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Card';
+    }
     protected static ?string $model = CardOrder::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

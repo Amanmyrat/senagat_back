@@ -26,4 +26,6 @@ return [
     'pending' => 'Garaşylýar',
     'profile_information' => 'Profil Maglumatlary',
     'changes' => 'Üýtgeşmeler',
+    'individual' => 'Fiziki taraplara',
+    'entrepreneur' => 'Telekeçilere'
 ];

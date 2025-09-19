@@ -26,4 +26,6 @@ return [
     'pending' => 'В ожидании',
     'profile_information' => 'Информация профиля',
     'changes' => 'Изменения',
+    'individual' => 'Для физических лиц',
+    'entrepreneur' => 'Для предпринимателей'
 ];

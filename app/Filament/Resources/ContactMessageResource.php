@@ -14,6 +14,10 @@ use Filament\Tables\Table;
 
 class ContactMessageResource extends Resource
 {
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Contact';
+    }
     protected static ?string $model = ContactMessage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

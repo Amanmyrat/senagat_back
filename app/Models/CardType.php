@@ -40,9 +40,9 @@ class CardType extends Model
     use HasFactory;
     use HasTranslations;
 
-    public array $translatable = ['title', 'advantages'];
+    public array $translatable = ['title', 'advantages','text'];
 
-    protected $fillable = ['category_id', 'title', 'advantages', 'image_url','price'];
+    protected $fillable = ['category_id', 'title', 'advantages', 'image_url','price','category','text'];
 
     protected $casts = [
         'advantages' => 'array',
@@ -60,8 +60,5 @@ class CardType extends Model
     }
 
     // Relations
-    public function cardCategories(): BelongsToMany
-    {
-        return $this->belongsToMany(CardCategory::class, 'card_category_card_type');
-    }
+
 }

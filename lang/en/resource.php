@@ -26,5 +26,6 @@ return [
     'pending' => 'Pending',
     'profile_information' => 'Profile Information',
     'changes' => 'Changes',
-
+    'individual' => 'For individual entities',
+    'entrepreneur' => 'For entrepreneurs'
 ];
