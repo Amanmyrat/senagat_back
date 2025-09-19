@@ -6,12 +6,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CardOrderRequest extends FormRequest
 {
-
     public function authorize(): bool
     {
         return true;
     }
-
 
     public function rules(): array
     {
@@ -50,7 +48,7 @@ class CardOrderRequest extends FormRequest
              *
              * @example 941265
              */
-            'home_phone_number' => ['required', 'string',],
+            'home_phone_number' => ['required', 'string'],
         ];
     }
 }

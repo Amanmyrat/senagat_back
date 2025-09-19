@@ -27,5 +27,5 @@ return [
     'profile_information' => 'Информация профиля',
     'changes' => 'Изменения',
     'individual' => 'Для физических лиц',
-    'entrepreneur' => 'Для предпринимателей'
+    'entrepreneur' => 'Для предпринимателей',
 ];

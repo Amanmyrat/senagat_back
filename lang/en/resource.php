@@ -27,5 +27,5 @@ return [
     'profile_information' => 'Profile Information',
     'changes' => 'Changes',
     'individual' => 'For individual entities',
-    'entrepreneur' => 'For entrepreneurs'
+    'entrepreneur' => 'For entrepreneurs',
 ];

@@ -9,6 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditFormType extends EditRecord
 {
     use EditRecord\Concerns\Translatable;
+
     protected static string $resource = FormTypeResource::class;
 
     protected function getHeaderActions(): array

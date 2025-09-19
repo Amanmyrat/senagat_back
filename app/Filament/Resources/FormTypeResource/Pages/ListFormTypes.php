@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListFormTypes extends ListRecords
 {
     use ListRecords\Concerns\Translatable;
+
     protected static string $resource = FormTypeResource::class;
 
     protected function getHeaderActions(): array

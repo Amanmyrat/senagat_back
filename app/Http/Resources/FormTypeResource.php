@@ -16,7 +16,6 @@ class FormTypeResource extends JsonResource
     {
         $locale = app()->getLocale();
 
-
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),

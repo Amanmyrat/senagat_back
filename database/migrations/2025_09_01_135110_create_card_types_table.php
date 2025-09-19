@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->json('advantages')->nullable();
             $table->longText('text');
-            $table->string('category',)->nullable();
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }

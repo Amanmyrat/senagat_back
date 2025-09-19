@@ -23,6 +23,7 @@ class CardTypesResource extends Resource
     {
         return 'Card';
     }
+
     use Translatable;
 
     public static function getTranslatableLocales(): array
@@ -41,8 +42,8 @@ class CardTypesResource extends Resource
                 TextInput::make('title')->required(),
                 TextInput::make('price')
                     ->label('Card Price')
-            ->numeric()
-            ->required(),
+                    ->numeric()
+                    ->required(),
                 Select::make('category')
                     ->label('Category')
                     ->options([
@@ -58,8 +59,8 @@ class CardTypesResource extends Resource
                     ])
                     ->collapsible(),
                 RichEditor::make('text')
-                    ->columnSpan('full')
-              ]);
+                    ->columnSpan('full'),
+            ]);
 
     }
 

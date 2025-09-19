@@ -25,7 +25,7 @@ class CardTypeResource extends JsonResource
             )->map(function ($item) {
                 return [
                     'name' => $item['name'] ?? null,
-                    'description'  => $item['description'] ?? null,
+                    'description' => $item['description'] ?? null,
 
                 ];
             })->values(),
@@ -34,8 +34,6 @@ class CardTypeResource extends JsonResource
             'price' => $this->resource->price,
             'text' => $this->resource->text,
 
-
         ];
     }
 }
-

@@ -17,5 +17,6 @@ class CreateFormType extends CreateRecord
 
         ];
     }
+
     protected static string $resource = FormTypeResource::class;
 }

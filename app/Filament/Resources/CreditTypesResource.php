@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Enum\RequirementType;
 use App\Filament\Resources\CreditTypesResource\Pages;
 use App\Models\CreditType;
-use Filament\Forms\Components\HasManyRepeater;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -25,6 +24,7 @@ class CreditTypesResource extends Resource
     {
         return 'Credit';
     }
+
     use Translatable;
 
     public static function getTranslatableLocales(): array
@@ -83,14 +83,21 @@ class CreditTypesResource extends Resource
                                                 TextInput::make('rule')
                                                     ->label(__('Rule'))
                                                     ->required(),
+                                                Repeater::make('subrules')
+                                                    ->label(__('Subrules'))
+                                                    ->schema([
+                                                        TextInput::make('subrule')
+                                                            ->label(__('SubRule'))
+                                                            ->required(),
+                                                    ])
+                                                    ->columns(1)
+                                                    ->minItems(1),
                                             ])
                                             ->columns(1)
-                                            ->minItems(1)
-
+                                            ->minItems(1),
 
                                     ])
-                                    ->columns(1)
-
+                                    ->columns(1),
 
                             ]),
                     ]

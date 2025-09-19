@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\CardCategoryController;
 use App\Http\Controllers\Api\CardOrderController;
 use App\Http\Controllers\Api\CardTypeController;
 use App\Http\Controllers\Api\ContactAddressController;
@@ -57,5 +56,3 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [CreditTypeController::class, 'index']);
     });
 });
-
-

@@ -27,6 +27,7 @@ class CreditApplicationService
                 'profile_id' => $user->profile?->id,
             ]));
         }
+
         return $application;
 
     }
@@ -35,11 +36,11 @@ class CreditApplicationService
     {
         return $user->applications()->where('status', 'pending')->latest()->firstOrFail();
     }
-//    public function submitDraft($user)
-//    {
-//        //        $application = $user->applications()->where('status','draft')->firstOrFail();
-//        //        $application->update(['status' => 'pending']);
-//        return $user->applications()->latest()->firstOrFail();
-//
-//    }
+    //    public function submitDraft($user)
+    //    {
+    //        //        $application = $user->applications()->where('status','draft')->firstOrFail();
+    //        //        $application->update(['status' => 'pending']);
+    //        return $user->applications()->latest()->firstOrFail();
+    //
+    //    }
 }

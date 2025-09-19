@@ -24,6 +24,7 @@ class UsersResource extends Resource
     {
         return 'Users';
     }
+
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

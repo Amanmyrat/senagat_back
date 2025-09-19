@@ -2,12 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Enum\UserStatus;
 use App\Filament\Resources\LoanOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\CreditApplication;
-use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -27,6 +24,7 @@ class LoanOrderResource extends Resource
     {
         return 'Credit';
     }
+
     protected static ?string $model = CreditApplication::class;
 
     public static function getNavigationLabel(): string

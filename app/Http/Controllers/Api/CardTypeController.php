@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CardTypeResource;
 use App\Models\CardType;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CardTypeController extends Controller
 {

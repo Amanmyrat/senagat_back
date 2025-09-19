@@ -18,6 +18,7 @@ class ContactAddressResource extends Resource
     {
         return 'Contact';
     }
+
     use Translatable;
 
     public static function getTranslatableLocales(): array

@@ -7,7 +7,6 @@ use App\Http\Requests\CardOrderRequest;
 use App\Http\Resources\CardOrderResource;
 use App\Services\CardOrderService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CardOrderController extends Controller
 {
@@ -18,11 +17,9 @@ class CardOrderController extends Controller
         $this->service = $service;
     }
 
-
     /**
      * Create Card order
      */
-
     public function store(CardOrderRequest $request)
     {
         $user = $request->user();
@@ -31,6 +28,6 @@ class CardOrderController extends Controller
         return new JsonResponse([
             'success' => true,
             'data' => new CardOrderResource($order),
-        ],200);
+        ], 200);
     }
 }

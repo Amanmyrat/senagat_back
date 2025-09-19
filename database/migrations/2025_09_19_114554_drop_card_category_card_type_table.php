@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('card_category_card_type');    }
+        Schema::dropIfExists('card_category_card_type');
+    }
 
     /**
      * Reverse the migrations.

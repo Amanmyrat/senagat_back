@@ -26,6 +26,7 @@ class PendingProfileResource extends Resource
     {
         return 'Users';
     }
+
     protected static ?string $model = UserProfile::class;
 
     public static function getNavigationLabel(): string

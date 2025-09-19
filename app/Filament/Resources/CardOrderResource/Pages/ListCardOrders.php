@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\CardOrderResource\Pages;
 
 use App\Filament\Resources\CardOrderResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListCardOrders extends ListRecords

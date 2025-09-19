@@ -12,6 +12,7 @@ use Spatie\Translatable\HasTranslations;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $translations
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FormType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FormType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FormType query()
@@ -24,6 +25,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FormType wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FormType whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FormType whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class FormType extends Model

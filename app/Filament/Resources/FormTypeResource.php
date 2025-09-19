@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FormTypeResource\Pages;
-use App\Filament\Resources\FormTypeResource\RelationManagers;
 use App\Models\FormType;
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
@@ -13,8 +11,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FormTypeResource extends Resource
 {
@@ -22,14 +18,15 @@ class FormTypeResource extends Resource
     {
         return 'Certification';
     }
+
     protected static ?string $model = FormType::class;
+
     use Translatable;
 
     public static function getTranslatableLocales(): array
     {
         return ['en', 'tk', 'ru'];
     }
-
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -39,7 +36,7 @@ class FormTypeResource extends Resource
             ->schema([
                 TextInput::make('title'),
                 TextInput::make('price')
-                ->numeric()
+                    ->numeric(),
             ]);
     }
 
@@ -48,7 +45,7 @@ class FormTypeResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title'),
-                TextColumn::make('price')
+                TextColumn::make('price'),
             ])
             ->filters([
                 //

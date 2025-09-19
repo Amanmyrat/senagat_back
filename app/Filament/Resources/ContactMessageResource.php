@@ -18,6 +18,7 @@ class ContactMessageResource extends Resource
     {
         return 'Contact';
     }
+
     protected static ?string $model = ContactMessage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

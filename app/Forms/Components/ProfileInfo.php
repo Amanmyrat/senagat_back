@@ -14,44 +14,37 @@ class ProfileInfo
             ->schema([
                 TextInput::make('first_name')
                     ->label('First Name')
-                    ->afterStateHydrated(fn ($component, $state, $record) =>
-                    $component->state($record->profile?->first_name))
+                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->first_name))
                     ->disabled(),
 
                 TextInput::make('last_name')
                     ->label('Last Name')
-                    ->afterStateHydrated(fn ($component, $state, $record) =>
-                    $component->state($record->profile?->last_name))
+                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->last_name))
                     ->disabled(),
 
                 TextInput::make('middle_name')
                     ->label('Middle Name')
-                    ->afterStateHydrated(fn ($component, $state, $record) =>
-                    $component->state($record->profile?->middle_name))
+                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->middle_name))
                     ->disabled(),
 
                 TextInput::make('birth_date')
                     ->label('Birth Date')
-                    ->afterStateHydrated(fn ($component, $state, $record) =>
-                    $component->state($record->profile?->birth_date?->format('d-m-Y')))
+                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->birth_date?->format('d-m-Y')))
                     ->disabled(),
 
                 TextInput::make('passport_number')
                     ->label('Passport Number')
-                    ->afterStateHydrated(fn ($component, $state, $record) =>
-                    $component->state($record->profile?->passport_number))
+                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->passport_number))
                     ->disabled(),
 
                 TextInput::make('issued_date')
                     ->label('Issued Date')
-                    ->afterStateHydrated(fn ($component, $state, $record) =>
-                    $component->state($record->profile?->issued_date?->format('d-m-Y')))
+                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->issued_date?->format('d-m-Y')))
                     ->disabled(),
 
                 TextInput::make('issued_by')
                     ->label('Issued By')
-                    ->afterStateHydrated(fn ($component, $state, $record) =>
-                    $component->state($record->profile?->issued_by))
+                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->issued_by))
                     ->disabled(),
 
                 FileUpload::make('scan_passport')

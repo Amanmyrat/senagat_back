@@ -51,7 +51,7 @@ class StoreCreditStep1Request extends FormRequest
              *
              * @example 12.5
              */
-            'monthly_payment' => ['required', 'numeric',],
+            'monthly_payment' => ['required', 'numeric'],
 
         ];
     }

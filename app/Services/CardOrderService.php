@@ -3,12 +3,10 @@
 namespace App\Services;
 
 use App\Models\CardOrder;
-use App\Models\CreditApplication;
 use App\Models\UserProfile;
 
 class CardOrderService
 {
-
     public function create(array $data, $user): CardOrder
     {
         $profile = UserProfile::where('user_id', $user->id)->firstOrFail();
@@ -24,7 +22,6 @@ class CardOrderService
         ]);
     }
 
-
     public function getPending($user)
     {
         return CardOrder::where('user_id', $user->id)
@@ -33,4 +30,3 @@ class CardOrderService
             ->first();
     }
 }
-

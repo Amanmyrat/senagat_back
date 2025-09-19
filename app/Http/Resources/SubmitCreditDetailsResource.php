@@ -22,8 +22,7 @@ class SubmitCreditDetailsResource extends JsonResource
             'term' => $this->resource->term,
             'amount' => $this->resource->amount,
             'interest' => $this->resource->interest,
-            'monthly_payment'=>$this->resource->monthly_payment,
-
+            'monthly_payment' => $this->resource->monthly_payment,
 
         ];
     }
