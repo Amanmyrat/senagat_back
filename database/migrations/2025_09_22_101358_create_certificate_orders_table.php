@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('certificate_orders', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('profile_id')->constrained('user_profiles')->onDelete('cascade');
+            $table->foreignId('certificate_type_id')->constrained('certificate_types');
+            $table->string('phone_number');
+            $table->string('bank_branch');
+            $table->string('home_address');
+            $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('certificate_orders');
+    }
+};

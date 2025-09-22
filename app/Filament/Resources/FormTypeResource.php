@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FormTypeResource\Pages;
-use App\Models\FormType;
+use App\Models\CertificateType;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
@@ -19,7 +19,7 @@ class FormTypeResource extends Resource
         return 'Certification';
     }
 
-    protected static ?string $model = FormType::class;
+    protected static ?string $model = CertificateType::class;
 
     use Translatable;
 

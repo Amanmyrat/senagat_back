@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactMessage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactMessage newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactMessage query()
@@ -25,7 +24,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactMessage whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactMessage wherePhoneNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ContactMessage whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class ContactMessage extends Model

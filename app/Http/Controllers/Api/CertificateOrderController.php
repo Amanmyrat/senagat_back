@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CertificateOrderRequest;
+use App\Http\Resources\CertificateOrderResource;
+use App\Services\CertificateOrderService;
+use Illuminate\Http\JsonResponse;
+
+class CertificateOrderController extends Controller
+{
+    protected CertificateOrderService $service;
+
+    public function __construct(CertificateOrderService $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * Create Certificate order
+     */
+    public function store(CertificateOrderRequest $request)
+    {
+        $user = $request->user();
+        $order = $this->service->create($request->validated(), $user);
+
+        return new JsonResponse([
+            'success' => true,
+            'data' => new CertificateOrderResource($order),
+        ], 200);
+    }
+}

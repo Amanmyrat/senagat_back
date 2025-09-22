@@ -3,11 +3,12 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CardOrderController;
 use App\Http\Controllers\Api\CardTypeController;
+use App\Http\Controllers\Api\CertificateOrderController;
+use App\Http\Controllers\Api\CertificateTypeController;
 use App\Http\Controllers\Api\ContactAddressController;
 use App\Http\Controllers\Api\ContactMessageController;
 use App\Http\Controllers\Api\CreditApplicationController;
 use App\Http\Controllers\Api\CreditTypeController;
-use App\Http\Controllers\Api\FormTypeController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\UserProfileController;
@@ -34,7 +35,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/application/work-info', [CreditApplicationController::class, 'submitWorkInfo']);
     Route::post('/application/branch-info', [CreditApplicationController::class, 'submitBranchInfo']);
     Route::post('/application/branch-info', [CreditApplicationController::class, 'submitBranchInfo']);
-    Route::get('/form-types', [FormTypeController::class, 'index']);
     Route::prefix('location')->group(function () {
         Route::get('/', [LocationController::class, 'index']);
     });
@@ -55,4 +55,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('credit')->group(function () {
         Route::get('/', [CreditTypeController::class, 'index']);
     });
+
+    Route::get('/certificate-types', [CertificateTypeController::class, 'index']);
+    Route::post('/certificate-order', [CertificateOrderController::class, 'store']);
+
 });

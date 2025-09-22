@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\CardType $cardType
  * @property-read \App\Models\UserProfile $profile
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder query()
@@ -33,7 +32,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereUserId($value)
- *
  * @mixin \Eloquent
  */
 class CardOrder extends Model

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('form_types', function (Blueprint $table) {
+        Schema::create('certificate_types', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->decimal('price', 10, 2)->default(0);

@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FormTypeResource;
-use App\Models\FormType;
+use App\Models\CertificateType;
 use Illuminate\Http\JsonResponse;
 
-class FormTypeController extends Controller
+class CertificateTypeController extends Controller
 {
     /**
-     * Form Type
+     * Certificate Type
      *
      * @localizationHeader
      */
     public function index(): JsonResponse
     {
-        $location = FormType::all();
+        $location = CertificateType::all();
 
         return new JsonResponse([
             'success' => true,
