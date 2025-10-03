@@ -18,6 +18,9 @@ class UserResource extends JsonResource
             'id' => $this->resource->id,
             'phone' => $this->resource->phone,
             'token' => $this->when(isset($this->resource->token), $this->resource->token),
+            'profile' => $this->resource->profile
+                ? collect((new UserProfileResource($this->resource->profile))->toArray($request))->except('id')
+                : null,
         ];
     }
 }

@@ -48,7 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [ContactMessageController::class, 'store']);
     });
     Route::prefix('card')->group(function () {
-        Route::post('/types', [CardTypeController::class, 'index']);
+        Route::get('/types', [CardTypeController::class, 'index']);
         Route::post('/order', [CardOrderController::class, 'store']);
     });
 

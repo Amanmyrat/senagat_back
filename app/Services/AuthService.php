@@ -138,7 +138,8 @@ class AuthService
             'code' => $otp,
         ]);
 
-        $user = User::where('phone', $phone)->first();
+        $user = User::with('profile')->where('phone', $phone)->
+        first();
         if (! $user) {
             throw new Exception('Phone number not registered');
         }
