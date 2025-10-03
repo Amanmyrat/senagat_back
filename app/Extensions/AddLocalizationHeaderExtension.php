@@ -11,7 +11,7 @@ use Dedoc\Scramble\Support\RouteInfo;
 
 class AddLocalizationHeaderExtension extends OperationExtension
 {
-    public function handle(Operation $operation, RouteInfo $routeInfo)
+    public function handle(Operation $operation, RouteInfo $routeInfo): void
     {
         if (\count($routeInfo->phpDoc()->getTagsByName('@localizationHeader'))) {
             $operation->addParameters([
