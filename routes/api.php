@@ -22,7 +22,7 @@ Route::prefix('users')->group(function () {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/pre-login', [AuthController::class, 'preLogin']);
         Route::post('/login', [AuthController::class, 'login']);
-
+        Route::get('/user-information', [AuthController::class, 'userInfo']);
     });
 
     Route::post('/check', [AuthController::class, 'checkPhoneExists']);
