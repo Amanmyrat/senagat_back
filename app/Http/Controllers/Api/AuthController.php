@@ -20,22 +20,22 @@ class AuthController
     public function __construct(
         protected AuthService $service
     ) {}
+
     /**
      * User Informations
      *
      *
      * @throws Exception
      */
-
     public function userInfo(): JsonResponse
     {
 
         $user = auth('sanctum')->user();
 
-        if (!$user) {
+        if (! $user) {
             return new JsonResponse([
                 'success' => false,
-                'message' => 'Token invalid or user not found'
+                'message' => 'Token invalid or user not found',
             ], 401);
         }
 
@@ -44,6 +44,7 @@ class AuthController
             'data' => new UserInformationResource($user),
         ], 200);
     }
+
     /**
      * Request OTP for registration or login
      *

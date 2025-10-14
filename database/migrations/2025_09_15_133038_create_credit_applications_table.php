@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignId('profile_id')->constrained('user_profiles')->onDelete('cascade');
             $table->foreignId('credit_id')->constrained('credit_types');
             $table->integer('term');
-            $table->decimal('amount', 15, 2);
-            $table->decimal('interest', 5, 2);
-            $table->decimal('monthly_payment', 15, 2);
+            $table->unsignedInteger('amount');
+            $table->unsignedInteger('interest');
+            $table->unsignedInteger('monthly_payment');
 
             // Entrepreneur
             $table->string('role')->nullable();
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('position')->nullable();
             $table->string('manager_work_address')->nullable();
             $table->string('phone_number')->nullable();
-            $table->decimal('salary', 15, 2)->nullable();
+            $table->unsignedInteger('salary')->nullable();
             $table->string('country')->nullable();
             $table->string('bank_name')->nullable();
             $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');

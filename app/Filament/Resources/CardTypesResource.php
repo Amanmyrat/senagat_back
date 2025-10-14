@@ -43,6 +43,7 @@ class CardTypesResource extends Resource
                 TextInput::make('price')
                     ->label('Card Price')
                     ->numeric()
+                    ->step(0.01)
                     ->required(),
                 Select::make('category')
                     ->label('Category')
@@ -54,7 +55,7 @@ class CardTypesResource extends Resource
 
                 Repeater::make('advantages')
                     ->schema([
-                        TextInput::make('name'),
+                        TextInput::make('name')->label('Value'),
                         Textarea::make('description'),
                     ])
                     ->collapsible(),
@@ -69,6 +70,9 @@ class CardTypesResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('price')
+                    ->label('Price')
+                    ->formatStateUsing(fn ($state) => number_format($state, 2, ',', '.') . ' TMT')
             ])
             ->filters([
                 //

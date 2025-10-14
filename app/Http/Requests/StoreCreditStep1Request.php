@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\CreditType;
 use Illuminate\Foundation\Http\FormRequest;
+
 
 class StoreCreditStep1Request extends FormRequest
 {
@@ -33,7 +35,7 @@ class StoreCreditStep1Request extends FormRequest
              *
              * @example 5
              */
-            'term' => ['required', 'integer', 'min:1'],
+            'term' => ['required', 'numeric', 'min:1'],
 
             /**
              * Amount
@@ -64,5 +66,27 @@ class StoreCreditStep1Request extends FormRequest
             'amount.required' => 'Enter the amount',
             'interest.required' => 'Enter the percentage',
         ];
+    }
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->filled('credit_id') && $this->filled('amount')) {
+                $credit = CreditType::find($this->credit_id);
+                if ($credit) {
+                    if ($this->amount < $credit->min_amount || $this->amount > $credit->max_amount) {
+                        $validator->errors()->add(
+                            'amount',
+                            'Requested amount cannot exceed the credit limit'
+                        );
+                    }
+                    if ($this->term > $credit->term) {
+                        $validator->errors()->add(
+                            'term',
+                            'Requested term cannot exceed the credit limit'
+                        );
+                    }
+                }
+            }
+        });
     }
 }

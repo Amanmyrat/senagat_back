@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -10,10 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $user_id
  * @property int $profile_id
  * @property int $credit_id
- * @property int $term
- * @property string $amount
- * @property string $interest
- * @property string $monthly_payment
  * @property string|null $role
  * @property string|null $patent_number
  * @property string|null $registration_number
@@ -22,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $position
  * @property string|null $manager_work_address
  * @property string|null $phone_number
- * @property string|null $salary
  * @property string|null $country
  * @property string|null $bank_name
  * @property string $status
@@ -73,6 +69,13 @@ class CreditApplication extends Model
         'workplace', 'position', 'manager_work_address', 'phone_number', 'salary',
         'country', 'bank_name', 'status',
 
+    ];
+    protected $casts = [
+        'term'=>MoneyCast::class,
+        'amount'=>MoneyCast::class,
+        'interest'=>MoneyCast::class,
+        'monthly_payment'=>MoneyCast::class,
+        'salary'=>MoneyCast::class
     ];
 
     public function user(): BelongsTo

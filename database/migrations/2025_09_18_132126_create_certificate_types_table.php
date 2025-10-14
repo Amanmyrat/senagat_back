@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('certificate_types', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->decimal('price', 10, 2)->default(0);
+            $table->unsignedInteger('price');
             $table->timestamps();
         });
     }

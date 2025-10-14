@@ -36,7 +36,10 @@ class FormTypeResource extends Resource
             ->schema([
                 TextInput::make('title'),
                 TextInput::make('price')
-                    ->numeric(),
+                    ->label('Card Price')
+                    ->numeric()
+                    ->step(0.01)
+                    ->required(),
             ]);
     }
 
@@ -45,10 +48,12 @@ class FormTypeResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title'),
-                TextColumn::make('price'),
+                Tables\Columns\TextColumn::make('price')
+                    ->label('Price')
+                    ->formatStateUsing(fn ($state) => number_format($state, 2, ',', '.') . ' TMT')
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

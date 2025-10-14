@@ -11,15 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('card_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
+        Schema::table('news', function (Blueprint $table) {
             $table->string('image_url')->nullable();
-            $table->unsignedInteger('price');
-            $table->json('advantages')->nullable();
-            $table->longText('text');
-            $table->string('category')->nullable();
-            $table->timestamps();
         });
     }
 
@@ -28,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('card_types');
+        Schema::table('news', function (Blueprint $table) {
+            $table->dropColumn('image_url');
+        });
     }
 };

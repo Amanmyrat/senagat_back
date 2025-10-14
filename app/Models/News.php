@@ -12,6 +12,7 @@ use Spatie\Translatable\HasTranslations;
  * @property \Illuminate\Support\Carbon|null $published_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $image_url
  * @property-read mixed $translations
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News newQuery()
@@ -19,6 +20,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|News whereImageUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News whereJsonContainsLocale(string $column, string $locale, ?mixed $value, string $operand = '=')
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News whereJsonContainsLocales(string $column, array $locales, ?mixed $value, string $operand = '=')
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News whereLocale(string $column, string $locale)
@@ -34,7 +36,7 @@ class News extends Model
 
     public array $translatable = ['title', 'description'];
 
-    protected $fillable = ['title', 'description', 'published_at'];
+    protected $fillable = ['title', 'description', 'image_url', 'published_at'];
 
     protected $casts = [
         'published_at' => 'datetime',

@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-
 /**
  * @property int $id
  * @property array<array-key, mixed> $title
- * @property string $price
+ * @property int $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $translations
@@ -34,4 +33,15 @@ class CertificateType extends Model
     public array $translatable = ['title'];
 
     protected $fillable = ['title', 'price'];
+
+    public function getPriceAttribute($value)
+    {
+        return $value / 100;
+    }
+    public function setPriceAttribute($value)
+    {
+        $normalized = str_replace(',', '.', trim($value));
+        $this->attributes['price'] = (int) round((float) $normalized * 100);
+    }
+
 }

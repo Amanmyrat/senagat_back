@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -10,13 +11,12 @@ use Spatie\Translatable\HasTranslations;
  * @property int $id
  * @property array<array-key, mixed> $title
  * @property string|null $image_url
- * @property string $price
  * @property array<array-key, mixed>|null $advantages
  * @property array<array-key, mixed> $text
  * @property string|null $category
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read mixed $image_path
+ * @property-read string|null $image_path
  * @property-read mixed $translations
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType newQuery()
@@ -47,12 +47,14 @@ class CardType extends Model
 
     protected $casts = [
         'advantages' => 'array',
-
+        'price'=>MoneyCast::class,
     ];
+
+
 
     protected $appends = ['image_path'];
 
-    public function getImagePathAttribute()
+    public function getImagePathAttribute(): ?string
     {
         return $this->image_url
             ? asset('storage/'.$this->image_url)

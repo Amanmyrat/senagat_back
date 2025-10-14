@@ -54,8 +54,12 @@ class CreditTypesResource extends Resource
                                     ->numeric()
                                     ->minValue(1)
                                     ->required(),
-                                TextInput::make('amount')
-                                    ->label('Amount')
+                                TextInput::make('min_amount')
+                                    ->label('Min Amount')
+                                    ->numeric()
+                                    ->required(),
+                                TextInput::make('max_amount')
+                                    ->label('Max Amount')
                                     ->numeric()
                                     ->required(),
                                 TextInput::make('interest')
@@ -70,7 +74,7 @@ class CreditTypesResource extends Resource
                                 Repeater::make('requirements')
                                     ->label(__('Requirements / Documents'))
                                     ->schema([
-                                        TextInput::make('title')->label(__('Title'))->required(),
+                                        TextInput::make('title')->label(__('Title')),
                                         Select::make('type')
                                             ->label(__('Type'))
                                             ->options([
@@ -81,14 +85,12 @@ class CreditTypesResource extends Resource
                                             ->label(__('Rules'))
                                             ->schema([
                                                 TextInput::make('rule')
-                                                    ->label(__('Rule'))
-                                                    ->required(),
+                                                    ->label(__('Rule')),
                                                 Repeater::make('subrules')
                                                     ->label(__('Subrules'))
                                                     ->schema([
                                                         TextInput::make('subrule')
-                                                            ->label(__('SubRule'))
-                                                            ->required(),
+                                                            ->label(__('SubRule')),
                                                     ])
                                                     ->columns(1)
                                                     ->minItems(1),
