@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->integer('term');
-            $table->decimal('amount', 15, 2);
-            $table->decimal('interest', 5, 2);
+            $table->unsignedInteger('term');
+            $table->unsignedInteger('min_amount');
+            $table->unsignedInteger('max_amount');
+            $table->unsignedInteger('interest');
             $table->string('image_url')->nullable();
             $table->json('requirements')->nullable();
             $table->timestamps();

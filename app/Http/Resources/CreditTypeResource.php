@@ -21,7 +21,8 @@ class CreditTypeResource extends JsonResource
             'name' => $this->resource->getTranslation('name', $locale),
             'description' => $this->resource->getTranslation('description', $locale),
             'term' => $this->resource->term,
-            'amount' => $this->resource->amount,
+            'min_amount' => $this->resource->min_amount,
+            'max_amount' => $this->resource->max_amount,
             'interest' => $this->resource->interest,
             'requirements' => collect($this->resource->getTranslation('requirements', $locale) ?? [])
                 ->map(function ($item) {

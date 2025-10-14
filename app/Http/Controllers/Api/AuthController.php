@@ -8,6 +8,7 @@ use App\Http\Requests\PreLoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\RequestOtpRequest;
 use App\Http\Requests\VerifyOtpRequest;
+use App\Http\Resources\UserInformationResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\AuthService;
@@ -19,6 +20,30 @@ class AuthController
     public function __construct(
         protected AuthService $service
     ) {}
+
+    /**
+     * User Informations
+     *
+     *
+     * @throws Exception
+     */
+    public function userInfo(): JsonResponse
+    {
+
+        $user = auth('sanctum')->user();
+
+        if (! $user) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => 'Token invalid or user not found',
+            ], 401);
+        }
+
+        return new JsonResponse([
+            'success' => true,
+            'data' => new UserInformationResource($user),
+        ], 200);
+    }
 
     /**
      * Request OTP for registration or login

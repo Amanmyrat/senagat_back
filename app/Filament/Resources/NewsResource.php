@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\NewsResource\Pages;
 use App\Models\News;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -55,7 +56,8 @@ class NewsResource extends Resource
                     ->label(__('resource.title'))
                     ->required(),
                 RichEditor::make('description')
-                    ->label(__('resource.created_at')),
+                    ->label('Description'),
+                FileUpload::make('image_url')->image(),
             ]);
     }
 
