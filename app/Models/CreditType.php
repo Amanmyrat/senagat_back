@@ -15,6 +15,7 @@ use Spatie\Translatable\HasTranslations;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $translations
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType query()
@@ -33,6 +34,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereRequirements($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereTerm($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class CreditType extends Model
@@ -41,14 +43,14 @@ class CreditType extends Model
 
     public array $translatable = ['name', 'description', 'requirements'];
 
-    protected $fillable = ['name', 'description', 'term', 'min_amount','max_amount', 'interest', 'requirements'];
+    protected $fillable = ['name', 'description', 'term', 'min_amount', 'max_amount', 'interest', 'requirements'];
 
     protected $casts = [
         'requirements' => 'array',
         'advantages' => 'array',
-        'term'=>MoneyCast::class,
-        'min_amount'=>MoneyCast::class,
-        'max_amount'=>MoneyCast::class,
-        'interest'=>MoneyCast::class,
+        'term' => MoneyCast::class,
+        'min_amount' => MoneyCast::class,
+        'max_amount' => MoneyCast::class,
+        'interest' => MoneyCast::class,
     ];
 }

@@ -22,8 +22,10 @@ class MoneyCast implements CastsAttributes
      *
      * @param  array<string, mixed>  $attributes
      */
-    public function set(Model $model, string $key,  $value, array $attributes)
+    public function set(Model $model, string $key, $value, array $attributes)
     {
         $normalized = str_replace(',', '.', trim($value));
-        return (int) round((float) $normalized * 100);    }
+
+        return (int) round((float) $normalized * 100);
+    }
 }
