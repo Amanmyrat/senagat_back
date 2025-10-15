@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ContactAddressController;
 use App\Http\Controllers\Api\ContactMessageController;
 use App\Http\Controllers\Api\CreditApplicationController;
 use App\Http\Controllers\Api\CreditTypeController;
+use App\Http\Controllers\Api\ExchangeRateController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\UserProfileController;
@@ -58,5 +59,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/certificate-types', [CertificateTypeController::class, 'index']);
     Route::post('/certificate-order', [CertificateOrderController::class, 'store']);
+    Route::get('/exchange-rate', [ExchangeRateController::class, 'index']);
 
 });

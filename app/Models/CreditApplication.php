@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\CreditType $credit
  * @property-read \App\Models\UserProfile $profile
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication query()
@@ -52,6 +53,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereWorkAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereWorkplace($value)
+ *
  * @mixin \Eloquent
  */
 class CreditApplication extends Model
@@ -70,12 +72,13 @@ class CreditApplication extends Model
         'country', 'bank_name', 'status',
 
     ];
+
     protected $casts = [
-        'term'=>MoneyCast::class,
-        'amount'=>MoneyCast::class,
-        'interest'=>MoneyCast::class,
-        'monthly_payment'=>MoneyCast::class,
-        'salary'=>MoneyCast::class
+        'term' => MoneyCast::class,
+        'amount' => MoneyCast::class,
+        'interest' => MoneyCast::class,
+        'monthly_payment' => MoneyCast::class,
+        'salary' => MoneyCast::class,
     ];
 
     public function user(): BelongsTo

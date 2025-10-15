@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FormTypeResource\Pages;
-use App\Models\CertificateType;
+use App\Filament\Resources\ExchangeRateResource\Pages;
+use App\Models\ExchangeRate;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
@@ -12,15 +13,8 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class FormTypeResource extends Resource
+class ExchangeRateResource extends Resource
 {
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Certification';
-    }
-
-    protected static ?string $model = CertificateType::class;
-
     use Translatable;
 
     public static function getTranslatableLocales(): array
@@ -28,18 +22,21 @@ class FormTypeResource extends Resource
         return ['en', 'tk', 'ru'];
     }
 
+    protected static ?string $model = ExchangeRate::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('title'),
-                TextInput::make('price')
-                    ->label('Card Price')
-                    ->numeric()
-                    ->step(0.01)
-                    ->required(),
+                TextInput::make('currency'),
+                TextInput::make('purchase')
+                    ->numeric(),
+                TextInput::make('sale')
+                    ->numeric(),
+                FileUpload::make('flag')->image(),
+
             ]);
     }
 
@@ -47,13 +44,10 @@ class FormTypeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('price')
-                    ->label('Price')
-                    ->formatStateUsing(fn ($state) => number_format($state, 2, ',', '.').' TMT'),
+                TextColumn::make('currency'),
             ])
             ->filters([
-
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -75,9 +69,9 @@ class FormTypeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFormTypes::route('/'),
-            'create' => Pages\CreateFormType::route('/create'),
-            'edit' => Pages\EditFormType::route('/{record}/edit'),
+            'index' => Pages\ListExchangeRates::route('/'),
+            'create' => Pages\CreateExchangeRate::route('/create'),
+            'edit' => Pages\EditExchangeRate::route('/{record}/edit'),
         ];
     }
 }

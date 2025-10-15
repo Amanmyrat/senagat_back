@@ -72,7 +72,7 @@ class CardTypesResource extends Resource
                 TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('price')
                     ->label('Price')
-                    ->formatStateUsing(fn ($state) => number_format($state, 2, ',', '.') . ' TMT')
+                    ->formatStateUsing(fn ($state) => number_format($state, 2, ',', '.').' TMT'),
             ])
             ->filters([
                 //

@@ -18,6 +18,7 @@ use Spatie\Translatable\HasTranslations;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read string|null $image_path
  * @property-read mixed $translations
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType query()
@@ -34,6 +35,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType whereText($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class CardType extends Model
@@ -47,10 +49,8 @@ class CardType extends Model
 
     protected $casts = [
         'advantages' => 'array',
-        'price'=>MoneyCast::class,
+        'price' => MoneyCast::class,
     ];
-
-
 
     protected $appends = ['image_path'];
 

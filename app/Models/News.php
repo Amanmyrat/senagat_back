@@ -14,6 +14,7 @@ use Spatie\Translatable\HasTranslations;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $image_url
  * @property-read mixed $translations
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News query()
@@ -28,6 +29,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News wherePublishedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|News whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class News extends Model

@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use App\Models\CreditType;
 use Illuminate\Foundation\Http\FormRequest;
 
-
 class StoreCreditStep1Request extends FormRequest
 {
     /**
@@ -67,6 +66,7 @@ class StoreCreditStep1Request extends FormRequest
             'interest.required' => 'Enter the percentage',
         ];
     }
+
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {

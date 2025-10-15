@@ -22,6 +22,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string|null $home_number
  * @property array<array-key, mixed>|null $hours
  * @property-read mixed $translations
+ *
  * @method static Builder<static>|Location newModelQuery()
  * @method static Builder<static>|Location newQuery()
  * @method static Builder<static>|Location query()
@@ -40,6 +41,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static Builder<static>|Location wherePhoneNumber($value)
  * @method static Builder<static>|Location whereType($value)
  * @method static Builder<static>|Location whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class Location extends Model
