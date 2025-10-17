@@ -33,6 +33,10 @@ class CardOrderResource extends Resource
          return in_array($user->role->value, ['super-admin', 'operator']);
 
     }
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getEloquentQuery()->count();
+    }
 
     protected static ?string $model = CardOrder::class;
 

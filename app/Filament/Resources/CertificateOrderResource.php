@@ -30,6 +30,10 @@ class CertificateOrderResource extends Resource
         return in_array($user->role->value, ['super-admin']);
 
     }
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getEloquentQuery()->count();
+    }
     protected static ?string $model = CertificateOrder::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

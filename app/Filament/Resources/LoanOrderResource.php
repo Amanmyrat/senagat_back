@@ -32,6 +32,10 @@ class LoanOrderResource extends Resource
         return in_array($user->role->value, ['super-admin']);
 
     }
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getEloquentQuery()->count();
+    }
     protected static ?string $model = CreditApplication::class;
 
     public static function getNavigationLabel(): string
