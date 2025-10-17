@@ -17,7 +17,7 @@ class CertificateOrderService
             'certificate_type_id' => $data['certificate_type_id'],
             'phone_number' => $data['phone_number'],
             'home_address' => $data['home_address'] ?? null,
-            'bank_branch' => $data['bank_branch'] ?? null,
+            'bank_branch_id' => $data['bank_branch_id'] ?? null,
             'status' => 'pending',
         ]);
     }

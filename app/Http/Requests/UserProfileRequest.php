@@ -45,7 +45,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example Mergenovic
              */
-            'middle_name' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
+            'middle_name' =>  ['nullable', 'string'] ,
 
             /**
              *  Birth Date
@@ -114,7 +114,6 @@ class UserProfileRequest extends FormRequest
         return [
             'first_name.required' => 'First name is required when creating a new profile.',
             'last_name.required' => 'Last name is required when creating a new profile.',
-            'middle_name.required' => 'Middle name is required when creating a new profile.',
             'birth_date.required' => 'Birth date is required when creating a new profile.',
             'birth_date.date_format' => 'Birth date must be in the format DD-MM-YYYY.',
             'passport_number.required' => 'Passport number is required when creating a new profile.',

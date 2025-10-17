@@ -39,6 +39,7 @@ class AuthController
             ], 401);
         }
 
+        $user->load(['certificates.certificateType','applications']);
         return new JsonResponse([
             'success' => true,
             'data' => new UserInformationResource($user),

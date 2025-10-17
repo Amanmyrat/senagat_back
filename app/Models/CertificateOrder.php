@@ -43,7 +43,7 @@ class CertificateOrder extends Model
         'profile_id',
         'certificate_type_id',
         'phone_number',
-        'bank_branch',
+        'bank_branch_id',
         'home_address',
         'status',
     ];
@@ -61,5 +61,9 @@ class CertificateOrder extends Model
     public function certificateType(): BelongsTo
     {
         return $this->belongsTo(CertificateType::class);
+    }
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Location::class, 'bank_branch_id');
     }
 }

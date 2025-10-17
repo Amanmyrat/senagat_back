@@ -17,7 +17,7 @@ class SubmitBranchInfoResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'country' => $this->resource->country,
-            'bank_name' => $this->resource->bank_name,
+            'bank_branch_id' => $this->resource->bank_branch_id,
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCreditStep3Request extends FormRequest
 {
@@ -25,11 +26,16 @@ class StoreCreditStep3Request extends FormRequest
             /**
              * Bank_name
              *
-             * @var string
+             * @var integer
              *
-             * @example Merkezi bank
+             * @example 1
              */
-            'bank_name' => ['required', 'string', 'max:255'],
+            'bank_branch_id' => [
+                'required',
+                'integer',
+                Rule::exists('locations', 'id')
+                    ->where(fn ($q) => $q->where('type', 'Branch')->where('offers_credit', true)),
+            ],
         ];
     }
 }

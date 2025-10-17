@@ -22,6 +22,13 @@ class NewsResource extends Resource
     {
         return ['en', 'tk', 'ru'];
     }
+    public static function canViewAny(): bool
+    {
+        $user = auth('admin')->user();
+
+        return in_array($user->role->value, ['super-admin']);
+
+    }
 
     protected static ?string $model = News::class;
 

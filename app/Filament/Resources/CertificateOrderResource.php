@@ -14,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class CertificateOrderResource extends Resource
@@ -22,7 +23,13 @@ class CertificateOrderResource extends Resource
     {
         return 'Certification';
     }
+    public static function canViewAny(): bool
+    {
+        $user = auth('admin')->user();
 
+        return in_array($user->role->value, ['super-admin']);
+
+    }
     protected static ?string $model = CertificateOrder::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -72,7 +79,11 @@ class CertificateOrderResource extends Resource
                                 ->disabled(),
                             TextInput::make('phone_number')
                                 ->disabled(),
-                            TextInput::make('bank_branch')->disabled(),
+                            TextInput::make('branch.name')
+                                ->label('Branch name')
+                                ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
+                                )
+                                ->disabled(),
                             TextInput::make('home_address')->disabled(),
                         ]),
 
@@ -99,7 +110,12 @@ class CertificateOrderResource extends Resource
                     ->badge(),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'approved' => 'Approved',
+                        'rejected' => 'Rejected',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

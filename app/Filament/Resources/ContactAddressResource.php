@@ -18,6 +18,13 @@ class ContactAddressResource extends Resource
     {
         return 'Contact';
     }
+    public static function canViewAny(): bool
+    {
+        $user = auth('admin')->user();
+
+        return in_array($user->role->value, ['super-admin']);
+
+    }
 
     use Translatable;
 

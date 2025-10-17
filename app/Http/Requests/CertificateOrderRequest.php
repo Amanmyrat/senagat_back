@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CertificateOrderRequest extends FormRequest
 {
@@ -35,11 +36,16 @@ class CertificateOrderRequest extends FormRequest
             /**
              * Bank Branch
              *
-             * @var string
+             * @var integer
              *
-             * @example Merkezi Bank
+             * @example 1
              */
-            'bank_branch' => ['required', 'string', 'min:1'],
+            'bank_branch_id' => [
+                'required',
+                'integer',
+                Rule::exists('locations', 'id')
+                    ->where(fn ($q) => $q->where('type', 'Branch')->where('offers_certificate', true)),
+            ],
 
             /**
              * Home address

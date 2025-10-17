@@ -5,7 +5,10 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CardOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\CardOrder;
+use App\Models\Location;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Components\Wizard;
@@ -14,6 +17,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class CardOrderResource extends Resource
@@ -21,6 +25,13 @@ class CardOrderResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return 'Card';
+    }
+    public static function canViewAny(): bool
+    {
+        $user = auth('admin')->user();
+
+         return in_array($user->role->value, ['super-admin', 'operator']);
+
     }
 
     protected static ?string $model = CardOrder::class;
@@ -62,12 +73,15 @@ class CardOrderResource extends Resource
                         ->schema([
                             TextInput::make('cardType.title')
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->cardType?->title)
-
                                 )
                                 ->disabled(),
                             TextInput::make('phone_number')
                                 ->disabled(),
-                            TextInput::make('bank_branch')->disabled(),
+                            TextInput::make('branch.name')
+                                ->label('Branch name')
+                                ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
+                                )
+                                ->disabled(),
                             TextInput::make('home_phone_number')->disabled(),
                             TextInput::make('cardType.price')
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->cardType?->price)
@@ -84,8 +98,8 @@ class CardOrderResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('profile.first_name'),
-                TextColumn::make('profile.last_name'),
+                TextColumn::make('profile.first_name') ->searchable(),
+                TextColumn::make('profile.last_name')->searchable(),
                 TextColumn::make('cardType.title'),
 
                 TextColumn::make('status')
@@ -98,8 +112,14 @@ class CardOrderResource extends Resource
                     ->badge(),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'approved' => 'Approved',
+                        'rejected' => 'Rejected',
+                    ]),
             ])
+
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -124,5 +144,9 @@ class CardOrderResource extends Resource
             'create' => Pages\CreateCardOrder::route('/create'),
             'edit' => Pages\EditCardOrder::route('/{record}/edit'),
         ];
+    }
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()->with(['branch']);
     }
 }

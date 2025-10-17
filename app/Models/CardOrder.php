@@ -43,7 +43,7 @@ class CardOrder extends Model
         'profile_id',
         'card_type_id',
         'phone_number',
-        'bank_branch',
+        'bank_branch_id',
         'home_phone_number',
         'status',
     ];
@@ -62,4 +62,9 @@ class CardOrder extends Model
     {
         return $this->belongsTo(CardType::class);
     }
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Location::class, 'bank_branch_id','id');
+    }
+
 }

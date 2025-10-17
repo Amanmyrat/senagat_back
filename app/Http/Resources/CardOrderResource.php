@@ -16,7 +16,7 @@ class CardOrderResource extends JsonResource
             'card_type_id' => $this->resource->card_type_id,
             'phone_number' => $this->resource->phone_number,
             'home_phone_number' => $this->resource->home_phone_number,
-            'bank_branch' => $this->resource->bank_branch,
+            'bank_branch_id' => $this->resource->bank_branch_id,
 
         ];
     }

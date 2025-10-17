@@ -23,6 +23,13 @@ class CardTypesResource extends Resource
     {
         return 'Card';
     }
+    public static function canViewAny(): bool
+    {
+        $user = auth('admin')->user();
+
+        return in_array($user->role->value, ['super-admin']);
+
+    }
 
     use Translatable;
 

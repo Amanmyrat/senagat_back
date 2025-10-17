@@ -50,10 +50,15 @@ class Location extends Model
 
     public array $translatable = ['name', 'address', 'hours'];
 
-    protected $fillable = ['type', 'name', 'address', 'location', 'hours', 'phone_number', 'fax_number', 'home_number'];
+    protected $fillable = ['type', 'name', 'address', 'location', 'hours', 'phone_number', 'fax_number', 'home_number',   'offers_credit',
+        'offers_card',
+        'offers_certificate'];
 
     protected $casts = [
         'location' => 'array',
         'type' => LocationType::class,
+        'offers_credit' => 'boolean',
+        'offers_card' => 'boolean',
+        'offers_certificate' => 'boolean',
     ];
 }

@@ -17,7 +17,7 @@ class CardOrderService
             'card_type_id' => $data['card_type_id'],
             'phone_number' => $data['phone_number'],
             'home_phone_number' => $data['home_phone_number'] ?? null,
-            'bank_branch' => $data['bank_branch'] ?? null,
+            'bank_branch_id' => $data['bank_branch_id'] ?? null,
             'status' => 'pending',
         ]);
     }

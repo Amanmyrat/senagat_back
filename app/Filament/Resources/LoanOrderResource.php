@@ -15,6 +15,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -24,7 +25,13 @@ class LoanOrderResource extends Resource
     {
         return 'Credit';
     }
+    public static function canViewAny(): bool
+    {
+        $user = auth('admin')->user();
 
+        return in_array($user->role->value, ['super-admin']);
+
+    }
     protected static ?string $model = CreditApplication::class;
 
     public static function getNavigationLabel(): string
@@ -105,7 +112,11 @@ class LoanOrderResource extends Resource
                     Step::make('Branch Info')
                         ->schema([
                             TextInput::make('country')->required()->disabled(),
-                            TextInput::make('bank_name')->required()->disabled(),
+                            TextInput::make('branch.name')
+                                ->label('Branch name')
+                                ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
+                                )
+                                ->disabled(),
                         ]),
                 ]
                 )
@@ -134,7 +145,12 @@ class LoanOrderResource extends Resource
                     ->badge(),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'approved' => 'Approved',
+                        'rejected' => 'Rejected',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
