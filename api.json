@@ -1,0 +1,2321 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Laravel",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1/api"
+        }
+    ],
+    "security": [
+        {
+            "http": []
+        }
+    ],
+    "paths": {
+        "/v1/users/auth/request-otp": {
+            "post": {
+                "operationId": "auth.requestOtp",
+                "summary": "Request OTP for registration or login",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestOtpRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Failed to send OTP"
+                                            ]
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "OTP sent successfully"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/v1/users/auth/verify-otp": {
+            "post": {
+                "operationId": "auth.verifyOtp",
+                "summary": "Verify OTP and get session token",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VerifyOtpRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "OTP verification failed"
+                                            ]
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "otp_session_token": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "OTP verified successfully"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "otp_session_token",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/v1/users/auth/register": {
+            "post": {
+                "operationId": "auth.register",
+                "summary": "Create User with OTP session token",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Registration failed"
+                                            ]
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "`UserResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/v1/users/auth/pre-login": {
+            "post": {
+                "operationId": "auth.preLogin",
+                "summary": "Pre-login: validate password and send OTP",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PreLoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Pre-login failed"
+                                            ]
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Password verified, OTP sent for final authentication"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/v1/users/auth/login": {
+            "post": {
+                "operationId": "auth.login",
+                "summary": "Complete login with OTP",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Login failed"
+                                            ]
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "`UserResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/v1/users/auth/user-information": {
+            "get": {
+                "operationId": "auth.userInfo",
+                "summary": "User Informations",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserInformationResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Token invalid or user not found"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/users/check": {
+            "post": {
+                "operationId": "auth.checkPhoneExists",
+                "summary": "Check phone number",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CheckPhoneExistenceRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "error": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "error"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "exists": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "exists"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/v1/card/order": {
+            "post": {
+                "operationId": "cardOrder.store",
+                "summary": "Create Card order",
+                "tags": [
+                    "CardOrder"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CardOrderRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/CardOrderResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/v1/card/types": {
+            "get": {
+                "operationId": "cardType.index",
+                "summary": "Card Types",
+                "tags": [
+                    "CardType"
+                ],
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CardTypeResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/v1/certificate-order": {
+            "post": {
+                "operationId": "certificateOrder.store",
+                "summary": "Create Certificate order",
+                "tags": [
+                    "CertificateOrder"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CertificateOrderRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/CertificateOrderResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/v1/certificate-types": {
+            "get": {
+                "operationId": "certificateType.index",
+                "summary": "Certificate Type",
+                "tags": [
+                    "CertificateType"
+                ],
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/FormTypeResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/v1/contact-address": {
+            "get": {
+                "operationId": "contactAddress.index",
+                "summary": "Our Contact Address List",
+                "tags": [
+                    "ContactAddress"
+                ],
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ContactAddressResources"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/v1/contact-message": {
+            "post": {
+                "operationId": "contactMessage.store",
+                "summary": "Contact Messages",
+                "tags": [
+                    "ContactMessage"
+                ],
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ContactMessageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Message not send"
+                                            ]
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "`ContactMessageResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/ContactMessageResource"
+                                        },
+                                        "success": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "required": [
+                                        "data",
+                                        "success"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/v1/application/credit-details": {
+            "post": {
+                "operationId": "creditApplication.submitCreditDetails",
+                "summary": "Submit Credit Details",
+                "tags": [
+                    "CreditApplication"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreCreditStep1Request"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Submit Credit Details "
+                                            ]
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SubmitCreditDetailsResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/v1/application/work-info": {
+            "post": {
+                "operationId": "creditApplication.submitWorkInfo",
+                "summary": "Submit Work Info",
+                "tags": [
+                    "CreditApplication"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreCreditStep2Request"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Submit Work Information"
+                                            ]
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SubmitWorkInfoResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/v1/application/branch-info": {
+            "post": {
+                "operationId": "creditApplication.submitBranchInfo",
+                "summary": "Submit Branch Info",
+                "tags": [
+                    "CreditApplication"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreCreditStep3Request"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Application submitted"
+                                            ]
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SubmitBranchInfoResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/v1/credit": {
+            "get": {
+                "operationId": "creditType.index",
+                "summary": "Credit Types",
+                "tags": [
+                    "CreditType"
+                ],
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CreditTypeResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/v1/exchange-rate": {
+            "get": {
+                "operationId": "exchangeRate.index",
+                "summary": "Location",
+                "tags": [
+                    "ExchangeRate"
+                ],
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ExchangeRateResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/v1/location": {
+            "get": {
+                "operationId": "location.index",
+                "summary": "Location",
+                "tags": [
+                    "Location"
+                ],
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "offers_credit",
+                        "in": "query",
+                        "description": "Filter locations that offer credit.",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "offers_card",
+                        "in": "query",
+                        "description": "Filter locations that offer card.",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "offers_certificate",
+                        "in": "query",
+                        "description": "Filter locations that offer certificate.",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/LocationResource"
+                                                    }
+                                                }
+                                            },
+                                            "required": [
+                                                "success",
+                                                "data"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "minItems": 0,
+                                                    "maxItems": 0,
+                                                    "additionalItems": false
+                                                }
+                                            },
+                                            "required": [
+                                                "success",
+                                                "data"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/v1/news": {
+            "get": {
+                "operationId": "news.index",
+                "summary": "News",
+                "tags": [
+                    "News"
+                ],
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/NewsResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/v1/profile": {
+            "post": {
+                "operationId": "userProfile.storeOrUpdate",
+                "summary": "User Create or update",
+                "tags": [
+                    "UserProfile"
+                ],
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserProfileRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "`UserProfileResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserProfileResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "http": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "CardOrderRequest": {
+                "type": "object",
+                "properties": {
+                    "card_type_id": {
+                        "type": "integer",
+                        "description": "Card Type",
+                        "example": 1
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "description": "Phone number",
+                        "example": "65021734"
+                    },
+                    "bank_branch_id": {
+                        "type": "integer",
+                        "description": "Bank Branch",
+                        "example": 1
+                    },
+                    "home_phone_number": {
+                        "type": "string",
+                        "description": "Home phone number",
+                        "example": "941265"
+                    }
+                },
+                "required": [
+                    "card_type_id",
+                    "phone_number",
+                    "bank_branch_id",
+                    "home_phone_number"
+                ],
+                "title": "CardOrderRequest"
+            },
+            "CardOrderResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "profile_id": {
+                        "type": "integer"
+                    },
+                    "card_type_id": {
+                        "type": "integer"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "home_phone_number": {
+                        "type": "string"
+                    },
+                    "bank_branch_id": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "id",
+                    "user_id",
+                    "profile_id",
+                    "card_type_id",
+                    "phone_number",
+                    "home_phone_number",
+                    "bank_branch_id"
+                ],
+                "title": "CardOrderResource"
+            },
+            "CardTypeResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "object"
+                    },
+                    "category": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "advantages": {
+                        "type": "string"
+                    },
+                    "image_url": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "price": {
+                        "type": "integer"
+                    },
+                    "text": {
+                        "type": "array",
+                        "items": {}
+                    }
+                },
+                "required": [
+                    "id",
+                    "title",
+                    "category",
+                    "advantages",
+                    "image_url",
+                    "price",
+                    "text"
+                ],
+                "title": "CardTypeResource"
+            },
+            "CertificateOrderRequest": {
+                "type": "object",
+                "properties": {
+                    "certificate_type_id": {
+                        "type": "integer",
+                        "description": "Certificate Type id",
+                        "example": 1
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "description": "Phone number",
+                        "example": "65021734"
+                    },
+                    "bank_branch_id": {
+                        "type": "integer",
+                        "description": "Bank Branch",
+                        "example": 1
+                    },
+                    "home_address": {
+                        "type": "string",
+                        "description": "Home address",
+                        "example": "941265"
+                    }
+                },
+                "required": [
+                    "certificate_type_id",
+                    "phone_number",
+                    "bank_branch_id",
+                    "home_address"
+                ],
+                "title": "CertificateOrderRequest"
+            },
+            "CertificateOrderResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "profile_id": {
+                        "type": "integer"
+                    },
+                    "certificate_type_id": {
+                        "type": "integer"
+                    },
+                    "certificate_name": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "home_address": {
+                        "type": "string"
+                    },
+                    "bank_branch_id": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "user_id",
+                    "profile_id",
+                    "certificate_type_id",
+                    "certificate_name",
+                    "phone_number",
+                    "home_address",
+                    "bank_branch_id",
+                    "status"
+                ],
+                "title": "CertificateOrderResource"
+            },
+            "CheckPhoneExistenceRequest": {
+                "type": "object",
+                "properties": {
+                    "phone": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "phone"
+                ],
+                "title": "CheckPhoneExistenceRequest"
+            },
+            "ContactAddressResources": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "fax_number": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "title",
+                    "address",
+                    "phone_number",
+                    "fax_number"
+                ],
+                "title": "ContactAddressResources"
+            },
+            "ContactMessageRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "email",
+                    "phone_number",
+                    "message"
+                ],
+                "title": "ContactMessageRequest"
+            },
+            "ContactMessageResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "fax_number": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "title",
+                    "address",
+                    "phone_number",
+                    "fax_number"
+                ],
+                "title": "ContactMessageResource"
+            },
+            "CreditTypeResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "object"
+                    },
+                    "description": {
+                        "type": "object"
+                    },
+                    "term": {
+                        "type": "integer"
+                    },
+                    "min_amount": {
+                        "type": "integer"
+                    },
+                    "max_amount": {
+                        "type": "integer"
+                    },
+                    "interest": {
+                        "type": "integer"
+                    },
+                    "requirements": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "term",
+                    "min_amount",
+                    "max_amount",
+                    "interest",
+                    "requirements"
+                ],
+                "title": "CreditTypeResource"
+            },
+            "ExchangeRateResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "currency": {
+                        "type": "object"
+                    },
+                    "purchase": {
+                        "type": "string"
+                    },
+                    "sale": {
+                        "type": "string"
+                    },
+                    "flag": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "currency",
+                    "purchase",
+                    "sale",
+                    "flag"
+                ],
+                "title": "ExchangeRateResource"
+            },
+            "FormTypeResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "title",
+                    "price"
+                ],
+                "title": "FormTypeResource"
+            },
+            "LocationResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/LocationType"
+                    },
+                    "name": {
+                        "type": "object"
+                    },
+                    "address": {
+                        "type": "object"
+                    },
+                    "location": {
+                        "type": "array",
+                        "items": {}
+                    },
+                    "phone_number": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "fax_number": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "help_desk_number": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "offers_credit": {
+                        "type": "boolean"
+                    },
+                    "offers_card": {
+                        "type": "boolean"
+                    },
+                    "offers_certificate": {
+                        "type": "boolean"
+                    },
+                    "working_hours": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "type",
+                    "name",
+                    "address",
+                    "location",
+                    "phone_number",
+                    "fax_number",
+                    "help_desk_number",
+                    "offers_credit",
+                    "offers_card",
+                    "offers_certificate",
+                    "working_hours"
+                ],
+                "title": "LocationResource"
+            },
+            "LocationType": {
+                "type": "string",
+                "enum": [
+                    "ATM",
+                    "Branch"
+                ],
+                "title": "LocationType"
+            },
+            "LoginRequest": {
+                "type": "object",
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "description": "Phone.",
+                        "example": "65021734"
+                    },
+                    "otp": {
+                        "type": "string",
+                        "description": "OTP code.",
+                        "example": "12345"
+                    }
+                },
+                "required": [
+                    "phone",
+                    "otp"
+                ],
+                "title": "LoginRequest"
+            },
+            "NewsResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "object"
+                    },
+                    "description": {
+                        "type": "object"
+                    },
+                    "image_url": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "published_at": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "title",
+                    "description",
+                    "image_url",
+                    "published_at"
+                ],
+                "title": "NewsResource"
+            },
+            "PreLoginRequest": {
+                "type": "object",
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "description": "Phone number.",
+                        "example": "65021734"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Password.",
+                        "example": "12345678"
+                    }
+                },
+                "required": [
+                    "phone",
+                    "password"
+                ],
+                "title": "PreLoginRequest"
+            },
+            "RegisterRequest": {
+                "type": "object",
+                "properties": {
+                    "otp_session_token": {
+                        "type": "string",
+                        "description": "OTP session token from verify-otp step.",
+                        "example": "abc123def456"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Password.",
+                        "example": "12345678"
+                    }
+                },
+                "required": [
+                    "otp_session_token",
+                    "password"
+                ],
+                "title": "RegisterRequest"
+            },
+            "RequestOtpRequest": {
+                "type": "object",
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "description": "Phone number.",
+                        "example": "65021734"
+                    },
+                    "purpose": {
+                        "type": "string",
+                        "description": "Purpose of OTP request.",
+                        "example": "register"
+                    }
+                },
+                "required": [
+                    "phone",
+                    "purpose"
+                ],
+                "title": "RequestOtpRequest"
+            },
+            "StoreCreditStep1Request": {
+                "type": "object",
+                "properties": {
+                    "credit_id": {
+                        "type": "integer",
+                        "description": "Credit details",
+                        "example": 1
+                    },
+                    "term": {
+                        "type": "integer",
+                        "description": "Years of credit",
+                        "example": 5
+                    },
+                    "amount": {
+                        "type": "number",
+                        "description": "Amount",
+                        "example": 50000
+                    },
+                    "monthly_payment": {
+                        "type": "number",
+                        "description": "Monthly payment",
+                        "example": 12.5
+                    }
+                },
+                "required": [
+                    "credit_id",
+                    "term",
+                    "amount",
+                    "monthly_payment"
+                ],
+                "title": "StoreCreditStep1Request"
+            },
+            "StoreCreditStep2Request": {
+                "type": "object",
+                "properties": {
+                    "role": {
+                        "type": "string",
+                        "description": "Role",
+                        "example": "manager or entrepreneur"
+                    },
+                    "patent_number": {
+                        "type": "string",
+                        "description": "Patent_number",
+                        "example": "Entrepreneur fields"
+                    },
+                    "registration_number": {
+                        "type": "string",
+                        "description": "Registration Number",
+                        "example": "Entrepreneur fields"
+                    },
+                    "work_address": {
+                        "type": "string",
+                        "description": "Work Address",
+                        "example": "Entrepreneur fields"
+                    },
+                    "workplace": {
+                        "type": "string",
+                        "description": "Workplace",
+                        "example": "Manager fields"
+                    },
+                    "position": {
+                        "type": "string",
+                        "description": "Position",
+                        "example": "Manager fields"
+                    },
+                    "manager_work_address": {
+                        "type": "string",
+                        "description": "Manager Work Address",
+                        "example": "Manager fields"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "description": "Phone Number",
+                        "example": "Manager fields"
+                    },
+                    "salary": {
+                        "type": "integer",
+                        "description": "Salary",
+                        "example": "Manager fields"
+                    }
+                },
+                "required": [
+                    "role"
+                ],
+                "title": "StoreCreditStep2Request"
+            },
+            "StoreCreditStep3Request": {
+                "type": "object",
+                "properties": {
+                    "country": {
+                        "type": "string",
+                        "description": "Country",
+                        "example": "A\u015fgabat"
+                    },
+                    "bank_branch_id": {
+                        "type": "integer",
+                        "description": "Bank_name",
+                        "example": 1
+                    }
+                },
+                "required": [
+                    "country",
+                    "bank_branch_id"
+                ],
+                "title": "StoreCreditStep3Request"
+            },
+            "SubmitBranchInfoResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
+                    },
+                    "bank_branch_id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "country",
+                    "bank_branch_id"
+                ],
+                "title": "SubmitBranchInfoResource"
+            },
+            "SubmitCreditDetailsResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "type": "string"
+                    },
+                    "profile_id": {
+                        "type": "string"
+                    },
+                    "credit_id": {
+                        "type": "string"
+                    },
+                    "credit_name": {
+                        "type": "string"
+                    },
+                    "term": {
+                        "type": "string"
+                    },
+                    "amount": {
+                        "type": "string"
+                    },
+                    "interest": {
+                        "type": "string"
+                    },
+                    "monthly_payment": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "user_id",
+                    "profile_id",
+                    "credit_id",
+                    "credit_name",
+                    "term",
+                    "amount",
+                    "interest",
+                    "monthly_payment"
+                ],
+                "title": "SubmitCreditDetailsResource"
+            },
+            "SubmitWorkInfoResource": {
+                "type": "object",
+                "properties": {
+                    "role": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "patent_number": {
+                        "type": "string"
+                    },
+                    "registration_number": {
+                        "type": "string"
+                    },
+                    "work_address": {
+                        "type": "string"
+                    },
+                    "workplace": {
+                        "type": "string"
+                    },
+                    "position": {
+                        "type": "string"
+                    },
+                    "manager_work_address": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "salary": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "role",
+                    "id",
+                    "patent_number",
+                    "registration_number",
+                    "work_address",
+                    "workplace",
+                    "position",
+                    "manager_work_address",
+                    "phone_number",
+                    "salary"
+                ],
+                "title": "SubmitWorkInfoResource"
+            },
+            "UserInformationResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "profile": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "certificates": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "loans": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "phone",
+                    "profile",
+                    "certificates",
+                    "loans"
+                ],
+                "title": "UserInformationResource"
+            },
+            "UserProfileRequest": {
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string",
+                        "description": "First Name.",
+                        "example": "Mergen"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "description": "Last Name.",
+                        "example": "Jumayev"
+                    },
+                    "middle_name": {
+                        "type": "string",
+                        "description": "Middle Name.",
+                        "example": "Mergenovic"
+                    },
+                    "birth_date": {
+                        "type": "object",
+                        "description": "Birth Date",
+                        "example": "24-02-1992"
+                    },
+                    "passport_number": {
+                        "type": "string",
+                        "description": "Passport Number",
+                        "example": "123456"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender",
+                        "example": "male"
+                    },
+                    "issued_date": {
+                        "type": "string",
+                        "description": "Issued Date",
+                        "example": "24-02-2001"
+                    },
+                    "issued_by": {
+                        "type": "string",
+                        "description": "Issued By",
+                        "example": "Asgabat"
+                    },
+                    "scan_passport": {
+                        "type": "string",
+                        "description": "Scan Passport",
+                        "example": "file"
+                    }
+                },
+                "required": [
+                    "first_name",
+                    "last_name",
+                    "birth_date",
+                    "passport_number",
+                    "gender",
+                    "issued_date",
+                    "issued_by",
+                    "scan_passport"
+                ],
+                "title": "UserProfileRequest"
+            },
+            "UserProfileResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "middle_name": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "birth_date": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "passport_number": {
+                        "type": "string"
+                    },
+                    "gender": {
+                        "type": "string"
+                    },
+                    "issued_date": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "issued_by": {
+                        "type": "string"
+                    },
+                    "scan_passport": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "first_name",
+                    "last_name",
+                    "middle_name",
+                    "birth_date",
+                    "passport_number",
+                    "gender",
+                    "issued_date",
+                    "issued_by",
+                    "scan_passport"
+                ],
+                "title": "UserProfileResource"
+            },
+            "UserResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "token": {
+                        "type": "string"
+                    },
+                    "profile": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "phone",
+                    "profile"
+                ],
+                "title": "UserResource"
+            },
+            "VerifyOtpRequest": {
+                "type": "object",
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "description": "Phone number.",
+                        "example": "65021734"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "OTP code.",
+                        "example": "12345"
+                    },
+                    "purpose": {
+                        "type": "string",
+                        "description": "Purpose of OTP verification.",
+                        "example": "register"
+                    }
+                },
+                "required": [
+                    "phone",
+                    "code",
+                    "purpose"
+                ],
+                "title": "VerifyOtpRequest"
+            }
+        },
+        "responses": {
+            "ValidationException": {
+                "description": "Validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Errors overview."
+                                },
+                                "errors": {
+                                    "type": "object",
+                                    "description": "A detailed description of each field that failed validation.",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message",
+                                "errors"
+                            ]
+                        }
+                    }
+                }
+            },
+            "AuthenticationException": {
+                "description": "Unauthenticated",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Error overview."
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

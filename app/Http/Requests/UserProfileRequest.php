@@ -45,7 +45,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example Mergenovic
              */
-            'middle_name' =>  ['nullable', 'string'] ,
+            'middle_name' => ['nullable', 'string'],
 
             /**
              *  Birth Date

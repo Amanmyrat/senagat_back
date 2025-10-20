@@ -36,7 +36,7 @@ class CertificateOrderRequest extends FormRequest
             /**
              * Bank Branch
              *
-             * @var integer
+             * @var int
              *
              * @example 1
              */

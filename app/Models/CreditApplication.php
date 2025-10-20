@@ -95,6 +95,7 @@ class CreditApplication extends Model
     {
         return $this->belongsTo(CreditType::class);
     }
+
     public function branch(): BelongsTo
     {
         return $this->belongsTo(Location::class, 'bank_branch_id');

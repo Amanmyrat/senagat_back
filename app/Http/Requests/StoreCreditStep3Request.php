@@ -26,7 +26,7 @@ class StoreCreditStep3Request extends FormRequest
             /**
              * Bank_name
              *
-             * @var integer
+             * @var int
              *
              * @example 1
              */

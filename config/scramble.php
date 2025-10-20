@@ -110,5 +110,6 @@ return [
 
     'extensions' => [
         AddLocalizationHeaderExtension::class,
+        \App\Extensions\AddOfferQueryExtension::class,
     ],
 ];

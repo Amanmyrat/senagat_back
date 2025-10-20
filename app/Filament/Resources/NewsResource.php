@@ -22,6 +22,7 @@ class NewsResource extends Resource
     {
         return ['en', 'tk', 'ru'];
     }
+
     public static function canViewAny(): bool
     {
         $user = auth('admin')->user();

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+
 class CardOrderRequest extends FormRequest
 {
     public function authorize(): bool
@@ -35,7 +36,7 @@ class CardOrderRequest extends FormRequest
             /**
              * Bank Branch
              *
-             * @var integer
+             * @var int
              *
              * @example 1
              */

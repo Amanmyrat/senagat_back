@@ -28,6 +28,7 @@ class LocationResource extends Resource
     {
         return ['en', 'tk', 'ru'];
     }
+
     public static function canViewAny(): bool
     {
         $user = auth('admin')->user();
@@ -133,9 +134,8 @@ class LocationResource extends Resource
                                             Checkbox::make('offers_credit')->label('Offers Credit'),
                                             Checkbox::make('offers_card')->label('Offers Card'),
                                             Checkbox::make('offers_certificate')->label('Offers Certificate'),
-                                        ])
-                                ])
-
+                                        ]),
+                                ]),
 
                         ]),
                     Step::make('Third Step')
@@ -151,12 +151,9 @@ class LocationResource extends Resource
                                         ->label('To'),
                                 ])
                                 ->columns(3),
-                        ])
-            ])->columnSpanFull()
-                ->skippable(),
-
-
-
+                        ]),
+                ])->columnSpanFull()
+                    ->skippable(),
 
             ]);
     }

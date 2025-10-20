@@ -15,16 +15,11 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class LoanOrderResource extends Resource
 {
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Credit';
-    }
     public static function canViewAny(): bool
     {
         $user = auth('admin')->user();
@@ -32,10 +27,14 @@ class LoanOrderResource extends Resource
         return in_array($user->role->value, ['super-admin']);
 
     }
+
+    protected static ?string $cluster = \App\Filament\Clusters\CreditApplication::class;
+
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();
     }
+
     protected static ?string $model = CreditApplication::class;
 
     public static function getNavigationLabel(): string
@@ -149,12 +148,7 @@ class LoanOrderResource extends Resource
                     ->badge(),
             ])
             ->filters([
-                SelectFilter::make('status')
-                    ->options([
-                        'pending' => 'Pending',
-                        'approved' => 'Approved',
-                        'rejected' => 'Rejected',
-                    ]),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

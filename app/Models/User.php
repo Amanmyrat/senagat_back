@@ -95,6 +95,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(CreditApplication::class, 'user_id', 'id');
     }
+
     public function certificates(): HasMany
     {
         return $this->hasMany(CertificateOrder::class, 'user_id', 'id');

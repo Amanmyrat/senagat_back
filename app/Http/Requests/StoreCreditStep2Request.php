@@ -85,7 +85,7 @@ class StoreCreditStep2Request extends FormRequest
             /**
              * Salary
              *
-             * @var string
+             * @var int
              *
              *  @example Manager fields
              */

@@ -62,9 +62,9 @@ class CardOrder extends Model
     {
         return $this->belongsTo(CardType::class);
     }
+
     public function branch(): BelongsTo
     {
-        return $this->belongsTo(Location::class, 'bank_branch_id','id');
+        return $this->belongsTo(Location::class, 'bank_branch_id', 'id');
     }
-
 }

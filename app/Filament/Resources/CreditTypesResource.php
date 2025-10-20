@@ -24,6 +24,7 @@ class CreditTypesResource extends Resource
     {
         return 'Credit';
     }
+
     public static function canViewAny(): bool
     {
         $user = auth('admin')->user();

@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\AdminResource\Pages;
+use App\Models\Admin;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+
+class AdminResource extends Resource
+{
+    protected static ?string $model = Admin::class;
+
+    public static function canViewAny(): bool
+    {
+        $user = auth('admin')->user();
+
+        return $user && $user->role->value === 'super-admin';
+    }
+
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('email')
+                    ->email()
+                    ->required()
+
+                    ->maxLength(255),
+                TextInput::make('password')
+                    ->password()
+                    ->required(fn ($record) => ! $record)
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->autocomplete('new-password')
+                    ->placeholder(fn ($record) => $record ? 'Leave blank to keep current password' : null)
+                    ->minLength(8),
+                Select::make('role')
+                    ->required()
+                    ->options([
+                        'super-admin' => 'Super Admin',
+                        'operator' => 'Operator',
+                    ])
+                    ->default('operator'),
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('name'),
+                TextColumn::make('role'),
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListAdmins::route('/'),
+            'create' => Pages\CreateAdmin::route('/create'),
+            'edit' => Pages\EditAdmin::route('/{record}/edit'),
+        ];
+    }
+}

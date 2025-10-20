@@ -14,15 +14,10 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class CertificateOrderResource extends Resource
 {
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Certification';
-    }
     public static function canViewAny(): bool
     {
         $user = auth('admin')->user();
@@ -30,13 +25,17 @@ class CertificateOrderResource extends Resource
         return in_array($user->role->value, ['super-admin']);
 
     }
+
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();
     }
+
     protected static ?string $model = CertificateOrder::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $cluster = \App\Filament\Clusters\CertificateOrder::class;
 
     public static function form(Form $form): Form
     {
@@ -44,7 +43,7 @@ class CertificateOrderResource extends Resource
             ->schema([
 
                 Wizard::make([
-                    Step::make('Card Order Status')
+                    Step::make('Certificate Order Status')
                         ->schema([
                             Section::make(__('Loan Status'))
                                 ->schema([
@@ -114,12 +113,7 @@ class CertificateOrderResource extends Resource
                     ->badge(),
             ])
             ->filters([
-                SelectFilter::make('status')
-                    ->options([
-                        'pending' => 'Pending',
-                        'approved' => 'Approved',
-                        'rejected' => 'Rejected',
-                    ]),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -18,6 +18,7 @@ class ContactAddressResource extends Resource
     {
         return 'Contact';
     }
+
     public static function canViewAny(): bool
     {
         $user = auth('admin')->user();

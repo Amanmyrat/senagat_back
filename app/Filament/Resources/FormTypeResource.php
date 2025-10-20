@@ -18,6 +18,7 @@ class FormTypeResource extends Resource
     {
         return 'Certification';
     }
+
     public static function canViewAny(): bool
     {
         $user = auth('admin')->user();

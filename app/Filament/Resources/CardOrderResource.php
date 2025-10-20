@@ -2,13 +2,11 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Clusters\CardOrders;
 use App\Filament\Resources\CardOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\CardOrder;
-use App\Models\Location;
-use Filament\Facades\Filament;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Components\Wizard;
@@ -17,22 +15,20 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class CardOrderResource extends Resource
 {
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Card';
-    }
+    protected static ?string $cluster = CardOrders::class;
+
     public static function canViewAny(): bool
     {
         $user = auth('admin')->user();
 
-         return in_array($user->role->value, ['super-admin', 'operator']);
+        return in_array($user->role->value, ['super-admin', 'operator']);
 
     }
+
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();
@@ -102,7 +98,7 @@ class CardOrderResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('profile.first_name') ->searchable(),
+                TextColumn::make('profile.first_name')->searchable(),
                 TextColumn::make('profile.last_name')->searchable(),
                 TextColumn::make('cardType.title'),
 
@@ -116,12 +112,7 @@ class CardOrderResource extends Resource
                     ->badge(),
             ])
             ->filters([
-                SelectFilter::make('status')
-                    ->options([
-                        'pending' => 'Pending',
-                        'approved' => 'Approved',
-                        'rejected' => 'Rejected',
-                    ]),
+
             ])
 
             ->actions([
@@ -147,10 +138,15 @@ class CardOrderResource extends Resource
             'index' => Pages\ListCardOrders::route('/'),
             'create' => Pages\CreateCardOrder::route('/create'),
             'edit' => Pages\EditCardOrder::route('/{record}/edit'),
+            'pending' => Pages\ListCardOrders::route('/pending?status=pending'),
+            'approved' => Pages\ListCardOrders::route('/approved?status=approved'),
+            'rejected' => Pages\ListCardOrders::route('/rejected?status=rejected'),
         ];
     }
+
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return parent::getEloquentQuery()->with(['branch']);
+        return parent::getEloquentQuery()
+            ->with(['branch', 'profile', 'cardType']);
     }
 }
