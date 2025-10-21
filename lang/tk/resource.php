@@ -28,4 +28,20 @@ return [
     'changes' => 'Üýtgeşmeler',
     'individual' => 'Fiziki taraplara',
     'entrepreneur' => 'Telekeçilere',
+    'admins'=>'Adminler',
+    'role'=>'Rol',
+    'email'=>'E-poçta',
+    'password'=>'Parol',
+    'leave blank to keep current password'=>'Häzirki paroly saklamak üçin boş goýuň',
+    'card_type' => 'Kart görnüşi',
+    'status' => 'Ýagdaýy',
+    'card_order_status' => 'Kart sargydynyň ýagdaýy',
+    'card_information' => 'Kart barada maglumat',
+    'branch_name' => 'Şahamça ady',
+    'home_phone_number' => 'Öý telefon belgisi',
+    'price' => 'Bahasy',
+
+
+
+
 ];
