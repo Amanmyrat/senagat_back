@@ -44,7 +44,7 @@ class CardOrderRequest extends FormRequest
                 'required',
                 'integer',
                 Rule::exists('locations', 'id')
-                    ->where(fn ($q) => $q->where('type', 'Branch')->where('offers_card', true)),
+                    ->where(fn ($q) => $q->where('type', 'Branch')->where('branch_services', true)),
             ],
 
             /**
