@@ -14,32 +14,28 @@ class LocationController extends Controller
      *
      * @localizationHeader
      *
-     * @offersFilter
      */
-    public function index(Request $request)
+    public function index()
     {
-        if (app()->runningInConsole() && app()->environment('scramble')) {
-            return response()->json([
-                'success' => true,
-                'data' => [],
-            ]);
-        }
+        $locations = Location::all();
 
-        $query = Location::query();
+        return response()->json([
+            'success' => true,
+            'data' => LocationResource::collection($locations),
+        ]);
+    }
 
-        if ($request->boolean('offers_credit')) {
-            $query->where('offers_credit', true);
-        }
-
-        if ($request->boolean('offers_card')) {
-            $query->where('offers_card', true);
-        }
-
-        if ($request->boolean('offers_certificate')) {
-            $query->where('offers_certificate', true);
-        }
-
-        $locations = $query->get();
+    /**
+     * Get branches that provide services.
+     *
+     * @localizationHeader
+     *
+     */
+    public function branchLocations()
+    {
+        $locations = Location::where('branch_services', true)
+            ->where('type', 'Branch')
+            ->get();
 
         return response()->json([
             'success' => true,

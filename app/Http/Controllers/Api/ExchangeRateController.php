@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 class ExchangeRateController extends Controller
 {
     /**
-     * Location
+     * Exchange Rate
      *
      * @localizationHeader
      */
