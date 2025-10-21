@@ -26,9 +26,7 @@ class LocationResource extends JsonResource
             'phone_number' => $this->resource->phone_number,
             'fax_number' => $this->resource->fax_number,
             'help_desk_number' => $this->resource->home_number,
-            'offers_credit' => $this->resource->offers_credit,
-            'offers_card' => $this->resource->offers_card,
-            'offers_certificate' => $this->resource->offers_certificate,
+            'branch_services'=>$this->resource->branch_services,
             'working_hours' => array_values($hours ?? []),
 
         ];
