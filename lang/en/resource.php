@@ -28,4 +28,18 @@ return [
     'changes' => 'Changes',
     'individual' => 'For individual entities',
     'entrepreneur' => 'For entrepreneurs',
+    'admins'=>'Admins',
+    'email'=>'Email',
+    'password'=>'Password',
+    'leave blank to keep current password'=>'Leave blank to keep current password',
+    'card_type'=>'Card Type',
+    'status'=>'Status',
+    'card_order_status'=>'Card Order Status',
+    'card_information'=>'Card Information',
+    'branch_name'=>'Branch Name',
+    'home_phone_number'=>'Home Phone Number',
+    'price'=>'Price',
+
+
+
 ];

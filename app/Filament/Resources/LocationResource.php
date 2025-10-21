@@ -127,13 +127,11 @@ class LocationResource extends Resource
                             TextInput::make('home_number')
                                 ->label('Help desk number'),
                             Section::make('Branch Services')
-                                ->description('Select which services this branch provides.')
+                                ->description('Activate if branch offers services.')
                                 ->schema([
                                     Grid::make(3)
                                         ->schema([
-                                            Checkbox::make('offers_credit')->label('Offers Credit'),
-                                            Checkbox::make('offers_card')->label('Offers Card'),
-                                            Checkbox::make('offers_certificate')->label('Offers Certificate'),
+                                            Checkbox::make('branch_services')->label('Branch Services'),
                                         ]),
                                 ]),
 

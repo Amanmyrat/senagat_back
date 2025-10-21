@@ -35,7 +35,25 @@ class CardOrderResource extends Resource
     }
 
     protected static ?string $model = CardOrder::class;
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.card_orders');
+    }
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.card_orders');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('navigation.card_orders');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('navigation.card_orders');
+    }
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -45,11 +63,12 @@ class CardOrderResource extends Resource
 
                 Wizard::make([
                     Step::make('Card Order Status')
+                        ->label(__('resource.card_order_status'))
                         ->schema([
-                            Section::make(__('Loan Status'))
+                            Section::make(__('resource.card_order_status'))
                                 ->schema([
                                     ToggleButtons::make('status')
-                                        ->label(__('Loan Status'))
+                                        ->label(__('resource.card_order_status'))
                                         ->options([
                                             'approved' => __('resource.approved'),
                                             'rejected' => __('resource.rejected'),
@@ -66,24 +85,29 @@ class CardOrderResource extends Resource
                                 ]),
                         ]),
                     Step::make('Profile Information')
+                        ->label(__('resource.profile_information'))
                         ->schema([
                             ProfileInfo::make(),
                         ]),
                     Step::make('Card Information')
+                        ->label(__('resource.card_information'))
                         ->schema([
                             TextInput::make('cardType.title')
+                                ->label(__('resource.title'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->cardType?->title)
                                 )
                                 ->disabled(),
                             TextInput::make('phone_number')
+                                ->label(__('resource.phone'))
                                 ->disabled(),
                             TextInput::make('branch.name')
-                                ->label('Branch name')
+                                ->label(__('resource.branch_name'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
                                 )
                                 ->disabled(),
-                            TextInput::make('home_phone_number')->disabled(),
+                            TextInput::make('home_phone_number')->disabled()->label(__('resource.home_phone_number')),
                             TextInput::make('cardType.price')
+                                ->label(__('resource.price'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->cardType?->price)
                                 )
                                 ->disabled(),

@@ -22,7 +22,25 @@ class AdminResource extends Resource
 
         return $user && $user->role->value === 'super-admin';
     }
+    public static function getNavigationLabel(): string
+    {
+        return __('resource.admins');
+    }
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('resource.admins');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.admins');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('resource.admins');
+    }
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -30,21 +48,25 @@ class AdminResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->label(__('resource.name'))
                     ->required()
                     ->maxLength(255),
                 TextInput::make('email')
+                    ->label(__('resource.email'))
                     ->email()
                     ->required()
 
                     ->maxLength(255),
                 TextInput::make('password')
+                    ->label(__('resource.password'))
                     ->password()
                     ->required(fn ($record) => ! $record)
                     ->dehydrated(fn ($state) => filled($state))
                     ->autocomplete('new-password')
-                    ->placeholder(fn ($record) => $record ? 'Leave blank to keep current password' : null)
+                    ->placeholder(fn ($record) => $record ?__('resource.leave blank to keep current password') : null)
                     ->minLength(8),
                 Select::make('role')
+                    ->label(__('resource.role'))
                     ->required()
                     ->options([
                         'super-admin' => 'Super Admin',
@@ -58,8 +80,10 @@ class AdminResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('role'),
+                TextColumn::make('name')
+                ->label(__('resource.name')),
+                TextColumn::make('role')
+                ->label(__('resource.role')),
             ])
             ->filters([
                 //

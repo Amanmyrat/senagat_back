@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/application/branch-info', [CreditApplicationController::class, 'submitBranchInfo']);
     Route::prefix('location')->group(function () {
         Route::get('/', [LocationController::class, 'index']);
+        Route::get('/branches', [LocationController::class, 'branchLocations']);
     });
     Route::prefix('news')->group(function () {
         Route::get('/', [NewsController::class, 'index']);

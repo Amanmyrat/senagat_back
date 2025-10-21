@@ -28,4 +28,19 @@ return [
     'changes' => 'Изменения',
     'individual' => 'Для физических лиц',
     'entrepreneur' => 'Для предпринимателей',
+    'admins'=>'Админы',
+    'role'=>'Роль',
+    'email'=>'Электронная почта',
+    'password'=>'Пароль',
+    'leave blank to keep current password'=>'Оставьте поле пустым, чтобы сохранить текущий пароль.',
+    'card_type' => 'Тип карты',
+    'status' => 'Статус',
+    'card_order_status' => 'Статус заказа карты',
+    'card_information' => 'Информация о карте',
+    'branch_name' => 'Название филиала',
+    'home_phone_number' => 'Домашний телефонный номер',
+    'price' => 'Цена',
+
+
+
 ];
