@@ -47,14 +47,6 @@ class CardOrderRequest extends FormRequest
                     ->where(fn ($q) => $q->where('type', 'Branch')->where('branch_services', true)),
             ],
 
-            /**
-             * Home phone number
-             *
-             * @var string
-             *
-             * @example 941265
-             */
-            'home_phone_number' => ['required', 'string'],
         ];
     }
 }

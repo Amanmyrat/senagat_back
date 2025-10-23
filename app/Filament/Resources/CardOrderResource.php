@@ -122,17 +122,24 @@ class CardOrderResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('profile.first_name')->searchable(),
-                TextColumn::make('profile.last_name')->searchable(),
-                TextColumn::make('cardType.title'),
+                TextColumn::make('profile.first_name')->searchable()
+                    ->label(__('resource.first_name')),
+                TextColumn::make('profile.last_name')->searchable()
+                    ->label(__('resource.last_name')),
+
+                TextColumn::make('cardType.title')
+                    ->label(__('resource.card_type')),
 
                 TextColumn::make('status')
+                    ->label(__('resource.status'))
                     ->default('Pending')
                     ->colors([
                         'warning' => 'pending',
                         'success' => 'approved',
                         'danger' => 'rejected',
+                        'gray'=>'draft'
                     ])
+                    ->formatStateUsing(fn ($state) => __("resource.$state"))
                     ->badge(),
             ])
             ->filters([

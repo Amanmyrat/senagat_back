@@ -37,12 +37,31 @@ class CreditTypesResource extends Resource
 
     public static function getTranslatableLocales(): array
     {
-        return ['en', 'tk', 'ru'];
+        return ['tk', 'en', 'ru'];
     }
 
     protected static ?string $model = CreditType::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function getNavigationLabel(): string
+    {
+        return __('resource.credit_types');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('resource.credit_types');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.credit_types');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('resource.credit_types');
+    }
 
     public static function form(Form $form): Form
     {
@@ -51,54 +70,56 @@ class CreditTypesResource extends Resource
                 Wizard::make(
                     [
                         Step::make('Credit Type')
+                            ->label(__('resource.credit_types'))
                             ->schema([
                                 TextInput::make('name')
-                                    ->label('Credit Type Name')
+                                    ->label(__('resource.credit_type_name'))
                                     ->required(),
                                 Textarea::make('description')
-                                    ->label('Description'),
+                                    ->label(__('resource.description')),
                                 TextInput::make('term')
-                                    ->label('maximum term')
+                                    ->label(__('resource.max_term'))
                                     ->numeric()
                                     ->minValue(1)
                                     ->required(),
                                 TextInput::make('min_amount')
-                                    ->label('Min Amount')
+                                    ->label(__('resource.min_amount'))
                                     ->numeric()
                                     ->required(),
                                 TextInput::make('max_amount')
-                                    ->label('Max Amount')
+                                    ->label(__('resource.max_amount'))
                                     ->numeric()
                                     ->required(),
                                 TextInput::make('interest')
-                                    ->label('Interest (%)')
+                                    ->label(__('resource.interest'). ' %')
                                     ->numeric()
                                     ->suffix('%')
                                     ->step(0.01)
                                     ->required(),
                             ]),
                         Step::make('Requirments')
+                            ->label(__('resource.requirements'))
                             ->schema([
                                 Repeater::make('requirements')
-                                    ->label(__('Requirements / Documents'))
+                                    ->label(__('resource.requirements'))
                                     ->schema([
-                                        TextInput::make('title')->label(__('Title')),
+                                        TextInput::make('title')->label(__('resource.title')),
                                         Select::make('type')
-                                            ->label(__('Type'))
+                                            ->label(__('resource.type'))
                                             ->options([
                                                 RequirementType::Borrower->value => RequirementType::Borrower->label(),
                                                 RequirementType::CoBorrower->value => RequirementType::CoBorrower->label(),
                                             ]),
                                         Repeater::make('rules')
-                                            ->label(__('Rules'))
+                                            ->label(__('resource.rules'))
                                             ->schema([
                                                 TextInput::make('rule')
-                                                    ->label(__('Rule')),
+                                                    ->label(__('resource.rule')),
                                                 Repeater::make('subrules')
-                                                    ->label(__('Subrules'))
+                                                    ->label(__('resource.subrules'))
                                                     ->schema([
                                                         TextInput::make('subrule')
-                                                            ->label(__('SubRule')),
+                                                            ->label(__('resource.subrule')),
                                                     ])
                                                     ->columns(1)
                                                     ->minItems(1),
@@ -122,7 +143,8 @@ class CreditTypesResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')
+                ->label(__('resource.name')),
             ])
             ->filters([
                 //

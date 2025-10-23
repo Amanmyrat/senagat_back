@@ -43,15 +43,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('news')->group(function () {
         Route::get('/', [NewsController::class, 'index']);
     });
-    Route::prefix('contact-address')->group(function () {
-        Route::get('/', [ContactAddressController::class, 'index']);
-    });
+
     Route::prefix('contact-message')->group(function () {
         Route::post('/', [ContactMessageController::class, 'store']);
     });
     Route::prefix('card')->group(function () {
         Route::get('/types', [CardTypeController::class, 'index']);
-        Route::post('/order', [CardOrderController::class, 'store']);
+        Route::post('/order/step1', [CardOrderController::class, 'storeStep1']);
+        Route::post('/order/step2', [CardOrderController::class, 'storeStep2']);
+
     });
 
     Route::prefix('credit')->group(function () {

@@ -58,7 +58,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugins([
-                SpatieLaravelTranslatablePlugin::make()->defaultLocales(['en', 'ru', 'tk']),
+                SpatieLaravelTranslatablePlugin::make()->defaultLocales(['tk', 'en', 'ru']),
                 TranslationManagerPlugin::make(),
             ])
             ->authGuard('admin');

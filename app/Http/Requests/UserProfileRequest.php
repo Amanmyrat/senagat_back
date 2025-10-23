@@ -102,6 +102,31 @@ class UserProfileRequest extends FormRequest
              */
             'scan_passport' => $userHasProfile ? ['sometimes', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:10240'] : ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:10240'],
 
+              /**
+              'home_address'
+             * Citizenship
+             *
+             * @var string
+             *
+             * @example Turkmenistan
+             */
+            'citizenship' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
+            /**
+             * Home phone
+             *
+             * @var string
+             *
+             * @example 12525355
+             */
+            'home_phone' => ['nullable', 'integer'],
+            /**
+             * Home Address
+             *
+             * @var string
+             *
+             * @example Aşgabat ş. Büzmeýin etrap
+             */
+            'home_address' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
         ];
     }
 
@@ -125,6 +150,10 @@ class UserProfileRequest extends FormRequest
             'scan_passport.required' => 'Passport scan file is required when creating a new profile.',
             'scan_passport.mimes' => 'Passport scan must be a JPG, JPEG, PNG, or PDF file.',
             'scan_passport.max' => 'Passport scan cannot be larger than 10MB.',
+            'citizenship.required' => 'Citizenship is required when creating a new profile.',
+            'home_address.required' => 'Home Address is required when creating a new profile.',
+
+
         ];
     }
 

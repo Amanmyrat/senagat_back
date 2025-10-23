@@ -47,7 +47,14 @@ class ProfileInfo
                     ->label(__('resource.issued_by'))
                     ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->issued_by))
                     ->disabled(),
-
+                TextInput::make('citizenship')->label(__('resource.citizenship'))->disabled()
+                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->citizenship)),
+                TextInput::make('home_phone')->label(__('resource.home_phone_number'))->disabled()
+                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->home_phone)),
+                TextInput::make('home_address')->label(__('resource.home_address'))->disabled()
+                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->home_address)),
+                TextInput::make('phone')->label(__('resource.phone'))->disabled()
+                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->user?->phone)),
                 FileUpload::make('scan_passport')
                     ->label(__('resource.scan_passport'))
                     ->afterStateHydrated(function ($component, $state, $record) {

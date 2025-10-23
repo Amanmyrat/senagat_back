@@ -34,6 +34,26 @@ class PendingCardOrderResource extends Resource
     protected static ?string $pluralModelLabel = 'Pending Card Orders';
 
     protected static ?string $cluster = CardOrders::class;
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.pending_orders');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.pending_orders');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('navigation.pending_orders');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('navigation.pending_orders');
+    }
+
 
     public static function form(Form $form): Form
     {
@@ -41,11 +61,12 @@ class PendingCardOrderResource extends Resource
             ->schema([
                 Wizard::make([
                     Step::make('Card Order Status')
+                        ->label(__('resource.card_order_status'))
                         ->schema([
-                            Section::make(__('Loan Status'))
+                            Section::make(__('resource.card_order_status'))
                                 ->schema([
                                     ToggleButtons::make('status')
-                                        ->label(__('Loan Status'))
+                                        ->label(__('resource.card_order_status'))
                                         ->options([
                                             'approved' => __('resource.approved'),
                                             'rejected' => __('resource.rejected'),
@@ -62,24 +83,31 @@ class PendingCardOrderResource extends Resource
                                 ]),
                         ]),
                     Step::make('Profile Information')
+                        ->label(__('resource.profile_information'))
                         ->schema([
                             ProfileInfo::make(),
                         ]),
                     Step::make('Card Information')
+                        ->label(__('resource.card_information'))
                         ->schema([
                             TextInput::make('cardType.title')
+                                ->label(__('resource.title'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->cardType?->title)
                                 )
                                 ->disabled(),
                             TextInput::make('phone_number')
+                                ->label(__('resource.phone'))
                                 ->disabled(),
                             TextInput::make('branch.name')
-                                ->label('Branch name')
+                                ->label(__('resource.branch_name'))
+
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
                                 )
                                 ->disabled(),
-                            TextInput::make('home_phone_number')->disabled(),
+                            TextInput::make('home_phone_number')->disabled()
+                                ->label(__('resource.home_phone_number')),
                             TextInput::make('cardType.price')
+                                ->label(__('resource.price'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->cardType?->price)
                                 )
                                 ->disabled(),
@@ -94,17 +122,23 @@ class PendingCardOrderResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('profile.first_name')->searchable(),
-                TextColumn::make('profile.last_name')->searchable(),
-                TextColumn::make('cardType.title'),
+                TextColumn::make('profile.first_name')->searchable()
+                    ->label(__('resource.first_name')),
+                TextColumn::make('profile.last_name')->searchable()
+                    ->label(__('resource.last_name')),
+                TextColumn::make('cardType.title')
+                    ->label(__('resource.card_type')),
 
                 TextColumn::make('status')
+                    ->label(__('resource.status'))
                     ->default('Pending')
+                    ->formatStateUsing(fn ($state) => __("resource.$state"))
                     ->colors([
                         'warning' => 'pending',
                         'success' => 'approved',
                         'danger' => 'rejected',
                     ])
+
                     ->badge(),
             ])
             ->filters([

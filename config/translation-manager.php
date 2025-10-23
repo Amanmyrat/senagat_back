@@ -13,9 +13,10 @@ return [
     */
 
     'available_locales' => [
+        ['code' => 'tk', 'name' => 'Turkmen', 'flag' => 'tm'],
         ['code' => 'en', 'name' => 'English', 'flag' => 'gb'],
         ['code' => 'ru', 'name' => 'Russian', 'flag' => 'ru'],
-        ['code' => 'tk', 'name' => 'Turkmen', 'flag' => 'tm'],
+
     ],
 
     /*

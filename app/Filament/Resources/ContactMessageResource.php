@@ -22,15 +22,46 @@ class ContactMessageResource extends Resource
     protected static ?string $model = ContactMessage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getEloquentQuery()->count();
+    }
+    public static function getNavigationLabel(): string
+    {
+        return __('resource.contact_messages');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('resource.contact_messages');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.contact_messages');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('resource.contact_messages');
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('name'),
-                TextInput::make('email'),
-                TextInput::make('phone_number'),
-                RichEditor::make('message'),
+                TextInput::make('name')
+                    ->disabled()
+                ->label(__('resource.name')),
+                TextInput::make('email')
+                    ->disabled()
+                    ->label(__('resource.email')),
+                TextInput::make('phone_number')
+                    ->disabled()
+                    ->label(__('resource.phone_number')),
+                RichEditor::make('message')
+                    ->disabled()
+                    ->label(__('resource.messages')),
 
             ]);
     }
@@ -39,8 +70,10 @@ class ContactMessageResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('email'),
+                TextColumn::make('name')
+                    ->label(__('resource.name')),
+                TextColumn::make('email')
+                    ->label(__('resource.email')),
             ])
             ->filters([
                 //
