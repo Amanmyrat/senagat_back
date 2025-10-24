@@ -61,7 +61,7 @@ class UserProfile extends Model
         'issued_by',
         'scan_passport',
         'approved',
-
+        'citizenship', 'home_phone', 'home_address',
     ];
 
     protected $casts = [

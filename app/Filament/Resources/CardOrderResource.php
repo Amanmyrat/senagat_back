@@ -6,6 +6,7 @@ use App\Filament\Clusters\CardOrders;
 use App\Filament\Resources\CardOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\CardOrder;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
@@ -35,6 +36,7 @@ class CardOrderResource extends Resource
     }
 
     protected static ?string $model = CardOrder::class;
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.card_orders');
@@ -54,6 +56,7 @@ class CardOrderResource extends Resource
     {
         return $record ? (string) $record->name : __('navigation.card_orders');
     }
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -106,6 +109,10 @@ class CardOrderResource extends Resource
                                 )
                                 ->disabled(),
                             TextInput::make('home_phone_number')->disabled()->label(__('resource.home_phone_number')),
+                            TextInput::make('work_position')->disabled(),
+                            TextInput::make('work_phone')->disabled(),
+                            Checkbox::make('internet_service')->disabled(),
+                            Checkbox::make('delivery')->disabled(),
                             TextInput::make('cardType.price')
                                 ->label(__('resource.price'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->cardType?->price)
@@ -122,17 +129,24 @@ class CardOrderResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('profile.first_name')->searchable(),
-                TextColumn::make('profile.last_name')->searchable(),
-                TextColumn::make('cardType.title'),
+                TextColumn::make('profile.first_name')->searchable()
+                    ->label(__('resource.first_name')),
+                TextColumn::make('profile.last_name')->searchable()
+                    ->label(__('resource.last_name')),
+
+                TextColumn::make('cardType.title')
+                    ->label(__('resource.card_type')),
 
                 TextColumn::make('status')
+                    ->label(__('resource.status'))
                     ->default('Pending')
                     ->colors([
                         'warning' => 'pending',
                         'success' => 'approved',
                         'danger' => 'rejected',
+                        'gray' => 'draft',
                     ])
+                    ->formatStateUsing(fn ($state) => __("resource.$state"))
                     ->badge(),
             ])
             ->filters([

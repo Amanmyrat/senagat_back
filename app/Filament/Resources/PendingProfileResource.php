@@ -85,6 +85,12 @@ class PendingProfileResource extends Resource
                         ->icon('heroicon-o-user')
                         ->completedIcon('heroicon-o-user')
                         ->schema([
+                            Section::make()
+                                ->relationship('user')
+                                ->schema([
+                                    TextInput::make('phone')->label(__('resource.phone'))->disabled(),
+                                ]),
+
                             Section::make(__('resource.profile_information'))
 
                                 ->schema([
@@ -112,6 +118,9 @@ class PendingProfileResource extends Resource
                                         ->nullable()
                                         ->displayFormat('Y-m-d')
                                         ->format('Y-m-d'),
+                                    TextInput::make('citizenship')->label(__('resource.citizenship'))->disabled(),
+                                    TextInput::make('home_phone')->label(__('resource.home_phone_number'))->disabled(),
+                                    TextInput::make('home_address')->label(__('resource.home_address'))->disabled(),
                                     FileUpload::make('scan_passport')->disabled()
                                         ->label(__('resource.scan_passport'))
                                         ->directory('scans')

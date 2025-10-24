@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('bank_branch');
             $table->string('home_phone_number');
             $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
-
             $table->timestamps();
         });
+
     }
 
     /**

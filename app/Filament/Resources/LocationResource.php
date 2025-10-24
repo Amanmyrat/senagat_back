@@ -26,7 +26,7 @@ class LocationResource extends Resource
 
     public static function getTranslatableLocales(): array
     {
-        return ['en', 'tk', 'ru'];
+        return ['tk', 'en', 'ru'];
     }
 
     public static function canViewAny(): bool
@@ -67,8 +67,10 @@ class LocationResource extends Resource
             ->schema([
                 Wizard::make([
                     Step::make('First Step')
+                        ->label(__('resource.first_step'))
                         ->schema([
                             Select::make('type')
+
                                 ->translateLabel()
                                 ->label(_('resource.type'))
                                 ->options([
@@ -85,8 +87,12 @@ class LocationResource extends Resource
                                 ->label(_('resource.address'))
                                 ->required(),
                             LocationPickr::make('location')
-                                ->label('Location')
+                                ->label(__('resource.location'))
                                 ->reactive()
+                                ->default(fn ($get) => $get('location') ?? [
+                                    'lat' => 37.9643,
+                                    'lng' => 58.3600,
+                                ])
                                 ->afterStateUpdated(function ($state, callable $set) {
                                     if ($state) {
                                         $set('lat', $state['lat']);
@@ -95,11 +101,11 @@ class LocationResource extends Resource
                                 }),
 
                             TextInput::make('lat')
-                                ->label('Latitude')
+                                ->label(__('resource.latitude'))
                                 ->required()
                                 ->numeric()
                                 ->reactive()
-                                ->default(fn ($get) => $get('location')['lat'] ?? null)
+                                ->default(fn ($get) => $get('location')['lat'] ?? 37.9643)
                                 ->afterStateUpdated(function ($state, callable $set, callable $get) {
                                     $location = $get('location') ?? ['lat' => null, 'lng' => null];
                                     $location['lat'] = $state !== null ? (float) $state : null;
@@ -107,7 +113,7 @@ class LocationResource extends Resource
                                 }),
 
                             TextInput::make('lng')
-                                ->label('Longitude')
+                                ->label(__('resource.longitude'))
                                 ->required()
                                 ->numeric()
                                 ->reactive()
@@ -119,34 +125,37 @@ class LocationResource extends Resource
                                 }),
                         ]),
                     Step::make('Second Step')
+                        ->label(__('resource.second_step'))
                         ->schema([
                             TextInput::make('phone_number')
-                                ->label('Phone Number'),
+                                ->label(__('resource.phone_number')),
                             TextInput::make('fax_number')
-                                ->label('Fax Number'),
+                                ->label(__('resource.fax_number')),
                             TextInput::make('home_number')
-                                ->label('Help desk number'),
-                            Section::make('Branch Services')
+                                ->label(__('resource.help_desk_number')),
+                            Section::make(__('resource.branch_services'))
                                 ->description('Activate if branch offers services.')
                                 ->schema([
                                     Grid::make(3)
                                         ->schema([
-                                            Checkbox::make('branch_services')->label('Branch Services'),
+                                            Checkbox::make('branch_services')
+                                                ->label(__('resource.branch_services')),
                                         ]),
                                 ]),
 
                         ]),
                     Step::make('Third Step')
+                        ->label(__('resource.third_step'))
                         ->schema([
                             Repeater::make('hours')
-                                ->label('Working Hours')
+                                ->label(__('resource.working_hours'))
                                 ->schema([
                                     TextInput::make('day')
-                                        ->label('Day'),
+                                        ->label(__('resource.day')),
                                     TextInput::make('from')
-                                        ->label('From'),
+                                        ->label(__('resource.from')),
                                     TextInput::make('to')
-                                        ->label('To'),
+                                        ->label(__('resource.to')),
                                 ])
                                 ->columns(3),
                         ]),

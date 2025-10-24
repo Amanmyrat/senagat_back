@@ -36,38 +36,62 @@ class CardTypesResource extends Resource
 
     public static function getTranslatableLocales(): array
     {
-        return ['en', 'tk', 'ru'];
+        return ['tk', 'en', 'ru'];
     }
 
     protected static ?string $model = CardType::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('resource.card_type');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('resource.card_type');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.card_type');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('resource.card_type');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('title')->required(),
+                TextInput::make('title')->required()
+                    ->label(__('resource.title')),
                 TextInput::make('price')
-                    ->label('Card Price')
+                    ->label(__('resource.price'))
                     ->numeric()
                     ->step(0.01)
                     ->required(),
                 Select::make('category')
-                    ->label('Category')
+                    ->label(__('resource.category'))
                     ->options([
                         'For the individual' => __('resource.individual'),
                         'For the entrepreneur' => __('resource.entrepreneur'),
                     ]),
-                FileUpload::make('image_url')->image(),
+                FileUpload::make('image_url')->image()
+                    ->label(__('resource.image_url')),
 
                 Repeater::make('advantages')
+                    ->label(__('resource.advantages'))
                     ->schema([
-                        TextInput::make('name')->label('Value'),
-                        Textarea::make('description'),
+                        TextInput::make('name')->label(__('resource.value')),
+                        Textarea::make('description')->label(__('resource.description')),
                     ])
                     ->collapsible(),
                 RichEditor::make('text')
+                    ->label(__('resource.text'))
                     ->columnSpan('full'),
             ]);
 
@@ -77,9 +101,10 @@ class CardTypesResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title'),
+                TextColumn::make('title')
+                    ->label(__('resource.title')),
                 Tables\Columns\TextColumn::make('price')
-                    ->label('Price')
+                    ->label(__('resource.price'))
                     ->formatStateUsing(fn ($state) => number_format($state, 2, ',', '.').' TMT'),
             ])
             ->filters([
