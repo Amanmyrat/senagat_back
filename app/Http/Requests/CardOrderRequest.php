@@ -46,15 +46,47 @@ class CardOrderRequest extends FormRequest
                 Rule::exists('locations', 'id')
                     ->where(fn ($q) => $q->where('type', 'Branch')->where('branch_services', true)),
             ],
-
             /**
-             * Home phone number
+             * Work position
              *
              * @var string
              *
-             * @example 941265
+             * @example Manager
              */
-            'home_phone_number' => ['required', 'string'],
+            'work_position' => ['nullable', 'string'],
+            /**
+             * Work phone
+             *
+             * @var int
+             *
+             * @example 12556677
+             */
+            'work_phone' => ['nullable', 'integer'],
+            /**
+             * Internet service
+             *
+             * @var bool
+             *
+             * @example false
+             */
+            'internet_service' => ['required', 'boolean'],
+            /**
+             * Order Delivery
+             *
+             * @var bool
+             *
+             * @example true
+             */
+            'delivery' => ['required', 'boolean'],
+            /**
+             * Email
+             *
+             * @var string
+             *
+             * @example example@gmail.com
+             */
+            'email' => ['required', 'email'],
+
         ];
     }
 }

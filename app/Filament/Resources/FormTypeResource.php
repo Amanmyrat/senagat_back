@@ -33,18 +33,44 @@ class FormTypeResource extends Resource
 
     public static function getTranslatableLocales(): array
     {
-        return ['en', 'tk', 'ru'];
+        return ['tk', 'en', 'ru'];
     }
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getEloquentQuery()->count();
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('resource.certificate_type');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('resource.certificate_type');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.certificate_type');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('resource.certificate_type');
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('title'),
+                TextInput::make('title')
+                    ->label(__('resource.title')),
                 TextInput::make('price')
-                    ->label('Card Price')
+                    ->label(__('resource.card_price'))
                     ->numeric()
                     ->step(0.01)
                     ->required(),
@@ -55,9 +81,11 @@ class FormTypeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title'),
+                TextColumn::make('title')
+                    ->label(__('resource.title')),
                 Tables\Columns\TextColumn::make('price')
-                    ->label('Price')
+
+                    ->label(__('resource.price'))
                     ->formatStateUsing(fn ($state) => number_format($state, 2, ',', '.').' TMT'),
             ])
             ->filters([

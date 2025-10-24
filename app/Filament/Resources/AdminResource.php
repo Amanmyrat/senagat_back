@@ -22,6 +22,7 @@ class AdminResource extends Resource
 
         return $user && $user->role->value === 'super-admin';
     }
+
     public static function getNavigationLabel(): string
     {
         return __('resource.admins');
@@ -41,6 +42,7 @@ class AdminResource extends Resource
     {
         return $record ? (string) $record->name : __('resource.admins');
     }
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -63,7 +65,7 @@ class AdminResource extends Resource
                     ->required(fn ($record) => ! $record)
                     ->dehydrated(fn ($state) => filled($state))
                     ->autocomplete('new-password')
-                    ->placeholder(fn ($record) => $record ?__('resource.leave blank to keep current password') : null)
+                    ->placeholder(fn ($record) => $record ? __('resource.leave blank to keep current password') : null)
                     ->minLength(8),
                 Select::make('role')
                     ->label(__('resource.role'))
@@ -81,9 +83,9 @@ class AdminResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                ->label(__('resource.name')),
+                    ->label(__('resource.name')),
                 TextColumn::make('role')
-                ->label(__('resource.role')),
+                    ->label(__('resource.role')),
             ])
             ->filters([
                 //

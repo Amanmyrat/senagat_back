@@ -20,7 +20,7 @@ class NewsResource extends Resource
 
     public static function getTranslatableLocales(): array
     {
-        return ['en', 'tk', 'ru'];
+        return ['tk', 'en', 'ru'];
     }
 
     public static function canViewAny(): bool
@@ -64,8 +64,9 @@ class NewsResource extends Resource
                     ->label(__('resource.title'))
                     ->required(),
                 RichEditor::make('description')
-                    ->label('Description'),
-                FileUpload::make('image_url')->image(),
+                    ->label(__('resource.description')),
+                FileUpload::make('image_url')->image()
+                    ->label(__('resource.image_url')),
             ]);
     }
 

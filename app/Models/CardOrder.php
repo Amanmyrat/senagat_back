@@ -44,8 +44,13 @@ class CardOrder extends Model
         'card_type_id',
         'phone_number',
         'bank_branch_id',
-        'home_phone_number',
         'status',
+        'work_position',
+        'work_phone',
+        'internet_service',
+        'delivery',
+        'email',
+
     ];
 
     public function user(): BelongsTo

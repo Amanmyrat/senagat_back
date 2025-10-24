@@ -7,7 +7,7 @@ use App\Models\UserProfile;
 
 class CardOrderService
 {
-    public function create(array $data, $user): CardOrder
+    public function createOrder(array $data, $user): CardOrder
     {
         $profile = UserProfile::where('user_id', $user->id)->firstOrFail();
 
@@ -16,8 +16,12 @@ class CardOrderService
             'profile_id' => $profile->id,
             'card_type_id' => $data['card_type_id'],
             'phone_number' => $data['phone_number'],
-            'home_phone_number' => $data['home_phone_number'] ?? null,
-            'bank_branch_id' => $data['bank_branch_id'] ?? null,
+            'bank_branch_id' => $data['bank_branch_id'],
+            'work_position' => $data['work_position'] ?? 'jobless',
+            'work_phone' => $data['work_phone'] ?? null,
+            'internet_service' => $data['internet_service'],
+            'delivery' => $data['delivery'],
+            'email' => $data['email'],
             'status' => 'pending',
         ]);
     }

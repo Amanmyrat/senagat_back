@@ -35,14 +35,34 @@ class ApprovedLoanOrdersResource extends Resource
 
     protected static ?string $cluster = CreditApplication::class;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.approved_orders');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.approved_orders');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('navigation.approved_orders');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('navigation.approved_orders');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make(__('Loan Status'))
+                Section::make(__('resource.loan_status'))
                     ->schema([
                         ToggleButtons::make('status')
-                            ->label(__('Loan Status'))
+                            ->label(__('resource.loan_status'))
                             ->options([
                                 'approved' => __('resource.approved'),
                                 'rejected' => __('resource.rejected'),
@@ -59,40 +79,59 @@ class ApprovedLoanOrdersResource extends Resource
                     ]),
                 Wizard::make([
                     Step::make('Credit Details')
+                        ->label(__('resource.credit_details'))
                         ->schema([
-                            Select::make('credit_id')->relationship('credit', 'name')->required()->disabled(),
-                            TextInput::make('term')->numeric()->required()->disabled(),
-                            TextInput::make('amount')->numeric()->required()->disabled(),
-                            TextInput::make('interest')->numeric()->required()->disabled(),
-                            TextInput::make('monthly_payment')->numeric()->required()->disabled(),
+                            Select::make('credit_id')->relationship('credit', 'name')->required()->disabled()
+                                ->label(__('resource.credit_name')),
+                            TextInput::make('term')->numeric()->required()->disabled()
+                                ->label(__('resource.term')),
+                            TextInput::make('amount')->numeric()->required()->disabled()
+                                ->label(__('resource.amount')),
+                            TextInput::make('interest')->numeric()->required()->disabled()
+                                ->label(__('resource.interest')),
+                            TextInput::make('monthly_payment')->numeric()->required()->disabled()
+                                ->label(__('resource.monthly_payment')),
                         ]),
                     Step::make('Profile Information')
+                        ->label(__('resource.profile_information'))
                         ->schema([
                             ProfileInfo::make(),
                         ]),
 
                     Step::make('Work Info')
+                        ->label(__('resource.work_information'))
                         ->schema([
                             Select::make('role')
+                                ->label(__('resource.role'))
                                 ->options([
                                     'manager' => 'Manager',
                                     'entrepreneur' => 'Entrepreneur',
                                 ])->required()
                                 ->disabled(),
-                            TextInput::make('patent_number')->visible(fn ($get) => $get('role') === 'entrepreneur')->disabled(),
-                            TextInput::make('registration_number')->visible(fn ($get) => $get('role') === 'entrepreneur')->disabled(),
-                            TextInput::make('work_address')->visible(fn ($get) => $get('role') === 'entrepreneur')->disabled(),
-                            TextInput::make('workplace')->visible(fn ($get) => $get('role') === 'manager')->disabled(),
-                            TextInput::make('position')->visible(fn ($get) => $get('role') === 'manager')->disabled(),
-                            TextInput::make('manager_work_address')->visible(fn ($get) => $get('role') === 'manager')->disabled(),
-                            TextInput::make('phone_number')->visible(fn ($get) => $get('role') === 'manager')->disabled(),
-                            TextInput::make('salary')->visible(fn ($get) => $get('role') === 'manager')->disabled(),
+                            TextInput::make('patent_number')->visible(fn ($get) => $get('role') === 'entrepreneur')->disabled()
+                                ->label(__('resource.patent_number')),
+                            TextInput::make('registration_number')->visible(fn ($get) => $get('role') === 'entrepreneur')->disabled()
+                                ->label(__('resource.registration_number')),
+                            TextInput::make('work_address')->visible(fn ($get) => $get('role') === 'entrepreneur')->disabled()
+                                ->label(__('resource.work_address')),
+                            TextInput::make('workplace')->visible(fn ($get) => $get('role') === 'manager')->disabled()
+                                ->label(__('resource.work_place')),
+                            TextInput::make('position')->visible(fn ($get) => $get('role') === 'manager')->disabled()
+                                ->label(__('resource.position')),
+                            TextInput::make('manager_work_address')->visible(fn ($get) => $get('role') === 'manager')->disabled()
+                                ->label(__('resource.work_address')),
+                            TextInput::make('phone_number')->visible(fn ($get) => $get('role') === 'manager')->disabled()
+                                ->label(__('resource.phone')),
+                            TextInput::make('salary')->visible(fn ($get) => $get('role') === 'manager')->disabled()
+                                ->label(__('resource.salary')),
                         ]),
                     Step::make('Branch Info')
+                        ->label(__('resource.branch_information'))
                         ->schema([
-                            TextInput::make('country')->required()->disabled(),
+                            TextInput::make('country')->required()->disabled()
+                                ->label(__('resource.country')),
                             TextInput::make('branch.name')
-                                ->label('Branch name')
+                                ->label(__('resource.branch_name'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
                                 )
                                 ->disabled(),
@@ -109,18 +148,20 @@ class ApprovedLoanOrdersResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('profile.first_name')
-                    ->label('First Name'),
+                    ->label(__('resource.first_name')),
                 TextColumn::make('profile.last_name')
-                    ->label('Last Name'),
+                    ->label(__('resource.last_name')),
                 TextColumn::make('credit.name')
-                    ->label('Credit Type'),
+                    ->label(__('resource.credit_type')),
                 TextColumn::make('status')
+                    ->label(__('resource.status'))
                     ->default('Pending')
                     ->colors([
                         'warning' => 'pending',
                         'success' => 'approved',
                         'danger' => 'rejected',
                     ])
+                    ->formatStateUsing(fn ($state) => __("resource.$state"))
                     ->badge(),
             ])
             ->filters([

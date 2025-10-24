@@ -19,7 +19,7 @@ class ExchangeRateResource extends Resource
 
     public static function getTranslatableLocales(): array
     {
-        return ['en', 'tk', 'ru'];
+        return ['tk', 'en', 'ru'];
     }
 
     public static function canViewAny(): bool
@@ -34,16 +34,40 @@ class ExchangeRateResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.exchange_rate');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.exchange_rate');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('navigation.exchange_rate');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('navigation.exchange_rate');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('currency'),
+                TextInput::make('currency')
+                    ->label(__('resource.currency')),
                 TextInput::make('purchase')
+                    ->label(__('resource.purchase'))
                     ->numeric(),
                 TextInput::make('sale')
+                    ->label(__('resource.sale'))
                     ->numeric(),
-                FileUpload::make('flag')->image(),
+                FileUpload::make('flag')->image()
+                    ->label(__('resource.flag')),
 
             ]);
     }
@@ -52,7 +76,8 @@ class ExchangeRateResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('currency'),
+                TextColumn::make('currency')
+                    ->label(__('resource.currency')),
             ])
             ->filters([
                 //

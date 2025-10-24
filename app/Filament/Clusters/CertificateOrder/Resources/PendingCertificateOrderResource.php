@@ -34,17 +34,38 @@ class PendingCertificateOrderResource extends Resource
 
     protected static ?string $cluster = CertificateOrder::class;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.pending_orders');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('navigation.pending_orders');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('navigation.pending_orders');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('navigation.pending_orders');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Wizard::make([
                     Step::make('Certificate Order Status')
+                        ->label(__('resource.certificate_order_status'))
                         ->schema([
-                            Section::make(__('Certificate Status'))
+                            Section::make(__('resource.certificate_order_status'))
                                 ->schema([
                                     ToggleButtons::make('status')
-                                        ->label(__('Loan Status'))
+                                        ->label(__('resource.certificate_order_status'))
                                         ->options([
                                             'approved' => __('resource.approved'),
                                             'rejected' => __('resource.rejected'),
@@ -61,29 +82,35 @@ class PendingCertificateOrderResource extends Resource
                                 ]),
                         ]),
                     Step::make('Profile Information')
+                        ->label(__('resource.profile_information'))
                         ->schema([
                             ProfileInfo::make(),
                         ]),
                     Step::make('Certificate Information')
+                        ->label(__('resource.certificate_information'))
                         ->schema([
                             TextInput::make('certificateType.title')
+                                ->label(__('resource.title'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->certificateType?->title)
 
                                 )
                                 ->disabled(),
                             TextInput::make('certificateType.price')
+                                ->label(__('resource.price'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->certificateType?->price)
 
                                 )
                                 ->disabled(),
                             TextInput::make('phone_number')
+                                ->label(__('resource.phone'))
                                 ->disabled(),
                             TextInput::make('branch.name')
-                                ->label('Branch name')
+                                ->label(__('resource.branch_name'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
                                 )
                                 ->disabled(),
-                            TextInput::make('home_address')->disabled(),
+                            TextInput::make('home_address')->disabled()
+                                ->label(__('resource.home_address')),
                         ]),
 
                 ])->skippable()
@@ -95,17 +122,22 @@ class PendingCertificateOrderResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('profile.first_name'),
-                TextColumn::make('profile.last_name'),
-                TextColumn::make('certificateType.title'),
+                TextColumn::make('profile.first_name')
+                    ->label(__('resource.first_name')),
+                TextColumn::make('profile.last_name')
+                    ->label(__('resource.last_name')),
+                TextColumn::make('certificateType.title')
+                    ->label(__('resource.title')),
 
                 TextColumn::make('status')
+                    ->label(__('resource.status'))
                     ->default('Pending')
                     ->colors([
                         'warning' => 'pending',
                         'success' => 'approved',
                         'danger' => 'rejected',
                     ])
+                    ->formatStateUsing(fn ($state) => __("resource.$state"))
                     ->badge(),
             ])
             ->filters([
