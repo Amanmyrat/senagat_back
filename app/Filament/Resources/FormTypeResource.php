@@ -37,10 +37,12 @@ class FormTypeResource extends Resource
     }
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();
     }
+
     public static function getNavigationLabel(): string
     {
         return __('resource.certificate_type');

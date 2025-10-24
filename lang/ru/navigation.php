@@ -12,5 +12,4 @@ return [
     'certificate_orders' => 'Заказы сертификатов',
     'exchange_rate' => 'Курсы обмена валют',
 
-
 ];

@@ -102,7 +102,7 @@ class UserProfileRequest extends FormRequest
              */
             'scan_passport' => $userHasProfile ? ['sometimes', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:10240'] : ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:10240'],
 
-              /**
+            /**
               'home_address'
              * Citizenship
              *
@@ -152,7 +152,6 @@ class UserProfileRequest extends FormRequest
             'scan_passport.max' => 'Passport scan cannot be larger than 10MB.',
             'citizenship.required' => 'Citizenship is required when creating a new profile.',
             'home_address.required' => 'Home Address is required when creating a new profile.',
-
 
         ];
     }

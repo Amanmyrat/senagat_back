@@ -22,7 +22,7 @@ return new class extends Migration
                 $table->dropColumn('offers_certificate');
             }
 
-            if (!Schema::hasColumn('locations', 'branch_services')) {
+            if (! Schema::hasColumn('locations', 'branch_services')) {
                 $table->boolean('branch_services')->default(false);
             }
         });
@@ -38,13 +38,13 @@ return new class extends Migration
                 $table->dropColumn('branch_services');
             }
 
-            if (!Schema::hasColumn('locations', 'offers_credit')) {
+            if (! Schema::hasColumn('locations', 'offers_credit')) {
                 $table->boolean('offers_credit')->default(false);
             }
-            if (!Schema::hasColumn('locations', 'offers_card')) {
+            if (! Schema::hasColumn('locations', 'offers_card')) {
                 $table->boolean('offers_card')->default(false);
             }
-            if (!Schema::hasColumn('locations', 'offers_certificate')) {
+            if (! Schema::hasColumn('locations', 'offers_certificate')) {
                 $table->boolean('offers_certificate')->default(false);
             }
         });

@@ -33,6 +33,7 @@ class RejectedCertificateOrderResource extends Resource
     protected static ?string $pluralModelLabel = 'Rejected Certificate Orders';
 
     protected static ?string $cluster = CertificateOrder::class;
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.rejected_orders');

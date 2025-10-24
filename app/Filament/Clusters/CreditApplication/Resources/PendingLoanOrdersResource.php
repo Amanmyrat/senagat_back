@@ -34,6 +34,7 @@ class PendingLoanOrdersResource extends Resource
     protected static ?string $pluralModelLabel = 'Pending Loans';
 
     protected static ?string $cluster = CreditApplication::class;
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.pending_orders');

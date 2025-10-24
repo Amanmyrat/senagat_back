@@ -22,10 +22,12 @@ class ContactMessageResource extends Resource
     protected static ?string $model = ContactMessage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();
     }
+
     public static function getNavigationLabel(): string
     {
         return __('resource.contact_messages');
@@ -52,7 +54,7 @@ class ContactMessageResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->disabled()
-                ->label(__('resource.name')),
+                    ->label(__('resource.name')),
                 TextInput::make('email')
                     ->disabled()
                     ->label(__('resource.email')),

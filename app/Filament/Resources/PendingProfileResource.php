@@ -88,8 +88,8 @@ class PendingProfileResource extends Resource
                             Section::make()
                                 ->relationship('user')
                                 ->schema([
-                                TextInput::make('phone')->label(__('resource.phone'))->disabled(),
-                            ]),
+                                    TextInput::make('phone')->label(__('resource.phone'))->disabled(),
+                                ]),
 
                             Section::make(__('resource.profile_information'))
 

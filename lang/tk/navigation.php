@@ -12,6 +12,4 @@ return [
     'certificate_orders' => 'Sertifikat sargytlary',
     'exchange_rate' => 'Walýuta Kurslary',
 
-
-
 ];

@@ -34,6 +34,7 @@ class RejectedCardOrderResource extends Resource
     protected static ?string $pluralModelLabel = 'Rejected Card Orders';
 
     protected static ?string $cluster = CardOrders::class;
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.rejected_orders');
@@ -53,6 +54,7 @@ class RejectedCardOrderResource extends Resource
     {
         return $record ? (string) $record->name : __('navigation.rejected_orders');
     }
+
     public static function form(Form $form): Form
     {
         return $form

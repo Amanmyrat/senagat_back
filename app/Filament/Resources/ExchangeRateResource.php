@@ -33,6 +33,7 @@ class ExchangeRateResource extends Resource
     protected static ?string $model = ExchangeRate::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.exchange_rate');

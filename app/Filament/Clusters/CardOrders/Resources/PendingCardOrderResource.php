@@ -34,6 +34,7 @@ class PendingCardOrderResource extends Resource
     protected static ?string $pluralModelLabel = 'Pending Card Orders';
 
     protected static ?string $cluster = CardOrders::class;
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.pending_orders');
@@ -53,7 +54,6 @@ class PendingCardOrderResource extends Resource
     {
         return $record ? (string) $record->name : __('navigation.pending_orders');
     }
-
 
     public static function form(Form $form): Form
     {

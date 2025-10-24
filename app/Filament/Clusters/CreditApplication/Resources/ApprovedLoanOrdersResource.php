@@ -34,6 +34,7 @@ class ApprovedLoanOrdersResource extends Resource
     protected static ?string $pluralModelLabel = 'Approved Loans';
 
     protected static ?string $cluster = CreditApplication::class;
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.approved_orders');

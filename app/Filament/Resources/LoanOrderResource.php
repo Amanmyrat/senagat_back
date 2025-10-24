@@ -34,6 +34,7 @@ class LoanOrderResource extends Resource
     {
         return (string) static::getEloquentQuery()->count();
     }
+
     public static function getNavigationLabel(): string
     {
         return __('resource.loan_order');
@@ -53,9 +54,8 @@ class LoanOrderResource extends Resource
     {
         return $record ? (string) $record->name : __('resource.loan_order');
     }
+
     protected static ?string $model = CreditApplication::class;
-
-
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -164,7 +164,7 @@ class LoanOrderResource extends Resource
                         'warning' => 'pending',
                         'success' => 'approved',
                         'danger' => 'rejected',
-                    ]) ->formatStateUsing(fn ($state) => __("resource.$state"))
+                    ])->formatStateUsing(fn ($state) => __("resource.$state"))
                     ->badge(),
             ])
             ->filters([

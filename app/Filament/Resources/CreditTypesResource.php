@@ -43,6 +43,7 @@ class CreditTypesResource extends Resource
     protected static ?string $model = CreditType::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     public static function getNavigationLabel(): string
     {
         return __('resource.credit_types');
@@ -91,7 +92,7 @@ class CreditTypesResource extends Resource
                                     ->numeric()
                                     ->required(),
                                 TextInput::make('interest')
-                                    ->label(__('resource.interest'). ' %')
+                                    ->label(__('resource.interest').' %')
                                     ->numeric()
                                     ->suffix('%')
                                     ->step(0.01)
@@ -144,7 +145,7 @@ class CreditTypesResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                ->label(__('resource.name')),
+                    ->label(__('resource.name')),
             ])
             ->filters([
                 //

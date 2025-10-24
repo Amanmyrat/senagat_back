@@ -33,6 +33,7 @@ class PendingCertificateOrderResource extends Resource
     protected static ?string $pluralModelLabel = 'Pending Certificates Orders';
 
     protected static ?string $cluster = CertificateOrder::class;
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.pending_orders');

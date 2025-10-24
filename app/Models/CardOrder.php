@@ -45,18 +45,12 @@ class CardOrder extends Model
         'phone_number',
         'bank_branch_id',
         'status',
-        'current_address',
         'work_position',
         'work_phone',
         'internet_service',
         'delivery',
         'email',
-        'expires_at'
 
-    ];
-
-    protected $casts = [
-        'expires_at' => 'datetime',
     ];
 
     public function user(): BelongsTo

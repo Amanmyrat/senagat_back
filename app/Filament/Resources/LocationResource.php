@@ -90,9 +90,9 @@ class LocationResource extends Resource
                                 ->label(__('resource.location'))
                                 ->reactive()
                                 ->default(fn ($get) => $get('location') ?? [
-                                        'lat' => 37.9643,
-                                        'lng' => 58.3600,
-                                    ])
+                                    'lat' => 37.9643,
+                                    'lng' => 58.3600,
+                                ])
                                 ->afterStateUpdated(function ($state, callable $set) {
                                     if ($state) {
                                         $set('lat', $state['lat']);

@@ -34,6 +34,7 @@ class RejectedLoanOrdersResource extends Resource
     protected static ?string $pluralModelLabel = 'Rejected Loans';
 
     protected static ?string $cluster = CreditApplication::class;
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.rejected_orders');

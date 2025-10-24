@@ -41,6 +41,7 @@ class ApprovedCertificateOrderResource extends Resource
     protected static ?string $pluralModelLabel = 'Approved Certificates Orders';
 
     protected static ?string $cluster = CertificateOrder::class;
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.approved_orders');

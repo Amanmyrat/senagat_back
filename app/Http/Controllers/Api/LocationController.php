@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LocationResource;
 use App\Models\Location;
-use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
@@ -13,7 +12,6 @@ class LocationController extends Controller
      * Location
      *
      * @localizationHeader
-     *
      */
     public function index()
     {
@@ -29,7 +27,6 @@ class LocationController extends Controller
      * Get branches that provide services.
      *
      * @localizationHeader
-     *
      */
     public function branchLocations()
     {

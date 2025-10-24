@@ -24,9 +24,9 @@ class UserProfileResource extends JsonResource
             'gender' => $this->resource->gender,
             'issued_date' => $this->resource->issued_date ? $this->resource->issued_date->format('d-m-Y') : null,
             'issued_by' => $this->resource->issued_by,
-            'citizenship'=>$this->resource->citizenship,
-            'home_phone'=>$this->resource->home_phone,
-            'home_address'=>$this->resource->home_address,
+            'citizenship' => $this->resource->citizenship,
+            'home_phone' => $this->resource->home_phone,
+            'home_address' => $this->resource->home_address,
             'scan_passport' => $this->resource->scan_passport ? asset('storage/'.$this->resource->scan_passport) : null,
 
         ];

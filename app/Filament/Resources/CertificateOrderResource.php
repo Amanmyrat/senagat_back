@@ -36,6 +36,7 @@ class CertificateOrderResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $cluster = \App\Filament\Clusters\CertificateOrder::class;
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.certificate_orders');

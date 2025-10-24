@@ -94,9 +94,7 @@ return [
     'subrules' => 'Subrules',
     'subrule' => 'Subrule',
     'certificate_type' => 'Certificate Type',
-    'citizenship'=>'Citizenship',
-    'draft'=>'Draft'
-
-
+    'citizenship' => 'Citizenship',
+    'draft' => 'Draft',
 
 ];

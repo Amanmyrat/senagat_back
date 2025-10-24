@@ -42,6 +42,7 @@ class CardTypesResource extends Resource
     protected static ?string $model = CardType::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     public static function getNavigationLabel(): string
     {
         return __('resource.card_type');
@@ -85,8 +86,8 @@ class CardTypesResource extends Resource
                 Repeater::make('advantages')
                     ->label(__('resource.advantages'))
                     ->schema([
-                        TextInput::make('name') ->label(__('resource.value')),
-                        Textarea::make('description') ->label(__('resource.description')),
+                        TextInput::make('name')->label(__('resource.value')),
+                        Textarea::make('description')->label(__('resource.description')),
                     ])
                     ->collapsible(),
                 RichEditor::make('text')

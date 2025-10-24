@@ -101,16 +101,7 @@ return [
     'subrules' => 'Kiçi Düzgünler',
     'subrule' => 'Kiçi Düzgün',
     'certificate_type' => 'Şahadatnamanyň Görnüşi',
-    'citizenship'=>'Raýatlygy',
-    'draft'=>'Taýýar däl'
-
-
-
-
-
-
-
-
-
+    'citizenship' => 'Raýatlygy',
+    'draft' => 'Taýýar däl',
 
 ];

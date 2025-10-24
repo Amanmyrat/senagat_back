@@ -10,7 +10,7 @@ enum UserStatus: string implements HasColor, HasLabel
     case Approved = 'approved';
     case Pending = 'pending';
     case Rejected = 'rejected';
-    case Draft ='draft';
+    case Draft = 'draft';
 
     public function getLabel(): string
     {
@@ -18,7 +18,7 @@ enum UserStatus: string implements HasColor, HasLabel
             self::Approved => __('resource.approved'),
             self::Pending => __('resource.pending'),
             self::Rejected => __('resource.rejected'),
-            self::Draft=>__('resource.draft')
+            self::Draft => __('resource.draft')
 
         };
     }
@@ -28,7 +28,7 @@ enum UserStatus: string implements HasColor, HasLabel
         return match ($this) {
             self::Approved => 'success',
             self::Pending => 'warning',
-            self::Draft =>'secondary',
+            self::Draft => 'secondary',
             self::Rejected => 'danger',
 
         };
