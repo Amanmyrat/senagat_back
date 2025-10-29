@@ -5,7 +5,8 @@ namespace App\Filament\Clusters\CardOrders\Resources;
 use App\Filament\Clusters\CardOrders;
 use App\Filament\Clusters\CardOrders\Resources\PendingCardOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
-use App\Models\CardOrder;
+use App\Models\PendingCardOrder;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class PendingCardOrderResource extends Resource
 {
-    protected static ?string $model = CardOrder::class;
+    protected static ?string $model = PendingCardOrder::class;
 
     public static function getNavigationBadge(): ?string
     {
@@ -37,22 +38,22 @@ class PendingCardOrderResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.pending_orders');
+        return __('navigation.pending_card_orders');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('navigation.pending_orders');
+        return __('navigation.pending_card_orders');
     }
 
     public static function getModelLabel(): string
     {
-        return __('navigation.pending_orders');
+        return __('navigation.pending_card_orders');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('navigation.pending_orders');
+        return $record ? (string) $record->name : __('navigation.pending_card_orders');
     }
 
     public static function form(Form $form): Form
@@ -104,8 +105,22 @@ class PendingCardOrderResource extends Resource
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
                                 )
                                 ->disabled(),
-                            TextInput::make('home_phone_number')->disabled()
-                                ->label(__('resource.home_phone_number')),
+                            TextInput::make('work_position')
+                                ->label(__('resource.work_position'))
+                                ->disabled(),
+                            TextInput::make('work_phone')
+                                ->label(__('resource.work_phone'))
+                                ->disabled(),
+                            TextInput::make('email')
+                                ->label(__('resource.email'))
+                                ->disabled(),
+
+                            Checkbox::make('internet_service')
+                                ->label(__('resource.internet_service'))
+                                ->disabled(),
+                            Checkbox::make('delivery')
+                                ->label(__('resource.delivery'))
+                                ->disabled(),
                             TextInput::make('cardType.price')
                                 ->label(__('resource.price'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->cardType?->price)

@@ -5,6 +5,7 @@ namespace App\Filament\Clusters\CertificateOrder\Resources;
 use App\Filament\Clusters\CertificateOrder;
 use App\Filament\Clusters\CertificateOrder\Resources\RejectedCertificateOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
+use App\Models\RejectedCertificateOrder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class RejectedCertificateOrderResource extends Resource
 {
-    protected static ?string $model = \App\Models\CertificateOrder::class;
+    protected static ?string $model = RejectedCertificateOrder::class;
 
     public static function getNavigationBadge(): ?string
     {
@@ -36,22 +37,22 @@ class RejectedCertificateOrderResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.rejected_orders');
+        return __('navigation.rejected_certificate_orders');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('navigation.rejected_orders');
+        return __('navigation.rejected_certificate_orders');
     }
 
     public static function getModelLabel(): string
     {
-        return __('navigation.rejected_orders');
+        return __('navigation.rejected_certificate_orders');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('navigation.rejected_orders');
+        return $record ? (string) $record->name : __('navigation.rejected_certificate_orders');
     }
 
     public static function form(Form $form): Form

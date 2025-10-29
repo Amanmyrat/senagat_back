@@ -87,7 +87,7 @@ return [
     'advantages' => 'Преимущества',
     'value' => 'Значение',
     'text' => 'Текст',
-    'contact_messages' => 'Сообщения с контактов',
+    'contact_messages' => 'Контактные сообщения',
     'messages' => 'Сообщения',
     'credit_types' => 'Типы кредитов',
     'credit_type_name' => 'Название типа кредита',
@@ -102,5 +102,9 @@ return [
     'subrule' => 'Подправило',
     'certificate_type' => 'Тип сертификата',
     'draft' => 'Черновик',
+    'work_position' => 'Должность на работе',
+    'work_phone' => 'Рабочий телефон',
+    'internet_service' => 'Интернет-сервис',
+    'delivery' => 'Доставка',
 
 ];

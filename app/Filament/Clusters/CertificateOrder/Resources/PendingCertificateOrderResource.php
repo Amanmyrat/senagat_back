@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class PendingCertificateOrderResource extends Resource
 {
-    protected static ?string $model = \App\Models\CertificateOrder::class;
+    protected static ?string $model = \App\Models\PendingCertificateOrder::class;
 
     public static function getNavigationBadge(): ?string
     {
@@ -36,22 +36,22 @@ class PendingCertificateOrderResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.pending_orders');
+        return __('navigation.pending_certificate_orders');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('navigation.pending_orders');
+        return __('navigation.pending_certificate_orders');
     }
 
     public static function getModelLabel(): string
     {
-        return __('navigation.pending_orders');
+        return __('navigation.pending_certificate_orders');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('navigation.pending_orders');
+        return $record ? (string) $record->name : __('navigation.pending_certificate_orders');
     }
 
     public static function form(Form $form): Form

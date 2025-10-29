@@ -29,14 +29,6 @@ class LocationResource extends Resource
         return ['tk', 'en', 'ru'];
     }
 
-    public static function canViewAny(): bool
-    {
-        $user = auth('admin')->user();
-
-        return in_array($user->role->value, ['super-admin']);
-
-    }
-
     protected static ?string $model = Location::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

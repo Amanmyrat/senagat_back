@@ -20,14 +20,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class LoanOrderResource extends Resource
 {
-    public static function canViewAny(): bool
-    {
-        $user = auth('admin')->user();
-
-        return in_array($user->role->value, ['super-admin']);
-
-    }
-
     protected static ?string $cluster = \App\Filament\Clusters\CreditApplication::class;
 
     public static function getNavigationBadge(): ?string

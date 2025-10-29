@@ -103,5 +103,9 @@ return [
     'certificate_type' => 'Şahadatnamanyň Görnüşi',
     'citizenship' => 'Raýatlygy',
     'draft' => 'Taýýar däl',
+    'work_position' => 'Iş Orny',
+    'work_phone' => 'Iş Telefoni',
+    'internet_service' => 'Internet Hyzmaty',
+    'delivery' => 'Eltip beriş',
 
 ];

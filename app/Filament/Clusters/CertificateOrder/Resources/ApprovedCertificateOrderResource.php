@@ -5,6 +5,7 @@ namespace App\Filament\Clusters\CertificateOrder\Resources;
 use App\Filament\Clusters\CertificateOrder;
 use App\Filament\Clusters\CertificateOrder\Resources\ApprovedCertificateOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
+use App\Models\ApprovedCertificateOrder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
@@ -19,15 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ApprovedCertificateOrderResource extends Resource
 {
-    public static function canViewAny(): bool
-    {
-        $user = auth('admin')->user();
-
-        return in_array($user->role->value, ['super-admin']);
-
-    }
-
-    protected static ?string $model = \App\Models\CertificateOrder::class;
+    protected static ?string $model = ApprovedCertificateOrder::class;
 
     public static function getNavigationBadge(): ?string
     {
@@ -44,22 +37,22 @@ class ApprovedCertificateOrderResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.approved_orders');
+        return __('navigation.approved_certificate_orders');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('navigation.approved_orders');
+        return __('navigation.approved_certificate_orders');
     }
 
     public static function getModelLabel(): string
     {
-        return __('navigation.approved_orders');
+        return __('navigation.approved_certificate_orders');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('navigation.approved_orders');
+        return $record ? (string) $record->name : __('navigation.approved_certificate_orders');
     }
 
     public static function form(Form $form): Form
