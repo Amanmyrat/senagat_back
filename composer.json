@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "arbermustafa/filament-locationpickr-field": "^2.0.0",
+        "bezhansalleh/filament-shield": "^3.9",
         "dedoc/scramble": "^0.12.26",
         "filament/filament": "^3.3",
         "filament/spatie-laravel-translatable-plugin": "^3.2",

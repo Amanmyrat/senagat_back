@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Clusters\CardOrders;
 use App\Filament\Resources\CardTypesResource\Pages;
 use App\Models\CardType;
 use Filament\Forms\Components\FileUpload;
@@ -19,18 +20,7 @@ use Filament\Tables\Table;
 
 class CardTypesResource extends Resource
 {
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Card';
-    }
-
-    public static function canViewAny(): bool
-    {
-        $user = auth('admin')->user();
-
-        return in_array($user->role->value, ['super-admin']);
-
-    }
+    protected static ?string $cluster = CardOrders::class;
 
     use Translatable;
 

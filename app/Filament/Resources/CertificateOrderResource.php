@@ -18,14 +18,6 @@ use Filament\Tables\Table;
 
 class CertificateOrderResource extends Resource
 {
-    public static function canViewAny(): bool
-    {
-        $user = auth('admin')->user();
-
-        return in_array($user->role->value, ['super-admin']);
-
-    }
-
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();

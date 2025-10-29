@@ -96,5 +96,9 @@ return [
     'certificate_type' => 'Certificate Type',
     'citizenship' => 'Citizenship',
     'draft' => 'Draft',
+    'work_position' => 'Work Position',
+    'work_phone' => 'Work Phone',
+    'internet_service' => 'Internet Service',
+    'delivery' => 'Delivery',
 
 ];

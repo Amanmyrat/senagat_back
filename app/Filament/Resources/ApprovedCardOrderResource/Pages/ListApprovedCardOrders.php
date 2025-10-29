@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CardOrders\Resources\ApprovedCardOrderResource\Pages;
+namespace App\Filament\Resources\ApprovedCardOrderResource\Pages;
 
-use App\Filament\Clusters\CardOrders\Resources\ApprovedCardOrderResource;
-use Filament\Actions;
+use App\Filament\Resources\ApprovedCardOrderResource;
 use Filament\Resources\Pages\ListRecords;
 
 class ListApprovedCardOrders extends ListRecords
@@ -13,7 +12,7 @@ class ListApprovedCardOrders extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+
         ];
     }
 }

@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class RejectedLoanOrdersResource extends Resource
 {
-    protected static ?string $model = \App\Models\CreditApplication::class;
+    protected static ?string $model = \App\Models\RejectedLoanOrder::class;
 
     public static function getNavigationBadge(): ?string
     {
@@ -37,22 +37,22 @@ class RejectedLoanOrdersResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.rejected_orders');
+        return __('navigation.rejected_loan_orders');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('navigation.rejected_orders');
+        return __('navigation.rejected_loan_orders');
     }
 
     public static function getModelLabel(): string
     {
-        return __('navigation.rejected_orders');
+        return __('navigation.rejected_loan_orders');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('navigation.rejected_orders');
+        return $record ? (string) $record->name : __('navigation.rejected_loan_orders');
     }
 
     public static function form(Form $form): Form

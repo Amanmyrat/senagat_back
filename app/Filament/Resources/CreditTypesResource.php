@@ -20,18 +20,7 @@ use Filament\Tables\Table;
 
 class CreditTypesResource extends Resource
 {
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Credit';
-    }
-
-    public static function canViewAny(): bool
-    {
-        $user = auth('admin')->user();
-
-        return in_array($user->role->value, ['super-admin']);
-
-    }
+    protected static ?string $cluster = \App\Filament\Clusters\CreditApplication::class;
 
     use Translatable;
 

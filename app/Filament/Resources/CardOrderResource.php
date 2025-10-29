@@ -22,14 +22,6 @@ class CardOrderResource extends Resource
 {
     protected static ?string $cluster = CardOrders::class;
 
-    public static function canViewAny(): bool
-    {
-        $user = auth('admin')->user();
-
-        return in_array($user->role->value, ['super-admin', 'operator']);
-
-    }
-
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();
@@ -108,11 +100,22 @@ class CardOrderResource extends Resource
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
                                 )
                                 ->disabled(),
-                            TextInput::make('home_phone_number')->disabled()->label(__('resource.home_phone_number')),
-                            TextInput::make('work_position')->disabled(),
-                            TextInput::make('work_phone')->disabled(),
-                            Checkbox::make('internet_service')->disabled(),
-                            Checkbox::make('delivery')->disabled(),
+                            TextInput::make('work_position')
+                                ->label(__('resource.work_position'))
+                                ->disabled(),
+                            TextInput::make('work_phone')
+                                ->label(__('resource.work_phone'))
+                                ->disabled(),
+                            TextInput::make('email')
+                                ->label(__('resource.email'))
+                                ->disabled(),
+
+                            Checkbox::make('internet_service')
+                                ->label(__('resource.internet_service'))
+                                ->disabled(),
+                            Checkbox::make('delivery')
+                                ->label(__('resource.delivery'))
+                                ->disabled(),
                             TextInput::make('cardType.price')
                                 ->label(__('resource.price'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->cardType?->price)

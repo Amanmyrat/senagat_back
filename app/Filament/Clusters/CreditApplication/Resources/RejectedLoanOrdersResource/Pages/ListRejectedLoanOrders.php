@@ -3,7 +3,6 @@
 namespace App\Filament\Clusters\CreditApplication\Resources\RejectedLoanOrdersResource\Pages;
 
 use App\Filament\Clusters\CreditApplication\Resources\RejectedLoanOrdersResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListRejectedLoanOrders extends ListRecords
@@ -13,7 +12,7 @@ class ListRejectedLoanOrders extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+
         ];
     }
 }

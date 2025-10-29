@@ -14,18 +14,7 @@ use Filament\Tables\Table;
 
 class FormTypeResource extends Resource
 {
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Certification';
-    }
-
-    public static function canViewAny(): bool
-    {
-        $user = auth('admin')->user();
-
-        return in_array($user->role->value, ['super-admin']);
-
-    }
+    protected static ?string $cluster = \App\Filament\Clusters\CertificateOrder::class;
 
     protected static ?string $model = CertificateType::class;
 

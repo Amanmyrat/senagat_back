@@ -16,13 +16,6 @@ class AdminResource extends Resource
 {
     protected static ?string $model = Admin::class;
 
-    public static function canViewAny(): bool
-    {
-        $user = auth('admin')->user();
-
-        return $user && $user->role->value === 'super-admin';
-    }
-
     public static function getNavigationLabel(): string
     {
         return __('resource.admins');
@@ -56,9 +49,15 @@ class AdminResource extends Resource
                 TextInput::make('email')
                     ->label(__('resource.email'))
                     ->email()
-                    ->required()
-
+                    ->required(fn ($record, $get) => $get('role') === 'super-admin')
                     ->maxLength(255),
+                TextInput::make('username')
+                    ->unique(ignoreRecord: true)
+                    ->maxLength(255)
+                    ->required(fn ($record, $get) => in_array($get('role'), ['admin', 'operator']))
+                    ->label('Username')
+
+                    ->visible(fn ($record) => $record?->role !== 'super-admin'),
                 TextInput::make('password')
                     ->label(__('resource.password'))
                     ->password()
@@ -67,14 +66,15 @@ class AdminResource extends Resource
                     ->autocomplete('new-password')
                     ->placeholder(fn ($record) => $record ? __('resource.leave blank to keep current password') : null)
                     ->minLength(8),
-                Select::make('role')
-                    ->label(__('resource.role'))
+                Select::make('roles')
+                    ->label('Role')
+                    ->relationship('roles', 'name')
                     ->required()
-                    ->options([
-                        'super-admin' => 'Super Admin',
-                        'operator' => 'Operator',
-                    ])
-                    ->default('operator'),
+                    ->preload()
+                    ->searchable()
+                    ->multiple(false)
+                    ->helperText('Select the user role'),
+
             ]);
     }
 
@@ -84,8 +84,14 @@ class AdminResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->label(__('resource.name')),
-                TextColumn::make('role')
+                TextColumn::make('roles.name')
                     ->label(__('resource.role')),
+                Tables\Columns\BadgeColumn::make('roles.name')
+                    ->colors([
+                        'success' => 'super-admin',
+                        'warning' => 'admin',
+                        'danger' => 'operator',
+                    ]),
             ])
             ->filters([
                 //
