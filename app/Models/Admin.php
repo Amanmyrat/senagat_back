@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enum\AdminRole;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @property int $id
@@ -42,15 +44,22 @@ use Laravel\Sanctum\PersonalAccessToken;
  */
 class Admin extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, HasRoles,Notifiable;
 
-    protected $fillable = ['name', 'email', 'password', 'role'];
+    protected $guard_name = 'admin';
+
+    protected $fillable = ['name', 'email', 'password', 'username'];
 
     protected $hidden = ['password', 'remember_token'];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'role' => AdminRole::class,
+
     ];
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
 }

@@ -10,6 +10,6 @@ class CreditApplication extends Cluster
 
     public static function getNavigationLabel(): string
     {
-        return __('resource.loan_order');
+        return __('navigation.loan');
     }
 }

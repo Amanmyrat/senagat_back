@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CardOrders\Resources\ApprovedCardOrderResource\Pages;
+namespace App\Filament\Resources\ApprovedCardOrderResource\Pages;
 
-use App\Filament\Clusters\CardOrders\Resources\ApprovedCardOrderResource;
+use App\Filament\Resources\ApprovedCardOrderResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateApprovedCardOrder extends CreateRecord

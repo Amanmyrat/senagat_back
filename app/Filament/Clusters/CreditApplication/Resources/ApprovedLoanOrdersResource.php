@@ -5,6 +5,7 @@ namespace App\Filament\Clusters\CreditApplication\Resources;
 use App\Filament\Clusters\CreditApplication;
 use App\Filament\Clusters\CreditApplication\Resources\ApprovedLoanOrdersResource\Pages;
 use App\Forms\Components\ProfileInfo;
+use App\Models\ApprovedLoanOrder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ApprovedLoanOrdersResource extends Resource
 {
-    protected static ?string $model = \App\Models\CreditApplication::class;
+    protected static ?string $model = ApprovedLoanOrder::class;
 
     public static function getNavigationBadge(): ?string
     {
@@ -37,22 +38,22 @@ class ApprovedLoanOrdersResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.approved_orders');
+        return __('navigation.approved_loan_orders');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('navigation.approved_orders');
+        return __('navigation.approved_loan_orders');
     }
 
     public static function getModelLabel(): string
     {
-        return __('navigation.approved_orders');
+        return __('navigation.approved_loan_orders');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('navigation.approved_orders');
+        return $record ? (string) $record->name : __('navigation.approved_loan_orders');
     }
 
     public static function form(Form $form): Form

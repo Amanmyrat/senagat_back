@@ -10,6 +10,6 @@ class CertificateOrder extends Cluster
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.certificate_orders');
+        return __('navigation.certificate');
     }
 }

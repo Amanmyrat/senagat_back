@@ -3,7 +3,6 @@
 namespace App\Filament\Clusters\CardOrders\Resources\PendingCardOrderResource\Pages;
 
 use App\Filament\Clusters\CardOrders\Resources\PendingCardOrderResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListPendingCardOrders extends ListRecords
@@ -13,7 +12,7 @@ class ListPendingCardOrders extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+
         ];
     }
 }
