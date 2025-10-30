@@ -24,6 +24,10 @@ class CardOrderController extends Controller
 
         $order = $this->service->createOrder($request->validated(), $request->user());
 
-        return response()->json(['message' => 'Order created successfully.', 'data' => new CardOrderResource($order)], 201);
+        return response()->json(['message' => 'Order created successfully.',
+            'data' => collect((new CardOrderResource($order))->toArray($request))->except('status','card_title'),
+
+        ], 201);
     }
 }
+
