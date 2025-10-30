@@ -13,7 +13,7 @@ class UserInformationResource extends JsonResource
             'phone' => $this->resource->phone,
             'profile' => $this->resource->profile
                 ? collect((new UserProfileResource($this->resource->profile))->toArray($request))
-                    ->except('id')
+                    ->except(['id','gender'])
                     ->merge(['approved' => $this->resource->profile->approved])
                 : null,
             'certificates' => $this->whenLoaded('certificates', function () {
@@ -34,6 +34,17 @@ class UserInformationResource extends JsonResource
                     ? collect($loans)->map(function ($item) {
                         return collect($item)
                             ->except(['id', 'user_id', 'profile_id', 'credit_id', 'term', 'interest']);
+                    })
+                        ->values()
+                    : null;
+            }, null),
+            'cards' => $this->whenLoaded('cards', function () {
+                $cards = CardOrderResource::collection($this->resource->cards)->toArray(request());
+
+                return ! empty($cards)
+                    ? collect($cards)->map(function ($item) {
+                        return collect($item)
+                       ->except(['id', 'user_id', 'profile_id', 'card_type_id', 'phone_number', 'bank_branch_id','work_position','work_phone','internet_service','delivery','email']);
                     })
                         ->values()
                     : null;

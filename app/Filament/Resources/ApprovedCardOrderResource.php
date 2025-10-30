@@ -15,6 +15,7 @@ use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -159,6 +160,18 @@ class ApprovedCardOrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+
+
+//                Action::make('download_pdf')
+//                    ->label('Download PDF')
+//
+//                    ->url(fn (ApprovedCardOrder $record) => route('approved_orders.pdf', $record))
+//                    ->openUrlInNewTab(),
+                Action::make('print')
+                    ->label('Print')
+                    ->icon('heroicon-o-printer')
+                    ->url(fn ($record) => route('approved-card-orders.print', $record))
+                    ->openUrlInNewTab(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
