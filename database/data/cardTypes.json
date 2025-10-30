@@ -1,0 +1,179 @@
+[
+    {
+        "title": {
+            "en": "Altyn Asyr",
+            "tk": "Altyn Asyr",
+            "ru": "Алтын Асыр"
+        },
+        "image_url": "images/altynasyr.png",
+        "price": 23.8,
+        "advantages": {
+            "en":[
+                {
+                    "name": "1,00 %",
+                    "description": "Annual interest rate"
+                },
+                {
+                    "name": "300 000 TMT",
+                    "description": "Daily cashless transaction limit"
+                },
+                {
+                    "name": "0,50%",
+                    "description": "\"Cash-back\" service"
+                }
+            ],
+            "tk": [
+                {
+                    "name": "1,00 %",
+                    "description": "Ýyllyk göterim gatnaşygy "
+                },
+                {
+                    "name": "300 000 TMT",
+                    "description": "Gündelik nagt däl hasaplaşygyň çäklendirmesi"
+                },
+                {
+                    "name": "0,50%",
+                    "description": "\"Cash-back\" hyzmaty"
+                }
+            ],
+            "ru":[
+                {
+                    "name": "1,00 %",
+                    "description": "Годовая процентная ставка "
+                },
+                {
+                    "name": "300 000 TMT",
+                    "description": "Дневное ограничение на безналичный расчет"
+                },
+                {
+                    "name": "0,50%",
+                    "description": "Служба «Кэшбэк» "
+                }
+            ]
+        },
+        "text": {
+            "en": "The bank card «Altyn asyr», is intended for functioning in territory of Turkmenistan, and now in practice offers to clients following services:\n  check_circle Transferring of wages of workers of any legal persons into a plastic card and delivery\n check_circle Cashless payments for various types of services or for purchased goods\n check_circle Repayment of the principal amount of the debt and accrued interest on the loan through ATMs and terminals\n check_circle Receive information about actions with a bank card account via SMS\n check_circle Withdrawing cash from ATMs and terminals\n check_circle Services of payments for home and cellular communications in cash and non-cash form TM CELL, CDMA, Internet, IP-TV and health insurance\n check_circle Make fast and convenient non-cash payments using «Internet banking» services to your card account via computers or mobile phones from anywhere on the Internet\n Cooperation with other bank cards\n Besides in 2004 between JSCB of «Senagat» and «Promswyazbank» - being one of world famous leading banks of Russia is concluded the contract on introduction of cards of Mastercard and the Maestro. At present in head bank and in velayat branches and hotels where often come foreign citizens our bank creates a greater opportunity for using the given card.\n\nIn the future by our bank will be accepted the international cards such as Matercard, Maestro, Visa card in all points on delivery of cashes, and also in widely developed trading system of service in Turkmenistan and in foreign countries.",
+            "tk": "Altyn asyr bank karty Türkmenistanyň çäklerinde ulanmak üçin niýetlenip, häzirki wagtda müşderlerine aşakdaky görkezilen hyzmatlary hödürleýär:\n\ncheck_circleIslendik edara görnüşli taraplaryň işgärleriniň aýlyk haklaryny plastik kartlaryna geçirmek we bermek\ncheck_circleHyzmatlaryň dürli görnüşleri üçin ýa-da satyn alnan harytlar boýunça nagt däl görnüşinde hasaplaşyklary geçirmek\ncheck_circleAlnan karz serişdeleriniň esasy bergisini we oňa hasaplanan göterimlerini bankomatlaryň we terminallaryň üsti bilen tölemek\ncheck_circleSMS hyzmaty arkaly bank kartynyň hasabyndaky hereketleri barada maglumat almak\ncheck_circleDegişli bankomatlardan nagt pul serişdesini almak\ncheck_circleTöleg terminallary arkaly öý we öýjükli aragatnaşyk TM CELL, CDMA, internet, IP-telewideniýe we saglyk ätiýaçlandyryş töleglerini nagt däl görnüşinde amala aşyrmak\ncheck_circleInternet hyzmatlarynyň mümkin bolan islendik ýerinden, kompýuter enjamlaryny ýa-da akylly telefonlary ulanmak bilen elektron bank kart-hasaby boýunça \"Internet-Bank\" hyzmatlaryndan peýdalanyp tiz we amatly nagt däl hasaplaşyklary geçirmek\n Beýleki bank kartlary bilen hyzmatdaşlyk\nMundan başga-da, 2004-nji ýylda \"Senagat\" PTB-y we Russiýanyň dünýä belli öňde baryjy banklarynyň biri bolan \"Promswýazbank\" arasynda Mastercard we Maestro kartlaryny girizmek üçin şertnama baglaşyldy. Häzirki wagtda esasy bankda we onuň welaýat şahamçalarynda we myhmanhanalarda oňa gelýän daşary ýurt raýatlarynyň bu kartlary ulanmaklary üçin giň mümkinçilikler döredildi.\nGelejekde biziň bankymyz tarapyndan Mastercard, Maestro we Viza ýaly halkara kartlary nagt puly berýän ähli nokatlarda, şeýle hem Türkmenistanda giňden ýaýran söwda ulgamynda we daşary ýurtlarda kabul ediler.",
+            "ru": "Банковская карта «Алтын асыр», предназначена для функционирования на территории Туркменистана, и в настоящее время на практике предлагает клиентам следующие услуги:\n\ncheck_circleПеревод заработной платы работников любых юридических лиц на пластиковую карту и выдача\ncheck_circleБезналичный расчет за различные виды услуг и товаров\ncheck_circleПогашение основной суммы долга и начисленных процентов по кредиту с помощью банкомата или терминала\ncheck_circleПредоставление информации о действиях , выполняемых с картой по SMS\ncheck_circleВозможность обналичивания денежных средств с помощью банкомата или терминала\ncheck_circleУслуги оплат домашней и сотовой связи в наличной и безналичной форме TM CELL, CDMA, интернет, IP-телевидение и медицинского страхования\ncheck_circleВозможность проводить быстрые безналичные платежи с помощью сервиса Интернет-банкинг из любой точки страны \nСотрудничество с другими банковскими картами\nКроме того, в 2004 году между АКБ «Сенагат» и «Промсвязьбанк» - одним из всемирно известных ведущих банков России заключен договор о внедрении карт Mastercard и Maestro. В настоящее время в головном банке, а также в велаятских филиалах и отелях, куда часто приезжают иностранные граждане, наш банк создает большие возможности для использования данной карты.\n\nВ будущем нашим банком будут приниматься такие международные карты как Matercard, Maestro, Visa card во всех точках выдачи наличных, а также в широко развитой торговой системе обслуживания в Туркменистане и в зарубежных странах."
+        }
+
+    },
+    {
+        "title": {
+            "en": "Goyum",
+            "tk": "Goýum",
+            "ru": "Гоюм"
+        },
+        "image_url": "images/overdraf.png",
+        "price": 30,
+        "advantages": {
+            "en":[
+                {
+                    "name": "6,00 %",
+                    "description": "Annual interest rate"
+                },
+                {
+                    "name": "300 000 TMT",
+                    "description": "Daily cashless transaction limit"
+                },
+                {
+                    "name": "0,50%",
+                    "description": "\"Cash-back\" service"
+                }
+            ],
+            "tk": [
+                {
+                    "name": "6,00 %",
+                    "description": "Ýyllyk göterim gatnaşygy "
+                },
+                {
+                    "name": "300 000 TMT",
+                    "description": "Gündelik nagt däl hasaplaşygyň çäklendirmesi"
+                },
+                {
+                    "name": "0,50%",
+                    "description": "\"Cash-back\" hyzmaty"
+                }
+            ],
+            "ru":[
+                {
+                    "name": "6,00 %",
+                    "description": "Годовая процентная ставка "
+                },
+                {
+                    "name": "300 000 TMT",
+                    "description": "Дневное ограничение на безналичный расчет"
+                },
+                {
+                    "name": "0,50%",
+                    "description": "Служба «Кэшбэк» "
+                }
+            ]
+        },
+        "text": {
+            "en": "«Goyum» bank card deposit - Joint-Stock commercial bank «Senagat» offers a new card service «Goýum bank card» with a rate of 6,00% per annum. With this deposit bank card, you can take advantage of the following benefits:\n\ncheck_circleCan deposit money at any time and in any amount without asking for their origin\ncheck_circleHe can withdraw cash in whole or in part at any time\ncheck_circleEstimated profitability 6,00% of annual profit\ncheck_circleCash is not accepted on any other card that was originally deposited on the «Goyum» banking card and then withdrawn in cash without confirming its origin\nIn addition,\n\ncheck_circleCashless payments for various types of services or for purchased goods\ncheck_circleRepayment of the principal amount of the debt and accrued interest on the loan through ATMs and terminals\ncheck_circleReceive information about actions with a bank card account via SMS\ncheck_circleWithdrawing cash from ATMs and terminals\ncheck_circleServices of payments for home and cellular communications in cash and non-cash form TM CELL, CDMA, Internet, IP-TV and health insurance\ncheck_circleMake fast and convenient non-cash payments using «Internet banking» services to your card account via computers or mobile phones from anywhere on the Internet  «Senagat» Joint-Stock commercial bank offers you Cash back, which is a type of service under «Goýum» bank card.\n%\n\nFurther, JTCB «Senagat» will adhere to the basic principles of the deposit policy regulated by the policy of the Government of Turkmenistan and will focus on creating favorable conditions for the regulation and development of the economy of Turkmenistan.\n\nYou can apply to the Head office and branches of Senagat Joint-Stock Commercial Bank to have a «Goýum bank card».",
+            "tk": "\"Senagat\" Paýdarlar Täjirçilik banky ýyllyk 6 göterimlik möçber bilen \"Goýum bank karty\" atly täze kart hyzmatyny hödürleýär. Siz bu goýum bank kartynyň üsti bilen şu amatlylyklardan peýdalanyp bilersiňiz:\n\ncheck_circleIslendik wagt we islendik möçberde gelip çykyşy soralmazdan nagt pul serişdesini goýmak\ncheck_circleIslendik wagt doly ýa-da bölekleýin nagt pul serişdesini yzyna almak\ncheck_circleBank kartynyň galyndysyna ýyllyk 6,00 % girdeji hasaplanylýar\ncheck_circleNagt pul serişdesini goýmaga we yzyna almaga mümkinçilik berýän ýeketäk bank karty\nMundan başga-da,\n\ncheck_circleHyzmatlaryň dürli görnüşleri üçin ýa-da satyn alnan harytlar boýunça nagt däl görnüşinde hasaplaşyklary geçirmek\ncheck_circleAlnan karz serişdeleriniň esasy bergisini we oňa hasaplanan göterimlerini bankomatlaryň we terminallaryň üsti bilen tölemek\ncheck_circleSMS hyzmaty arkaly bank kartynyň hasabyndaky hereketleri barada maglumat almak\ncheck_circleDegişli bankomatlardan nagt pul serişdesini almak\ncheck_circleTöleg terminallary arkaly öý we öýjükli aragatnaşyk TM CELL, CDMA, internet, IP-telewideniýe we saglyk ätiýaçlandyryş töleglerini nagt däl görnüşinde amala aşyrmak\ncheck_circleInternet hyzmatlarynyň mümkin bolan islendik ýerinden, kompýuter enjamlaryny ýa-da akylly telefonlary ulanmak bilen elektron bank kart-hasaby boýunça \"Internet-Bank\" hyzmatlaryndan peýdalanyp tiz we amatly nagt däl hasaplaşyklary geçirmek \n \"Senagat\" Paýdarlar Täjirçilik banky \"Goýum\" bank karty boýunça Size hyzmatlaryň görnüşi bolan \"Cash back\" - ýagny höweslendiriş hyzmatlaryny hödürleýär.\n%\n\nMundan beýläk hem \"Senagat\" PTB-y Türkmenistanyň Häkimiýetiniň syýasaty bilen düzgünleşdirilýän depozit syýasatynyň esasy ýörelgelerini saklar we ol Türkmenistanyň ykdysadyýetiniň düzgünleşdirilmegi we ösmegi üçin amatly şertleriň döredilmegine gönükdiriler.\n  \"Goýum\" bank kartyny açmak üçin \"Senagat\" Paýdarlar Täjirçilik bankynyň Baş edarasyna, şahamçalaryna aşakdaky görkezilen formalar arkaly ýüz tutup bilersiňiz.",
+            "ru": "Депозит банковской карты «Гоюм» - Акционерный коммерческий банк «Сенагат» предлагает новую карточную услугу «Депозитная банковская карта» со ставкой 6,00% годовых. С помощью этой депозитной банковской карты вы можете воспользоваться следующими преимуществами:\n\ncheck_circleВозможность внесения любой суммы денежных средств, без необходимости предоставления отчета об их происхождении\ncheck_circleIslendik wagt doly ýa-da bölekleýin nagt pul serişdesini yzyna almak\ncheck_circleОриентировочная доходность 6,00 % годовых\ncheck_circleНаличные деньги не принимаются по любой другой карте, которая изначально была внесена на «Гоюм» банковскую карту, а затем снята наличными без подтверждения ее происхождения\nКроме того,\n\ncheck_circleБезналичный расчет за различные виды услуг и товаров\ncheck_circleПогашение основной суммы долга и начисленных процентов по кредиту с помощью банкомата или терминала\ncheck_circleПредоставление информации о действиях , выполняемых с картой по SMS\ncheck_circleВозможность обналичивания денежных средств с помощью банкомата или терминала\ncheck_circleУслуги оплат домашней и сотовой связи в наличной и безналичной форме TM CELL, CDMA, интернет, IP-телевидение и медицинского страхования\ncheck_circleВозможность проводить быстрые безналичные платежи с помощью сервиса Интернет-банкинг из любой точки страны\n Акционерный коммерческий банк «Сенагат» предлагает кэшбэк - вид услуг по депозитной банковской карте.\n%\n\nКроме того, АКБ «Сенагат» будет придерживаться основных принципов депозитной политики, регулируемой политикой Правительства Туркменистана, и сосредоточится на создании благоприятных условий для регулирования и развития экономики Туркменистана.\n\nВы можете обратиться в Головной офис и филиалы АКБ «Сенагат» для получения «Гоюм банковской карты»."
+        }
+
+    },
+    {
+        "title": {
+            "en": "Mashgala",
+            "tk": "Maşgala",
+            "ru": "Машгала"
+        },
+        "image_url": "images/masgalakart.png",
+        "price": 30,
+        "advantages": {
+            "en":[
+                {
+                    "name": "With opportunity",
+                    "description": "Set up cards for all member of family"
+                },
+                {
+                    "name": "Setup limit",
+                    "description": "for money consumption by Internet banking or application"
+                },
+                {
+                    "name": "0,50%",
+                    "description": "\"Cash-back\" service"
+                }
+            ],
+            "tk": [
+                {
+                    "name": "Mümkin",
+                    "description": "Bank kartyny maşgalanyň her bir agzasyna açmak"
+                },
+                {
+                    "name": "Mümkin",
+                    "description": "Internet bank ýada arza arkaly, sarp ediljek pul mukdaryny kesgitlemek"
+                },
+                {
+                    "name": "0,50%",
+                    "description": "\"Cash-back\" hyzmaty"
+                }
+            ],
+            "ru":[
+                {
+                    "name": "С Возможностью",
+                    "description": "открыть карты для всех членов семьи "
+                },
+                {
+                    "name": "Определить лимит",
+                    "description": "на потребление денег через Интернет-банкинг или по заявке"
+                },
+                {
+                    "name": "0,50%",
+                    "description": "Служба «Кэшбэк» "
+                }
+            ]
+        },
+        "text": {
+            "en": "«Masgala» bank card allows daily use by any member of the family - schoolchildren, students, housewives, seniors, and other family members. The Family Bank card can be opened to each family member at the request of the family, and the amount of money that can be spent daily or weekly for each family member can be determined through the application or the Internet Banking service.\n\nThe «Masgala» banking card, which is open to family members, is connected to the main Altyn Asyr bank card.\n\nYou can take advantage of the following benefits through «Maşgala» bank card:\n\ncheck_circleAt the request of the customer, he can determine the amount of money to be spent per week on the bank card by application or through the Internet-banking service\ncheck_circleCashless payments for various types of services or for purchased goods\ncheck_circleRepayment of the principal amount of the debt and accrued interest on the loan through ATMs and terminals\ncheck_circleReceive information about actions with a bank card account via SMS\ncheck_circleWithdrawing cash from ATMs and terminals\ncheck_circleServices of payments for home and cellular communications in cash and non-cash form TM CELL, CDMA, Internet, IP-TV and health insurance\ncheck_circleMake fast and convenient non-cash payments using «Internet banking» services to your card account via computers or mobile phones from anywhere on the Internet",
+            "tk": "\"Maşgala\" bank karty maşgalanyň islendik agzalaryna – mekdep okuwçylaryna, talyplara, öý hojalykçy zenanlarymyza, ýaşulylarymyza we beýleki maşgala agzalarynyň gündelik ulanmagyna mümkinçilik berýär. “Maşgala” bank karty maşgalanyň islegine göra maşgalanyň her bir agzasyna açylyp bilner we arzanyň ýa-da “internet-bank” hyzmaty arkaly maşgalanyň her bir agzasy üçin gündelik ýa-da hepdelik sarp ediljek pul mukdarynyň möçberi kesgitlenip bilner.\n\nMaşgalanyň agzalaryna açylýan “Maşgala” bank karty esasy göz öňünde tutulan \"Altyn Asyr\" bank kartyna birikdirilýar.\n\n\"Maşgala\" bank kartynyň üsti bilen aşakdaky amatlyklardan peýdalanyp bilersiňiz:\n\ncheck_circleMüşderi islegine görä arzasy boýunça ýa-da \"internet-bank\" hyzmaty arkaly \"Maşgala\" bank kartynyň hepdelik sarp ediljek pul mukdarynyň möçberini kesgitläp biler\ncheck_circleHyzmatlaryň dürli görnüşleri üçin ýa-da satyn alnan harytlar boýunça nagt däl görnüşinde hasaplaşyklary geçirmek\ncheck_circleAlnan karz serişdeleriniň esasy bergisini we oňa hasaplanan göterimlerini bankomatlaryň we terminallaryň üsti bilen tölemek\ncheck_circleSMS hyzmaty arkaly bank kartynyň hasabyndaky hereketleri barada maglumat almak\ncheck_circleDegişli bankomatlardan nagt pul serişdesini almak\ncheck_circleTöleg terminallary arkaly öý we öýjükli aragatnaşyk TM CELL, CDMA, internet, IP-telewideniýe we saglyk ätiýaçlandyryş töleglerini nagt däl görnüşinde amala aşyrmak\ncheck_circleInternet hyzmatlarynyň mümkin bolan islendik ýerinden, kompýuter enjamlaryny ýa-da akylly telefonlary ulanmak bilen elektron bank kart-hasaby boýunça \"Internet-Bank\" hyzmatlaryndan peýdalanyp tiz we amatly nagt däl hasaplaşyklary geçirmek",
+            "ru": "Банковская карта «Машгала» доступна к использованию каждому из членов семьи независимо от его возраста, будь то школьник, студент, домохозяйка, пенсионер итд. Дневной или недельный лимит трат можно установить с помощью приложения или воспользовавшись услугами сервиса Интернет- банкинга.\n\nБанковская карта «Машгала», открытая для членов семьи, подключена к основной банковской карте Алтын Асыр.\n\nС банковской картой «Машгала» Вы можете воспользоваться следующими преимуществами:\n\ncheck_circleВозможность установления лимита трат денежных средств с помощью приложения или сервиса Интернет-банкинг\ncheck_circleБезналичный расчет за различные виды услуг и товаров\ncheck_circleПогашение основной суммы долга и начисленных процентов по кредиту с помощью банкомата или терминала\ncheck_circleПредоставление информации о действиях , выполняемых с картой по SMS\ncheck_circleВозможность обналичивания денежных средств с помощью банкомата или терминала\ncheck_circleУслуги оплат домашней и сотовой связи в наличной и безналичной форме TM CELL, CDMA, интернет, IP-телевидение и медицинского страхования\ncheck_circleВозможность проводить быстрые безналичные платежи с помощью сервиса Интернет-банкинг из любой точки страны "
+        }
+
+    }
+]

@@ -24,7 +24,7 @@ class AuthController
     /**
      * User Informations
      *
-     *
+     * @localizationHeader
      * @throws Exception
      */
     public function userInfo(): JsonResponse
@@ -39,7 +39,7 @@ class AuthController
             ], 401);
         }
 
-        $user->load(['certificates.certificateType', 'applications']);
+        $user->load(['certificates.certificateType', 'applications','cards']);
 
         return new JsonResponse([
             'success' => true,

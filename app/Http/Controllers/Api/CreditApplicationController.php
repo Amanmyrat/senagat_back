@@ -30,8 +30,9 @@ class CreditApplicationController extends Controller
 
         return response()->json([
             'message' => 'Submit Credit Details ',
-            'data' => new SubmitCreditDetailsResource($application),
+            'data' => collect((new SubmitCreditDetailsResource($application))->toArray($request))->except('status'),
         ], 201);
+
     }
 
     /**

@@ -114,7 +114,7 @@ class UserProfileRequest extends FormRequest
             /**
              * Home phone
              *
-             * @var string
+             * @var integer
              *
              * @example 12525355
              */
