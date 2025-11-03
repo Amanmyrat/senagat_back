@@ -60,7 +60,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugins([
-                FilamentShieldPlugin::make(),
+
                 SpatieLaravelTranslatablePlugin::make()->defaultLocales(['tk', 'en', 'ru']),
                 TranslationManagerPlugin::make(),
             ])

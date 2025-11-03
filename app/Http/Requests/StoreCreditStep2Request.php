@@ -87,7 +87,7 @@ class StoreCreditStep2Request extends FormRequest
              *
              * @var int
              *
-             *  @example Manager fields
+             *  @example 2500
              */
             'salary' => ['required_if:role,manager', 'numeric', 'min:0'],
 

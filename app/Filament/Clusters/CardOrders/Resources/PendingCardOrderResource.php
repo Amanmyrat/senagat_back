@@ -133,6 +133,7 @@ class PendingCardOrderResource extends Resource
             ]);
     }
 
+
     public static function table(Table $table): Table
     {
         return $table
@@ -161,10 +162,11 @@ class PendingCardOrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+
                 ]),
             ]);
     }
@@ -183,6 +185,24 @@ class PendingCardOrderResource extends Resource
             'create' => Pages\CreatePendingCardOrder::route('/create'),
             'edit' => Pages\EditPendingCardOrder::route('/{record}/edit'),
         ];
+    }
+    public static function canViewAny(): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator','credit-card-viewer']);
+    }
+    public static function canCreate(): bool
+    {
+        return optional(auth()->user())->role === 'super-admin';
+    }
+
+    public static function canEdit($record): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
     }
 
     public static function getEloquentQuery(): Builder
