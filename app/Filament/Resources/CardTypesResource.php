@@ -116,6 +116,31 @@ class CardTypesResource extends Resource
             //
         ];
     }
+    public static function canViewAny(): bool
+    {
+
+        //  return auth()->user()?->role === 'super-admin';
+
+        return optional(auth()->user())->role === 'super-admin';
+        // return in_array(optional(auth()->user())->role, ['super-admin',]);
+        // return in_array(optional(auth()->user())->role, ['super-admin',]);
+    }
+
+    public static function canCreate(): bool
+    {
+        return optional(auth()->user())->role === 'super-admin';
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()->role === 'super-admin';
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()->role === 'super-admin';
+    }
+
 
     public static function getPages(): array
     {

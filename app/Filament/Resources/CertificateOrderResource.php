@@ -141,12 +141,31 @@ class CertificateOrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+
                 ]),
             ]);
+    }
+    public static function canViewAny(): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator','certificate-viewer']);
+    }
+    public static function canCreate(): bool
+    {
+        return optional(auth()->user())->role === 'super-admin';
+    }
+
+    public static function canEdit($record): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
     }
 
     public static function getRelations(): array

@@ -106,7 +106,7 @@ class RejectedLoanOrdersResource extends Resource
                                 ->options([
                                     'manager' => 'Manager',
                                     'entrepreneur' => 'Entrepreneur',
-                                ])->required()
+                                ])
                                 ->disabled(),
                             TextInput::make('patent_number')->visible(fn ($get) => $get('role') === 'entrepreneur')->disabled()
                                 ->label(__('resource.patent_number')),
@@ -128,7 +128,7 @@ class RejectedLoanOrdersResource extends Resource
                     Step::make('Branch Info')
                         ->label(__('resource.branch_information'))
                         ->schema([
-                            TextInput::make('country')->required()->disabled()
+                            TextInput::make('country')->disabled()
                                 ->label(__('resource.country')),
                             TextInput::make('branch.name')
                                 ->label(__('resource.branch_name'))
@@ -169,12 +169,31 @@ class RejectedLoanOrdersResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+
                 ]),
             ]);
+    }
+    public static function canViewAny(): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator','loan-viewer']);
+    }
+    public static function canCreate(): bool
+    {
+        return optional(auth()->user())->role === 'super-admin';
+    }
+
+    public static function canEdit($record): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
     }
 
     public static function getRelations(): array

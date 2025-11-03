@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\LoanOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\CreditApplication;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -164,10 +165,11 @@ class LoanOrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+
                 ]),
             ]);
     }
@@ -178,6 +180,25 @@ class LoanOrderResource extends Resource
             //
         ];
     }
+    public static function canViewAny(): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator','loan-viewer']);
+    }
+    public static function canCreate(): bool
+    {
+        return optional(auth()->user())->role === 'super-admin';
+    }
+
+    public static function canEdit($record): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+    }
+
 
     public static function getPages(): array
     {

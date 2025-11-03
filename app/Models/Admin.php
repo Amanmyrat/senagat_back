@@ -14,7 +14,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
-use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @property int $id
@@ -44,11 +43,11 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class Admin extends Authenticatable
 {
-    use HasApiTokens, HasFactory, HasRoles,Notifiable;
+    use HasApiTokens, HasFactory,Notifiable;
 
-    protected $guard_name = 'admin';
 
-    protected $fillable = ['name', 'email', 'password', 'username'];
+
+    protected $fillable = ['name', 'email', 'password', 'username','role'];
 
     protected $hidden = ['password', 'remember_token'];
 

@@ -6,6 +6,7 @@ use App\Filament\Clusters\CardOrders;
 use App\Filament\Resources\ApprovedCardOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\ApprovedCardOrder;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
@@ -160,6 +161,7 @@ class ApprovedCardOrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                       Tables\Actions\ViewAction::make(),
 
 
 //                Action::make('download_pdf')
@@ -175,7 +177,7 @@ class ApprovedCardOrderResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+
                 ]),
             ]);
     }
@@ -194,6 +196,24 @@ class ApprovedCardOrderResource extends Resource
             'create' => Pages\CreateApprovedCardOrder::route('/create'),
             'edit' => Pages\EditApprovedCardOrder::route('/{record}/edit'),
         ];
+    }
+    public static function canViewAny(): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator','credit-card-viewer']);
+    }
+    public static function canCreate(): bool
+    {
+        return optional(auth()->user())->role === 'super-admin';
+    }
+
+    public static function canEdit($record): bool
+    {
+         return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
     }
 
     public static function getEloquentQuery(): Builder

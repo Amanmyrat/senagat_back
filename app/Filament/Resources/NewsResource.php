@@ -77,6 +77,8 @@ class NewsResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -84,7 +86,14 @@ class NewsResource extends Resource
                 ]),
             ]);
     }
+    public static function canViewAny(): bool
+    {
 
+
+
+        return optional(auth()->user())->role === 'super-admin';
+
+    }
     public static function getRelations(): array
     {
         return [

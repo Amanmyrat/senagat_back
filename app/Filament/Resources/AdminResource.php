@@ -66,14 +66,19 @@ class AdminResource extends Resource
                     ->autocomplete('new-password')
                     ->placeholder(fn ($record) => $record ? __('resource.leave blank to keep current password') : null)
                     ->minLength(8),
-                Select::make('roles')
-                    ->label('Role')
-                    ->relationship('roles', 'name')
+                Select::make('role')
+                    ->label(__('resource.role'))
                     ->required()
-                    ->preload()
-                    ->searchable()
-                    ->multiple(false)
-                    ->helperText('Select the user role'),
+                ->options([
+                    'super-admin'=>'Super Admin',
+                        'operator'=>'Operator',
+                        'certificate-viewer'=>'Certificate Viewer',
+                        'credit-card-viewer'=>'Credit Card Viewer',
+                        'loan-viewer'=>'Loan Viewer'
+                    ]
+
+                )
+
 
             ]);
     }
@@ -84,13 +89,12 @@ class AdminResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->label(__('resource.name')),
-                TextColumn::make('roles.name')
-                    ->label(__('resource.role')),
-                Tables\Columns\BadgeColumn::make('roles.name')
+
+                Tables\Columns\BadgeColumn::make('role')
                     ->colors([
                         'success' => 'super-admin',
-                        'warning' => 'admin',
-                        'danger' => 'operator',
+
+
                     ]),
             ])
             ->filters([
@@ -112,6 +116,14 @@ class AdminResource extends Resource
             //
         ];
     }
+    public static function canViewAny(): bool
+    {
+
+        return optional(auth()->user())->role === 'super-admin';
+
+
+    }
+
 
     public static function getPages(): array
     {
