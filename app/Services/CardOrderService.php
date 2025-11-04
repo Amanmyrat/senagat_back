@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enum\ErrorMessage;
 use App\Models\CardOrder;
 use App\Models\UserProfile;
 
@@ -9,6 +10,9 @@ class CardOrderService
 {
     public function createOrder(array $data, $user): CardOrder
     {
+        if (! $user->profile) {
+            throw new \Exception(ErrorMessage::USER_PROFILE_REQUIRED->value);
+        }
         $profile = UserProfile::where('user_id', $user->id)->firstOrFail();
 
         return CardOrder::create([

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enum\ErrorMessage;
+use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CertificateOrderRequest;
 use App\Http\Resources\CertificateOrderResource;
 use App\Services\CertificateOrderService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 
 class CertificateOrderController extends Controller
@@ -22,12 +25,23 @@ class CertificateOrderController extends Controller
      */
     public function store(CertificateOrderRequest $request)
     {
-        $user = $request->user();
-        $order = $this->service->create($request->validated(), $user);
+        try {
+            $user = $request->user();
+            $order = $this->service->create($request->validated(), $user);
 
-        return new JsonResponse([
-            'success' => true,
-            'data' => collect((new CertificateOrderResource($order))->toArray($request))->except(['certificate_name','status']),
-        ], 200);
+            return new JsonResponse([
+                'success' => true,
+                'code' => SuccessMessage::CERTIFICATE_ORDER_CREATED->value,
+                'data' => collect((new CertificateOrderResource($order))->toArray($request))
+                    ->except(['certificate_name', 'status']),
+            ], 201);
+
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'success' => false,
+                'error_message' => $e->getMessage(),
+                'code' => ErrorMessage::CERTIFICATE_ORDER_CREATION_FAILED->value,
+            ], 400);
+        }
     }
 }

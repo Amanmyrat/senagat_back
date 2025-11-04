@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\ErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -31,6 +32,14 @@ class RegisterRequest extends FormRequest
              * @example 12345678
              */
             'password' => ['required', 'string', 'min:4'],
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'otp_session_token.required' => ErrorMessage::OTP_SESSION_TOKEN_REQUIRED->value,
+            'password.required' => ErrorMessage::PASSWORD_REQUIRED->value,
+            'password.min' => ErrorMessage::PASSWORD_MIN->value,
         ];
     }
 }

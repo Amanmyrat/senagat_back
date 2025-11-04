@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,16 +9,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('admins', function (Blueprint $table) {
-            if (!Schema::hasColumn('admins', 'username')) {
+            if (! Schema::hasColumn('admins', 'username')) {
                 $table->string('username')->unique()->nullable()->after('name');
             }
 
-            if (!Schema::hasColumn('admins', 'role')) {
+            if (! Schema::hasColumn('admins', 'role')) {
                 $table->string('role')->nullable()->after('username');
             }
 
             if (Schema::hasColumn('admins', 'email')) {
                 $table->string('email')->nullable()->change();
+            }
+            if (! Schema::hasColumn('admins', 'branch_id')) {
+                $table->foreignId('branch_id')->nullable()->constrained('locations')->nullOnDelete();
             }
         });
     }
@@ -30,6 +34,9 @@ return new class extends Migration
             }
             if (Schema::hasColumn('admins', 'role')) {
                 $table->dropColumn('role');
+            }
+            if (Schema::hasColumn('admins', 'branch_id')) {
+                $table->dropColumn('branch_id');
             }
         });
     }

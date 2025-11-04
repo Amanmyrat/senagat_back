@@ -24,7 +24,7 @@ class CardOrderResource extends JsonResource
             'internet_service' => (bool) $this->resource->internet_service,
             'delivery' => (bool) $this->resource->delivery,
             'email' => $this->resource->email,
-            'status'=>$this->resource->status
+            'status' => $this->resource->status,
         ];
     }
 }

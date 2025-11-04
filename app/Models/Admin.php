@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Enum\AdminRole;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -20,7 +20,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property string $name
  * @property string $email
  * @property string $password
- * @property AdminRole $role
+ * @property string $role
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
@@ -45,9 +45,7 @@ class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory,Notifiable;
 
-
-
-    protected $fillable = ['name', 'email', 'password', 'username','role'];
+    protected $fillable = ['name', 'email', 'password', 'username', 'role', 'branch_id'];
 
     protected $hidden = ['password', 'remember_token'];
 
@@ -60,5 +58,10 @@ class Admin extends Authenticatable
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Location::class, 'branch_id');
     }
 }

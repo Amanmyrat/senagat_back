@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enum\ErrorMessage;
+use App\Enum\SuccessMessage;
 use App\Http\Requests\CheckPhoneExistenceRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\PreLoginRequest;
@@ -25,6 +27,7 @@ class AuthController
      * User Informations
      *
      * @localizationHeader
+     *
      * @throws Exception
      */
     public function userInfo(): JsonResponse
@@ -35,14 +38,15 @@ class AuthController
         if (! $user) {
             return new JsonResponse([
                 'success' => false,
-                'message' => 'Token invalid or user not found',
+                'code' => ErrorMessage::UNAUTHORIZED->value,
             ], 401);
         }
 
-        $user->load(['certificates.certificateType', 'applications','cards']);
+        $user->load(['certificates.certificateType', 'applications', 'cards']);
 
         return new JsonResponse([
             'success' => true,
+            'code' => SuccessMessage::USER_INFO_RETRIEVED->value,
             'data' => new UserInformationResource($user),
         ], 200);
     }
@@ -61,12 +65,13 @@ class AuthController
 
             return new JsonResponse([
                 'success' => true,
-                'message' => 'OTP sent successfully',
-            ]);
+                'code' => SuccessMessage::OTP_SENT->value,
+            ], 200);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message' => 'Failed to send OTP',
-                'error' => $e->getMessage(),
+                'success' => false,
+                'code' => ErrorMessage::OTP_DID_NOT_SENT_ERROR->value,
+                'error_message' => $e->getMessage(),
             ], 400);
         }
     }
@@ -86,11 +91,11 @@ class AuthController
             return new JsonResponse([
                 'success' => true,
                 'otp_session_token' => $token,
-                'message' => 'OTP verified successfully',
-            ]);
+                'code' => SuccessMessage::OTP_VERIFIED->value,
+            ], 200);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message' => 'OTP verification failed',
+                'code' => ErrorMessage::OTP_DID_NOT_MATCH_ERROR->value,
                 'error' => $e->getMessage(),
             ], 400);
         }
@@ -110,13 +115,16 @@ class AuthController
             $token = $user->createToken('mobile')->plainTextToken;
             $user->token = $token;
 
-            return (new UserResource($user))
-                ->response()
-                ->setStatusCode(201);
+            return new JsonResponse([
+                'success' => true,
+                'code' => SuccessMessage::USER_REGISTERED->value,
+                'data' => new UserResource($user),
+            ], 201);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message' => 'Registration failed',
-                'error' => $e->getMessage(),
+                'success' => false,
+                'code' => ErrorMessage::REGISTRATION_FAILED->value,
+                'error_message' => $e->getMessage(),
             ], 400);
         }
     }
@@ -135,12 +143,13 @@ class AuthController
 
             return new JsonResponse([
                 'success' => true,
-                'message' => 'Password verified, OTP sent for final authentication',
-            ]);
+                'code' => SuccessMessage::PASSWORD_VERIFIED_OTP_SENT->value,
+            ], 200);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message' => 'Pre-login failed',
-                'error' => $e->getMessage(),
+                'success' => false,
+                'code' => ErrorMessage::PRE_LOGIN_FAILED->value,
+                'error_message' => $e->getMessage(),
             ], 400);
         }
     }
@@ -159,13 +168,16 @@ class AuthController
             $token = $user->createToken('mobile')->plainTextToken;
             $user->token = $token;
 
-            return (new UserResource($user))
-                ->response()
-                ->setStatusCode(200);
+            return new JsonResponse([
+                'success' => true,
+                'code' => SuccessMessage::LOGIN_SUCCESSFUL->value,
+                'data' => new UserResource($user),
+            ], 200);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message' => 'Login failed',
-                'error' => $e->getMessage(),
+                'success' => false,
+                'code' => ErrorMessage::LOGIN_FAILED->value,
+                'error_message' => $e->getMessage(),
             ], 400);
         }
     }
@@ -179,13 +191,26 @@ class AuthController
             $phone = $request->validated('phone');
             $exists = User::where('phone', $phone)->exists();
 
+            if ($exists) {
+                return new JsonResponse([
+                    'success' => true,
+                    'code' => SuccessMessage::PHONE_EXISTS->value,
+                    'exists' => true,
+                ], 200);
+            }
+
             return new JsonResponse([
-                'exists' => $exists,
-            ]);
+                'success' => false,
+                'code' => ErrorMessage::PHONE_NOT_FOUND->value,
+                'exists' => false,
+            ], 404);
+
         } catch (Exception $e) {
             return new JsonResponse([
-                'error' => $e->getMessage(),
-            ]);
+                'success' => false,
+                'code' => ErrorMessage::SERVER_ERROR->value,
+                'error_message' => $e->getMessage(),
+            ], 500);
         }
     }
 }

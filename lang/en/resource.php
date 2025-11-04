@@ -100,11 +100,12 @@ return [
     'work_phone' => 'Work Phone',
     'internet_service' => 'Internet Service',
     'delivery' => 'Delivery',
-    'text'=>'Text',
-    'category'=>'Category',
-    'image_url'=>'Image_url',
-    'advantages'=>'Advantages',
-    'value'=>'Value',
-    'description'=>'Description'
+    'text' => 'Text',
+    'category' => 'Category',
+    'image_url' => 'Image_url',
+    'advantages' => 'Advantages',
+    'value' => 'Value',
+    'description' => 'Description',
+    'card_price' => 'Card Price',
 
 ];

@@ -160,7 +160,7 @@ class RejectedCardOrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make()
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -168,10 +168,12 @@ class RejectedCardOrderResource extends Resource
                 ]),
             ]);
     }
+
     public static function canViewAny(): bool
     {
-        return in_array(optional(auth()->user())->role, ['super-admin','operator','credit-card-viewer']);
+        return in_array(optional(auth()->user())->role, ['super-admin', 'operator', 'credit-card-viewer']);
     }
+
     public static function canCreate(): bool
     {
         return optional(auth()->user())->role === 'super-admin';
@@ -179,14 +181,13 @@ class RejectedCardOrderResource extends Resource
 
     public static function canEdit($record): bool
     {
-        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+        return in_array(optional(auth()->user())->role, ['super-admin', 'credit-card-viewer']);
     }
 
     public static function canDelete($record): bool
     {
-        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+        return in_array(optional(auth()->user())->role, ['super-admin']);
     }
-
 
     public static function getRelations(): array
     {
@@ -206,8 +207,18 @@ class RejectedCardOrderResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
+
+        /** @var \App\Models\Admin|null $admin */
+        $admin = auth('admin')->user();
+        $query = parent::getEloquentQuery()
             ->with(['branch', 'profile', 'cardType'])
             ->where('status', 'rejected');
+
+        if ($admin && in_array($admin->role, ['card-viewer', 'credit-card-viewer'])) {
+            $query->where('bank_branch_id', $admin->branch_id);
+
+        }
+
+        return $query;
     }
 }
