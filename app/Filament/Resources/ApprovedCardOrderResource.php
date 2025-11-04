@@ -6,7 +6,6 @@ use App\Filament\Clusters\CardOrders;
 use App\Filament\Resources\ApprovedCardOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\ApprovedCardOrder;
-use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
@@ -161,18 +160,15 @@ class ApprovedCardOrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                       Tables\Actions\ViewAction::make(),
-
-
-//                Action::make('download_pdf')
-//                    ->label('Download PDF')
-//
-//                    ->url(fn (ApprovedCardOrder $record) => route('approved_orders.pdf', $record))
-//                    ->openUrlInNewTab(),
+                Tables\Actions\ViewAction::make(),
                 Action::make('print')
-                    ->label('Print')
+                    ->label(null)
                     ->icon('heroicon-o-printer')
-                    ->url(fn ($record) => route('approved-card-orders.print', $record))
+                    ->url(fn ($record) => route('approved-card-orders.print', $record)),
+                Action::make('printDirect')
+                    ->label('Print Direct')
+                    ->icon('heroicon-o-printer')
+                    ->url(fn ($record) => route('approved-card-orders.print-direct', $record))
                     ->openUrlInNewTab(),
             ])
             ->bulkActions([
@@ -197,10 +193,12 @@ class ApprovedCardOrderResource extends Resource
             'edit' => Pages\EditApprovedCardOrder::route('/{record}/edit'),
         ];
     }
+
     public static function canViewAny(): bool
     {
-        return in_array(optional(auth()->user())->role, ['super-admin','operator','credit-card-viewer']);
+        return in_array(optional(auth()->user())->role, ['super-admin', 'operator', 'credit-card-viewer']);
     }
+
     public static function canCreate(): bool
     {
         return optional(auth()->user())->role === 'super-admin';
@@ -208,18 +206,27 @@ class ApprovedCardOrderResource extends Resource
 
     public static function canEdit($record): bool
     {
-         return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+        return in_array(optional(auth()->user())->role, ['super-admin', 'credit-card-viewer']);
     }
 
     public static function canDelete($record): bool
     {
-        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+        return in_array(optional(auth()->user())->role, ['super-admin']);
     }
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
+        /** @var \App\Models\Admin|null $admin */
+        $admin = auth('admin')->user();
+        $query = parent::getEloquentQuery()
             ->with(['branch', 'profile', 'cardType'])
             ->where('status', 'approved');
+
+        if ($admin && in_array($admin->role, ['card-viewer', 'credit-card-viewer'])) {
+            $query->where('bank_branch_id', $admin->branch_id);
+
+        }
+
+        return $query;
     }
 }

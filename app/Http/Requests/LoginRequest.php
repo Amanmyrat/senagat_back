@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\ErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
@@ -31,6 +32,15 @@ class LoginRequest extends FormRequest
              * @example 12345
              */
             'otp' => ['required', 'string', 'size:5'],
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'phone.required' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
+            'phone.regex' => ErrorMessage::PHONE_NUMBER_INVALID->value,
+            'otp.required' => ErrorMessage::OTP_REQUIRED->value,
+            'otp.size' => ErrorMessage::OTP_INVALID->value,
         ];
     }
 }

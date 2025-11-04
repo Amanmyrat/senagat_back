@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CreditTypeResource;
 use App\Models\CreditType;
@@ -12,6 +13,8 @@ class CreditTypeController extends Controller
     /**
      * Credit Types
      *
+     * @unauthenticated
+     *
      * @localizationHeader
      */
     public function index(): JsonResponse
@@ -20,6 +23,7 @@ class CreditTypeController extends Controller
 
         return new JsonResponse([
             'success' => true,
+            'code' => SuccessMessage::CREDIT_TYPE_LISTED->value,
             'data' => CreditTypeResource::collection($card),
         ], 200);
     }

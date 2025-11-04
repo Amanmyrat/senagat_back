@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enum\ErrorMessage;
 use App\Models\CertificateOrder;
 use App\Models\UserProfile;
 
@@ -9,6 +10,10 @@ class CertificateOrderService
 {
     public function create(array $data, $user): CertificateOrder
     {
+        if (! $user->profile) {
+
+            throw new \Exception(ErrorMessage::USER_PROFILE_REQUIRED->value);
+        }
         $profile = UserProfile::where('user_id', $user->id)->firstOrFail();
 
         return CertificateOrder::create([

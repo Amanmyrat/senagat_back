@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\LoanOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\CreditApplication;
-use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -165,7 +164,7 @@ class LoanOrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make()
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -180,10 +179,12 @@ class LoanOrderResource extends Resource
             //
         ];
     }
+
     public static function canViewAny(): bool
     {
-        return in_array(optional(auth()->user())->role, ['super-admin','operator','loan-viewer']);
+        return in_array(optional(auth()->user())->role, ['super-admin', 'operator', 'loan-viewer']);
     }
+
     public static function canCreate(): bool
     {
         return optional(auth()->user())->role === 'super-admin';
@@ -191,14 +192,13 @@ class LoanOrderResource extends Resource
 
     public static function canEdit($record): bool
     {
-        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+        return in_array(optional(auth()->user())->role, ['super-admin', 'loan-viewer']);
     }
 
     public static function canDelete($record): bool
     {
-        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+        return in_array(optional(auth()->user())->role, ['super-admin']);
     }
-
 
     public static function getPages(): array
     {
@@ -211,6 +211,16 @@ class LoanOrderResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->with('profile');
+        /** @var \App\Models\Admin|null $admin */
+        $admin = auth('admin')->user();
+        $query = parent::getEloquentQuery()
+            ->with(['profile']);
+
+        if ($admin && in_array($admin->role, ['loan', 'loan-viewer'])) {
+            $query->where('bank_branch_id', $admin->branch_id);
+        }
+
+        return $query;
+
     }
 }

@@ -16,7 +16,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class ApprovedCertificateOrderResource extends Resource
 {
@@ -147,7 +146,7 @@ class ApprovedCertificateOrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make()
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -155,10 +154,12 @@ class ApprovedCertificateOrderResource extends Resource
                 ]),
             ]);
     }
+
     public static function canViewAny(): bool
     {
-        return in_array(optional(auth()->user())->role, ['super-admin','operator','certificate-viewer']);
+        return in_array(optional(auth()->user())->role, ['super-admin', 'operator', 'certificate-viewer']);
     }
+
     public static function canCreate(): bool
     {
         return optional(auth()->user())->role === 'super-admin';
@@ -166,14 +167,13 @@ class ApprovedCertificateOrderResource extends Resource
 
     public static function canEdit($record): bool
     {
-        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+        return in_array(optional(auth()->user())->role, ['super-admin', 'certificate-viewer']);
     }
 
     public static function canDelete($record): bool
     {
-        return in_array(optional(auth()->user())->role, ['super-admin','operator']);
+        return in_array(optional(auth()->user())->role, ['super-admin']);
     }
-
 
     public static function getRelations(): array
     {
@@ -191,10 +191,18 @@ class ApprovedCertificateOrderResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return parent::getEloquentQuery()
-
+        /** @var \App\Models\Admin|null $admin */
+        $admin = auth('admin')->user();
+        $query = parent::getEloquentQuery()
             ->where('status', 'approved');
+
+        if ($admin && in_array($admin->role, ['certificate', 'certificate-viewer'])) {
+            $query->where('bank_branch_id', $admin->branch_id);
+        }
+
+        return $query;
+
     }
 }

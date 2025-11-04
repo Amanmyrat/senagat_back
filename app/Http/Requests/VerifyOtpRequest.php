@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\ErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 
 class VerifyOtpRequest extends FormRequest
@@ -40,6 +41,17 @@ class VerifyOtpRequest extends FormRequest
              * @example register
              */
             'purpose' => ['required', 'string', 'in:register,login'],
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'phone.required' => ErrorMessage::PHONE_REQUIRED->value,
+            'phone.regex' => ErrorMessage::PHONE_INVALID->value,
+            'code.required' => ErrorMessage::OTP_CODE_REQUIRED->value,
+            'code.size' => ErrorMessage::OTP_CODE_INVALID->value,
+            'purpose.required' => ErrorMessage::OTP_PURPOSE_REQUIRED->value,
+            'purpose.in' => ErrorMessage::OTP_PURPOSE_INVALID->value,
         ];
     }
 }

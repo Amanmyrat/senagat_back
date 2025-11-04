@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enum\ErrorMessage;
+use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCreditStep1Request;
-use App\Http\Requests\StoreCreditStep2Request;
-use App\Http\Requests\StoreCreditStep3Request;
-use App\Http\Resources\SubmitBranchInfoResource;
-use App\Http\Resources\SubmitCreditDetailsResource;
-use App\Http\Resources\SubmitWorkInfoResource;
+use App\Http\Requests\LoanOrderRequest;
+use App\Http\Resources\LoanOrderResource;
 use App\Services\CreditApplicationService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 
 class CreditApplicationController extends Controller
@@ -22,43 +21,26 @@ class CreditApplicationController extends Controller
     }
 
     /**
-     * Submit Credit Details
+     * Credit Order
      */
-    public function submitCreditDetails(StoreCreditStep1Request $request)
+    public function store(LoanOrderRequest $request)
     {
-        $application = $this->service->saveStep($request->validated(), $request->user());
+        try {
+            $application = $this->service->createLoanOrder($request->validated(), $request->user());
 
-        return response()->json([
-            'message' => 'Submit Credit Details ',
-            'data' => collect((new SubmitCreditDetailsResource($application))->toArray($request))->except('status'),
-        ], 201);
+            return new JsonResponse([
+                'success' => true,
+                'code' => SuccessMessage::LOAN_ORDER_CREATED->value,
+                'data' => collect((new LoanOrderResource($application))->toArray($request))
+                    ->except('status'),
+            ], 201);
 
-    }
-
-    /**
-     * Submit Work Info
-     */
-    public function submitWorkInfo(StoreCreditStep2Request $request)
-    {
-        $application = $this->service->saveStep($request->validated(), $request->user());
-
-        return response()->json([
-            'message' => 'Submit Work Information',
-            'data' => new SubmitWorkInfoResource($application),
-        ]);
-    }
-
-    /**
-     * Submit Branch Info
-     */
-    public function submitBranchInfo(StoreCreditStep3Request $request)
-    {
-        $this->service->saveStep($request->validated(), $request->user());
-        $application = $this->service->getPending($request->user());
-
-        return new JsonResponse([
-            'message' => 'Application submitted',
-            'data' => new SubmitBranchInfoResource($application),
-        ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'success' => false,
+                'error_message' => $e->getMessage(),
+                'code' => ErrorMessage::LOAN_ORDER_CREATION_FAILED->value,
+            ], 400);
+        }
     }
 }

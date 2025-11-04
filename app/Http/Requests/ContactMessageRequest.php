@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\ErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ContactMessageRequest extends FormRequest
@@ -29,5 +30,16 @@ class ContactMessageRequest extends FormRequest
             'message' => 'required|string',
         ];
 
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => ErrorMessage::NAME_REQUIRED->value,
+            'email.required' => ErrorMessage::EMAIL_REQUIRED->value,
+            'email.email' => ErrorMessage::EMAIL_INVALID->value,
+            'phone_number.required' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
+            'message.required' => ErrorMessage::MESSAGE_REQUIRED->value,
+        ];
     }
 }

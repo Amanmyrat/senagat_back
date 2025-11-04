@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enum\ErrorMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CardCategoryResource;
 use App\Models\CardCategory;
@@ -20,6 +21,7 @@ class CardCategoryController extends Controller
 
         return new JsonResponse([
             'success' => true,
+            'code' => ErrorMessage::CARDS_RETRIEVED->value,
             'data' => CardCategoryResource::collection($card),
         ], 200);
     }
