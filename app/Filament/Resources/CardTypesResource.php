@@ -116,6 +116,7 @@ class CardTypesResource extends Resource
             //
         ];
     }
+
     public static function canViewAny(): bool
     {
 
@@ -140,7 +141,6 @@ class CardTypesResource extends Resource
     {
         return auth()->user()->role === 'super-admin';
     }
-
 
     public static function getPages(): array
     {

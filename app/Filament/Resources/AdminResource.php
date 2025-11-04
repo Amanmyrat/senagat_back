@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AdminResource\Pages;
 use App\Models\Admin;
+use App\Models\Location;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -69,16 +70,27 @@ class AdminResource extends Resource
                 Select::make('role')
                     ->label(__('resource.role'))
                     ->required()
-                ->options([
-                    'super-admin'=>'Super Admin',
-                        'operator'=>'Operator',
-                        'certificate-viewer'=>'Certificate Viewer',
-                        'credit-card-viewer'=>'Credit Card Viewer',
-                        'loan-viewer'=>'Loan Viewer'
+                    ->options([
+                        'super-admin' => 'Super Admin',
+                        'operator' => 'Operator',
+                        'certificate-viewer' => 'Certificate Viewer',
+                        'credit-card-viewer' => 'Credit Card Viewer',
+                        'loan-viewer' => 'Loan Viewer',
                     ]
 
-                )
+                    ),
 
+                Select::make('branch_id')
+                    ->label('Branch')
+                    ->options(function () {
+                        return Location::all()->mapWithKeys(function ($branch) {
+                            return [$branch->id => $branch->getTranslation('name', 'tk')];
+                        })->toArray();
+                    })
+                    ->default(function () {
+                        // default olarak ilk branch id'sini tk diline göre seç
+                        return Location::first()?->id;
+                    }),
 
             ]);
     }
@@ -93,7 +105,6 @@ class AdminResource extends Resource
                 Tables\Columns\BadgeColumn::make('role')
                     ->colors([
                         'success' => 'super-admin',
-
 
                     ]),
             ])
@@ -116,14 +127,13 @@ class AdminResource extends Resource
             //
         ];
     }
+
     public static function canViewAny(): bool
     {
 
         return optional(auth()->user())->role === 'super-admin';
 
-
     }
-
 
     public static function getPages(): array
     {

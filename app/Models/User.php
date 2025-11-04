@@ -100,6 +100,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(CertificateOrder::class, 'user_id', 'id');
     }
+
     public function cards(): HasMany
     {
         return $this->hasMany(CardOrder::class, 'user_id', 'id');

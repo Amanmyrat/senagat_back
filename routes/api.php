@@ -31,33 +31,33 @@ Route::prefix('users')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/profile', [UserProfileController::class, 'storeOrUpdate']);
-    Route::post('/application/credit-details', [CreditApplicationController::class, 'submitCreditDetails']);
-    Route::post('/application/work-info', [CreditApplicationController::class, 'submitWorkInfo']);
-    Route::post('/application/branch-info', [CreditApplicationController::class, 'submitBranchInfo']);
-    Route::post('/application/branch-info', [CreditApplicationController::class, 'submitBranchInfo']);
-    Route::prefix('location')->group(function () {
-        Route::get('/', [LocationController::class, 'index']);
-        Route::get('/branches', [LocationController::class, 'branchLocations']);
-    });
-    Route::prefix('news')->group(function () {
-        Route::get('/', [NewsController::class, 'index']);
-    });
+    //    Route::post('/application/credit-details', [CreditApplicationController::class, 'submitCreditDetails']);
+    //    Route::post('/application/work-info', [CreditApplicationController::class, 'submitWorkInfo']);
+    //    Route::post('/application/branch-info', [CreditApplicationController::class, 'submitBranchInfo']);
+    Route::post('/application/credit/order', [CreditApplicationController::class, 'store']);
 
     Route::prefix('contact-message')->group(function () {
         Route::post('/', [ContactMessageController::class, 'store']);
     });
     Route::prefix('card')->group(function () {
-        Route::get('/types', [CardTypeController::class, 'index']);
+
         Route::post('/order', [CardOrderController::class, 'store']);
 
     });
 
-    Route::prefix('credit')->group(function () {
-        Route::get('/', [CreditTypeController::class, 'index']);
-    });
-
-    Route::get('/certificate-types', [CertificateTypeController::class, 'index']);
     Route::post('/certificate-order', [CertificateOrderController::class, 'store']);
-    Route::get('/exchange-rate', [ExchangeRateController::class, 'index']);
 
 });
+Route::prefix('location')->group(function () {
+    Route::get('/', [LocationController::class, 'index']);
+    Route::get('/branches', [LocationController::class, 'branchLocations']);
+});
+Route::prefix('credit')->group(function () {
+    Route::get('/types', [CreditTypeController::class, 'index']);
+});
+Route::get('card/types', [CardTypeController::class, 'index']);
+Route::prefix('news')->group(function () {
+    Route::get('/', [NewsController::class, 'index']);
+});
+Route::get('/exchange-rate', [ExchangeRateController::class, 'index']);
+Route::get('/certificate-types', [CertificateTypeController::class, 'index']);

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enum\ErrorMessage;
 use App\Models\ChangeLog;
 use App\Models\User;
 use App\Models\UserProfile;
@@ -21,7 +22,7 @@ class UserProfileService
     public function create(User $user, array $data, Request $request): UserProfile
     {
         if ($user->profile) {
-            throw new \Exception('Profile already exists for this user.');
+            throw new \Exception(ErrorMessage::USER_PROFILE_ALREADY_EXISTS->value);
         }
 
         $data = $this->formatDates($data);

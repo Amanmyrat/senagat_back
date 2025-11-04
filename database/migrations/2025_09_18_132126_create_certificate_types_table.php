@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('form_types');
+        Schema::dropIfExists('certificate_types');
     }
 };

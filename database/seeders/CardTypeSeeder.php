@@ -11,8 +11,9 @@ class CardTypeSeeder extends Seeder
     {
         $jsonPath = database_path('data/cardTypes.json');
 
-        if (!file_exists($jsonPath)) {
+        if (! file_exists($jsonPath)) {
             $this->command->error('CardTypes JSON file not found!');
+
             return;
         }
 

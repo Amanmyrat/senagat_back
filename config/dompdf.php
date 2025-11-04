@@ -19,21 +19,21 @@ return [
     */
     'options' => [
 
-//        'font_dir'   => storage_path('fonts'),
-//        'font_cache' => storage_path('fonts'),
+        //        'font_dir'   => storage_path('fonts'),
+        //        'font_cache' => storage_path('fonts'),
         'font_dir' => public_path('fonts/'),
         'font_cache' => storage_path('fonts/'),
 
-        'temp_dir'   => sys_get_temp_dir(),
+        'temp_dir' => sys_get_temp_dir(),
 
         'chroot' => realpath(base_path()),
 
         'enable_remote' => true,
-            'allowed_remote_hosts' => null,
+        'allowed_remote_hosts' => null,
         'allowed_protocols' => [
-            'data://'  => ['rules' => []],
-            'file://'  => ['rules' => []],
-            'http://'  => ['rules' => []],
+            'data://' => ['rules' => []],
+            'file://' => ['rules' => []],
+            'http://' => ['rules' => []],
             'https://' => ['rules' => []],
         ],
 
@@ -44,9 +44,9 @@ return [
 
         'font_family' => [
             'LiberationSerif' => [
-                'R'  => 'LiberationSerif-Regular.ttf',
-                'B'  => 'LiberationSerif-Bold.ttf',
-                'I'  => 'LiberationSerif-Italic.ttf',
+                'R' => 'LiberationSerif-Regular.ttf',
+                'B' => 'LiberationSerif-Bold.ttf',
+                'I' => 'LiberationSerif-Italic.ttf',
                 'BI' => 'LiberationSerif-BoldItalic.ttf',
             ],
         ],

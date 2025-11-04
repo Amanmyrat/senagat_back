@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\ErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Date;
 
@@ -114,7 +115,7 @@ class UserProfileRequest extends FormRequest
             /**
              * Home phone
              *
-             * @var integer
+             * @var int
              *
              * @example 12525355
              */
@@ -137,22 +138,21 @@ class UserProfileRequest extends FormRequest
         }
 
         return [
-            'first_name.required' => 'First name is required when creating a new profile.',
-            'last_name.required' => 'Last name is required when creating a new profile.',
-            'birth_date.required' => 'Birth date is required when creating a new profile.',
-            'birth_date.date_format' => 'Birth date must be in the format DD-MM-YYYY.',
-            'passport_number.required' => 'Passport number is required when creating a new profile.',
-            'gender.required' => 'Gender is required when creating a new profile.',
-            'gender.in' => 'Gender must be either male or female.',
-            'issued_date.required' => 'Issued date is required when creating a new profile.',
-            'issued_date.date_format' => 'Issued date must be in the format DD-MM-YYYY.',
-            'issued_by.required' => 'Issued by is required when creating a new profile.',
-            'scan_passport.required' => 'Passport scan file is required when creating a new profile.',
-            'scan_passport.mimes' => 'Passport scan must be a JPG, JPEG, PNG, or PDF file.',
-            'scan_passport.max' => 'Passport scan cannot be larger than 10MB.',
-            'citizenship.required' => 'Citizenship is required when creating a new profile.',
-            'home_address.required' => 'Home Address is required when creating a new profile.',
-
+            'first_name.required' => ErrorMessage::FIRST_NAME_REQUIRED->value,
+            'last_name.required' => ErrorMessage::LAST_NAME_REQUIRED->value,
+            'birth_date.required' => ErrorMessage::BIRTH_DATE_REQUIRED->value,
+            'birth_date.date_format' => ErrorMessage::BIRTH_DATE_INVALID->value,
+            'passport_number.required' => ErrorMessage::PASSPORT_NUMBER_REQUIRED->value,
+            'gender.required' => ErrorMessage::GENDER_REQUIRED->value,
+            'gender.in' => ErrorMessage::GENDER_INVALID->value,
+            'issued_date.required' => ErrorMessage::ISSUED_DATE_REQUIRED->value,
+            'issued_date.date_format' => ErrorMessage::ISSUED_DATE_INVALID->value,
+            'issued_by.required' => ErrorMessage::ISSUED_BY_REQUIRED->value,
+            'scan_passport.required' => ErrorMessage::SCAN_PASSPORT_REQUIRED->value,
+            'scan_passport.mimes' => ErrorMessage::SCAN_PASSPORT_INVALID->value,
+            'scan_passport.max' => ErrorMessage::SCAN_PASSPORT_INVALID->value,
+            'citizenship.required' => ErrorMessage::CITIZENSHIP_REQUIRED->value,
+            'home_address.required' => ErrorMessage::HOME_ADDRESS_REQUIRED->value,
         ];
     }
 

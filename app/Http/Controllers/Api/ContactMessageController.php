@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enum\ErrorMessage;
+use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactMessageRequest;
 use App\Http\Resources\ContactMessageResource;
@@ -22,17 +24,17 @@ class ContactMessageController extends Controller
             $validated = $request->validated();
             $message = ContactMessage::create($validated);
 
-            return (new ContactMessageResource($message))
-                ->additional([
-                    'success' => true,
-                ])
-                ->response()
-                ->setStatusCode(201);
+            return new JsonResponse([
+                'success' => true,
+                'code' => SuccessMessage::CONTACT_MESSAGE_CREATED->value,
+                'data' => new ContactMessageResource($message),
+            ], 201);
 
         } catch (Exception $e) {
             return new JsonResponse([
-                'message' => 'Message not send',
-                'error' => $e->getMessage(),
+                'success' => false,
+                'error_message' => $e->getMessage(),
+                'code' => ErrorMessage::CONTACT_MESSAGE_FAILED->value,
             ], 400);
         }
     }

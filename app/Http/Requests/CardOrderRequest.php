@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\ErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -87,6 +88,28 @@ class CardOrderRequest extends FormRequest
              */
             'email' => ['required', 'email'],
 
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'card_type_id.required' => ErrorMessage::CARD_TYPE_REQUIRED->value,
+            'card_type_id.exists' => ErrorMessage::CARD_TYPE_INVALID->value,
+            'phone_number.required' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
+            'phone_number.regex' => ErrorMessage::PHONE_NUMBER_INVALID->value,
+            'bank_branch_id.required' => ErrorMessage::BANK_BRANCH_REQUIRED->value,
+            'bank_branch_id.exists' => ErrorMessage::BANK_BRANCH_INVALID->value,
+
+            'internet_service.required' => ErrorMessage::INTERNET_SERVICE_REQUIRED->value,
+
+            'delivery.required' => ErrorMessage::DELIVERY_REQUIRED->value,
+
+            'email.required' => ErrorMessage::EMAIL_REQUIRED->value,
+            'email.email' => ErrorMessage::EMAIL_INVALID->value,
+
+            'work_position.string' => ErrorMessage::WORK_POSITION_STRING->value,
+            'work_phone.integer' => ErrorMessage::WORK_PHONE_INTEGER->value,
         ];
     }
 }

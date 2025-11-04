@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FormTypeResource;
 use App\Models\CertificateType;
@@ -12,6 +13,8 @@ class CertificateTypeController extends Controller
     /**
      * Certificate Type
      *
+     * @unauthenticated
+     *
      * @localizationHeader
      */
     public function index(): JsonResponse
@@ -20,6 +23,7 @@ class CertificateTypeController extends Controller
 
         return new JsonResponse([
             'success' => true,
+            'code' => SuccessMessage::CERTIFICATE_TYPE_LISTED->value,
             'data' => FormTypeResource::collection($location),
         ], 200);
     }

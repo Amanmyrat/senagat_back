@@ -32,8 +32,9 @@ return new class extends Migration
             $table->string('manager_work_address')->nullable();
             $table->string('phone_number')->nullable();
             $table->unsignedInteger('salary')->nullable();
-            $table->string('country')->nullable();
-            $table->string('bank_name')->nullable();
+
+            $table->string('country');
+            $table->string('bank_name');
             $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
             $table->timestamps();
         });

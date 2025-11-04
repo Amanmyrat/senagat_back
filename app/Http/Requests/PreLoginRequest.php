@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\ErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PreLoginRequest extends FormRequest
@@ -31,6 +32,15 @@ class PreLoginRequest extends FormRequest
              * @example 12345678
              */
             'password' => ['required', 'string', 'min:4'],
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'phone.required' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
+            'phone.regex' => ErrorMessage::PHONE_NUMBER_INVALID->value,
+            'password.required' => ErrorMessage::PASSWORD_REQUIRED->value,
+            'password.min' => ErrorMessage::PASSWORD_MIN->value,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enum\ErrorMessage;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\PreLoginRequest;
 use App\Models\OtpSession;
@@ -32,13 +33,13 @@ class AuthService
 
         if ($purpose === 'register') {
             if (User::where('phone', $phone)->exists()) {
-                throw new Exception('This phone number is already registered');
+                throw new \Exception(ErrorMessage::PHONE_ALREADY_REGISTERED->value);
             }
         }
 
         if ($purpose === 'login') {
             if (! User::where('phone', $phone)->exists()) {
-                throw new Exception('Phone number not registered');
+                throw new \Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
             }
         }
 
@@ -80,12 +81,12 @@ class AuthService
             ->first();
 
         if (! $otpSession || $otpSession->isExpired()) {
-            throw new Exception('Invalid or expired OTP session token');
+            throw new \Exception(ErrorMessage::OTP_SESSION_INVALID->value);
         }
 
         $existingUser = User::where('phone', $otpSession->phone)->first();
         if ($existingUser) {
-            throw new Exception('This phone number is already registered');
+            throw new \Exception(ErrorMessage::PHONE_ALREADY_REGISTERED->value);
         }
 
         $user = User::create([
@@ -110,11 +111,11 @@ class AuthService
 
         $user = User::where('phone', $phone)->first();
         if (! $user) {
-            throw new Exception('Phone number not registered');
+            throw new \Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
         }
 
         if (! Hash::check($password, $user->password)) {
-            throw new Exception('Incorrect password');
+            throw new \Exception(ErrorMessage::INCORRECT_PASSWORD->value);
         }
 
         $this->otpService->sendOtp([
@@ -141,7 +142,8 @@ class AuthService
         $user = User::with('profile')->where('phone', $phone)->
         first();
         if (! $user) {
-            throw new Exception('Phone number not registered');
+
+            throw new \Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
         }
 
         return $user;

@@ -2,45 +2,39 @@
 
 namespace App\Services;
 
+use App\Enum\ErrorMessage;
 use App\Models\CreditApplication;
 use App\Models\CreditType;
 
 class CreditApplicationService
 {
-    public function saveStep(array $data, $user)
+    /**
+     * Create a new credit application (single-step)
+     */
+    public function createLoanOrder(array $data, $user): CreditApplication
     {
-        $application = CreditApplication::where('user_id', $user->id)
+        if (! $user->profile) {
+            throw new \Exception(ErrorMessage::USER_PROFILE_REQUIRED->value);
+        }
+
+        $credit = CreditType::findOrFail($data['credit_id']);
+        $data['interest'] = $credit->interest;
+        $data['status'] = 'pending';
+
+        return CreditApplication::create(array_merge($data, [
+            'user_id' => $user->id,
+            'profile_id' => $user->profile->id,
+        ]));
+    }
+
+    /**
+     * Get pending application for user
+     */
+    public function getPending($user): CreditApplication
+    {
+        return $user->applications()
             ->where('status', 'pending')
             ->latest()
-            ->first();
-        if (isset($data['credit_id'])) {
-            $credit = CreditType::findOrFail($data['credit_id']);
-            $data['interest'] = $credit->interest;
-        }
-        $data['status'] = 'pending';
-        unset($data['step']);
-        if ($application) {
-            $application->update($data);
-        } else {
-            $application = CreditApplication::create(array_merge($data, [
-                'user_id' => $user->id,
-                'profile_id' => $user->profile?->id,
-            ]));
-        }
-
-        return $application;
-
+            ->firstOrFail();
     }
-
-    public function getPending($user)
-    {
-        return $user->applications()->where('status', 'pending')->latest()->firstOrFail();
-    }
-    //    public function submitDraft($user)
-    //    {
-    //        //        $application = $user->applications()->where('status','draft')->firstOrFail();
-    //        //        $application->update(['status' => 'pending']);
-    //        return $user->applications()->latest()->firstOrFail();
-    //
-    //    }
 }
