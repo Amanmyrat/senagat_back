@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('profile_id')->constrained('user_profiles')->onDelete('cascade');
             $table->foreignId('certificate_type_id')->constrained('certificate_types');
             $table->string('phone_number');
-            $table->string('bank_branch');
+            $table->foreignId('bank_branch_id')->constrained('locations')->onDelete('cascade');
             $table->string('home_address');
             $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
             $table->timestamps();

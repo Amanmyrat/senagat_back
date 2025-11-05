@@ -34,7 +34,7 @@ return new class extends Migration
             $table->unsignedInteger('salary')->nullable();
 
             $table->string('country');
-            $table->string('bank_name');
+            $table->foreignId('bank_branch_id')->constrained('locations')->onDelete('cascade');
             $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
             $table->timestamps();
         });

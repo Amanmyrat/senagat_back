@@ -11,12 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('locations', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
+            $table->id();
+            $table->string('type');
+            $table->string('name');
+            $table->string('address');
+            $table->json('location');
             $table->string('phone_number')->nullable();
             $table->string('fax_number')->nullable();
             $table->string('home_number')->nullable();
             $table->json('hours')->nullable();
+            $table->boolean('branch_services')->default(false);
+            $table->timestamps();
         });
+
     }
 
     /**
@@ -24,8 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('locations', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };

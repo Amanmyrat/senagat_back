@@ -17,8 +17,12 @@ return new class extends Migration
             $table->foreignId('profile_id')->constrained('user_profiles')->onDelete('cascade');
             $table->foreignId('card_type_id')->constrained('card_types');
             $table->string('phone_number');
-            $table->string('bank_branch');
-            $table->string('home_phone_number');
+            $table->foreignId('bank_branch_id')->constrained('locations')->onDelete('cascade');
+            $table->string('work_position')->nullable();
+            $table->integer('work_phone')->nullable();
+            $table->boolean('internet_service')->default(false);
+            $table->boolean('delivery')->default(false);
+            $table->string('email')->nullable();
             $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
             $table->timestamps();
         });
