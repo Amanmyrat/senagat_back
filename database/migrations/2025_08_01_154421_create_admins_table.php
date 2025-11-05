@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('username')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->foreignId('branch_id')->nullable()->constrained('locations')->nullOnDelete();
             $table->string('password');
-            $table->enum('role', ['super-admin', 'operator'])->default('operator');
+            $table->string('role');
+
             $table->timestamps();
         });
     }

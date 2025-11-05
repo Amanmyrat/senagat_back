@@ -161,20 +161,13 @@ class ApprovedCardOrderResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
-                Action::make('print')
-                    ->label(null)
-                    ->icon('heroicon-o-printer')
-                    ->url(fn ($record) => route('approved-card-orders.print', $record)),
-                Action::make('printDirect')
-                    ->label('Print Direct')
-                    ->icon('heroicon-o-printer')
-                    ->url(fn ($record) => route('approved-card-orders.print-direct', $record))
-                    ->openUrlInNewTab(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+//                Action::make('print')
+//                    ->label('Yazdır')
+//                    ->icon('heroicon-o-printer')
+//                    ->url(fn ($record) => route('approved-card-orders.print-direct', $record))
+//                    ->openUrlInNewTab()
+                // Filament action
 
-                ]),
             ]);
     }
 

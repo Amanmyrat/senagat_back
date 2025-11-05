@@ -133,27 +133,32 @@ class UserProfileRequest extends FormRequest
 
     public function messages(): array
     {
-        if ($this->profileExists()) {
-            return [];
-        }
-
-        return [
-            'first_name.required' => ErrorMessage::FIRST_NAME_REQUIRED->value,
-            'last_name.required' => ErrorMessage::LAST_NAME_REQUIRED->value,
-            'birth_date.required' => ErrorMessage::BIRTH_DATE_REQUIRED->value,
-            'birth_date.date_format' => ErrorMessage::BIRTH_DATE_INVALID->value,
-            'passport_number.required' => ErrorMessage::PASSPORT_NUMBER_REQUIRED->value,
-            'gender.required' => ErrorMessage::GENDER_REQUIRED->value,
-            'gender.in' => ErrorMessage::GENDER_INVALID->value,
-            'issued_date.required' => ErrorMessage::ISSUED_DATE_REQUIRED->value,
-            'issued_date.date_format' => ErrorMessage::ISSUED_DATE_INVALID->value,
-            'issued_by.required' => ErrorMessage::ISSUED_BY_REQUIRED->value,
-            'scan_passport.required' => ErrorMessage::SCAN_PASSPORT_REQUIRED->value,
+        $messages = [
+            'scan_passport.file' => ErrorMessage::SCAN_PASSPORT_FILE->value,
             'scan_passport.mimes' => ErrorMessage::SCAN_PASSPORT_INVALID->value,
             'scan_passport.max' => ErrorMessage::SCAN_PASSPORT_INVALID->value,
-            'citizenship.required' => ErrorMessage::CITIZENSHIP_REQUIRED->value,
-            'home_address.required' => ErrorMessage::HOME_ADDRESS_REQUIRED->value,
+            'home_phone.integer' => ErrorMessage::HOME_PHONE_INTEGER->value,
         ];
+
+        if (! $this->profileExists()) {
+            $messages += [
+                'first_name.required' => ErrorMessage::FIRST_NAME_REQUIRED->value,
+                'last_name.required' => ErrorMessage::LAST_NAME_REQUIRED->value,
+                'birth_date.required' => ErrorMessage::BIRTH_DATE_REQUIRED->value,
+                'birth_date.date_format' => ErrorMessage::BIRTH_DATE_INVALID->value,
+                'passport_number.required' => ErrorMessage::PASSPORT_NUMBER_REQUIRED->value,
+                'gender.required' => ErrorMessage::GENDER_REQUIRED->value,
+                'gender.in' => ErrorMessage::GENDER_INVALID->value,
+                'issued_date.required' => ErrorMessage::ISSUED_DATE_REQUIRED->value,
+                'issued_date.date_format' => ErrorMessage::ISSUED_DATE_INVALID->value,
+                'issued_by.required' => ErrorMessage::ISSUED_BY_REQUIRED->value,
+                'scan_passport.required' => ErrorMessage::SCAN_PASSPORT_REQUIRED->value,
+                'citizenship.required' => ErrorMessage::CITIZENSHIP_REQUIRED->value,
+                'home_address.required' => ErrorMessage::HOME_ADDRESS_REQUIRED->value,
+            ];
+        }
+
+        return $messages;
     }
 
     private function profileExists(): bool

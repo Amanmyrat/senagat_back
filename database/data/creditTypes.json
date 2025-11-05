@@ -1,0 +1,62 @@
+[
+    {
+        "name": {
+            "en": "Newlyweds",
+            "tk": "Ýaş maşgalalara",
+            "ru": "Молодым семьям"
+        },
+
+
+        "description": {
+            "en":"Privileged credit for young married couples for the purchase of essential household items and goods" ,
+            "tk":"Durmuş guran ýaş maşgalalara zerur bolan öý goşlaryny we hojalyk harytlaryny satyn almak üçin ýeňillikli karz",
+            "ru":"Льготный кредит для молодых супружескиx пар на покупку необходимых предметов домашнего быта и хозяйственных товаров"
+        },
+        "term": 3,
+        "min_amount": 1000,
+        "max_amount": 20000,
+        "interest": 1
+
+
+    },
+    {
+        "name": {
+            "en": "Consumer credits",
+            "tk": "Sarp ediş karzlary",
+            "ru": "Потребительские кредиты"
+        },
+
+
+        "description": {
+            "en":"Consumer credits" ,
+            "tk":"Sarp ediş karzlary",
+            "ru":"Потребительские кредиты"
+        },
+        "term": 5,
+        "min_amount": 1000,
+        "max_amount": 150000,
+        "interest": 12
+
+
+    },
+    {
+        "name": {
+            "en": "Wedding and birthday loan",
+            "tk": "Durmuş we ýaş toý karzy",
+            "ru": "Кредит на свадьбу и день рождени"
+        },
+
+
+        "description": {
+            "en":"Wedding and birthday loan" ,
+            "tk":"Durmuş we ýaş toý karzy",
+            "ru":"Кредит на свадьбу и день рождени"
+        },
+        "term": 3,
+        "min_amount": 10000,
+        "max_amount": 100000,
+        "interest": 12
+
+
+    }
+]

@@ -57,8 +57,7 @@ class NewsResource extends Resource
                     ->required(),
                 RichEditor::make('description')
                     ->label(__('resource.description')),
-                FileUpload::make('image_url')->image()
-                    ->label(__('resource.image_url')),
+
             ]);
     }
 

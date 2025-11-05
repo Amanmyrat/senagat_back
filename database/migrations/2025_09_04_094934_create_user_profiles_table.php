@@ -16,13 +16,15 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('birth_date');
             $table->string('passport_number');
-            $table->string('gender');
             $table->string('issued_date');
             $table->string('issued_by');
             $table->string('scan_passport');
+            $table->string('citizenship');
+            $table->integer('home_phone')->nullable();
+            $table->text('home_address');
             $table->enum('approved', ['approved', 'pending', 'rejected'])->default('pending');
             $table->timestamps();
         });

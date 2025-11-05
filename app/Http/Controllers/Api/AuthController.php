@@ -70,7 +70,7 @@ class AuthController
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
-                'code' => ErrorMessage::OTP_DID_NOT_SENT_ERROR->value,
+//                'code' => ErrorMessage::OTP_DID_NOT_SENT_ERROR->value,
                 'error_message' => $e->getMessage(),
             ], 400);
         }
@@ -95,7 +95,7 @@ class AuthController
             ], 200);
         } catch (Exception $e) {
             return new JsonResponse([
-                'code' => ErrorMessage::OTP_DID_NOT_MATCH_ERROR->value,
+               // 'code' => ErrorMessage::OTP_DID_NOT_MATCH_ERROR->value,
                 'error' => $e->getMessage(),
             ], 400);
         }
@@ -117,13 +117,13 @@ class AuthController
 
             return new JsonResponse([
                 'success' => true,
-                'code' => SuccessMessage::USER_REGISTERED->value,
+               // 'code' => SuccessMessage::USER_REGISTERED->value,
                 'data' => new UserResource($user),
             ], 201);
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
-                'code' => ErrorMessage::REGISTRATION_FAILED->value,
+              //  'code' => ErrorMessage::REGISTRATION_FAILED->value,
                 'error_message' => $e->getMessage(),
             ], 400);
         }
@@ -148,7 +148,7 @@ class AuthController
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
-                'code' => ErrorMessage::PRE_LOGIN_FAILED->value,
+             //   'code' => ErrorMessage::PRE_LOGIN_FAILED->value,
                 'error_message' => $e->getMessage(),
             ], 400);
         }
@@ -176,7 +176,7 @@ class AuthController
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
-                'code' => ErrorMessage::LOGIN_FAILED->value,
+              //  'code' => ErrorMessage::LOGIN_FAILED->value,
                 'error_message' => $e->getMessage(),
             ], 400);
         }
@@ -194,7 +194,7 @@ class AuthController
             if ($exists) {
                 return new JsonResponse([
                     'success' => true,
-                    'code' => SuccessMessage::PHONE_EXISTS->value,
+                  //  'code' => SuccessMessage::PHONE_EXISTS->value,
                     'exists' => true,
                 ], 200);
             }
@@ -208,7 +208,7 @@ class AuthController
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
-                'code' => ErrorMessage::SERVER_ERROR->value,
+              //  'code' => ErrorMessage::SERVER_ERROR->value,
                 'error_message' => $e->getMessage(),
             ], 500);
         }

@@ -107,5 +107,5 @@ return [
     'work_phone' => 'Iş Telefoni',
     'internet_service' => 'Internet Hyzmaty',
     'delivery' => 'Eltip beriş',
-
+    'print' => 'Çap et',
 ];
