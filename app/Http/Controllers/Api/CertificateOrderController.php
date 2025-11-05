@@ -40,7 +40,7 @@ class CertificateOrderController extends Controller
             return new JsonResponse([
                 'success' => false,
                 'error_message' => $e->getMessage(),
-                'code' => ErrorMessage::CERTIFICATE_ORDER_CREATION_FAILED->value,
+             //   'code' => ErrorMessage::CERTIFICATE_ORDER_CREATION_FAILED->value,
             ], 400);
         }
     }

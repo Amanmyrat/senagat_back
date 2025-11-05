@@ -187,14 +187,12 @@ class LoanOrderRequest extends FormRequest
                 if ($credit) {
                     if ($this->amount < $credit->min_amount || $this->amount > $credit->max_amount) {
                         $validator->errors()->add(
-                            'amount',
-                            'Requested amount cannot exceed the credit limit'
+                            'amount', ErrorMessage::AMOUNT_EXCEEDS_LIMIT->value
                         );
                     }
                     if ($this->term > $credit->term) {
                         $validator->errors()->add(
-                            'term',
-                            'Requested term cannot exceed the credit limit'
+                            'term', ErrorMessage::TERM_EXCEEDS_LIMIT->value
                         );
                     }
                 }

@@ -39,7 +39,7 @@ class CreditApplicationController extends Controller
             return new JsonResponse([
                 'success' => false,
                 'error_message' => $e->getMessage(),
-                'code' => ErrorMessage::LOAN_ORDER_CREATION_FAILED->value,
+            //    'code' => ErrorMessage::LOAN_ORDER_CREATION_FAILED->value,
             ], 400);
         }
     }

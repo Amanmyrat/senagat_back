@@ -4,10 +4,11 @@ namespace App\Enum;
 
 enum ErrorMessage: string
 {
+
     case OTP_DID_NOT_MATCH_ERROR = 'otp_not_match';
     case OTP_TIMEOUT_ERROR = 'otp_code_has_expired.';
     case OTP_DID_NOT_SENT_ERROR = 'otp_could_not_be_sent.';
-    case OTP_SESSION_TOKEN_REQUIRED = 'OTP session token is required.';
+    case OTP_SESSION_TOKEN_REQUIRED = 'otp_session_token_is_required.';
     case UNAUTHORIZED = 'unauthorized';
     case USER_NOT_FOUND = 'user_not_found';
     case CARDS_RETRIEVED = 'cards_retrieved';
@@ -84,4 +85,10 @@ enum ErrorMessage: string
     case OTP_SESSION_INVALID = 'otp_session_invalid';
     case INCORRECT_PASSWORD = 'incorrect_password';
     case USER_PROFILE_ALREADY_EXISTS = 'user_profile_already_exists';
+    case AMOUNT_EXCEEDS_LIMIT = 'requested_amount_exceeds_credit_limit';
+    case TERM_EXCEEDS_LIMIT = 'requested_term_exceeds_credit_limit';
+    case SCAN_PASSPORT_FILE = 'passport_scan_must_be_a_file.';
+    case SCAN_PASSPORT_MIMES = 'passport_scan_must_be_a_JPG,_JPEG,_PNG,_or_PDF_file.';
+    case HOME_PHONE_INTEGER = 'home_phone_must_be_an_integer.';
+
 }
