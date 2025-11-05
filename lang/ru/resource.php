@@ -106,5 +106,6 @@ return [
     'work_phone' => 'Рабочий телефон',
     'internet_service' => 'Интернет-сервис',
     'delivery' => 'Доставка',
+    'print' => 'Печать',
 
 ];

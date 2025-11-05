@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arza-Anketa</title>
+    <title> </title>
     <style>
         /* ---- PAGE SETTINGS ---- */
         @page {
@@ -55,11 +55,21 @@
         .italic { font-style: italic; font-size: 10pt; }
         .box { border: 1px solid #000; height: 20px; }
         .muted { color: #777; }
+
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        }
     </style>
+
+
 </head>
 <body>
 
-</script>
+
 <div class="page">
     <!-- Header -->
     <table class="no-border">

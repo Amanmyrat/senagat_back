@@ -107,5 +107,6 @@ return [
     'value' => 'Value',
     'description' => 'Description',
     'card_price' => 'Card Price',
+    'print'=>'Print'
 
 ];
