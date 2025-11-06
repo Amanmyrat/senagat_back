@@ -71,11 +71,11 @@ class AdminResource extends Resource
                     ->label(__('resource.role'))
                     ->required()
                     ->options([
-                        'super-admin' => 'Super Admin',
+
                         'operator' => 'Operator',
-                        'certificate-viewer' => 'Certificate Viewer',
-                        'credit-card-viewer' => 'Credit Card Viewer',
-                        'loan-viewer' => 'Loan Viewer',
+                        'certificate-viewer' => 'Certificate',
+                        'credit-card-viewer' => 'Card',
+                        'loan-viewer' => 'Loan',
                     ]
 
                     ),

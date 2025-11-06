@@ -19,7 +19,7 @@ class CardTypeResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),
-            'category' => $this->resource->category,
+
             'advantages' => collect(
                 $this->resource->getTranslation('advantages', $locale) ?? []
             )->map(function ($item) {

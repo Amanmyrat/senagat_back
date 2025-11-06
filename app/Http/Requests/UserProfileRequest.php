@@ -66,15 +66,6 @@ class UserProfileRequest extends FormRequest
              */
             'passport_number' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
 
-            /**
-             * Gender
-             *
-             * @var string
-             *
-             * @example male
-             */
-            'gender' => $userHasProfile ? ['sometimes', 'string', 'in:male,female']
-                : ['required', 'string', 'in:male,female'],
 
             /**
              * Issued Date
@@ -147,8 +138,6 @@ class UserProfileRequest extends FormRequest
                 'birth_date.required' => ErrorMessage::BIRTH_DATE_REQUIRED->value,
                 'birth_date.date_format' => ErrorMessage::BIRTH_DATE_INVALID->value,
                 'passport_number.required' => ErrorMessage::PASSPORT_NUMBER_REQUIRED->value,
-                'gender.required' => ErrorMessage::GENDER_REQUIRED->value,
-                'gender.in' => ErrorMessage::GENDER_INVALID->value,
                 'issued_date.required' => ErrorMessage::ISSUED_DATE_REQUIRED->value,
                 'issued_date.date_format' => ErrorMessage::ISSUED_DATE_INVALID->value,
                 'issued_by.required' => ErrorMessage::ISSUED_BY_REQUIRED->value,
