@@ -14,7 +14,7 @@ class UserInformationResource extends JsonResource
             'profile' => $this->resource->profile
                 ? collect((new UserProfileResource($this->resource->profile))->toArray($request))
                     ->except(['id', 'gender'])
-                    ->merge(['approved' => $this->resource->profile->approved])
+                    ->merge(['status' => $this->resource->profile->approved])
                 : null,
             'certificates' => $this->whenLoaded('certificates', function () {
                 $certificates = CertificateOrderResource::collection($this->resource->certificates)->toArray(request());

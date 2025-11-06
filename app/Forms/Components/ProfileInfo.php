@@ -37,10 +37,7 @@ class ProfileInfo
                     ->label(__('resource.passport_number'))
                     ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->passport_number))
                     ->disabled(),
-                TextInput::make('gender')
-                    ->label(__('resource.gender'))
-                    ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->gender))
-                    ->disabled(),
+
 
                 TextInput::make('issued_date')
                     ->label(__('resource.issued_date'))
