@@ -103,15 +103,7 @@ class PendingProfileResource extends Resource
                                         ->displayFormat('Y-m-d')
                                         ->format('Y-m-d'),
                                     TextInput::make('passport_number')->label(__('resource.passport_number'))->disabled(),
-                                    Select::make('gender')->disabled()
-                                        ->label(__('resource.gender'))
-                                        ->options([
-                                            'male' => 'Male',
-                                            'female' => 'Female',
-                                        ])
-                                        ->nullable()
-                                        ->searchable()
-                                        ->native(false),
+
                                     TextInput::make('issued_by')->label(__('resource.issued_by'))->disabled(),
                                     DatePicker::make('issued_date')->disabled()
                                         ->label(__('resource.issued_date'))

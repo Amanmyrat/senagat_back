@@ -21,7 +21,6 @@ class UserProfileResource extends JsonResource
             'middle_name' => $this->resource->middle_name,
             'birth_date' => $this->resource->birth_date ? $this->resource->birth_date->format('d-m-Y') : null,
             'passport_number' => $this->resource->passport_number,
-            'gender' => $this->resource->gender,
             'issued_date' => $this->resource->issued_date ? $this->resource->issued_date->format('d-m-Y') : null,
             'issued_by' => $this->resource->issued_by,
             'citizenship' => $this->resource->citizenship,
