@@ -24,10 +24,10 @@ class LoanOrderResource extends JsonResource
             'amount' => $this->resource->amount,
             'interest' => $this->resource->interest,
             'monthly_payment' => $this->resource->monthly_payment,
-            'status' => $this->resource->status,
             'country' => $this->resource->country,
             'bank_branch_id' => $this->resource->bank_branch_id,
             'role' => $this->resource->role,
+            'status' => $this->resource->status,
         ];
 
         // Rol bazlı ek alanlar
