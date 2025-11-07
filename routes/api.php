@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CertificateTypeController;
 use App\Http\Controllers\Api\ContactMessageController;
 use App\Http\Controllers\Api\CreditApplicationController;
 use App\Http\Controllers\Api\CreditTypeController;
+use App\Http\Controllers\Api\DepositController;
 use App\Http\Controllers\Api\ExchangeRateController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\NewsController;
@@ -61,3 +62,7 @@ Route::prefix('news')->group(function () {
 });
 Route::get('/exchange-rate', [ExchangeRateController::class, 'index']);
 Route::get('/certificate-types', [CertificateTypeController::class, 'index']);
+Route::prefix('deposits')->group(function () {
+    Route::get('/', [DepositController::class, 'index']);
+    Route::get('/{id}', [DepositController::class, 'show']);
+});

@@ -28,4 +28,7 @@ enum SuccessMessage: string
     case PROFILE_CREATED = 'profile_created';
     case PROFILE_UPDATED = 'profile_updated';
 
+    // #2
+    case Deposit_TYPE_LISTED = 'deposit_type_listed';
+    case Deposit_TYPE_DETAILS_LISTED = 'deposit_type_details_listed';
 }

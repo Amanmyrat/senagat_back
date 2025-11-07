@@ -91,4 +91,7 @@ enum ErrorMessage: string
     case SCAN_PASSPORT_MIMES = 'passport_scan_must_be_a_JPG,_JPEG,_PNG,_or_PDF_file.';
     case HOME_PHONE_INTEGER = 'home_phone_must_be_an_integer.';
 
+     // #2
+
+    case DEPOSIT_TYPE_NOT_FOUND = 'deposit_type_not_found.';
 }
