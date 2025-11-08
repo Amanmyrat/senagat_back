@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Builder;
 class ApprovedCardOrderResource extends Resource
 {
     protected static ?string $model = ApprovedCardOrder::class;
-
+    protected static ?int $navigationSort = 4;
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();

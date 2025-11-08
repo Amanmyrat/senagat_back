@@ -31,4 +31,6 @@ enum SuccessMessage: string
     // #2
     case Deposit_TYPE_LISTED = 'deposit_type_listed';
     case Deposit_TYPE_DETAILS_LISTED = 'deposit_type_details_listed';
+    case TARIFF_CATEGORIES_LISTED = 'tariff_categories_listed';
+    case TARIFF_CATEGORY_DETAILS_LISTED = 'tariff_category_details_listed';
 }

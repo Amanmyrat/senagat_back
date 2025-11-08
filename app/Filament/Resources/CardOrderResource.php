@@ -21,7 +21,7 @@ use Filament\Tables\Table;
 class CardOrderResource extends Resource
 {
     protected static ?string $cluster = CardOrders::class;
-
+    protected static ?int $navigationSort = 2;
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();

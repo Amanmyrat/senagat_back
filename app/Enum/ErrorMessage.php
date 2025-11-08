@@ -94,4 +94,5 @@ enum ErrorMessage: string
      // #2
 
     case DEPOSIT_TYPE_NOT_FOUND = 'deposit_type_not_found.';
+    case TARIFF_TYPE_NOT_FOUND = 'tariff_type_not_found.';
 }
