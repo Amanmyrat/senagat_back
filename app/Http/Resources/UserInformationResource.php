@@ -44,7 +44,7 @@ class UserInformationResource extends JsonResource
                 return ! empty($cards)
                     ? collect($cards)->map(function ($item) {
                         return collect($item)
-                            ->except(['id', 'user_id', 'profile_id', 'card_type_id', 'phone_number', 'bank_branch_id', 'work_position', 'work_phone', 'internet_service', 'delivery', 'email']);
+                            ->except(['id', 'user_id', 'profile_id', 'card_type_id', 'phone_number', 'bank_branch_id', 'work_position', 'work_phone', 'internet_service', 'email']);
                     })
                         ->values()
                     : null;
