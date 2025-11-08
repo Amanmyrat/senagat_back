@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 class PendingCertificateOrderResource extends Resource
 {
     protected static ?string $model = \App\Models\PendingCertificateOrder::class;
-
+    protected static ?int $navigationSort = 3;
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();

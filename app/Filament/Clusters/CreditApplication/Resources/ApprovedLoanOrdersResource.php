@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
 class ApprovedLoanOrdersResource extends Resource
 {
     protected static ?string $model = ApprovedLoanOrder::class;
+    protected static ?int $navigationSort = 4;
 
     public static function getNavigationBadge(): ?string
     {

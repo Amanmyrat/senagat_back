@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
 class PendingCardOrderResource extends Resource
 {
     protected static ?string $model = PendingCardOrder::class;
-
+    protected static ?int $navigationSort = 3;
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();

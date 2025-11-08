@@ -21,6 +21,7 @@ use Filament\Tables\Table;
 class CreditTypesResource extends Resource
 {
     protected static ?string $cluster = \App\Filament\Clusters\CreditApplication::class;
+    protected static ?int $navigationSort = 1;
 
     use Translatable;
 

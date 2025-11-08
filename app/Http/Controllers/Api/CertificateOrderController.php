@@ -32,7 +32,7 @@ class CertificateOrderController extends Controller
                 'success' => true,
                 'code' => SuccessMessage::CERTIFICATE_ORDER_CREATED->value,
                 'data' => collect((new CertificateOrderResource($order))->toArray($request))
-                    ->except(['certificate_name', 'status']),
+                    ->except(['certificate_name', 'status','certificate_price']),
             ], 201);
 
         } catch (Exception $e) {
