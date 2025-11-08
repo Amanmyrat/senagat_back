@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\DepositController;
 use App\Http\Controllers\Api\ExchangeRateController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\TariffController;
 use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -65,4 +66,8 @@ Route::get('/certificate-types', [CertificateTypeController::class, 'index']);
 Route::prefix('deposits')->group(function () {
     Route::get('/', [DepositController::class, 'index']);
     Route::get('/{id}', [DepositController::class, 'show']);
+});
+Route::prefix('tariff')->group(function () {
+    Route::get('/', [TariffController::class, 'index']);
+    Route::get('/{id}', [TariffController::class, 'show']);
 });

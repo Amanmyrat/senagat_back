@@ -18,6 +18,7 @@ class CertificateOrderResource extends JsonResource
             'phone_number' => $this->resource->phone_number,
             'home_address' => $this->resource->home_address,
             'bank_branch_id' => $this->resource->bank_branch_id,
+            'certificate_price'=>$this->resource->certificateType->price,
             'status' => $this->resource->status,
         ];
 
