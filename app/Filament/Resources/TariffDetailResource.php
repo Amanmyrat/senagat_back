@@ -59,12 +59,27 @@ class TariffDetailResource extends Resource
                 Tables\Columns\TextColumn::make('details')
                     ->label('Sub Title')
                     ->formatStateUsing(function ($state) {
-                        $data = json_decode($state, true);
-                        $subTitle = $data['sub_title'] ?? '';
+                        if (empty($state)) {
+                            return '-';
+                        }
+                        $normalized = trim($state);
+                        if (!str_starts_with($normalized, '[')) {
+                            $normalized = "[$normalized]";
+                        }
+
+                        $data = json_decode($normalized, true);
+
+                        if (json_last_error() !== JSON_ERROR_NONE || empty($data)) {
+                            return '-';
+                        }
+                        $subTitle = $data[0]['sub_title'] ?? ($data['sub_title'] ?? '-');
+
                         return strlen($subTitle) > 30
                             ? substr($subTitle, 0, 30) . '...'
                             : $subTitle;
                     }),
+
+
             ])
             ->filters([
                 //

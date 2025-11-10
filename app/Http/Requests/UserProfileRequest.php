@@ -129,6 +129,8 @@ class UserProfileRequest extends FormRequest
             'scan_passport.mimes' => ErrorMessage::SCAN_PASSPORT_INVALID->value,
             'scan_passport.max' => ErrorMessage::SCAN_PASSPORT_INVALID->value,
             'home_phone.integer' => ErrorMessage::HOME_PHONE_INTEGER->value,
+            'birth_date.date_format' => ErrorMessage::BIRTH_DATE_INVALID->value,
+            'issued_date.date_format' => ErrorMessage::ISSUED_DATE_INVALID->value,
         ];
 
         if (! $this->profileExists()) {
