@@ -67,7 +67,8 @@ class NewsResource extends Resource
                         'card' => 'Card',
                     ])
                     ->required(),
-
+                FileUpload::make('image_url')->image()
+                    ->label(__('resource.image_url')),
             ]);
     }
 
