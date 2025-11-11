@@ -20,7 +20,7 @@ class NewsResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),
-            'description' => $this->resource->getTranslation('description', $locale),
+            'description' => strip_tags($this->resource->getTranslation('description', $locale)),
             'types' => $this->resource->types,
             'image_url' => $this->resource->image_url
                 ? asset('storage/'.$this->resource->image_url) : null,

@@ -45,6 +45,16 @@ class News extends Model
         'types'=>'array'
     ];
 
+    public function getDescriptionPlainAttribute(): array
+    {
+        if (!is_array($this->description)) {
+            return [];
+        }
+        return collect($this->description)->mapWithKeys(function ($value, $key) {
+            return [$key => strip_tags($value)];
+        })->toArray();
+    }
+
     protected $appends = ['image_path'];
 
     public function getImagePathAttribute(): ?string
