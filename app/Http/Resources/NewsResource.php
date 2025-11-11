@@ -21,9 +21,6 @@ class NewsResource extends JsonResource
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),
             'description' => strip_tags($this->resource->getTranslation('description', $locale)),
-            'types' => $this->resource->types,
-            'image_url' => $this->resource->image_url
-                ? asset('storage/'.$this->resource->image_url) : null,
             'published_at' => Carbon::parse($this->resource->published_at)
                 ->locale($locale)
                 ->translatedFormat('d F Y'),

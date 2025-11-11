@@ -58,17 +58,7 @@ class NewsResource extends Resource
                     ->required(),
                 RichEditor::make('description')
                     ->label(__('resource.description')),
-                Select::make('types')
-                    ->label('Types')
-                    ->multiple()
-                    ->options([
-                        'deposit' => 'Deposit',
-                        'loan' => 'Loan',
-                        'card' => 'Card',
-                    ])
-                    ->required(),
-                FileUpload::make('image_url')->image()
-                    ->label(__('resource.image_url')),
+
             ]);
     }
 
