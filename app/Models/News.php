@@ -44,4 +44,13 @@ class News extends Model
         'published_at' => 'datetime',
         'types'=>'array'
     ];
+
+    protected $appends = ['image_path'];
+
+    public function getImagePathAttribute(): ?string
+    {
+        return $this->image_url
+            ? asset('storage/'.$this->image_url)
+            : null;
+    }
 }
