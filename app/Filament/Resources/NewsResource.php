@@ -6,6 +6,7 @@ use App\Filament\Resources\NewsResource\Pages;
 use App\Models\News;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
@@ -57,6 +58,15 @@ class NewsResource extends Resource
                     ->required(),
                 RichEditor::make('description')
                     ->label(__('resource.description')),
+                Select::make('types')
+                    ->label('Types')
+                    ->multiple()
+                    ->options([
+                        'deposit' => 'Deposit',
+                        'loan' => 'Loan',
+                        'card' => 'Card',
+                    ])
+                    ->required(),
 
             ]);
     }
