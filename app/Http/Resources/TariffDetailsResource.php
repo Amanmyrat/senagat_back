@@ -17,7 +17,7 @@ class TariffDetailsResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
-            'details' => $this->resource->details->map(function ($detail) {
+            'items' => $this->resource->details->map(function ($detail) {
                 return [
                     'number' => $detail->number,
                     'items' => $detail->details,

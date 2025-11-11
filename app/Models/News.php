@@ -38,9 +38,10 @@ class News extends Model
 
     public array $translatable = ['title', 'description'];
 
-    protected $fillable = ['title', 'description', 'image_url', 'published_at'];
+    protected $fillable = ['title', 'description', 'image_url', 'types','published_at'];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'types'=>'array'
     ];
 }

@@ -21,6 +21,7 @@ class NewsResource extends JsonResource
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),
             'description' => $this->resource->getTranslation('description', $locale),
+            'types' => $this->resource->types,
             'published_at' => Carbon::parse($this->resource->published_at)
                 ->locale($locale)
                 ->translatedFormat('d F Y'),
