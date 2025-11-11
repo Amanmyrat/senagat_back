@@ -38,29 +38,12 @@ class News extends Model
 
     public array $translatable = ['title', 'description'];
 
-    protected $fillable = ['title', 'description', 'image_url', 'types','published_at'];
+    protected $fillable = ['title', 'description','published_at'];
 
     protected $casts = [
         'published_at' => 'datetime',
         'types'=>'array'
     ];
 
-    public function getDescriptionPlainAttribute(): array
-    {
-        if (!is_array($this->description)) {
-            return [];
-        }
-        return collect($this->description)->mapWithKeys(function ($value, $key) {
-            return [$key => strip_tags($value)];
-        })->toArray();
-    }
 
-    protected $appends = ['image_path'];
-
-    public function getImagePathAttribute(): ?string
-    {
-        return $this->image_url
-            ? asset('storage/'.$this->image_url)
-            : null;
-    }
 }
