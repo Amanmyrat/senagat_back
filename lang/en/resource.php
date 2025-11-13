@@ -107,6 +107,13 @@ return [
     'value' => 'Value',
     'description' => 'Description',
     'card_price' => 'Card Price',
-    'print'=>'Print'
+    'print'=>'Print',
+    'sub_title'=>'Sub Title',
+    'main_image'=>'Main Image',
+    'description_image'=> 'Description Image',
+    'company_type'=>'Company Type',
+    'image'=>'Image',
+    'background_color'=>'Background Color',
+    'details'=>'Details'
 
 ];

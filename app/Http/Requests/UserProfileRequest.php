@@ -92,7 +92,7 @@ class UserProfileRequest extends FormRequest
              *
              * @example file
              */
-            'scan_passport' => $userHasProfile ? ['sometimes', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:10240'] : ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:10240'],
+            'scan_passport' => $userHasProfile ? ['sometimes', 'file', 'mimes:pdf', 'max:10240'] : ['required', 'file', 'mimes:pdf', 'max:10240'],
 
             /**
               'home_address'
