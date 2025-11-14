@@ -43,7 +43,7 @@ class DepositTypeResource extends Resource
                 TextInput::make('description')
                     ->label(__('resource.description')),
                 TextInput::make('background_color')
-                    ->label(__('resource.background_color')),
+                    ->label(__('resource.background_color') . ' (HEX code)'),
                 FileUpload::make('image_url')->image()
                     ->label(__('resource.image_url')),
                 Repeater::make('advantages')
