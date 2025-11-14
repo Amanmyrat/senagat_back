@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\AwardsResource\Pages;
+use App\Filament\Resources\AwardsResource\RelationManagers;
+use App\Models\Award;
+use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Concerns\Translatable;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+class AwardsResource extends Resource
+{
+    use Translatable;
+
+    public static function getTranslatableLocales(): array
+    {
+        return ['tk', 'en', 'ru'];
+    }
+    protected static ?string $model = Award::class;
+
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                TextInput::make('title')->label(__('resource.title')),
+                TextInput::make('sub_title')->label(__('resource.sub_title')),
+                Forms\Components\RichEditor::make('description')
+                    ->label('Description'),
+                FileUpload::make('image_url')
+                    ->label(__('resource.main_image'))
+                    ->image()
+                    ->directory('awards'),
+                FileUpload::make('description_images')
+                    ->label(__('resource.description_image'))
+                    ->multiple()
+                        ->image()
+                        ->directory('awards/description')
+
+
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('title')->limit(30),
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListAwards::route('/'),
+            'create' => Pages\CreateAwards::route('/create'),
+            'edit' => Pages\EditAwards::route('/{record}/edit'),
+        ];
+    }
+}

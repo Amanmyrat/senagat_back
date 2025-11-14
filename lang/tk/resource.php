@@ -108,4 +108,11 @@ return [
     'internet_service' => 'Internet Hyzmaty',
     'delivery' => 'Eltip beriş',
     'print' => 'Çap et',
+    'sub_title' => 'Gysgaldylan at',
+    'main_image' => 'Esasy surat',
+    'description_image' => 'Düşündiriş suraty',
+    'company_type' => 'Kärhana görnüşi',
+    'image' => 'Surat',
+    'background_color' => 'Arka reňki',
+    'details' => 'Giňişleýin maglumatlar',
 ];

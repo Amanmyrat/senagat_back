@@ -32,7 +32,7 @@ class CardTypeResource extends JsonResource
             'image_url' => $this->resource->image_url
                 ? asset('storage/'.$this->resource->image_url) : null,
             'price' => $this->resource->price,
-            'text' => $this->resource->text,
+            'text' => $this->resource->getTranslation('text', $locale),
 
         ];
     }
