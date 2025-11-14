@@ -28,7 +28,13 @@ class DepositTypeDetailsResource extends JsonResource
                     'description' => $item['description'] ?? null,
                 ];
             })->values(),
-            'details' => $this->resource->getTranslation('details', $locale),
+            'details' => collect($this->resource->getTranslation('details', $locale) ?? [])
+                ->map(function ($item) {
+                    return [
+                        'description' => $item['description'] ?? null,
+                    ];
+                })
+                ->values(),
             'image_url' => $this->resource->image_url
                 ? asset('storage/'.$this->resource->image_url) : null,
             'background_color'=>$this->resource->background_color,
