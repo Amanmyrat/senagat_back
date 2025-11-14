@@ -20,11 +20,7 @@ class ApprovedCardOrderPrintController extends Controller
         return $pdf->stream("anketa-{$order->id}.pdf");
     }
 
-//    public function printDirect(ApprovedCardOrder $order)
-//    {
-//        $order->load(['profile', 'branch', 'cardType']);
-//        return view('questionnaire', ['orders' => collect([$order])]);
-//    }
+
 
 }
 

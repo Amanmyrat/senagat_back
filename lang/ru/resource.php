@@ -107,5 +107,12 @@ return [
     'internet_service' => 'Интернет-сервис',
     'delivery' => 'Доставка',
     'print' => 'Печать',
+    'sub_title' => 'Подзаголовок',
+    'main_image' => 'Основное изображение',
+    'description_image' => 'Изображение описания',
+    'company_type' => 'Тип компании',
+    'image' => 'Изображение',
+    'background_color' => 'Цвет фона',
+    'details' => 'Подробности',
 
 ];

@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\AwardController;
 use App\Http\Controllers\Api\CardOrderController;
 use App\Http\Controllers\Api\CardTypeController;
 use App\Http\Controllers\Api\CertificateOrderController;
 use App\Http\Controllers\Api\CertificateTypeController;
+use App\Http\Controllers\Api\ClientsController;
 use App\Http\Controllers\Api\ContactMessageController;
 use App\Http\Controllers\Api\CreditApplicationController;
 use App\Http\Controllers\Api\CreditTypeController;
@@ -71,3 +73,11 @@ Route::prefix('tariff')->group(function () {
     Route::get('/', [TariffController::class, 'index']);
     Route::get('/{id}', [TariffController::class, 'show']);
 });
+Route::get('clients', [ClientsController::class, 'index']);
+
+Route::prefix('awards')->group(function () {
+    Route::get('/', [AwardController::class, 'index']);
+    Route::get('/{id}', [AwardController::class, 'show']);
+});
+
+
