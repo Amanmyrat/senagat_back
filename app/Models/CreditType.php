@@ -43,7 +43,7 @@ class CreditType extends Model
 
     public array $translatable = ['name', 'description', 'requirements'];
 
-    protected $fillable = ['name', 'description', 'term', 'min_amount', 'max_amount', 'interest', 'requirements'];
+    protected $fillable = ['name', 'description', 'background_color', 'image_url', 'term', 'min_amount', 'max_amount', 'interest', 'requirements'];
 
     protected $casts = [
         'requirements' => 'array',
@@ -53,4 +53,12 @@ class CreditType extends Model
         'max_amount' => MoneyCast::class,
         'interest' => MoneyCast::class,
     ];
+    protected $appends = ['image_path'];
+
+    public function getImagePathAttribute(): ?string
+    {
+        return $this->image_url
+            ? asset('storage/'.$this->image_url)
+            : null;
+    }
 }

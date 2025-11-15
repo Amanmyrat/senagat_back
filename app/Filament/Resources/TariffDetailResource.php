@@ -100,7 +100,12 @@ class TariffDetailResource extends Resource
             //
         ];
     }
+    public static function canViewAny(): bool
+    {
 
+        return optional(auth()->user())->role === 'super-admin';
+
+    }
     public static function getPages(): array
     {
         return [
