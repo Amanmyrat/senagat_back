@@ -53,6 +53,12 @@ Forms\Components\TextInput::make('title')
             //
         ];
     }
+    public static function canViewAny(): bool
+{
+
+    return optional(auth()->user())->role === 'super-admin';
+
+}
 
     public static function getPages(): array
     {

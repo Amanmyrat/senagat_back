@@ -24,6 +24,9 @@ class CreditTypeResource extends JsonResource
             'min_amount' => $this->resource->min_amount,
             'max_amount' => $this->resource->max_amount,
             'interest' => $this->resource->interest,
+            'background_color'=>$this->resource->background_color,
+            'image_url' => $this->resource->image_url
+                ? asset('storage/'.$this->resource->image_url) : null,
             'requirements' => collect($this->resource->getTranslation('requirements', $locale) ?? [])
                 ->map(function ($item) {
                     return [
