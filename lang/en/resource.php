@@ -114,6 +114,11 @@ return [
     'company_type'=>'Company Type',
     'image'=>'Image',
     'background_color'=>'Background Color',
-    'details'=>'Details'
-
+    'details'=>'Details',
+    'operator'=>'Operator',
+    'certificate'=>'Certificate',
+    'card'=>'card',
+    'loan'=>'loan',
+    'user_name'=>'User Name',
+    'branch'=>'Branch'
 ];
