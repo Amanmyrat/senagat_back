@@ -115,4 +115,14 @@ return [
     'image' => 'Surat',
     'background_color' => 'Arka reňki',
     'details' => 'Giňişleýin maglumatlar',
+    'operator'   => 'Operator',
+    'certificate'=> 'Sertifikat',
+    'card'       => 'Karta',
+    'loan'       => 'Karz',
+    'user_name'  => 'Ulanyjy ady',
+    'branch' => 'Şahamça',
+
+
+
+
 ];
