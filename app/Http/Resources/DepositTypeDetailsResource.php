@@ -15,19 +15,36 @@ class DepositTypeDetailsResource extends JsonResource
     public function toArray(Request $request): array
     {
         $locale = app()->getLocale();
+        $defaultLocale = 'tk';
+        $defaultAdvantages = collect($this->resource->getTranslation('advantages', $defaultLocale) ?? [])
+            ->map(fn($item) => [
+                'name' => $item['name'] ?? null,
+                'description' => $item['description'] ?? null,
+            ])
+            ->values();
+        $shortestIndex = $defaultAdvantages
+            ->sortBy(fn($item) => strlen($item['name'] ?? '') + strlen($item['description'] ?? ''))
+            ->keys()
+            ->first();
+
+        $advantages=  collect(
+            $this->resource->getTranslation('advantages', $locale) ?? []
+        )->map(function ($item) {
+            return [
+                'name' => $item['name'] ?? null,
+                'description' => $item['description'] ?? null,
+
+            ];
+        })->values();
+        $shortest = $advantages[$shortestIndex] ?? null;
 
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),
             'description' => $this->resource->getTranslation('description', $locale),
-            'advantages' => collect(
-                $this->resource->getTranslation('advantages', $locale) ?? []
-            )->map(function ($item) {
-                return [
-                    'name' => $item['name'] ?? null,
-                    'description' => $item['description'] ?? null,
-                ];
-            })->values(),
+            'sub_title' => trim(($shortest['name'] ?? '') . ' ' . ($shortest['description'] ?? '')),
+            'advantages' =>$advantages,
+
             'details' => collect($this->resource->getTranslation('details', $locale) ?? [])
                 ->map(function ($item) {
                     return [

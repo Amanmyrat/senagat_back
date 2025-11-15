@@ -56,7 +56,7 @@ class AdminResource extends Resource
                     ->unique(ignoreRecord: true)
                     ->maxLength(255)
                     ->required(fn ($record, $get) => in_array($get('role'), ['admin', 'operator']))
-                    ->label('Username')
+                    ->label(__('resource.user_name'))
 
                     ->visible(fn ($record) => $record?->role !== 'super-admin'),
                 TextInput::make('password')
@@ -70,26 +70,25 @@ class AdminResource extends Resource
                 Select::make('role')
                     ->label(__('resource.role'))
                     ->required()
-                    ->options([
 
-                        'operator' => 'Operator',
-                        'certificate-viewer' => 'Certificate',
-                        'credit-card-viewer' => 'Card',
-                        'loan-viewer' => 'Loan',
+                    ->options([
+                         'operator' => __('resource.operator'),
+                            'certificate-viewer' => __('resource.certificate'),
+                            'credit-card-viewer' => __('resource.card'),
+                            'loan-viewer' => __('resource.loan'),
                     ]
 
                     ),
 
                 Select::make('branch_id')
-                    ->label('Branch')
+                    ->label(__('resource.branch'))
                     ->options(function () {
                         return Location::all()->mapWithKeys(function ($branch) {
                             return [$branch->id => $branch->getTranslation('name', 'tk')];
                         })->toArray();
                     })
                     ->default(function () {
-                        // default olarak ilk branch id'sini tk diline göre seç
-                        return Location::first()?->id;
+                         return Location::first()?->id;
                     }),
 
             ]);
@@ -103,10 +102,22 @@ class AdminResource extends Resource
                     ->label(__('resource.name')),
 
                 Tables\Columns\BadgeColumn::make('role')
+                    ->label(__('resource.role'))
+                    ->formatStateUsing(function ($state) {
+                        return match ($state) {
+                            'operator' => __('resource.operator'),
+                            'certificate-viewer' => __('resource.certificate'),
+                            'credit-card-viewer' => __('resource.card'),
+                            'loan-viewer' => __('resource.loan'),
+                            default => $state,
+                        };
+                    })
                     ->colors([
-                        'success' => 'super-admin',
-
-                    ]),
+                        'success' => 'operator',
+                        'info' => 'certificate-viewer',
+                        'warning' => 'credit-card-viewer',
+                        'danger' => 'loan-viewer',
+                    ])
             ])
             ->filters([
                 //
