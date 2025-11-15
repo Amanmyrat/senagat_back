@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enum\RequirementType;
 use App\Filament\Resources\CreditTypesResource\Pages;
 use App\Models\CreditType;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -87,6 +88,10 @@ class CreditTypesResource extends Resource
                                     ->suffix('%')
                                     ->step(0.01)
                                     ->required(),
+                                FileUpload::make('image_url')->image()
+                                    ->label(__('resource.image_url')),
+                                TextInput::make('background_color')
+                                    ->label(__('resource.background_color') . ' (HEX code)'),
                             ]),
                         Step::make('Requirments')
                             ->label(__('resource.requirements'))
