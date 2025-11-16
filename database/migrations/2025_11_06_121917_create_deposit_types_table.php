@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('deposit_types', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description')->nullable();
+            $table->json('title');
+            $table->json('description')->nullable();
             $table->string('image_url');
             $table->string('background_color');
             $table->json('advantages');

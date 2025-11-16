@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('card_types', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->json('title');
             $table->string('image_url')->nullable();
             $table->unsignedInteger('price');
             $table->json('advantages')->nullable();

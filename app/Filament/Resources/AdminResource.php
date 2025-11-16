@@ -84,6 +84,7 @@ class AdminResource extends Resource
                     ->label(__('resource.branch'))
                     ->options(function () {
                         return Location::all()->mapWithKeys(function ($branch) {
+
                             return [$branch->id => $branch->getTranslation('name', 'tk')];
                         })->toArray();
                     })

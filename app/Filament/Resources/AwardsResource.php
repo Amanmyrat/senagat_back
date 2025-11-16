@@ -32,11 +32,14 @@ class AwardsResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')->label(__('resource.title')),
-                TextInput::make('sub_title')->label(__('resource.sub_title')),
+                TextInput::make('title')->label(__('resource.title'))
+                ->required()                ,
+                TextInput::make('sub_title')->label(__('resource.sub_title'))
+                    ->required(),
                 Forms\Components\RichEditor::make('description')
                     ->label('Description'),
                 FileUpload::make('image_url')
+->required()
                     ->label(__('resource.main_image'))
                     ->image()
                     ->directory('awards'),

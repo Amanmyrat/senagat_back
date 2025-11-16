@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('awards', function (Blueprint $table) {
             $table->id();
-            $table->text('title');
-            $table->text('sub_title')->nullable();
-            $table->longText('description')->nullable();
+            $table->json('title');
+            $table->json('sub_title')->nullable();
+            $table->json('description')->nullable();
             $table->string('image_url');
             $table->json('description_images')->nullable();
             $table->timestamps();

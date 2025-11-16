@@ -32,12 +32,14 @@ class ClientsResource extends Resource
         return $form
             ->schema([
                 TextInput::make('title')
+                    ->required()
                     ->label(__('resource.title')),
                 TextInput::make('company_type')
                     ->label(__('resource.company_type')),
                 Forms\Components\RichEditor::make('description')
                     ->label(__('resource.description')),
                  FileUpload::make('image_url')->image()
+                     ->required()
                      ->label(__('resource.image')),
             ]);
     }

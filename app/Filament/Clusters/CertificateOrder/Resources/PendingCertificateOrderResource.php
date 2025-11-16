@@ -91,9 +91,10 @@ class PendingCertificateOrderResource extends Resource
                         ->schema([
                             TextInput::make('certificateType.title')
                                 ->label(__('resource.title'))
-                                ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->certificateType?->title)
-
-                                )
+                                ->afterStateHydrated(function ($component, $state, $record) {
+                                    $locale = 'tk'; // app()->getLocale() dynamic
+                                    $component->state($record->certificateType?->getTranslation('title', $locale));
+                                })
                                 ->disabled(),
                             TextInput::make('certificateType.price')
                                 ->label(__('resource.price'))
