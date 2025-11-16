@@ -10,6 +10,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -18,6 +19,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TariffDetailResource extends Resource
 {
+    use Translatable;
+
+    public static function getTranslatableLocales(): array
+    {
+        return ['tk', 'en', 'ru'];
+    }
     protected static ?string $model = TariffDetail::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -26,10 +33,20 @@ class TariffDetailResource extends Resource
     {
         return $form
             ->schema([
+
                 Select::make('tariff_category_id')
                     ->label('Tariff Category')
-                    ->relationship('category', 'title')
-                    ->required(),
+                    ->options(function () {
+                        $locale = 'tk'; // zorla dil
+                        return \App\Models\TariffCategory::query()
+                            ->orderByRaw("title->>'$locale' ASC")
+                            ->get()
+                            ->mapWithKeys(function ($item) use ($locale) {
+                                return [
+                                    $item->id => $item->getTranslation('title', $locale)
+                                ];
+                            });
+                    }),
                 TextInput::make('number')->required()
                 ->numeric(),
                 Repeater::make('details')

@@ -83,8 +83,17 @@ class PendingLoanOrdersResource extends Resource
                     Step::make('Credit Details')
                         ->label(__('resource.credit_details'))
                         ->schema([
-                            Select::make('credit_id')->relationship('credit', 'name')->required()->disabled()
-                                ->label(__('resource.credit_name')),
+                            TextInput::make('credit_name')
+                                ->label(__('resource.credit_name'))
+                                ->afterStateHydrated(function ($component, $state, $record) {
+                                    $locale = app()->getLocale();
+                                    $component->state(
+                                        $record->credit?->getTranslation('name', $locale)
+                                        ?? $record->credit?->name['en'] // fallback
+                                        ?? 'NO information' // fallback string
+                                    );
+                                })
+                                ->disabled(),
                             TextInput::make('term')->numeric()->required()->disabled()
                                 ->label(__('resource.term')),
                             TextInput::make('amount')
