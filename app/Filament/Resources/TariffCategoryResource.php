@@ -7,6 +7,7 @@ use App\Filament\Resources\TariffCategoryResource\RelationManagers;
 use App\Models\TariffCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -18,12 +19,20 @@ class TariffCategoryResource extends Resource
     protected static ?string $model = TariffCategory::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    use Translatable;
+
+    public static function getTranslatableLocales(): array
+    {
+        return ['tk', 'en', 'ru'];
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
 Forms\Components\TextInput::make('title')
+                ->required()
+                ->label(__('resource.title'))
             ]);
     }
 

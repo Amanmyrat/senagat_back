@@ -8,12 +8,15 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditTariffCategory extends EditRecord
 {
+    use EditRecord\Concerns\Translatable;
+
     protected static string $resource = TariffCategoryResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
             Actions\DeleteAction::make(),
+            Actions\LocaleSwitcher::make(),
         ];
     }
 }

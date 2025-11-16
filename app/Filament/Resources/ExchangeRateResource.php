@@ -51,14 +51,18 @@ class ExchangeRateResource extends Resource
         return $form
             ->schema([
                 TextInput::make('currency')
+                    ->required()
                     ->label(__('resource.currency')),
                 TextInput::make('purchase')
+                    ->required()
                     ->label(__('resource.purchase'))
                     ->numeric(),
                 TextInput::make('sale')
+                    ->required()
                     ->label(__('resource.sale'))
                     ->numeric(),
                 FileUpload::make('flag')->image()
+                    ->required()
                     ->label(__('resource.flag')),
 
             ]);

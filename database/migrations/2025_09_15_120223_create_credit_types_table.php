@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('credit_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
+            $table->json('name');
+            $table->json('description');
             $table->unsignedInteger('term');
             $table->unsignedInteger('min_amount');
             $table->unsignedInteger('max_amount');

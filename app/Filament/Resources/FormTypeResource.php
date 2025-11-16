@@ -57,6 +57,7 @@ class FormTypeResource extends Resource
         return $form
             ->schema([
                 TextInput::make('title')
+                    ->required()
                     ->label(__('resource.title')),
                 TextInput::make('price')
                     ->label(__('resource.card_price'))
