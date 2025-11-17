@@ -182,21 +182,39 @@ class LoanOrderRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            if ($this->filled('credit_id') && $this->filled('amount')) {
+            if ($this->filled('credit_id')) {
                 $credit = CreditType::find($this->credit_id);
                 if ($credit) {
-                    if ($this->amount < $credit->min_amount || $this->amount > $credit->max_amount) {
+
+                    // Online başvuru kontrolü
+                    if (!$credit->can_offer_online) {
                         $validator->errors()->add(
-                            'amount', ErrorMessage::AMOUNT_EXCEEDS_LIMIT->value
+                            'credit_id',
+                            ErrorMessage::THIS_LOAN_CANNOT_BE_APPLIED_ONLINE->value
                         );
                     }
-                    if ($this->term > $credit->term) {
-                        $validator->errors()->add(
-                            'term', ErrorMessage::TERM_EXCEEDS_LIMIT->value
-                        );
+
+                    // Amount ve term kontrolleri
+                    if ($this->filled('amount')) {
+                        if ($this->amount < $credit->min_amount || $this->amount > $credit->max_amount) {
+                            $validator->errors()->add(
+                                'amount',
+                                ErrorMessage::AMOUNT_EXCEEDS_LIMIT->value
+                            );
+                        }
+                    }
+
+                    if ($this->filled('term')) {
+                        if ($this->term > $credit->term) {
+                            $validator->errors()->add(
+                                'term',
+                                ErrorMessage::TERM_EXCEEDS_LIMIT->value
+                            );
+                        }
                     }
                 }
             }
         });
     }
+
 }

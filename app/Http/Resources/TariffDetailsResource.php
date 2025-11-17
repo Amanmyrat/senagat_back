@@ -20,7 +20,7 @@ class TariffDetailsResource extends JsonResource
             'items' => $this->resource->details->map(function ($detail) {
                 return [
                     'number' => $detail->number,
-                    'items' => $detail->details,
+                   'items' => $detail->details,
 
                 ];
             }),
