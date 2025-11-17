@@ -5,11 +5,13 @@ namespace App\Filament\Resources;
 use App\Enum\RequirementType;
 use App\Filament\Resources\CreditTypesResource\Pages;
 use App\Models\CreditType;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
@@ -17,6 +19,7 @@ use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class CreditTypesResource extends Resource
@@ -69,19 +72,28 @@ class CreditTypesResource extends Resource
                                     ->required(),
                                 Textarea::make('description')
                                     ->label(__('resource.description')),
+                                Toggle::make('can_offer_online')
+                                    ->label(__('resource.can_offer_online'))
+                                    ->default(false)
+                                    ->helperText(__('resource.alert_can_offer_online')),
                                 TextInput::make('term')
                                     ->label(__('resource.max_term'))
                                     ->numeric()
-                                    ->minValue(1)
-                                    ->required(),
+                                    ->minValue(1),
                                 TextInput::make('min_amount')
                                     ->label(__('resource.min_amount'))
-                                    ->numeric()
-                                    ->required(),
+                                    ->numeric(),
                                 TextInput::make('max_amount')
                                     ->label(__('resource.max_amount'))
-                                    ->numeric()
-                                    ->required(),
+                                    ->numeric(),
+                                TextInput::make('term_text')
+                                    ->label(__('resource.term_text'))
+                                    ->nullable()
+                                    ->helperText(__('resource.alert_term_text')),
+                                TextInput::make('amount_text')
+                                    ->label(__('resource.amount_text'))
+                                    ->nullable()
+                                    ->helperText(__('resource.alert_amount_text')),
                                 TextInput::make('interest')
                                     ->label(__('resource.interest').' %')
                                     ->numeric()
@@ -141,6 +153,8 @@ class CreditTypesResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->label(__('resource.name')),
+                ToggleColumn::make('can_offer_online'),
+
             ])
             ->filters([
                 //

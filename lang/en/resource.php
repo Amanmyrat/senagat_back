@@ -120,5 +120,12 @@ return [
     'card'=>'card',
     'loan'=>'loan',
     'user_name'=>'User Name',
-    'branch'=>'Branch'
+    'branch'=>'Branch',
+    'term_text'=>'Term Text',
+    'amount_text'=>'Amount Text',
+    'can_offer_online'=>'Can offer online',
+    'alert_term_text'=>'Fill this if dynamic term is needed',
+    'alert_amount_text'=>'Fill this if dynamic amount is needed',
+    'alert_can_offer_online'=>'If true, numeric term/amount fields are used'
+
 ];
