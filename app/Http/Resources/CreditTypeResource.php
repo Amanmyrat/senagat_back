@@ -16,13 +16,17 @@ class CreditTypeResource extends JsonResource
     {
         $locale = app()->getLocale();
 
+
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->getTranslation('name', $locale),
             'description' => $this->resource->getTranslation('description', $locale),
-            'term' => $this->resource->term,
-            'min_amount' => $this->resource->min_amount,
-            'max_amount' => $this->resource->max_amount,
+            'can_offer_online' => $this->resource->can_offer_online,
+            'term' => $this->resource->term ?: null,
+            'min_amount' => $this->resource->min_amount ?: null,
+            'max_amount' => $this->resource->max_amount ?: null,
+            'term_text' => $this->resource->getTranslation('term_text', $locale) ?: null,
+            'amount_text' => $this->resource->getTranslation('amount_text', $locale) ?: null,
             'interest' => $this->resource->interest,
             'background_color'=>$this->resource->background_color,
             'image_url' => $this->resource->image_url

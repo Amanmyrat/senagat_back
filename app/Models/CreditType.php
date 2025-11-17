@@ -15,6 +15,7 @@ use Spatie\Translatable\HasTranslations;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $translations
+
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType newQuery()
@@ -41,24 +42,38 @@ class CreditType extends Model
 {
     use HasTranslations;
 
-    public array $translatable = ['name', 'description', 'requirements'];
+    public array $translatable = ['name', 'description', 'requirements','term_text','amount_text'];
 
-    protected $fillable = ['name', 'description', 'background_color', 'image_url', 'term', 'min_amount', 'max_amount', 'interest', 'requirements'];
+    protected $fillable = ['name', 'description', 'background_color', 'image_url',
+        'can_offer_online',
+        'term_text',
+        'amount_text',
+        'term', 'min_amount', 'max_amount', 'interest', 'requirements'];
 
     protected $casts = [
         'requirements' => 'array',
+
         'advantages' => 'array',
         'term' => MoneyCast::class,
         'min_amount' => MoneyCast::class,
         'max_amount' => MoneyCast::class,
         'interest' => MoneyCast::class,
     ];
-    protected $appends = ['image_path'];
+    protected $appends = ['image_path', 'effective_term', 'effective_amount'];
 
     public function getImagePathAttribute(): ?string
     {
         return $this->image_url
             ? asset('storage/'.$this->image_url)
             : null;
+    }
+    public function getEffectiveTermAttribute()
+    {
+        return $this->term_text ?: $this->term;
+    }
+
+    public function getEffectiveAmountAttribute()
+    {
+        return $this->amount_text ?: $this->max_amount;
     }
 }

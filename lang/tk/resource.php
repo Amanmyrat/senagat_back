@@ -121,6 +121,12 @@ return [
     'loan'       => 'Karz',
     'user_name'  => 'Ulanyjy ady',
     'branch' => 'Şahamça',
+    'term_text' => 'Möhleti',
+    'amount_text' => 'Möçberi',
+    'can_offer_online' => 'Onlaýn karz berlip bilýärmi',
+    'alert_term_text' => 'Dynamic möhlet gerek bolsa dolduryň',
+    'alert_amount_text' => 'Dynamic möçber gerek bolsa dolduryň',
+    'alert_can_offer_online' => 'Eger dogry bolsa, san görnüşli möhlet/möçber ulanylýar',
 
 
 
