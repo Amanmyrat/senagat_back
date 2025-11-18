@@ -127,7 +127,7 @@ return [
     'alert_term_text' => 'Dynamic möhlet gerek bolsa dolduryň',
     'alert_amount_text' => 'Dynamic möçber gerek bolsa dolduryň',
     'alert_can_offer_online' => 'Eger dogry bolsa, san görnüşli möhlet/möçber ulanylýar',
-
+    'for_legal_entities'=> 'Ýuridiki taraplara'
 
 
 
