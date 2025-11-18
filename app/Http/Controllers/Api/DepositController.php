@@ -19,11 +19,11 @@ class DepositController extends Controller
      */
     public function index(): JsonResponse
     {
-        $address = DepositType::get();
+        $depositTypes = DepositType::get();
 
         return new JsonResponse([
             'success' => true,
-            'data' => DepositTypeResource::collection($address),
+            'data' => DepositTypeResource::collection($depositTypes),
         ], 200);
     }
 
