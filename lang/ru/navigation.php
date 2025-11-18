@@ -18,7 +18,7 @@ return [
     'rejected_loan_orders' => 'Отклоненные заказы кредитов',
     'certificate_orders' => 'Заказы сертификатов',
     'exchange_rate' => 'Курсы обмена валют',
-    'loan' => 'Заем',
+    'loan' => 'Кредит',
     'certificate' => 'Сертификат',
 
 ];

@@ -126,6 +126,6 @@ return [
     'can_offer_online'=>'Can offer online',
     'alert_term_text'=>'Fill this if dynamic term is needed',
     'alert_amount_text'=>'Fill this if dynamic amount is needed',
-    'alert_can_offer_online'=>'If true, numeric term/amount fields are used'
-
+    'alert_can_offer_online'=>'If true, numeric term/amount fields are used',
+     "for_legal_entities"=>'For legal entities'
 ];

@@ -67,8 +67,8 @@ class CardTypesResource extends Resource
                 Select::make('category')
                     ->label(__('resource.category'))
                     ->options([
-                        'For the individual' => __('resource.individual'),
-                        'For the entrepreneur' => __('resource.entrepreneur'),
+                        'individual' => __('resource.individual'),
+                        'entrepreneur' => __('resource.entrepreneur'),
                     ]),
                 FileUpload::make('image_url')->image()
                     ->label(__('resource.image_url')),
