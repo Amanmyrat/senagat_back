@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CardTypeResource;
 use App\Models\CardType;
+use App\Models\CreditType;
 use Illuminate\Http\JsonResponse;
 
 class CardTypeController extends Controller
@@ -19,12 +19,34 @@ class CardTypeController extends Controller
      */
     public function index(): JsonResponse
     {
-        $address = CardType::get();
+        $cards = CardType::get();
 
         return new JsonResponse([
             'success' => true,
-            'code' => SuccessMessage::CARD_TYPE_LISTED->value,
-            'data' => CardTypeResource::collection($address),
+            'data' => CardTypeResource::collection($cards),
         ], 200);
+    }
+
+
+    /**
+     * Credit  Details
+     *
+     * @unauthenticated
+     *
+     * @localizationHeader
+     */
+    public function show($id): JsonResponse
+    {
+        $card = CreditType::find($id);
+        if (!$card) {
+            return new JsonResponse([
+                'success' => false,
+            ], 404);
+
+        }
+        return new JsonResponse([
+            'success' => true,
+            'data' => new CardTypeResource($card),
+        ]);
     }
 }

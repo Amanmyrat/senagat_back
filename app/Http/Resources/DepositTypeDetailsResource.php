@@ -44,7 +44,6 @@ class DepositTypeDetailsResource extends JsonResource
             'description' => $this->resource->getTranslation('description', $locale),
             'sub_title' => trim(($shortest['name'] ?? '') . ' ' . ($shortest['description'] ?? '')),
             'advantages' =>$advantages,
-
             'details' => collect($this->resource->getTranslation('details', $locale) ?? [])
                 ->map(function ($item) {
                     return [
