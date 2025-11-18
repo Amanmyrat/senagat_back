@@ -46,6 +46,7 @@ class CardTypeResource extends JsonResource
             'image_url' => $this->resource->image_url
                 ? asset('storage/'.$this->resource->image_url) : null,
             'price' => $this->resource->price,
+            'category'=>$this->resource->category,
             'text' => $this->resource->getTranslation('text', $locale),
             'advantages' =>$advantages,
 

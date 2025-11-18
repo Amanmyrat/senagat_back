@@ -72,6 +72,12 @@ class CreditTypesResource extends Resource
                                     ->required(),
                                 Textarea::make('description')
                                     ->label(__('resource.description')),
+                                Select::make('category')
+                                    ->label(__('resource.category'))
+                                    ->options([
+                                        'individual' => __('resource.individual'),
+                                        'legal_entity' => __('resource.for_legal_entities'),
+                                    ]),
                                 Toggle::make('can_offer_online')
                                     ->label(__('resource.can_offer_online'))
                                     ->default(false)
@@ -79,13 +85,16 @@ class CreditTypesResource extends Resource
                                 TextInput::make('term')
                                     ->label(__('resource.max_term'))
                                     ->numeric()
-                                    ->minValue(1),
+                                    ->nullable(),
                                 TextInput::make('min_amount')
                                     ->label(__('resource.min_amount'))
-                                    ->numeric(),
+                                    ->numeric()
+                                    ->nullable(),
                                 TextInput::make('max_amount')
                                     ->label(__('resource.max_amount'))
-                                    ->numeric(),
+                                    ->numeric()
+
+                                    ->nullable(),
                                 TextInput::make('term_text')
                                     ->label(__('resource.term_text'))
                                     ->nullable()

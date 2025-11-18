@@ -22,6 +22,7 @@ class CreditTypeResource extends JsonResource
             'name' => $this->resource->getTranslation('name', $locale),
             'description' => $this->resource->getTranslation('description', $locale),
             'can_offer_online' => $this->resource->can_offer_online,
+            'category'=>$this->resource->category,
             'term' => $this->resource->term ?: null,
             'min_amount' => $this->resource->min_amount ?: null,
             'max_amount' => $this->resource->max_amount ?: null,

@@ -47,6 +47,7 @@ class CreditType extends Model
     protected $fillable = ['name', 'description', 'background_color', 'image_url',
         'can_offer_online',
         'term_text',
+        'category',
         'amount_text',
         'term', 'min_amount', 'max_amount', 'interest', 'requirements'];
 

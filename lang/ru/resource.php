@@ -43,7 +43,7 @@ return [
     'certificate_order_status' => 'Статус заказа сертификата',
     'certificate_information' => 'Информация о сертификате',
     'home_address' => 'Домашний адрес',
-    'loan_order' => 'Заявка на заем',
+    'loan_order' => 'Заявка на кредит',
     'credit_type' => 'Тип кредита',
     'credit_name' => 'Название кредита',
     'term' => 'Срок',
@@ -126,6 +126,6 @@ return [
     'alert_term_text' => 'Заполните, если нужен динамический срок',
     'alert_amount_text' => 'Заполните, если нужна динамическая сумма',
     'alert_can_offer_online' => 'Если true, используются числовые поля срока/суммы',
-
+    'for_legal_entities'=> 'Для юридических лиц'
 
 ];
