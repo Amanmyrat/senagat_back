@@ -43,13 +43,12 @@ class CardTypeResource extends JsonResource
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),
             'sub_title' => trim(($shortest['name'] ?? '') . ' ' . ($shortest['description'] ?? '')),
-            'image_url' => $this->resource->image_url
-                ? asset('storage/'.$this->resource->image_url) : null,
+            'description' => $this->resource->getTranslation('text', $locale),
             'price' => $this->resource->price,
             'category'=>$this->resource->category,
-            'text' => $this->resource->getTranslation('text', $locale),
             'advantages' =>$advantages,
-
+            'image_url' => $this->resource->image_url
+                ? asset('storage/'.$this->resource->image_url) : null,
         ];
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CreditTypeResource;
 use App\Models\CreditType;
@@ -19,12 +18,33 @@ class CreditTypeController extends Controller
      */
     public function index(): JsonResponse
     {
-        $card = CreditType::get();
+        $credit = CreditType::get();
 
         return new JsonResponse([
             'success' => true,
-            'code' => SuccessMessage::CREDIT_TYPE_LISTED->value,
-            'data' => CreditTypeResource::collection($card),
+            'data' => CreditTypeResource::collection($credit),
         ], 200);
+    }
+
+    /**
+     * Credit  Details
+     *
+     * @unauthenticated
+     *
+     * @localizationHeader
+     */
+    public function show($id): JsonResponse
+    {
+        $credit = CreditType::find($id);
+        if (!$credit) {
+            return new JsonResponse([
+                'success' => false,
+            ], 404);
+
+        }
+        return new JsonResponse([
+            'success' => true,
+            'data' => new CreditTypeResource($credit),
+        ]);
     }
 }

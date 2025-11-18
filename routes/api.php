@@ -56,10 +56,16 @@ Route::prefix('location')->group(function () {
     Route::get('/', [LocationController::class, 'index']);
     Route::get('/branches', [LocationController::class, 'branchLocations']);
 });
-Route::prefix('credit')->group(function () {
-    Route::get('/types', [CreditTypeController::class, 'index']);
+Route::prefix('credit/types')->group(function () {
+    Route::get('/', [CreditTypeController::class, 'index']);
+    Route::get('/{id}', [CreditTypeController::class, 'show']);
 });
-Route::get('card/types', [CardTypeController::class, 'index']);
+
+Route::prefix('card/types')->group(function () {
+    Route::get('/', [CardTypeController::class, 'index']);
+    Route::get('/{id}', [CardTypeController::class, 'show']);
+});
+
 Route::prefix('news')->group(function () {
     Route::get('/', [NewsController::class, 'index']);
 });
