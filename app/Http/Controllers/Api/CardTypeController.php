@@ -29,7 +29,7 @@ class CardTypeController extends Controller
 
 
     /**
-     * Credit  Details
+     * Card  Details
      *
      * @unauthenticated
      *
@@ -37,7 +37,7 @@ class CardTypeController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $card = CreditType::find($id);
+        $card = CardType::find($id);
         if (!$card) {
             return new JsonResponse([
                 'success' => false,
