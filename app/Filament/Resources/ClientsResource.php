@@ -19,7 +19,25 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ClientsResource extends Resource
 {
     protected static ?string $model = Clients::class;
+    public static function getNavigationLabel(): string
+    {
+        return __('resource.clients');
+    }
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('resource.clients');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.clients');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('resource.clients');
+    }
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     use Translatable;
 

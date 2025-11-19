@@ -127,5 +127,21 @@ return [
     'alert_term_text'=>'Fill this if dynamic term is needed',
     'alert_amount_text'=>'Fill this if dynamic amount is needed',
     'alert_can_offer_online'=>'If true, numeric term/amount fields are used',
-     "for_legal_entities"=>'For legal entities'
+     'for_legal_entities'=>'For legal entities',
+    'borrower'=>'Borrower',
+    'co_borrower'=>'Co Borrower',
+    'domestic_person'=>'Domestic Person',
+    'awards'=>'Awards',
+    'clients'=>'Clients',
+    'deposit_types'=>'Deposit Types',
+    'tariff_categories'=>'Tariff Categories',
+    'tariff_details'=>'Tariff Details',
+    'number'=>'Number',
+    'guarantor'=>'Guarantor',
+    'payer'=>'Payer',
+    'private_business_parties'=>'Private Business Parties',
+    'fees'=>'Fees',
+    'service_cost'=>'Service Cost',
+    'vat'=>'GBSS',
+    'total_payment'=>'Total Payment'
 ];

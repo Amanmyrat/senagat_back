@@ -27,7 +27,6 @@ class TariffController extends Controller
         $tariff = TariffCategory::all();
         return new JsonResponse([
             'success' => true,
-            'code' => SuccessMessage::Deposit_TYPE_LISTED->value,
             'data' =>  TariffResource::collection($tariff),
         ], 200);
     }
@@ -44,15 +43,14 @@ class TariffController extends Controller
            $tariff = TariffCategory::with('details')->find($id);
 
         if (!$tariff) {
-            return response()->json([
+            return new JsonResponse([
                 'success' => false,
                 'error_message' => ErrorMessage::TARIFF_TYPE_NOT_FOUND->value,
             ], 404);
 
         }
-        return response()->json([
+        return new JsonResponse([
             'success' => true,
-            'code' => SuccessMessage::Deposit_TYPE_DETAILS_LISTED->value,
             'data' => new TariffDetailsResource($tariff),
         ]);
     }

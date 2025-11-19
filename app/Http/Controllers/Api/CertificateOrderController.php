@@ -30,7 +30,6 @@ class CertificateOrderController extends Controller
 
             return new JsonResponse([
                 'success' => true,
-                'code' => SuccessMessage::CERTIFICATE_ORDER_CREATED->value,
                 'data' => collect((new CertificateOrderResource($order))->toArray($request))
                     ->except(['certificate_name', 'status','certificate_price']),
             ], 201);

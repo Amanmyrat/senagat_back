@@ -23,7 +23,6 @@ class CertificateTypeController extends Controller
 
         return new JsonResponse([
             'success' => true,
-            'code' => SuccessMessage::CERTIFICATE_TYPE_LISTED->value,
             'data' => FormTypeResource::collection($location),
         ], 200);
     }

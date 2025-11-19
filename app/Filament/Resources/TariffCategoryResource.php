@@ -25,7 +25,25 @@ class TariffCategoryResource extends Resource
     {
         return ['tk', 'en', 'ru'];
     }
+    public static function getNavigationLabel(): string
+    {
+        return __('resource.tariff_categories');
+    }
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('resource.tariff_categories');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.tariff_categories');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('resource.tariff_categories');
+    }
     public static function form(Form $form): Form
     {
         return $form
@@ -40,8 +58,8 @@ Forms\Components\TextInput::make('title')
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id'),
                 Tables\Columns\TextColumn::make('title')
+                    ->label(__('resource.title'))
             ])
             ->filters([
                 //

@@ -42,13 +42,13 @@ class AwardController extends Controller
         $award = Award::find($id);
 
         if (!$award) {
-            return response()->json([
+            return new JsonResponse([
                 'success' => false,
                 'error_message' => ErrorMessage::TARIFF_TYPE_NOT_FOUND->value,
             ], 404);
 
         }
-        return response()->json([
+        return new JsonResponse([
             'success' => true,
             'data' => new AwardDetailsResource($award),
         ]);

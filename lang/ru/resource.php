@@ -126,6 +126,23 @@ return [
     'alert_term_text' => 'Заполните, если нужен динамический срок',
     'alert_amount_text' => 'Заполните, если нужна динамическая сумма',
     'alert_can_offer_online' => 'Если true, используются числовые поля срока/суммы',
-    'for_legal_entities'=> 'Для юридических лиц'
+    'for_legal_entities'=> 'Для юридических лиц',
+    'borrower' => 'Заемщик',
+    'co_borrower' => 'Созаемщик',
+    'domestic_person' => 'Резиденты',
+    'awards' => 'Награды',
+    'clients' => 'Клиенты',
+    'deposit_types' => 'Виды депозитов',
+    'tariff_categories' => 'Категории тарифов',
+    'tariff_details' => 'Детали тарифа',
+    'number' => 'Номер',
+    'guarantor' => 'Поручитель',
+    'payer' => 'Плательщик',
+    'private_business_parties' => 'Частные бизнес-участники',
+    'fees' => 'Комиссия',
+    'service_cost' => 'Стоимость услуги',
+    'vat' => 'GBSS',
+    'total_payment' => 'Итоговый платеж',
+
 
 ];

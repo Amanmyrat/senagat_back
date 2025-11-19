@@ -23,7 +23,6 @@ class ExchangeRateController extends Controller
 
         return new JsonResponse([
             'success' => true,
-            'code' => SuccessMessage::EXCHANGE_RATE_LISTED->value,
             'data' => ExchangeRateResource::collection($currency),
         ], 200);
     }

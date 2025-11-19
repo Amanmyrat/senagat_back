@@ -25,7 +25,6 @@ class ContactMessageController extends Controller
 
             return new JsonResponse([
                 'success' => true,
-                'code' => SuccessMessage::CONTACT_MESSAGE_CREATED->value,
                 'data' => new ContactMessageResource($message),
             ], 201);
 
