@@ -143,7 +143,7 @@ class AuthController
 
             return new JsonResponse([
                 'success' => true,
-                'code' => SuccessMessage::PASSWORD_VERIFIED_OTP_SENT->value,
+
             ], 200);
         } catch (Exception $e) {
             return new JsonResponse([
@@ -170,7 +170,6 @@ class AuthController
 
             return new JsonResponse([
                 'success' => true,
-                'code' => SuccessMessage::LOGIN_SUCCESSFUL->value,
                 'data' => new UserResource($user),
             ], 200);
         } catch (Exception $e) {
@@ -194,7 +193,6 @@ class AuthController
             if ($exists) {
                 return new JsonResponse([
                     'success' => true,
-                  //  'code' => SuccessMessage::PHONE_EXISTS->value,
                     'exists' => true,
                 ], 200);
             }

@@ -30,7 +30,25 @@ class DepositTypeResource extends Resource
     {
         return ['tk', 'en', 'ru'];
     }
+    public static function getNavigationLabel(): string
+    {
+        return __('resource.deposit_types');
+    }
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('resource.deposit_types');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.deposit_types');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('resource.deposit_types');
+    }
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form

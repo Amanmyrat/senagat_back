@@ -25,7 +25,25 @@ class AwardsResource extends Resource
         return ['tk', 'en', 'ru'];
     }
     protected static ?string $model = Award::class;
+    public static function getNavigationLabel(): string
+    {
+        return __('resource.awards');
+    }
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('resource.awards');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.awards');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('resource.awards');
+    }
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -37,7 +55,7 @@ class AwardsResource extends Resource
                 TextInput::make('sub_title')->label(__('resource.sub_title'))
                     ->required(),
                 Forms\Components\RichEditor::make('description')
-                    ->label('Description'),
+                    ->label(__('resource.description')),
                 FileUpload::make('image_url')
 ->required()
                     ->label(__('resource.main_image'))
@@ -57,7 +75,9 @@ class AwardsResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->limit(30),
+                Tables\Columns\TextColumn::make('title')
+                    ->label(__('resource.title'))
+                    ->limit(30),
             ])
             ->filters([
                 //
