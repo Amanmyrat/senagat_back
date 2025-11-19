@@ -25,6 +25,26 @@ class TariffDetailResource extends Resource
     {
         return ['tk', 'en', 'ru'];
     }
+    public static function getNavigationLabel(): string
+    {
+        return __('resource.tariff_details');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('resource.tariff_details');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.tariff_details');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('resource.tariff_details');
+    }
+
     protected static ?string $model = TariffDetail::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -35,9 +55,9 @@ class TariffDetailResource extends Resource
             ->schema([
 
                 Select::make('tariff_category_id')
-                    ->label('Tariff Category')
+                    ->label(__('resource.tariff_categories'))
                     ->options(function () {
-                        $locale = 'tk'; // zorla dil
+                        $locale = 'tk';
                         return \App\Models\TariffCategory::query()
                             ->orderByRaw("title->>'$locale' ASC")
                             ->get()
@@ -48,21 +68,22 @@ class TariffDetailResource extends Resource
                             });
                     }),
                 TextInput::make('number')->required()
+                    ->label(__('resource.number'))
                 ->numeric(),
                 Repeater::make('details')
-                    ->schema([
-                        TextInput::make('sub_title')->label('Sub title'),
+
+                        ->schema([
+                        TextInput::make('sub_title')->label(__('resource.sub_title')),
                         Repeater::make('fees')
                             ->schema([
-
-                                TextInput::make('price')->label('Service cost'),
-                                TextInput::make('gbss_fee')->label('vat'),
-                                TextInput::make('total_fee')->label('Total payment'),
+                                TextInput::make('price')->label(__('resource.service_cost')),
+                                TextInput::make('gbss_fee')->label(__('resource.vat')),
+                                TextInput::make('total_fee')->label(__('resource.total_payment')),
                             ])
-                            ->label('Fees')
+                            ->label(__('resource.fees'))
                             ->collapsible(),
                     ])
-                    ->label('Details')
+                    ->label(__('resource.details'))
                     ->collapsible(),
 
             ]);
@@ -72,9 +93,10 @@ class TariffDetailResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('number'),
+                Tables\Columns\TextColumn::make('number')
+                    ->label(__('resource.number')),
                 Tables\Columns\TextColumn::make('details')
-                    ->label('Sub Title')
+                    ->label(__('resource.sub_title'))
                     ->formatStateUsing(function ($state) {
                         if (empty($state)) {
                             return '-';

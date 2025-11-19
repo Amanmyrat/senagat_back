@@ -6,6 +6,7 @@ use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LocationResource;
 use App\Models\Location;
+use Illuminate\Http\JsonResponse;
 
 class LocationController extends Controller
 {
@@ -20,9 +21,8 @@ class LocationController extends Controller
     {
         $locations = Location::all();
 
-        return response()->json([
+        return new JsonResponse([
             'success' => true,
-            'code' => SuccessMessage::LOCATION_LISTED->value,
             'data' => LocationResource::collection($locations),
         ], 200);
     }
@@ -40,9 +40,8 @@ class LocationController extends Controller
             ->where('type', 'Branch')
             ->get();
 
-        return response()->json([
+        return new JsonResponse([
             'success' => true,
-            'code' => SuccessMessage::BRANCH_LOCATIONS_LISTED->value,
             'data' => LocationResource::collection($locations),
         ], 200);
     }

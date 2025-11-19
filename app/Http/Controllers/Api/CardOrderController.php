@@ -30,7 +30,6 @@ class CardOrderController extends Controller
 
             return new JsonResponse([
                 'success' => true,
-                'code' => SuccessMessage::ORDER_CREATED->value,
                 'data' => collect((new CardOrderResource($order))->toArray($request))
                     ->except('status', 'card_title','card_price'),
             ], 201);

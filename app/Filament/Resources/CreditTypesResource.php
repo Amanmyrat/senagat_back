@@ -8,6 +8,7 @@ use App\Models\CreditType;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -21,6 +22,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
+use mysql_xdevapi\Schema;
 
 class CreditTypesResource extends Resource
 {
@@ -114,6 +116,12 @@ class CreditTypesResource extends Resource
                                 TextInput::make('background_color')
                                     ->label(__('resource.background_color') . ' (HEX code)'),
                             ]),
+                        Step::make('Requirements Description')
+            ->schema([
+                RichEditor::make('requirements_description')
+                    ->label(__('resource.requirements'))
+                    ->columnSpan('full')
+            ]),
                         Step::make('Requirments')
                             ->label(__('resource.requirements'))
                             ->schema([
@@ -124,8 +132,11 @@ class CreditTypesResource extends Resource
                                         Select::make('type')
                                             ->label(__('resource.type'))
                                             ->options([
-                                                RequirementType::Borrower->value => RequirementType::Borrower->label(),
-                                                RequirementType::CoBorrower->value => RequirementType::CoBorrower->label(),
+                                                RequirementType::Borrower->value => RequirementType::Borrower->label(__('resource.borrower')),
+                                                RequirementType::Guarantor->value => RequirementType::Guarantor->label(),
+                                                RequirementType::DomesticPersons->value => RequirementType::DomesticPersons->label(),
+                                                RequirementType::Payer->value => RequirementType::Payer->label(),
+                                                RequirementType::PrivateBusinessParties->value => RequirementType::PrivateBusinessParties->label(),
                                             ]),
                                         Repeater::make('rules')
                                             ->label(__('resource.rules'))

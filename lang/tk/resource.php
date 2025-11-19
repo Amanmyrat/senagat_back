@@ -1,12 +1,14 @@
 <?php
 
 return [
+
     'type' => 'Görnüşi',
     'name' => 'Ady',
     'address' => 'Salgysy',
     'new' => 'Täze',
     'old' => 'Köne',
     'view' => 'Görkez',
+
     'edit' => 'Üýtgetmek',
     'phone' => 'Telefon',
     'title' => 'Ady',
@@ -30,6 +32,7 @@ return [
     'entrepreneur' => 'Telekeçilere',
     'admins' => 'Adminler',
     'role' => 'Rol',
+
     'email' => 'E-poçta',
     'password' => 'Parol',
     'leave blank to keep current password' => 'Häzirki paroly saklamak üçin boş goýuň',
@@ -127,7 +130,23 @@ return [
     'alert_term_text' => 'Dynamic möhlet gerek bolsa dolduryň',
     'alert_amount_text' => 'Dynamic möçber gerek bolsa dolduryň',
     'alert_can_offer_online' => 'Eger dogry bolsa, san görnüşli möhlet/möçber ulanylýar',
-    'for_legal_entities'=> 'Ýuridiki taraplara'
+    'for_legal_entities'=> 'Ýuridiki taraplara',
+    'borrower' => 'Karz alyjy',
+    'co_borrower' => 'Bilelikde karz alyjy',
+    'domestic_person' => 'Ýerli adamlar',
+    'awards' => 'Baýraklar',
+    'clients' => 'Müşderiler',
+    'deposit_types' => 'Depozit görnüşleri',
+    'tariff_categories' => 'Taryf kategoriýalary',
+    'tariff_details' => 'Taryf maglumatlary',
+    'number' => 'San',
+    'guarantor' => 'Kepilçi',
+    'payer' => 'Tölegçi',
+    'private_business_parties' => 'Hususy biznes taraplar',
+    'fees' => 'Töleg tölegleri',
+    'service_cost' => 'Hyzmat bahasy',
+    'vat' => 'GBSS',
+    'total_payment' => 'Jemi töleg',
 
 
 

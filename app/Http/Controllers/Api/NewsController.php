@@ -23,7 +23,6 @@ class NewsController extends Controller
 
         return new JsonResponse([
             'success' => true,
-            'code' => SuccessMessage::NEWS_LISTED->value,
             'data' => NewsResource::collection($location),
         ], 200);
     }
