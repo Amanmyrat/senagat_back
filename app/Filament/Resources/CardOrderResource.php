@@ -33,7 +33,15 @@ class CardOrderResource extends Resource
     {
         return __('navigation.card_orders');
     }
+    public static function getTitle(): string
+    {
+        return __('navigation.card_orders');
+    }
 
+    public static function getBreadcrumb(): string
+    {
+        return __('navigation.card_orders');
+    }
     public static function getPluralModelLabel(): string
     {
         return __('navigation.card_orders');

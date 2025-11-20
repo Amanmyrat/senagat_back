@@ -69,7 +69,10 @@ class TariffDetailResource extends Resource
                     }),
                 TextInput::make('number')->required()
                     ->label(__('resource.number'))
-                ->numeric(),
+                    ->nullable(),
+     TextInput::make('title')
+                ->label(__('resource.title'))
+                ->nullable(),
                 Repeater::make('details')
 
                         ->schema([
