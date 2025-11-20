@@ -10,6 +10,8 @@ class CardOrders extends Cluster
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.card');
+        return __('resource.card');
     }
+
+
 }

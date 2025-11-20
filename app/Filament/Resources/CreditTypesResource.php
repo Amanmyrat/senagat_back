@@ -132,7 +132,7 @@ class CreditTypesResource extends Resource
                                         Select::make('type')
                                             ->label(__('resource.type'))
                                             ->options([
-                                                RequirementType::Borrower->value => RequirementType::Borrower->label(__('resource.borrower')),
+                                                RequirementType::Borrower->value => RequirementType::Borrower->label(),
                                                 RequirementType::Guarantor->value => RequirementType::Guarantor->label(),
                                                 RequirementType::DomesticPersons->value => RequirementType::DomesticPersons->label(),
                                                 RequirementType::Payer->value => RequirementType::Payer->label(),
