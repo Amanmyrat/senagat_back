@@ -10,7 +10,7 @@ class TariffDetail extends Model
 {
     use HasTranslations;
 
-    public array $translatable = ['details','title'];
+    public array $translatable = ['title'];
     protected $fillable=[ 'tariff_category_id',
         'title',
         'number',
