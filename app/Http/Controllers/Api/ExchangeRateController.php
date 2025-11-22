@@ -18,7 +18,7 @@ class ExchangeRateController extends Controller
      */
     public function index(): JsonResponse
     {
-        $currency = ExchangeRate::all();
+        $currency = ExchangeRate::orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,

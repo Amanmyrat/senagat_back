@@ -18,7 +18,7 @@ class CreditTypeController extends Controller
      */
     public function index(): JsonResponse
     {
-        $credit = CreditType::get();
+        $credit = CreditType::orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,
