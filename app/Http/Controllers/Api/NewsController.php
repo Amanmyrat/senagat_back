@@ -18,7 +18,7 @@ class NewsController extends Controller
      */
     public function index(): JsonResponse
     {
-        $location = News::all();
+        $location = News::orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,

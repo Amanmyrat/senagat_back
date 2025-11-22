@@ -21,7 +21,7 @@ class TariffController extends Controller
     public function index(): JsonResponse
     {
 
-        $tariff = TariffCategory::all();
+        $tariff = TariffCategory::orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,

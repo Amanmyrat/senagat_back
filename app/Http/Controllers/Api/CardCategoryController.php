@@ -17,7 +17,7 @@ class CardCategoryController extends Controller
      */
     public function cards(): JsonResponse
     {
-        $card = CardCategory::get();
+        $card = CardCategory::orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,

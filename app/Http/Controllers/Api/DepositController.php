@@ -19,7 +19,7 @@ class DepositController extends Controller
      */
     public function index(): JsonResponse
     {
-        $depositTypes = DepositType::get();
+        $depositTypes = DepositType::orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,

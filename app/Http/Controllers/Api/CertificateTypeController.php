@@ -18,7 +18,7 @@ class CertificateTypeController extends Controller
      */
     public function index(): JsonResponse
     {
-        $location = CertificateType::all();
+        $location = CertificateType::orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,
