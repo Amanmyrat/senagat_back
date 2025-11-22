@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Clusters\ContentManagement;
 use App\Filament\Resources\AuditReportResource\Pages;
 use App\Models\AuditReport;
 use Filament\Forms\Components\FileUpload;
@@ -19,7 +20,7 @@ class AuditReportResource extends Resource
 
     protected static ?string $model = AuditReport::class;
 
-    protected static ?string $cluster = \App\Filament\Clusters\ContentManagement::class;
+    protected static ?string $cluster = ContentManagement::class;
 
     protected static ?int $navigationSort = 1;
 
@@ -101,7 +102,8 @@ class AuditReportResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort('created_at', 'desc');
+            ->defaultSort('created_at', 'desc')
+            ->reorderable('sort');
     }
 
     public static function getRelations(): array
