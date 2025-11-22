@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Enum\RequirementType;
 use App\Filament\Resources\CreditTypesResource\Pages;
 use App\Models\CreditType;
-use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
@@ -22,11 +21,11 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
-use mysql_xdevapi\Schema;
 
 class CreditTypesResource extends Resource
 {
     protected static ?string $cluster = \App\Filament\Clusters\CreditApplication::class;
+
     protected static ?int $navigationSort = 1;
 
     use Translatable;
@@ -114,14 +113,14 @@ class CreditTypesResource extends Resource
                                 FileUpload::make('image_url')->image()
                                     ->label(__('resource.image_url')),
                                 TextInput::make('background_color')
-                                    ->label(__('resource.background_color') . ' (HEX code)'),
+                                    ->label(__('resource.background_color').' (HEX code)'),
                             ]),
                         Step::make('Requirements Description')
-            ->schema([
-                RichEditor::make('requirements_description')
-                    ->label(__('resource.requirements'))
-                    ->columnSpan('full')
-            ]),
+                            ->schema([
+                                RichEditor::make('requirements_description')
+                                    ->label(__('resource.requirements'))
+                                    ->columnSpan('full'),
+                            ]),
                         Step::make('Requirments')
                             ->label(__('resource.requirements'))
                             ->schema([

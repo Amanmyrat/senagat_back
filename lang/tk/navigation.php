@@ -20,4 +20,6 @@ return [
     'card' => 'Kart',
     'loan' => 'Karz',
     'certificate' => 'Şahadetnama',
+    'content_management' => 'Mazmuny dolandyrmak',
+    'tariffs' => 'Taryflar',
 ];

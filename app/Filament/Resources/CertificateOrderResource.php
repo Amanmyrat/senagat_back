@@ -22,7 +22,9 @@ class CertificateOrderResource extends Resource
     {
         return (string) static::getEloquentQuery()->count();
     }
+
     protected static ?int $navigationSort = 2;
+
     protected static ?string $model = CertificateOrder::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

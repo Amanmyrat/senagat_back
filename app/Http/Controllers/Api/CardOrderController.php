@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CardOrderRequest;
 use App\Http\Resources\CardOrderResource;
@@ -31,14 +30,14 @@ class CardOrderController extends Controller
             return new JsonResponse([
                 'success' => true,
                 'data' => collect((new CardOrderResource($order))->toArray($request))
-                    ->except('status', 'card_title','card_price'),
+                    ->except('status', 'card_title', 'card_price'),
             ], 201);
 
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
                 'error_message' => $e->getMessage(),
-              //  'code' => ErrorMessage::ORDER_CREATION_FAILED->value,
+                //  'code' => ErrorMessage::ORDER_CREATION_FAILED->value,
             ], 400);
         }
     }

@@ -10,7 +10,6 @@ class EditCreditTypes extends EditRecord
 {
     use EditRecord\Concerns\Translatable;
 
-
     protected static string $resource = CreditTypesResource::class;
 
     protected function getHeaderActions(): array

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CardTypeResource;
 use App\Models\CardType;
-use App\Models\CreditType;
 use Illuminate\Http\JsonResponse;
 
 class CardTypeController extends Controller
@@ -27,7 +26,6 @@ class CardTypeController extends Controller
         ], 200);
     }
 
-
     /**
      * Card  Details
      *
@@ -38,12 +36,13 @@ class CardTypeController extends Controller
     public function show($id): JsonResponse
     {
         $card = CardType::find($id);
-        if (!$card) {
+        if (! $card) {
             return new JsonResponse([
                 'success' => false,
             ], 404);
 
         }
+
         return new JsonResponse([
             'success' => true,
             'data' => new CardTypeResource($card),

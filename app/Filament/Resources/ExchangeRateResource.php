@@ -17,6 +17,10 @@ class ExchangeRateResource extends Resource
 {
     use Translatable;
 
+    protected static ?string $cluster = \App\Filament\Clusters\ContentManagement::class;
+
+    protected static ?int $navigationSort = 4;
+
     public static function getTranslatableLocales(): array
     {
         return ['tk', 'en', 'ru'];
@@ -24,7 +28,7 @@ class ExchangeRateResource extends Resource
 
     protected static ?string $model = ExchangeRate::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
 
     public static function getNavigationLabel(): string
     {

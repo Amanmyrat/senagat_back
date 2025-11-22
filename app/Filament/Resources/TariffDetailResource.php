@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TariffDetailResource\Pages;
-use App\Filament\Resources\TariffDetailResource\RelationManagers;
 use App\Models\TariffDetail;
-use Filament\Forms;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -14,17 +12,20 @@ use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TariffDetailResource extends Resource
 {
     use Translatable;
 
+    protected static ?string $cluster = \App\Filament\Clusters\Tariffs::class;
+
+    protected static ?int $navigationSort = 2;
+
     public static function getTranslatableLocales(): array
     {
         return ['tk', 'en', 'ru'];
     }
+
     public static function getNavigationLabel(): string
     {
         return __('resource.tariff_details');
@@ -47,7 +48,7 @@ class TariffDetailResource extends Resource
 
     protected static ?string $model = TariffDetail::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     public static function form(Form $form): Form
     {
@@ -58,24 +59,24 @@ class TariffDetailResource extends Resource
                     ->label(__('resource.tariff_categories'))
                     ->options(function () {
                         $locale = 'tk';
+
                         return \App\Models\TariffCategory::query()
                             ->orderByRaw("title->>'$locale' ASC")
                             ->get()
                             ->mapWithKeys(function ($item) use ($locale) {
                                 return [
-                                    $item->id => $item->getTranslation('title', $locale)
+                                    $item->id => $item->getTranslation('title', $locale),
                                 ];
                             });
                     }),
                 TextInput::make('number')->required()
                     ->label(__('resource.number'))
                     ->nullable(),
-     TextInput::make('title')
-                ->label(__('resource.title'))
-                ->nullable(),
+                TextInput::make('title')
+                    ->label(__('resource.title'))
+                    ->nullable(),
                 Repeater::make('details')
-
-                        ->schema([
+                    ->schema([
                         TextInput::make('sub_title')->label(__('resource.sub_title')),
                         Repeater::make('fees')
                             ->schema([
@@ -105,7 +106,7 @@ class TariffDetailResource extends Resource
                             return '-';
                         }
                         $normalized = trim($state);
-                        if (!str_starts_with($normalized, '[')) {
+                        if (! str_starts_with($normalized, '[')) {
                             $normalized = "[$normalized]";
                         }
 
@@ -117,10 +118,9 @@ class TariffDetailResource extends Resource
                         $subTitle = $data[0]['sub_title'] ?? ($data['sub_title'] ?? '-');
 
                         return strlen($subTitle) > 30
-                            ? substr($subTitle, 0, 30) . '...'
+                            ? substr($subTitle, 0, 30).'...'
                             : $subTitle;
                     }),
-
 
             ])
             ->filters([
@@ -142,12 +142,14 @@ class TariffDetailResource extends Resource
             //
         ];
     }
+
     public static function canViewAny(): bool
     {
 
         return optional(auth()->user())->role === 'super-admin';
 
     }
+
     public static function getPages(): array
     {
         return [

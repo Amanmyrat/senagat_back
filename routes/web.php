@@ -16,6 +16,6 @@ Route::get('/anketa', function () {
 Route::get('/approved-card-orders/{order}/print', [ApprovedCardOrderPrintController::class, 'printDirect'])
     ->name('approved-card-orders.print')
     ->withoutMiddleware(['auth', 'filament']);
-//Route::get('/approved-card-orders/{order}/print', [ApprovedCardOrderPrintController::class, 'printDirect'])
+// Route::get('/approved-card-orders/{order}/print', [ApprovedCardOrderPrintController::class, 'printDirect'])
 //    ->name('approved-card-orders.print-direct')
 //    ->withoutMiddleware(['auth', 'filament']);

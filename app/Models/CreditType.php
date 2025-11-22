@@ -42,7 +42,7 @@ class CreditType extends Model
 {
     use HasTranslations;
 
-    public array $translatable = ['name', 'description', 'requirements_description','requirements','term_text','amount_text'];
+    public array $translatable = ['name', 'description', 'requirements_description', 'requirements', 'term_text', 'amount_text'];
 
     protected $fillable = ['name', 'description', 'background_color', 'image_url',
         'can_offer_online',
@@ -61,6 +61,7 @@ class CreditType extends Model
         'max_amount' => MoneyCast::class,
         'interest' => MoneyCast::class,
     ];
+
     protected $appends = ['image_path', 'effective_term', 'effective_amount'];
 
     public function getImagePathAttribute(): ?string
@@ -69,6 +70,7 @@ class CreditType extends Model
             ? asset('storage/'.$this->image_url)
             : null;
     }
+
     public function getEffectiveTermAttribute()
     {
         return $this->term_text ?: $this->term;

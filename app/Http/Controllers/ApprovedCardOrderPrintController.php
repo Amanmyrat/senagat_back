@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\ApprovedCardOrder;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\Storage;
 
 class ApprovedCardOrderPrintController extends Controller
 {
@@ -19,12 +18,4 @@ class ApprovedCardOrderPrintController extends Controller
 
         return $pdf->stream("anketa-{$order->id}.pdf");
     }
-
-
-
 }
-
-
-
-
-

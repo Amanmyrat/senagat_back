@@ -17,17 +17,17 @@ class CardTypeResource extends JsonResource
         $locale = app()->getLocale();
         $defaultLocale = 'tk';
         $defaultAdvantages = collect($this->resource->getTranslation('advantages', $defaultLocale) ?? [])
-            ->map(fn($item) => [
+            ->map(fn ($item) => [
                 'name' => $item['name'] ?? null,
                 'description' => $item['description'] ?? null,
             ])
             ->values();
         $shortestIndex = $defaultAdvantages
-            ->sortBy(fn($item) => strlen($item['name'] ?? '') + strlen($item['description'] ?? ''))
+            ->sortBy(fn ($item) => strlen($item['name'] ?? '') + strlen($item['description'] ?? ''))
             ->keys()
             ->first();
 
-        $advantages=  collect(
+        $advantages = collect(
             $this->resource->getTranslation('advantages', $locale) ?? []
         )->map(function ($item) {
             return [
@@ -38,15 +38,14 @@ class CardTypeResource extends JsonResource
         })->values();
         $shortest = $advantages[$shortestIndex] ?? null;
 
-
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),
-            'sub_title' => trim(($shortest['name'] ?? '') . ' ' . ($shortest['description'] ?? '')),
+            'sub_title' => trim(($shortest['name'] ?? '').' '.($shortest['description'] ?? '')),
             'description' => $this->resource->getTranslation('text', $locale),
             'price' => $this->resource->price,
-            'category'=>$this->resource->category,
-            'advantages' =>$advantages,
+            'category' => $this->resource->category,
+            'advantages' => $advantages,
             'image_url' => $this->resource->image_url
                 ? asset('storage/'.$this->resource->image_url) : null,
         ];

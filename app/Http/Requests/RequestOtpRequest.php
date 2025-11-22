@@ -34,6 +34,7 @@ class RequestOtpRequest extends FormRequest
             'purpose' => ['required', 'string', 'in:register,login'],
         ];
     }
+
     public function messages(): array
     {
         return [

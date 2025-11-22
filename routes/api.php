@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuditReportController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AwardController;
 use App\Http\Controllers\Api\CardOrderController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Api\CreditTypeController;
 use App\Http\Controllers\Api\DepositController;
 use App\Http\Controllers\Api\ExchangeRateController;
 use App\Http\Controllers\Api\LocationController;
+use App\Http\Controllers\Api\MoneyTransferController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\TariffController;
 use App\Http\Controllers\Api\UserProfileController;
@@ -86,4 +88,9 @@ Route::prefix('awards')->group(function () {
     Route::get('/{id}', [AwardController::class, 'show']);
 });
 
+Route::prefix('money-transfers')->group(function () {
+    Route::get('/', [MoneyTransferController::class, 'index']);
+    Route::get('/{id}', [MoneyTransferController::class, 'show']);
+});
 
+Route::get('audit-reports', [AuditReportController::class, 'index']);

@@ -187,7 +187,7 @@ class LoanOrderRequest extends FormRequest
                 if ($credit) {
 
                     // Online başvuru kontrolü
-                    if (!$credit->can_offer_online) {
+                    if (! $credit->can_offer_online) {
                         $validator->errors()->add(
                             'credit_id',
                             ErrorMessage::THIS_LOAN_CANNOT_BE_APPLIED_ONLINE->value
@@ -216,5 +216,4 @@ class LoanOrderRequest extends FormRequest
             }
         });
     }
-
 }

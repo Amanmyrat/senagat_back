@@ -6,10 +6,9 @@ enum RequirementType: string
 {
     case Borrower = 'borrower';
     case Guarantor = 'guarantor';
-    case DomesticPersons ='domestic_persons';
-    case Payer ='payer';
-    case PrivateBusinessParties='private_business_parties';
-
+    case DomesticPersons = 'domestic_persons';
+    case Payer = 'payer';
+    case PrivateBusinessParties = 'private_business_parties';
 
     public function label(): string
     {

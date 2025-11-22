@@ -3,13 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DepositTypeResource\Pages;
-use App\Filament\Resources\DepositTypeResource\RelationManagers;
 use App\Models\DepositType;
-use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -17,12 +13,14 @@ use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DepositTypeResource extends Resource
 {
     protected static ?string $model = DepositType::class;
+
+    protected static ?string $cluster = \App\Filament\Clusters\ContentManagement::class;
+
+    protected static ?int $navigationSort = 7;
 
     use Translatable;
 
@@ -30,6 +28,7 @@ class DepositTypeResource extends Resource
     {
         return ['tk', 'en', 'ru'];
     }
+
     public static function getNavigationLabel(): string
     {
         return __('resource.deposit_types');
@@ -49,7 +48,8 @@ class DepositTypeResource extends Resource
     {
         return $record ? (string) $record->name : __('resource.deposit_types');
     }
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
     public static function form(Form $form): Form
     {
@@ -57,13 +57,13 @@ class DepositTypeResource extends Resource
             ->schema([
                 TextInput::make('title')->required()
                     ->label(__('resource.title'))
-                ->required(),
+                    ->required(),
                 TextInput::make('description')
                     ->required()
                     ->label(__('resource.description')),
                 TextInput::make('background_color')
                     ->required()
-                    ->label(__('resource.background_color') . ' (HEX code)'),
+                    ->label(__('resource.background_color').' (HEX code)'),
                 FileUpload::make('image_url')->image()
                     ->required()
                     ->label(__('resource.image_url')),
@@ -87,7 +87,7 @@ class DepositTypeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('title'),
             ])
             ->filters([
                 //
@@ -108,12 +108,14 @@ class DepositTypeResource extends Resource
             //
         ];
     }
+
     public static function canViewAny(): bool
     {
 
         return optional(auth()->user())->role === 'super-admin';
 
     }
+
     public static function getPages(): array
     {
         return [

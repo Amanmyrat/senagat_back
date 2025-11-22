@@ -34,6 +34,7 @@ class LoginRequest extends FormRequest
             'otp' => ['required', 'string', 'size:5'],
         ];
     }
+
     public function messages(): array
     {
         return [
