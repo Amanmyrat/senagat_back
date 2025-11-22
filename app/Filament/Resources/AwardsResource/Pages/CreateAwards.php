@@ -17,5 +17,6 @@ class CreateAwards extends CreateRecord
 
         ];
     }
+
     protected static string $resource = AwardsResource::class;
 }

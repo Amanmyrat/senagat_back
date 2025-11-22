@@ -24,6 +24,10 @@ class LocationResource extends Resource
 {
     use Translatable;
 
+    protected static ?string $cluster = \App\Filament\Clusters\ContentManagement::class;
+
+    protected static ?int $navigationSort = 5;
+
     public static function getTranslatableLocales(): array
     {
         return ['tk', 'en', 'ru'];
@@ -31,7 +35,7 @@ class LocationResource extends Resource
 
     protected static ?string $model = Location::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
 
     public static function getNavigationLabel(): string
     {

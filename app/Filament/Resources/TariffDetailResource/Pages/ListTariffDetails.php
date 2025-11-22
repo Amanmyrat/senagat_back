@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListTariffDetails extends ListRecords
 {
     use ListRecords\Concerns\Translatable;
+
     protected static string $resource = TariffDetailResource::class;
 
     protected function getHeaderActions(): array

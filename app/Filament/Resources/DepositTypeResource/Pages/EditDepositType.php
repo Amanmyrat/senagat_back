@@ -9,6 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditDepositType extends EditRecord
 {
     use EditRecord\Concerns\Translatable;
+
     protected static string $resource = DepositTypeResource::class;
 
     protected function getHeaderActions(): array

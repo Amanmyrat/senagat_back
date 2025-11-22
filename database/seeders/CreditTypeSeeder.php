@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\CreditType;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CreditTypeSeeder extends Seeder
@@ -23,14 +22,14 @@ class CreditTypeSeeder extends Seeder
 
         foreach ($products as $product) {
 
-                CreditType::create([
-                    'name' => $product['name'],
-                    'description' => $product['description'],
-                    'term' => $product['term'],
-                    'min_amount' => $product['min_amount'],
-                    'max_amount' => $product['max_amount'],
-                    'interest' => $product['interest'],
-                ]);
+            CreditType::create([
+                'name' => $product['name'],
+                'description' => $product['description'],
+                'term' => $product['term'],
+                'min_amount' => $product['min_amount'],
+                'max_amount' => $product['max_amount'],
+                'interest' => $product['interest'],
+            ]);
 
         }
 

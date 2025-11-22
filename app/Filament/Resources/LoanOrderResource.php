@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
 class LoanOrderResource extends Resource
 {
     protected static ?string $cluster = \App\Filament\Clusters\CreditApplication::class;
+
     protected static ?int $navigationSort = 2;
 
     public static function getNavigationBadge(): ?string
@@ -89,7 +90,6 @@ class LoanOrderResource extends Resource
                                     );
                                 })
                                 ->disabled(),
-
 
                             TextInput::make('term')->numeric()->required()->disabled()
                                 ->label(__('resource.term')),

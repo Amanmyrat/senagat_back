@@ -36,12 +36,13 @@ class CreditTypeController extends Controller
     public function show($id): JsonResponse
     {
         $credit = CreditType::find($id);
-        if (!$credit) {
+        if (! $credit) {
             return new JsonResponse([
                 'success' => false,
             ], 404);
 
         }
+
         return new JsonResponse([
             'success' => true,
             'data' => new CreditTypeResource($credit),

@@ -58,6 +58,7 @@ class CertificateOrderRequest extends FormRequest
             'home_address' => ['required', 'string'],
         ];
     }
+
     public function messages(): array
     {
         return [

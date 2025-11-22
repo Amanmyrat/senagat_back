@@ -23,7 +23,9 @@ use Illuminate\Database\Eloquent\Builder;
 class ApprovedCardOrderResource extends Resource
 {
     protected static ?string $model = ApprovedCardOrder::class;
+
     protected static ?int $navigationSort = 4;
+
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();
@@ -161,11 +163,11 @@ class ApprovedCardOrderResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
-//                Action::make('print')
-//                    ->label('Yazdır')
-//                    ->icon('heroicon-o-printer')
-//                    ->url(fn ($record) => route('approved-card-orders.print-direct', $record))
-//                    ->openUrlInNewTab()
+                //                Action::make('print')
+                //                    ->label('Yazdır')
+                //                    ->icon('heroicon-o-printer')
+                //                    ->url(fn ($record) => route('approved-card-orders.print-direct', $record))
+                //                    ->openUrlInNewTab()
                 // Filament action
 
             ]);

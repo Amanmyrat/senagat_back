@@ -3,17 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Enum\ErrorMessage;
-use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TariffDetailsResource;
 use App\Http\Resources\TariffResource;
 use App\Models\TariffCategory;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class TariffController extends Controller
 {
-
     /**
      * Tariff Categories
      *
@@ -25,11 +22,13 @@ class TariffController extends Controller
     {
 
         $tariff = TariffCategory::all();
+
         return new JsonResponse([
             'success' => true,
-            'data' =>  TariffResource::collection($tariff),
+            'data' => TariffResource::collection($tariff),
         ], 200);
     }
+
     /**
      * Tariff Details
      *
@@ -40,15 +39,16 @@ class TariffController extends Controller
     public function show($id): JsonResponse
     {
 
-           $tariff = TariffCategory::with('details')->find($id);
+        $tariff = TariffCategory::with('details')->find($id);
 
-        if (!$tariff) {
+        if (! $tariff) {
             return new JsonResponse([
                 'success' => false,
                 'error_message' => ErrorMessage::TARIFF_TYPE_NOT_FOUND->value,
             ], 404);
 
         }
+
         return new JsonResponse([
             'success' => true,
             'data' => new TariffDetailsResource($tariff),

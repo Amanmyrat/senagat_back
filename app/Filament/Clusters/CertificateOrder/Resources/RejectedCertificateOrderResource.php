@@ -21,7 +21,9 @@ use Illuminate\Database\Eloquent\Builder;
 class RejectedCertificateOrderResource extends Resource
 {
     protected static ?string $model = RejectedCertificateOrder::class;
+
     protected static ?int $navigationSort = 5;
+
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getEloquentQuery()->count();

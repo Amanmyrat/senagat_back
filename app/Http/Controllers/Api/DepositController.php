@@ -37,12 +37,13 @@ class DepositController extends Controller
     public function show($id): JsonResponse
     {
         $deposit = DepositType::find($id);
-        if (!$deposit) {
+        if (! $deposit) {
             return new JsonResponse([
                 'success' => false,
             ], 404);
 
         }
+
         return new JsonResponse([
             'success' => true,
             'data' => new DepositTypeDetailsResource($deposit),

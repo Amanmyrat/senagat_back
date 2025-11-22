@@ -37,7 +37,9 @@ class AdminResource extends Resource
         return $record ? (string) $record->name : __('resource.admins');
     }
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shield-check';
+
+    protected static ?int $navigationSort = 30;
 
     public static function form(Form $form): Form
     {
@@ -72,10 +74,10 @@ class AdminResource extends Resource
                     ->required()
 
                     ->options([
-                         'operator' => __('resource.operator'),
-                            'certificate-viewer' => __('resource.certificate'),
-                            'credit-card-viewer' => __('resource.card'),
-                            'loan-viewer' => __('resource.loan'),
+                        'operator' => __('resource.operator'),
+                        'certificate-viewer' => __('resource.certificate'),
+                        'credit-card-viewer' => __('resource.card'),
+                        'loan-viewer' => __('resource.loan'),
                     ]
 
                     ),
@@ -89,7 +91,7 @@ class AdminResource extends Resource
                         })->toArray();
                     })
                     ->default(function () {
-                         return Location::first()?->id;
+                        return Location::first()?->id;
                     }),
 
             ]);
@@ -118,7 +120,7 @@ class AdminResource extends Resource
                         'info' => 'certificate-viewer',
                         'warning' => 'credit-card-viewer',
                         'danger' => 'loan-viewer',
-                    ])
+                    ]),
             ])
             ->filters([
                 //

@@ -6,11 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
     public function up(): void
     {
         Schema::table('credit_types', function (Blueprint $table) {
-
 
             if (Schema::hasColumn('credit_types', 'term')) {
                 $table->dropColumn('term');
@@ -24,7 +22,6 @@ return new class extends Migration
 
             $table->boolean('can_offer_online')->default(false);
 
-
             $table->string('term_text')->nullable();
             $table->string('amount_text')->nullable();
 
@@ -34,11 +31,9 @@ return new class extends Migration
         });
     }
 
-
     public function down(): void
     {
         Schema::table('credit_types', function (Blueprint $table) {
-
 
             $table->dropColumn([
                 'can_offer_online',
@@ -48,7 +43,6 @@ return new class extends Migration
                 'min_amount',
                 'max_amount',
             ]);
-
 
             $table->unsignedInteger('term');
             $table->unsignedInteger('min_amount');

@@ -33,7 +33,7 @@ class UserInformationResource extends JsonResource
                 return ! empty($loans)
                     ? collect($loans)->map(function ($item) {
                         return collect($item)
-                            ->except(['id', 'user_id', 'profile_id', 'credit_id', 'term', 'interest','role','workplace','bank_branch_id','position','manager_work_address','phone_number','salary','patent_number','registration_number','work_address']);
+                            ->except(['id', 'user_id', 'profile_id', 'credit_id', 'term', 'interest', 'role', 'workplace', 'bank_branch_id', 'position', 'manager_work_address', 'phone_number', 'salary', 'patent_number', 'registration_number', 'work_address']);
                     })
                         ->values()
                     : null;

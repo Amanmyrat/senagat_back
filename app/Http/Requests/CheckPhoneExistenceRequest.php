@@ -14,6 +14,7 @@ class CheckPhoneExistenceRequest extends FormRequest
 
         ];
     }
+
     public function messages(): array
     {
         return [
@@ -21,6 +22,7 @@ class CheckPhoneExistenceRequest extends FormRequest
             'phone.regex' => ErrorMessage::PHONE_NUMBER_INVALID->value,
         ];
     }
+
     public function authorize(): bool
     {
         return true;

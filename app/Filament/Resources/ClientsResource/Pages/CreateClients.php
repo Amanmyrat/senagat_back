@@ -17,5 +17,6 @@ class CreateClients extends CreateRecord
 
         ];
     }
+
     protected static string $resource = ClientsResource::class;
 }
