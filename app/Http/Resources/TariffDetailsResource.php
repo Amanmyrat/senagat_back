@@ -46,7 +46,7 @@ class TariffDetailsResource extends JsonResource
 
         return [
             'id' => $this->resource->id,
-            'title' => $this->resource->title,
+            'title' => $this->resource->getTranslation('title', 'tk'),
             'items' => $sortedItems,
         ];
     }
