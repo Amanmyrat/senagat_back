@@ -12,12 +12,14 @@ class TariffResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+
     public function toArray(Request $request): array
     {
         return [
             'id' => $this->resource->id,
             'number' => $this->resource->numbers,
-            'title' => $this->resource->title,
+            'title' => $this->resource->getTranslation('title', 'tk'),
         ];
     }
+
 }
