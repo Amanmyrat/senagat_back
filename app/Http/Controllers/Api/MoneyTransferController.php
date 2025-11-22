@@ -19,7 +19,7 @@ class MoneyTransferController extends Controller
      */
     public function index(): JsonResponse
     {
-        $moneyTransfers = MoneyTransfer::all();
+        $moneyTransfers = MoneyTransfer::orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,
