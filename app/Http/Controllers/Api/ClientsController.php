@@ -18,7 +18,7 @@ class ClientsController extends Controller
      */
     public function index(): JsonResponse
     {
-        $clients = Clients::get();
+        $clients = Clients::orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,

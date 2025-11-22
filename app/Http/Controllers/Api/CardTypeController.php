@@ -18,7 +18,7 @@ class CardTypeController extends Controller
      */
     public function index(): JsonResponse
     {
-        $cards = CardType::get();
+        $cards = CardType::orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,
