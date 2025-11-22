@@ -60,19 +60,19 @@ class AuditReportResource extends Resource
                 FileUpload::make('pdf_file_tk')
                     ->label(__('resource.pdf_file_tk'))
                     ->acceptedFileTypes(['application/pdf'])
-                    ->maxSize(10240)
+                    ->maxSize(100000)
                     ->helperText(__('resource.pdf_file_helper'))
                     ->translateLabel(false),
                 FileUpload::make('pdf_file_en')
                     ->label(__('resource.pdf_file_en'))
                     ->acceptedFileTypes(['application/pdf'])
-                    ->maxSize(10240)
+                    ->maxSize(100000)
                     ->helperText(__('resource.pdf_file_helper'))
                     ->translateLabel(false),
                 FileUpload::make('pdf_file_ru')
                     ->label(__('resource.pdf_file_ru'))
                     ->acceptedFileTypes(['application/pdf'])
-                    ->maxSize(10240)
+                    ->maxSize(100000)
                     ->helperText(__('resource.pdf_file_helper'))
                     ->translateLabel(false),
             ]);
