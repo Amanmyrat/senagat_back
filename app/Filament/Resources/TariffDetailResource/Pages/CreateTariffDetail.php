@@ -17,5 +17,6 @@ class CreateTariffDetail extends CreateRecord
 
         ];
     }
+
     protected static string $resource = TariffDetailResource::class;
 }

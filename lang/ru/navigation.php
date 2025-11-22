@@ -20,5 +20,6 @@ return [
     'exchange_rate' => 'Курсы обмена валют',
     'loan' => 'Кредит',
     'certificate' => 'Сертификат',
-
+    'content_management' => 'Управление контентом',
+    'tariffs' => 'Тарифы',
 ];

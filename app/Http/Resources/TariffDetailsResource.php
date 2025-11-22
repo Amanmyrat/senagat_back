@@ -12,7 +12,6 @@ class TariffDetailsResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-
     public function toArray(Request $request): array
     {
         $items = $this->resource->details->map(function ($detail) {
@@ -41,10 +40,9 @@ class TariffDetailsResource extends JsonResource
                     return $aVal <=> $bVal;
                 }
             }
+
             return 0;
         })->values();
-
-
 
         return [
             'id' => $this->resource->id,

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CertificateOrderRequest;
 use App\Http\Resources\CertificateOrderResource;
@@ -31,14 +30,14 @@ class CertificateOrderController extends Controller
             return new JsonResponse([
                 'success' => true,
                 'data' => collect((new CertificateOrderResource($order))->toArray($request))
-                    ->except(['certificate_name', 'status','certificate_price']),
+                    ->except(['certificate_name', 'status', 'certificate_price']),
             ], 201);
 
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
                 'error_message' => $e->getMessage(),
-             //   'code' => ErrorMessage::CERTIFICATE_ORDER_CREATION_FAILED->value,
+                //   'code' => ErrorMessage::CERTIFICATE_ORDER_CREATION_FAILED->value,
             ], 400);
         }
     }

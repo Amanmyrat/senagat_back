@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TariffCategoryResource\Pages;
-use App\Filament\Resources\TariffCategoryResource\RelationManagers;
 use App\Models\TariffCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,20 +10,24 @@ use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TariffCategoryResource extends Resource
 {
     protected static ?string $model = TariffCategory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $cluster = \App\Filament\Clusters\Tariffs::class;
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
+
     use Translatable;
 
     public static function getTranslatableLocales(): array
     {
         return ['tk', 'en', 'ru'];
     }
+
     public static function getNavigationLabel(): string
     {
         return __('resource.tariff_categories');
@@ -44,13 +47,14 @@ class TariffCategoryResource extends Resource
     {
         return $record ? (string) $record->name : __('resource.tariff_categories');
     }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-Forms\Components\TextInput::make('title')
-                ->required()
-                ->label(__('resource.title'))
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->label(__('resource.title')),
             ]);
     }
 
@@ -59,7 +63,7 @@ Forms\Components\TextInput::make('title')
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->label(__('resource.title'))
+                    ->label(__('resource.title')),
             ])
             ->filters([
                 //
@@ -80,12 +84,13 @@ Forms\Components\TextInput::make('title')
             //
         ];
     }
+
     public static function canViewAny(): bool
-{
+    {
 
-    return optional(auth()->user())->role === 'super-admin';
+        return optional(auth()->user())->role === 'super-admin';
 
-}
+    }
 
     public static function getPages(): array
     {

@@ -42,5 +42,4 @@ return new class extends Migration
             $table->string('number')->nullable();
         });
     }
-
 };

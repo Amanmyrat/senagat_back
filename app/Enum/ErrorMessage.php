@@ -4,7 +4,6 @@ namespace App\Enum;
 
 enum ErrorMessage: string
 {
-
     case OTP_DID_NOT_MATCH_ERROR = 'otp_not_match';
     case OTP_TIMEOUT_ERROR = 'otp_code_has_expired.';
     case OTP_DID_NOT_SENT_ERROR = 'otp_could_not_be_sent.';
@@ -91,10 +90,10 @@ enum ErrorMessage: string
     case SCAN_PASSPORT_MIMES = 'passport_scan_must_be_a_JPG,_JPEG,_PNG,_or_PDF_file.';
     case HOME_PHONE_INTEGER = 'home_phone_must_be_an_integer.';
 
-     // #2
+    // #2
 
     case DEPOSIT_TYPE_NOT_FOUND = 'deposit_type_not_found.';
     case TARIFF_TYPE_NOT_FOUND = 'tariff_type_not_found.';
     case AWARD_TYPE_NOT_FOUND = 'award_type_not_found.';
-    case THIS_LOAN_CANNOT_BE_APPLIED_ONLINE  ='this_loan_cannot_be_applied_online';
+    case THIS_LOAN_CANNOT_BE_APPLIED_ONLINE = 'this_loan_cannot_be_applied_online';
 }

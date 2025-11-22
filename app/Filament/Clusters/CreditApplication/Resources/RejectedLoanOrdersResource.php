@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
 class RejectedLoanOrdersResource extends Resource
 {
     protected static ?string $model = \App\Models\RejectedLoanOrder::class;
+
     protected static ?int $navigationSort = 5;
 
     public static function getNavigationBadge(): ?string

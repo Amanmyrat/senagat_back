@@ -34,6 +34,7 @@ class PreLoginRequest extends FormRequest
             'password' => ['required', 'string', 'min:4'],
         ];
     }
+
     public function messages(): array
     {
         return [

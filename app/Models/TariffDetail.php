@@ -11,15 +11,16 @@ class TariffDetail extends Model
     use HasTranslations;
 
     public array $translatable = ['title'];
-    protected $fillable=[ 'tariff_category_id',
+
+    protected $fillable = ['tariff_category_id',
         'title',
         'number',
-        'details',];
-    protected $casts=['details'=> 'array'];
+        'details', ];
+
+    protected $casts = ['details' => 'array'];
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(TariffCategory::class, 'tariff_category_id');
     }
-
 }

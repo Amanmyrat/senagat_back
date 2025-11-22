@@ -20,7 +20,7 @@ return new class extends Migration
             $table->json('description_images')->nullable();
             $table->timestamps();
         });
-}
+    }
 
     /**
      * Reverse the migrations.

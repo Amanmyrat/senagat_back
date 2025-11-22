@@ -8,7 +8,6 @@ use App\Http\Resources\AwardDetailsResource;
 use App\Http\Resources\AwardResource;
 use App\Models\Award;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class AwardController extends Controller
 {
@@ -41,13 +40,14 @@ class AwardController extends Controller
 
         $award = Award::find($id);
 
-        if (!$award) {
+        if (! $award) {
             return new JsonResponse([
                 'success' => false,
                 'error_message' => ErrorMessage::TARIFF_TYPE_NOT_FOUND->value,
             ], 404);
 
         }
+
         return new JsonResponse([
             'success' => true,
             'data' => new AwardDetailsResource($award),

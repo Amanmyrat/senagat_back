@@ -17,5 +17,6 @@ class CreateDepositType extends CreateRecord
 
         ];
     }
+
     protected static string $resource = DepositTypeResource::class;
 }

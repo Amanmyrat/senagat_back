@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListDepositTypes extends ListRecords
 {
     use ListRecords\Concerns\Translatable;
+
     protected static string $resource = DepositTypeResource::class;
 
     protected function getHeaderActions(): array

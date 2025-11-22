@@ -20,4 +20,6 @@ return [
     'exchange_rate' => 'Exchange Rates',
     'loan' => 'Loan',
     'certificate' => 'Certificate',
+    'content_management' => 'Content Management',
+    'tariffs' => 'Tariffs',
 ];

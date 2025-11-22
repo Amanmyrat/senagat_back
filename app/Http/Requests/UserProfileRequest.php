@@ -66,7 +66,6 @@ class UserProfileRequest extends FormRequest
              */
             'passport_number' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
 
-
             /**
              * Issued Date
              *

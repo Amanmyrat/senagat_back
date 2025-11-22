@@ -38,7 +38,6 @@ class ProfileInfo
                     ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->passport_number))
                     ->disabled(),
 
-
                 TextInput::make('issued_date')
                     ->label(__('resource.issued_date'))
                     ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->profile?->issued_date?->format('d-m-Y')))
