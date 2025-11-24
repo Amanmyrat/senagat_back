@@ -52,8 +52,6 @@ class TariffCategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('numbers')
-                    ->label(__('resource.number')),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->label(__('resource.title')),
@@ -64,7 +62,7 @@ class TariffCategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('numbers')->label(__('resource.number')),
+
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('resource.title')),
             ])

@@ -12,7 +12,7 @@ use Illuminate\Http\JsonResponse;
 class TariffController extends Controller
 {
     /**
-     * Tariff Categories
+     * Tariff Categories with details
      *
      * @unauthenticated
      *
@@ -21,7 +21,10 @@ class TariffController extends Controller
     public function index(): JsonResponse
     {
 
-        $tariff = TariffCategory::orderBy('sort')->get();
+
+        $tariff = TariffCategory::with(['details' => function($q){
+            $q->orderBy('sort');
+        }])->orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,
@@ -29,29 +32,4 @@ class TariffController extends Controller
         ], 200);
     }
 
-    /**
-     * Tariff Details
-     *
-     * @unauthenticated
-     *
-     * @localizationHeader
-     */
-    public function show($id): JsonResponse
-    {
-
-        $tariff = TariffCategory::with('details')->find($id);
-
-        if (! $tariff) {
-            return new JsonResponse([
-                'success' => false,
-                'error_message' => ErrorMessage::TARIFF_TYPE_NOT_FOUND->value,
-            ], 404);
-
-        }
-
-        return new JsonResponse([
-            'success' => true,
-            'data' => new TariffDetailsResource($tariff),
-        ]);
-    }
 }
