@@ -31,7 +31,7 @@ class RequestOtpRequest extends FormRequest
              *
              * @example register
              */
-            'purpose' => ['required', 'string', 'in:register,login'],
+            'purpose' => ['required', 'string', 'in:register,login,reset_password'],
         ];
     }
 

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Enum\ErrorMessage;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\PreLoginRequest;
+use App\Models\OtpCode;
 use App\Models\OtpSession;
 use App\Models\User;
 use Carbon\Carbon;
@@ -42,6 +43,12 @@ class AuthService
                 throw new \Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
             }
         }
+        if ($purpose === 'reset_password') {
+            if (!User::where('phone', $phone)->exists()) {
+                throw new \Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
+            }
+        }
+
 
         $this->otpService->sendOtp($data);
     }
@@ -148,4 +155,36 @@ class AuthService
 
         return $user;
     }
+
+    /**
+     * Reset password with otp
+     *
+     * @throws Exception
+     */
+    public function resetPassword(array $data): void
+    {
+        $phone = $data['phone'];
+        $token = $data['token'];
+        $newPassword = $data['password'];
+
+        $session = OtpSession::where('phone', $phone)
+            ->where('token', $token)
+            ->where('purpose', 'reset_password')
+            ->where('is_verified', true)
+            ->where('expires_at', '>', now())
+            ->first();
+
+        if (!$session) {
+            throw new \Exception(ErrorMessage::INVALID_OR_EXPIRED_OTP->value);
+        }
+
+        User::where('phone', $phone)->update([
+            'password' => Hash::make($newPassword),
+        ]);
+
+
+        $session->delete();
+        OtpCode::where('phone', $phone)->delete();
+    }
+
 }

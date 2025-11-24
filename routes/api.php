@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //    Route::post('/application/work-info', [CreditApplicationController::class, 'submitWorkInfo']);
     //    Route::post('/application/branch-info', [CreditApplicationController::class, 'submitBranchInfo']);
     Route::post('/application/credit/order', [CreditApplicationController::class, 'store']);
+    Route::post('/resetPassword', [AuthController::class, 'resetPassword']);
 
     Route::prefix('contact-message')->group(function () {
         Route::post('/', [ContactMessageController::class, 'store']);

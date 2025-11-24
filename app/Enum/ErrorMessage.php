@@ -96,4 +96,5 @@ enum ErrorMessage: string
     case TARIFF_TYPE_NOT_FOUND = 'tariff_type_not_found.';
     case AWARD_TYPE_NOT_FOUND = 'award_type_not_found.';
     case THIS_LOAN_CANNOT_BE_APPLIED_ONLINE = 'this_loan_cannot_be_applied_online';
+    case INVALID_OR_EXPIRED_OTP ='invalid_or_expired_otp';
 }
