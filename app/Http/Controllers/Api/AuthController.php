@@ -16,6 +16,7 @@ use App\Models\User;
 use App\Services\AuthService;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AuthController
 {
@@ -211,4 +212,34 @@ class AuthController
             ], 500);
         }
     }
+    /**
+     * Reset password with OTP token
+     *
+
+     *
+     * @throws Exception
+     */
+    public function resetPassword(Request $request): JsonResponse
+    {
+        try {
+            $request->validate([
+                'phone' => ['required', 'string'],
+                'token' => ['required', 'string'],
+                'password' => ['required', 'string', 'min:6'],
+            ]);
+
+            $this->service->resetPassword($request->only('phone', 'token', 'password'));
+
+            return new JsonResponse([
+                'success' => true,
+            ], 200);
+
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'success' => false,
+                'error_message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
 }
