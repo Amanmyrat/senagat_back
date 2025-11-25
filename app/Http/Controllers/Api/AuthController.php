@@ -215,7 +215,7 @@ class AuthController
     /**
      * Reset password with OTP token
      *
-
+     * @unauthenticated
      *
      * @throws Exception
      */
