@@ -184,4 +184,7 @@ return [
     'no_profile' => 'Profil ýok',
     'profile_status' => 'Profil statusy',
     'rejected' => 'Ret edildi',
+
+    'published_at'=>'Neşir edilen sagat',
+
 ];

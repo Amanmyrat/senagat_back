@@ -180,4 +180,6 @@ return [
     'registered' => 'Зарегистрирован',
     'no_profile' => 'Нет профиля',
     'profile_status' => 'Статус профиля',
+
+    'published_at'=>'Дата публикации'
 ];

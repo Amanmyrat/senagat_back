@@ -6,6 +6,7 @@ use App\Filament\Resources\NewsResource\Pages;
 use App\Models\News;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -54,20 +55,32 @@ class NewsResource extends Resource
     {
         return $form
             ->schema([
-                DatePicker::make('published_at')
-                    ->label(__('resource.created_at'))
-                    ->displayFormat('d F Y')
-                    ->format('Y-m-d')
-                    ->nullable(),
-                TextInput::make('title')
-                    ->translateLabel()
-                    ->label(__('resource.title'))
-                    ->required(),
 
-                RichEditor::make('description')
-                    ->label(__('resource.description')),
+                Grid::make(2)
+                ->schema([
+                    Grid::make(1)
+                        ->schema([
+                            TextInput::make('title')
+                                ->translateLabel()
+                                ->label(__('resource.title'))
+                                ->required(),
+                            DatePicker::make('published_at')
+                                ->label(__('resource.published_at'))
+                                ->displayFormat('d F Y')
+                                ->format('Y-m-d')
+                                ->nullable(),
+                        ])
+                        ->columnSpan(1),
 
-            ]);
+
+                    RichEditor::make('description')
+                        ->label(__('resource.description'))
+                        ->columnSpan(1),
+                ]),
+
+
+
+        ]);
     }
 
     public static function table(Table $table): Table
@@ -77,7 +90,7 @@ class NewsResource extends Resource
                 TextColumn::make('title')
                     ->label(__('resource.title')),
                 TextColumn::make('published_at')
-                    ->label(__('resource.created_at'))
+                    ->label(__('resource.published_at'))
                     ->dateTime('d.m.Y'),
             ])
             ->filters([
