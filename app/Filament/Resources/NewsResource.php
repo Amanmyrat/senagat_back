@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\NewsResource\Pages;
 use App\Models\News;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -52,10 +54,16 @@ class NewsResource extends Resource
     {
         return $form
             ->schema([
+                DatePicker::make('published_at')
+                    ->label(__('resource.created_at'))
+                    ->displayFormat('d F Y')
+                    ->format('Y-m-d')
+                    ->nullable(),
                 TextInput::make('title')
                     ->translateLabel()
                     ->label(__('resource.title'))
                     ->required(),
+
                 RichEditor::make('description')
                     ->label(__('resource.description')),
 
@@ -68,7 +76,7 @@ class NewsResource extends Resource
             ->columns([
                 TextColumn::make('title')
                     ->label(__('resource.title')),
-                TextColumn::make('created_at')
+                TextColumn::make('published_at')
                     ->label(__('resource.created_at'))
                     ->dateTime('d.m.Y'),
             ])
@@ -84,8 +92,7 @@ class NewsResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ])
-            ])->defaultSort('created_at', 'desc')
-            ->reorderable('sort');
+            ]);
     }
 
     public static function canViewAny(): bool

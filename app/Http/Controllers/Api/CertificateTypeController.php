@@ -18,11 +18,11 @@ class CertificateTypeController extends Controller
      */
     public function index(): JsonResponse
     {
-        $location = CertificateType::orderBy('sort')->get();
+        $certificate = CertificateType::orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,
-            'data' => FormTypeResource::collection($location),
+            'data' => FormTypeResource::collection($certificate),
         ], 200);
     }
 }

@@ -18,11 +18,11 @@ class NewsController extends Controller
      */
     public function index(): JsonResponse
     {
-        $location = News::orderBy('sort')->get();
 
+        $news = News::orderBy('published_at', 'desc')->get();
         return new JsonResponse([
             'success' => true,
-            'data' => NewsResource::collection($location),
+            'data' => NewsResource::collection($news),
         ], 200);
     }
 }
