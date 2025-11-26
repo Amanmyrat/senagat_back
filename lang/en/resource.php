@@ -181,4 +181,6 @@ return [
     'registered' => 'Registered',
     'no_profile' => 'No Profile',
     'profile_status' => 'Profile Status',
+
+    'published_at'=>'Published At'
 ];
