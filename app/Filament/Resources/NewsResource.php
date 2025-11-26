@@ -69,7 +69,7 @@ class NewsResource extends Resource
                                 ->native(false)
                                 ->displayFormat('d.m.Y')
                                 ->format('Y-m-d')
-                                ->rules(['nullable', 'date_format:d.m.Y'])
+
                                 ->nullable(),
 
                         ])
