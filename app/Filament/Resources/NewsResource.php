@@ -66,9 +66,12 @@ class NewsResource extends Resource
                                 ->required(),
                             DatePicker::make('published_at')
                                 ->label(__('resource.published_at'))
-                                ->displayFormat('d F Y')
+                                ->native(false)
+                                ->displayFormat('d.m.Y')
                                 ->format('Y-m-d')
+                                ->rules(['nullable', 'date_format:d.m.Y'])
                                 ->nullable(),
+
                         ])
                         ->columnSpan(1),
 
@@ -105,7 +108,7 @@ class NewsResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ])
-            ]);
+            ])->defaultSort('published_at', 'desc');
     }
 
     public static function canViewAny(): bool
