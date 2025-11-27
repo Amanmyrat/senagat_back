@@ -42,7 +42,6 @@ class CardOrder extends Model
         'user_id',
         'profile_id',
         'card_type_id',
-        'phone_number',
         'bank_branch_id',
         'status',
         'work_position',

@@ -26,15 +26,6 @@ class CardOrderRequest extends FormRequest
             'card_type_id' => ['required', 'integer', 'exists:card_types,id'],
 
             /**
-             * Phone number
-             *
-             * @var string
-             *
-             * @example 65021734
-             */
-            'phone_number' => ['required',  'string', 'regex:/^[0-9]{8}$/'],
-
-            /**
              * Bank Branch
              *
              * @var int

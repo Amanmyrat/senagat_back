@@ -25,14 +25,6 @@ class CertificateOrderRequest extends FormRequest
              */
             'certificate_type_id' => ['required', 'integer', 'exists:certificate_types,id'],
 
-            /**
-             * Phone number
-             *
-             * @var string
-             *
-             * @example 65021734
-             */
-            'phone_number' => ['required',  'string', 'regex:/^[0-9]{8}$/'],
 
             /**
              * Bank Branch
@@ -64,8 +56,6 @@ class CertificateOrderRequest extends FormRequest
         return [
             'certificate_type_id.required' => ErrorMessage::CERTIFICATE_TYPE_REQUIRED->value,
             'certificate_type_id.exists' => ErrorMessage::CERTIFICATE_TYPE_INVALID->value,
-            'phone_number.required' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
-            'phone_number.regex' => ErrorMessage::PHONE_NUMBER_INVALID->value,
             'bank_branch_id.required' => ErrorMessage::BANK_BRANCH_REQUIRED->value,
             'bank_branch_id.exists' => ErrorMessage::BANK_BRANCH_INVALID->value,
             'home_address.required' => ErrorMessage::HOME_ADDRESS_REQUIRED->value,

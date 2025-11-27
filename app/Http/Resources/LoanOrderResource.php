@@ -14,18 +14,16 @@ class LoanOrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $locale = app()->getLocale();
         $data = [
             'id' => $this->resource->id,
-            'user_id' => $this->resource->user_id,
-            'profile_id' => $this->resource->profile_id,
-            'credit_id' => $this->resource->credit_id,
-            'credit_name' => optional($this->resource->credit)->name,
+            'credit_name' => optional($this->resource->credit)->getTranslation('name', $locale),
             'term' => $this->resource->term,
             'amount' => $this->resource->amount,
             'interest' => $this->resource->interest,
             'monthly_payment' => $this->resource->monthly_payment,
             'country' => $this->resource->country,
-            'bank_branch_id' => $this->resource->bank_branch_id,
+            'bank_branch' => optional($this->resource->branch)->getTranslation('name', $locale),
             'role' => $this->resource->role,
             'status' => $this->resource->status,
         ];
@@ -44,7 +42,6 @@ class LoanOrderResource extends JsonResource
                 'workplace' => $this->resource->workplace,
                 'position' => $this->resource->position,
                 'manager_work_address' => $this->resource->manager_work_address,
-                'phone_number' => $this->resource->phone_number,
                 'salary' => $this->resource->salary,
             ]);
         }
