@@ -245,7 +245,7 @@
             </td>
             <td class="label" style="padding: 5px 0; white-space: nowrap">
                 Öýjükli telefon:
-                <span class="value" style="padding: 5px 0 5px 10px">{{ $order->phone_number}}</span>
+                <span class="value" style="padding: 5px 0 5px 10px">{{  $order->user->phone  }}</span>
             </td>
             <td class="label" style="padding: 5px 0">
                 <table
@@ -293,7 +293,8 @@
                 Internet hyzmatyny ibermeli telefon belgisi:
             </td>
             <td class="label" style="padding: 5px 0; width: 100%;">
-                 {{ $order->internet_service ? $order->phone_number : '' }}
+                {{ $order->internet_service ? $order->user->phone : '' }}
+
             </td>
         </tr>
         <tr>

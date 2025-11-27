@@ -113,14 +113,7 @@ class LoanOrderRequest extends FormRequest
              *  @example Manager fields
              */
             'manager_work_address' => ['required_if:role,manager', 'string', 'max:255'],
-            /**
-             * Phone Number
-             *
-             * @var string
-             *
-             *  @example Manager fields
-             */
-            'phone_number' => ['required_if:role,manager', 'string', 'max:20'],
+
             /**
              * Salary
              *

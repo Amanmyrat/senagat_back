@@ -30,7 +30,7 @@ class CertificateOrderController extends Controller
             return new JsonResponse([
                 'success' => true,
                 'data' => collect((new CertificateOrderResource($order))->toArray($request))
-                    ->except(['certificate_name', 'status', 'certificate_price']),
+                    ->except(['status',]),
             ], 201);
 
         } catch (Exception $e) {

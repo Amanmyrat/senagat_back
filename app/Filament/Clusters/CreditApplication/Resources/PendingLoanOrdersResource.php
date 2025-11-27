@@ -133,8 +133,8 @@ class PendingLoanOrdersResource extends Resource
                                 ->label(__('resource.position')),
                             TextInput::make('manager_work_address')->visible(fn ($get) => $get('role') === 'manager')->disabled()
                                 ->label(__('resource.work_address')),
-                            TextInput::make('phone_number')->visible(fn ($get) => $get('role') === 'manager')->disabled()
-                                ->label(__('resource.phone')),
+                            TextInput::make('phone')->label(__('resource.phone'))->visible(fn ($get) => $get('role') === 'manager')->disabled()
+                                ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->user?->phone)),
                             TextInput::make('salary')->visible(fn ($get) => $get('role') === 'manager')->disabled()
                                 ->label(__('resource.salary')),
                         ]),

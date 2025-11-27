@@ -100,9 +100,8 @@ class CertificateOrderResource extends Resource
 
                                 )
                                 ->disabled(),
-                            TextInput::make('phone_number')
-                                ->label(__('resource.phone'))
-                                ->disabled(),
+                            TextInput::make('phone')->label(__('resource.phone'))->disabled()
+                                ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->user?->phone)),
                             TextInput::make('branch.name')
                                 ->label(__('resource.branch_name'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
