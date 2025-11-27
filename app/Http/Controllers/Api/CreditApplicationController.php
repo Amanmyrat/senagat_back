@@ -29,7 +29,7 @@ class CreditApplicationController extends Controller
 
             return new JsonResponse([
                 'success' => true,
-                'code' => SuccessMessage::LOAN_ORDER_CREATED->value,
+
                 'data' => collect((new LoanOrderResource($application))->toArray($request))
                     ->except('status'),
             ], 201);

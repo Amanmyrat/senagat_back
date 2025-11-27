@@ -42,7 +42,6 @@ class CertificateOrder extends Model
         'user_id',
         'profile_id',
         'certificate_type_id',
-        'phone_number',
         'bank_branch_id',
         'home_address',
         'status',
