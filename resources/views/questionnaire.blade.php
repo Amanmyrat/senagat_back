@@ -263,7 +263,7 @@
                       border-bottom: 1px solid #000;
                     "
                             >
-                                {{ $order->profile->last_name}}
+                                {{ $order->secret_word ?? '' }}
                             </div>
                             <div style="font-style: normal; font-size: 7pt; text-align: center">
                                 Sorag-jogap gullugyna aýdylýan gizlin söz
