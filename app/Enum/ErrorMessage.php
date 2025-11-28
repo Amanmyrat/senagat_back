@@ -97,4 +97,5 @@ enum ErrorMessage: string
     case AWARD_TYPE_NOT_FOUND = 'award_type_not_found.';
     case THIS_LOAN_CANNOT_BE_APPLIED_ONLINE = 'this_loan_cannot_be_applied_online';
     case INVALID_OR_EXPIRED_OTP ='invalid_or_expired_otp';
+    case INVALID_SECRET_WORD_TYPE='secret_word_must_be_a_valid_string';
 }

@@ -70,6 +70,14 @@ class CardOrderRequest extends FormRequest
              * @example true
              */
             'delivery' => ['required', 'boolean'],
+
+            /**
+             * Secret Word
+             *
+             * @var string|null
+             * @example abc123
+             */
+            'secret_word' => ['nullable', 'string'],
             /**
              * Email
              *
@@ -101,6 +109,7 @@ class CardOrderRequest extends FormRequest
 
             'work_position.string' => ErrorMessage::WORK_POSITION_STRING->value,
             'work_phone.integer' => ErrorMessage::WORK_PHONE_INTEGER->value,
+            'secret_word.string' => ErrorMessage::INVALID_SECRET_WORD_TYPE,
         ];
     }
 }

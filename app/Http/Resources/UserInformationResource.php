@@ -22,7 +22,7 @@ class UserInformationResource extends JsonResource
                 return ! empty($certificates)
                     ? collect($certificates)->map(function ($item) {
                         return collect($item)
-                            ->except(['id', 'user_id', 'profile_id', 'certificate_type_id', 'phone_number', 'home_address', 'bank_branch']);
+                            ->except(['id', 'user_id', 'profile_id', 'certificate_type_id', 'phone_number', 'home_address',]);
                     })
                         ->values()
                     : null;
