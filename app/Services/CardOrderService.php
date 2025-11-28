@@ -23,6 +23,7 @@ class CardOrderService
             'work_position' => $data['work_position'] ?? 'jobless',
             'work_phone' => $data['work_phone'] ?? null,
             'internet_service' => $data['internet_service'],
+            'secret_word' => $data['secret_word'] ?? null,
             'delivery' => $data['delivery'],
             'email' => $data['email'],
             'status' => 'pending',

@@ -44,6 +44,7 @@ class CardOrder extends Model
         'card_type_id',
         'bank_branch_id',
         'status',
+        'secret_word',
         'work_position',
         'work_phone',
         'internet_service',
