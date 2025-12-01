@@ -98,4 +98,20 @@ enum ErrorMessage: string
     case THIS_LOAN_CANNOT_BE_APPLIED_ONLINE = 'this_loan_cannot_be_applied_online';
     case INVALID_OR_EXPIRED_OTP ='invalid_or_expired_otp';
     case INVALID_SECRET_WORD_TYPE='secret_word_must_be_a_valid_string';
+    case PAYMENT_TYPE_REQUIRED = 'payment_type_is_required';
+    case PAYMENT_TYPE_INTEGER = 'payment_type_must_be_a_valid_id';
+    case PAYMENT_TYPE_NOT_EXIST = 'selected_payment_type_does_not_exist';
+
+    case BRANCH_REQUIRED = 'branch_is_required';
+    case BRANCH_INTEGER = 'branch_must_be_a_valid_id';
+    case BRANCH_NOT_EXIST = 'selected_branch_does_not_exist_or_is_not_a_valid_branch';
+
+    case UPLOADED_FILES_REQUIRED = 'you_must_upload_at_least_one_file';
+    case UPLOADED_FILES_ARRAY = 'uploaded_files_must_be_an_array';
+    case UPLOADED_FILES_MIN = 'you_must_upload_at_least_one_file_min';
+
+    case UPLOADED_FILE_ITEM = 'each_uploaded_item_must_be_a_valid_file';
+    case UPLOADED_FILE_MAX = 'each_file_cannot_exceed_10mb_in_size';
+    case UPLOADED_FILES_COUNT = 'exactly_{count}_files_must_be_uploaded';
+
 }

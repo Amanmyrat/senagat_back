@@ -184,5 +184,8 @@ return [
 
     'published_at'=>'Published At',
     'international_payment_types'=>'International Payment Types',
+    'international_payment_order'=>'International Payment Order',
+    'required_files'=>'Required Files',
+    'international_payment'=>'International Payment'
 
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\ErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -73,20 +74,20 @@ class InternationalPaymentOrderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'payment_type_id.required' => 'Payment type is required.',
-            'payment_type_id.integer' => 'Payment type must be a valid ID.',
-            'payment_type_id.exists' => 'Selected payment type does not exist.',
+            'payment_type_id.required' => ErrorMessage::PAYMENT_TYPE_REQUIRED->value,
+            'payment_type_id.integer' => ErrorMessage::PAYMENT_TYPE_INTEGER->value,
+            'payment_type_id.exists' => ErrorMessage::PAYMENT_TYPE_NOT_EXIST->value,
 
-            'branch_id.required' => 'Branch is required.',
-            'branch_id.integer' => 'Branch must be a valid ID.',
-            'branch_id.exists' => 'Selected branch does not exist or is not a valid branch.',
+            'branch_id.required' => ErrorMessage::BRANCH_REQUIRED->value,
+            'branch_id.integer' => ErrorMessage::BRANCH_INTEGER->value,
+            'branch_id.exists' => ErrorMessage::BRANCH_NOT_EXIST->value,
 
-            'uploaded_files.required' => 'You must upload at least one file.',
-            'uploaded_files.array' => 'Uploaded files must be an array.',
-            'uploaded_files.min' => 'You must upload at least one file.',
+            'uploaded_files.required' => ErrorMessage::UPLOADED_FILES_REQUIRED->value,
+            'uploaded_files.array' => ErrorMessage::UPLOADED_FILES_ARRAY->value,
+            'uploaded_files.min' => ErrorMessage::UPLOADED_FILES_MIN->value,
 
-            'uploaded_files.*.file' => 'Each uploaded item must be a valid file.',
-            'uploaded_files.*.max' => 'Each file cannot exceed 10MB in size.',
+            'uploaded_files.*.file' => ErrorMessage::UPLOADED_FILE_ITEM->value,
+            'uploaded_files.*.max' => ErrorMessage::UPLOADED_FILE_MAX->value,
         ];
     }
 }
