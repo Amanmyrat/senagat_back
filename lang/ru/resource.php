@@ -181,5 +181,7 @@ return [
     'no_profile' => 'Нет профиля',
     'profile_status' => 'Статус профиля',
 
-    'published_at'=>'Дата публикации'
+    'published_at'=>'Дата публикации',
+    'international_payment_types'=>'Международные способы оплаты',
+
 ];

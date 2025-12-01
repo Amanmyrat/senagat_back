@@ -186,5 +186,6 @@ return [
     'rejected' => 'Ret edildi',
 
     'published_at'=>'Neşir edilen sagat',
+    'international_payment_types'=>'Halkara töleg görnüşleri',
 
 ];
