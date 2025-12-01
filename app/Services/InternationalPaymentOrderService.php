@@ -18,22 +18,18 @@ class InternationalPaymentOrderService
 
         $type = \App\Models\InternationalPaymentTypes::findOrFail($data['payment_type_id']);
 
-        $requiredTitles = collect($type->required_files)->pluck('title')->toArray();
-
-        $uploadedKeys = array_keys($data['uploaded_files'] ?? []);
-
-        foreach ($requiredTitles as $title) {
-            if (! in_array($title, $uploadedKeys)) {
-                throw new \Exception("File '{$title}' is required.");
-            }
+        $requiredCount = count($type->required_files);
+        $uploadedFiles = $data['uploaded_files'] ?? [];
+        $uploadedCount = count($uploadedFiles);
+        $messageTemplate = ErrorMessage::UPLOADED_FILES_COUNT->value;
+        $message = str_replace('{count}', $requiredCount, $messageTemplate);
+        if ($uploadedCount !== $requiredCount) {
+            throw new \Exception($message);
         }
-
         $storedFiles = [];
-        foreach ($data['uploaded_files'] as $title => $file) {
-            $storedFiles[$title] = $file->store('international_orders', 'public');
-
+        foreach ($uploadedFiles as $file) {
+            $storedFiles[] = $file->store('international_orders', 'public');
         }
-
         return InternationalPaymentOrder::create([
             'user_id'        => $user->id,
             'profile_id'     => $profile->id,

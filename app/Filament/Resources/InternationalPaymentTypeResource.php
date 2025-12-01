@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Clusters\InternationalPayment;
 use App\Filament\Resources\InternationalPaymentTypeResource\Pages;
 use App\Models\InternationalPaymentTypes;
 use Filament\Forms;
@@ -19,7 +20,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class InternationalPaymentTypeResource extends Resource
 {
     protected static ?string $model = InternationalPaymentTypes::class;
-
+    protected static ?string $cluster =  InternationalPayment::class;
+    protected static ?int $navigationSort = 1;
     protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
     use Translatable;
 

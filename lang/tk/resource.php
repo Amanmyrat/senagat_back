@@ -93,7 +93,7 @@ return [
     'min_term' => 'Iň Gysga Möhlet',
     'min_amount' => 'Iň Az Mukdar',
     'max_amount' => 'Iň Köp Mukdar',
-    'requirements' => 'Talaryklar',
+    'requirements' => 'Talaplar',
     'rules' => 'Düzgünler',
     'rule' => 'Düzgün',
     'subrules' => 'Kiçi Düzgünler',
@@ -185,7 +185,10 @@ return [
     'profile_status' => 'Profil statusy',
     'rejected' => 'Ret edildi',
 
+
     'published_at'=>'Neşir edilen sagat',
     'international_payment_types'=>'Halkara töleg görnüşleri',
-
+    'international_payment_order' => 'Halkara Töleg Buýrugy',
+    'required_files' => 'Talap edilýän resminamalar',
+    'international_payment' => 'Halkara Töleg',
 ];
