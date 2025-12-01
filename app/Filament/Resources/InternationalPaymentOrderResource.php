@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Clusters\InternationalPayment;
 use App\Filament\Resources\InternationalPaymentOrderResource\Pages;
 
 use App\Forms\Components\ProfileInfo;
@@ -27,13 +28,34 @@ class InternationalPaymentOrderResource extends Resource
     protected static ?string $model = InternationalPaymentOrder::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $cluster =  InternationalPayment::class;
+    protected static ?int $navigationSort = 2;
+    public static function getNavigationLabel(): string
+    {
+        return __('resource.international_payment_order');
+    }
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('resource.international_payment_order');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.international_payment_order');
+    }
+
+    public static function getRecordTitle(?object $record = null): string
+    {
+        return $record ? (string) $record->name : __('resource.international_payment_order');
+    }
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                Wizard::make([
                     Step::make('International Payment Information')
+                        ->label(__('resource.international_payment_order'))
                     ->schema([
                         TextInput::make('type.title.'. app()->getLocale())
                             ->label(__('resource.title'))
@@ -46,9 +68,11 @@ class InternationalPaymentOrderResource extends Resource
                             ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
                             ),
 
-                        Section::make('Uploaded Files')
+                        Section::make(__('resource.required_files'))
+
                             ->schema([
                                 FileUpload::make('uploaded_files')
+                                    ->label(__('resource.required_files'))
                                     ->multiple()
                                     ->downloadable()
                                     ->disabled()
@@ -94,6 +118,10 @@ class InternationalPaymentOrderResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+    public static function canViewAny(): bool
+    {
+        return optional(auth()->user())->role === 'super-admin';
     }
 
     public static function getRelations(): array
