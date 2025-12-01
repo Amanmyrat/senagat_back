@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\CreditApplicationController;
 use App\Http\Controllers\Api\CreditTypeController;
 use App\Http\Controllers\Api\DepositController;
 use App\Http\Controllers\Api\ExchangeRateController;
+use App\Http\Controllers\Api\InternationalPaymentTypesController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\MoneyTransferController;
 use App\Http\Controllers\Api\NewsController;
@@ -52,7 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/order', [CardOrderController::class, 'store']);
 
     });
-
+    Route::post('/international-payment-order', [\App\Http\Controllers\Api\InternationalPaymentOrderController::class, 'store']);
     Route::post('/certificate-order', [CertificateOrderController::class, 'store']);
 
 });
@@ -75,6 +76,7 @@ Route::prefix('news')->group(function () {
 });
 Route::get('/exchange-rate', [ExchangeRateController::class, 'index']);
 Route::get('/certificate-types', [CertificateTypeController::class, 'index']);
+Route::get('/international-payment-types', [InternationalPaymentTypesController::class, 'index']);
 Route::prefix('deposits')->group(function () {
     Route::get('/', [DepositController::class, 'index']);
     Route::get('/{id}', [DepositController::class, 'show']);
