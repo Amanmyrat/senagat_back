@@ -182,5 +182,7 @@ return [
     'no_profile' => 'No Profile',
     'profile_status' => 'Profile Status',
 
-    'published_at'=>'Published At'
+    'published_at'=>'Published At',
+    'international_payment_types'=>'International Payment Types',
+
 ];
