@@ -2,11 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Traits\DateFormatTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LoanOrderResource extends JsonResource
 {
+    use DateFormatTrait;
+
     /**
      * Transform the resource into an array.
      *
@@ -14,6 +17,9 @@ class LoanOrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
+
+
         $locale = app()->getLocale();
         $data = [
             'id' => $this->resource->id,
@@ -26,6 +32,8 @@ class LoanOrderResource extends JsonResource
             'bank_branch' => optional($this->resource->branch)->getTranslation('name', $locale),
             'role' => $this->resource->role,
             'status' => $this->resource->status,
+            'created_at' => $this->formatDateLocalized($this->resource->created_at),
+
         ];
 
         // Rol bazlı ek alanlar
