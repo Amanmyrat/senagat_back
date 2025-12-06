@@ -27,7 +27,6 @@ class CardCategoryResource extends JsonResource
 
                 ];
             }),
-            // 'name' => $this->resource->getTranslation('name', $locale),
 
         ];
     }

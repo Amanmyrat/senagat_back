@@ -137,8 +137,6 @@ class LoanOrderResource extends Resource
                     Step::make('Branch Info')
                         ->label(__('resource.branch_information'))
                         ->schema([
-                            TextInput::make('country')->required()->disabled()
-                                ->label(__('resource.country')),
                             TextInput::make('branch.name')
                                 ->label(__('resource.branch_name'))
                                 ->afterStateHydrated(fn ($component, $state, $record) => $component->state($record->branch?->name)
@@ -171,6 +169,10 @@ class LoanOrderResource extends Resource
                         'danger' => 'rejected',
                     ])->formatStateUsing(fn ($state) => __("resource.$state"))
                     ->badge(),
+                TextColumn::make('created_at')
+                    ->label(__('resource.created_at'))
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
 
