@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Traits\ImageUrlTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CardTypeResource extends JsonResource
 {
+    use ImageUrlTrait;
     /**
      * Transform the resource into an array.
      *
@@ -46,8 +48,7 @@ class CardTypeResource extends JsonResource
             'price' => $this->resource->price,
             'category' => $this->resource->category,
             'advantages' => $advantages,
-            'image_url' => $this->resource->image_url
-                ? asset('storage/'.$this->resource->image_url) : null,
+            'image_url' => $this->imageUrl($this->resource->image_url),
         ];
     }
 }

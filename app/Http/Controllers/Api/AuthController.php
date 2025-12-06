@@ -53,7 +53,7 @@ class AuthController
     }
 
     /**
-     * Request OTP for registration or login
+     * Request OTP for registration
      *
      * @unauthenticated
      *
@@ -182,36 +182,7 @@ class AuthController
         }
     }
 
-    /**
-     * Check phone number
-     */
-    public function checkPhoneExists(CheckPhoneExistenceRequest $request): JsonResponse
-    {
-        try {
-            $phone = $request->validated('phone');
-            $exists = User::where('phone', $phone)->exists();
 
-            if ($exists) {
-                return new JsonResponse([
-                    'success' => true,
-                    'exists' => true,
-                ], 200);
-            }
-
-            return new JsonResponse([
-                'success' => false,
-                'code' => ErrorMessage::PHONE_NOT_FOUND->value,
-                'exists' => false,
-            ], 404);
-
-        } catch (Exception $e) {
-            return new JsonResponse([
-                'success' => false,
-                //  'code' => ErrorMessage::SERVER_ERROR->value,
-                'error_message' => $e->getMessage(),
-            ], 500);
-        }
-    }
     /**
      * Reset password with OTP token
      *

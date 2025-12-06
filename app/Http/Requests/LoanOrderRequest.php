@@ -123,14 +123,6 @@ class LoanOrderRequest extends FormRequest
              */
             'salary' => ['required_if:role,manager', 'numeric', 'min:0'],
             /**
-             * Country
-             *
-             * @var string
-             *
-             * @example Aşgabat
-             */
-            'country' => ['required', 'string', 'max:255'],
-            /**
              * Bank_name
              *
              * @var int
@@ -167,7 +159,6 @@ class LoanOrderRequest extends FormRequest
             'phone_number.required_if' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
             'salary.required_if' => ErrorMessage::SALARY_REQUIRED->value,
             'salary.min' => ErrorMessage::SALARY_MIN->value,
-            'country.required' => ErrorMessage::COUNTRY_REQUIRED->value,
             'bank_branch_id.required' => ErrorMessage::BANK_BRANCH_REQUIRED->value,
         ];
     }
@@ -179,7 +170,6 @@ class LoanOrderRequest extends FormRequest
                 $credit = CreditType::find($this->credit_id);
                 if ($credit) {
 
-                    // Online başvuru kontrolü
                     if (! $credit->can_offer_online) {
                         $validator->errors()->add(
                             'credit_id',
@@ -187,7 +177,6 @@ class LoanOrderRequest extends FormRequest
                         );
                     }
 
-                    // Amount ve term kontrolleri
                     if ($this->filled('amount')) {
                         if ($this->amount < $credit->min_amount || $this->amount > $credit->max_amount) {
                             $validator->errors()->add(
