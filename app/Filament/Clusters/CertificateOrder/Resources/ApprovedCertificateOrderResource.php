@@ -142,6 +142,10 @@ class ApprovedCertificateOrderResource extends Resource
                     ])
                     ->formatStateUsing(fn ($state) => __("resource.$state"))
                     ->badge(),
+                TextColumn::make('created_at')
+                    ->label(__('resource.created_at'))
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
 

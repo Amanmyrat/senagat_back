@@ -23,6 +23,7 @@ class ClientResource extends JsonResource
             'description' => $this->resource->getTranslation('description', $locale),
             'image_url' => asset('storage/'.$this->resource->image_url),
 
+
         ];
     }
 }

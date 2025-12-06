@@ -28,7 +28,6 @@ class LoanOrderResource extends JsonResource
             'amount' => $this->resource->amount,
             'interest' => $this->resource->interest,
             'monthly_payment' => $this->resource->monthly_payment,
-            'country' => $this->resource->country,
             'bank_branch' => optional($this->resource->branch)->getTranslation('name', $locale),
             'role' => $this->resource->role,
             'status' => $this->resource->status,
