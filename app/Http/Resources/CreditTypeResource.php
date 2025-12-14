@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Traits\ImageUrlTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CreditTypeResource extends JsonResource
 {
+    use ImageUrlTrait;
     /**
      * Transform the resource into an array.
      *
@@ -29,8 +31,8 @@ class CreditTypeResource extends JsonResource
             'amount_text' => $this->resource->getTranslation('amount_text', $locale) ?: null,
             'interest' => $this->resource->interest,
             'background_color' => $this->resource->background_color,
-            'image_url' => $this->resource->image_url
-                ? asset('storage/'.$this->resource->image_url) : null,
+            'image_url' => $this->imageUrl($this->resource->image_url),
+
             'requirements_description' => $this->resource->getTranslation('requirements_description', $locale) ?: null,
             'requirements' => collect($this->resource->getTranslation('requirements', $locale) ?? [])
                 ->map(function ($item) {
