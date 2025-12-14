@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Traits\ImageUrlTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AwardResource extends JsonResource
 {
+    use ImageUrlTrait;
     /**
      * Transform the resource into an array.
      *
@@ -20,7 +22,7 @@ class AwardResource extends JsonResource
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),
             'sub_title' => $this->resource->getTranslation('sub_title', $locale),
-            'image_url' => asset('storage/'.$this->resource->image_url),
+            'image_url' => $this->imageUrl($this->resource->image_url),
 
         ];
     }

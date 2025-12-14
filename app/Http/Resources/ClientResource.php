@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Traits\ImageUrlTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ClientResource extends JsonResource
 {
+    use ImageUrlTrait;
     /**
      * Transform the resource into an array.
      *
@@ -21,9 +23,7 @@ class ClientResource extends JsonResource
             'title' => $this->resource->getTranslation('title', $locale),
             'company_type' => $this->resource->getTranslation('company_type', $locale),
             'description' => $this->resource->getTranslation('description', $locale),
-            'image_url' => asset('storage/'.$this->resource->image_url),
-
-
+            'image_url' => $this->imageUrl($this->resource->image_url),
         ];
     }
 }

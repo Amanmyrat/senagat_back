@@ -2,13 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Traits\HasAdvantagesTrait;
 use App\Traits\ImageUrlTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CardTypeResource extends JsonResource
 {
-    use ImageUrlTrait;
+    use ImageUrlTrait,HasAdvantagesTrait;
     /**
      * Transform the resource into an array.
      *
@@ -17,37 +18,17 @@ class CardTypeResource extends JsonResource
     public function toArray(Request $request): array
     {
         $locale = app()->getLocale();
-        $defaultLocale = 'tk';
-        $defaultAdvantages = collect($this->resource->getTranslation('advantages', $defaultLocale) ?? [])
-            ->map(fn ($item) => [
-                'name' => $item['name'] ?? null,
-                'description' => $item['description'] ?? null,
-            ])
-            ->values();
-        $shortestIndex = $defaultAdvantages
-            ->sortBy(fn ($item) => strlen($item['name'] ?? '') + strlen($item['description'] ?? ''))
-            ->keys()
-            ->first();
 
-        $advantages = collect(
-            $this->resource->getTranslation('advantages', $locale) ?? []
-        )->map(function ($item) {
-            return [
-                'name' => $item['name'] ?? null,
-                'description' => $item['description'] ?? null,
-
-            ];
-        })->values();
-        $shortest = $advantages[$shortestIndex] ?? null;
+        $advantageData = $this->resolveAdvantages($this->resource, $locale);
 
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),
-            'sub_title' => trim(($shortest['name'] ?? '').' '.($shortest['description'] ?? '')),
+            'sub_title' => trim($advantageData['sub_title']),
             'description' => $this->resource->getTranslation('text', $locale),
             'price' => $this->resource->price,
             'category' => $this->resource->category,
-            'advantages' => $advantages,
+            'advantages' =>  $advantageData['advantages'],
             'image_url' => $this->imageUrl($this->resource->image_url),
         ];
     }
