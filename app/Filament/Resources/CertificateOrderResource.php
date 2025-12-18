@@ -153,7 +153,8 @@ class CertificateOrderResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
 
                 ]),
-            ]);
+            ])->defaultSort('created_at', 'desc')
+            ;
     }
 
     public static function canViewAny(): bool

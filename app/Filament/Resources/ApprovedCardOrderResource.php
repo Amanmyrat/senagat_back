@@ -157,6 +157,10 @@ class ApprovedCardOrderResource extends Resource
                         'danger' => 'rejected',
                     ])
                     ->badge(),
+                TextColumn::make('created_at')
+                    ->label(__('resource.created_at'))
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //
@@ -166,7 +170,7 @@ class ApprovedCardOrderResource extends Resource
                 Tables\Actions\ViewAction::make(),
 
 
-            ]);
+            ]) ->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array

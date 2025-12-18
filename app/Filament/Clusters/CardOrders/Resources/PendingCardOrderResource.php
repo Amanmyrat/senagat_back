@@ -158,6 +158,10 @@ class PendingCardOrderResource extends Resource
                     ])
 
                     ->badge(),
+                TextColumn::make('created_at')
+                    ->label(__('resource.created_at'))
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //
@@ -170,7 +174,7 @@ class PendingCardOrderResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
 
                 ]),
-            ]);
+            ])->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array

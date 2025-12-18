@@ -141,6 +141,10 @@ class PendingCertificateOrderResource extends Resource
                     ])
                     ->formatStateUsing(fn ($state) => __("resource.$state"))
                     ->badge(),
+                TextColumn::make('created_at')
+                    ->label(__('resource.created_at'))
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //
@@ -153,7 +157,7 @@ class PendingCertificateOrderResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
 
                 ]),
-            ]);
+            ])->defaultSort('created_at', 'desc');
     }
 
     public static function canViewAny(): bool
