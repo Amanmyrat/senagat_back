@@ -191,4 +191,5 @@ return [
     'international_payment_order' => 'Halkara Töleg Buýrugy',
     'required_files' => 'Talap edilýän resminamalar',
     'international_payment' => 'Halkara Töleg',
+    'order_id' => 'Sargyt ID-si',
 ];

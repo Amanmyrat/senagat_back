@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'belet_api' => [
+        'url' => env('BELET_API_URL'),
+    ],
+
 ];
