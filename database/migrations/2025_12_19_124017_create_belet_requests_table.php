@@ -26,7 +26,7 @@ return new class extends Migration
                 'confirmed',
                 'failed',
             ]);
-            $table->json('payment_target');
+            $table->json('payment_target')->nullable();
             $table->timestamps();
             $table->index(['type', 'external_id']);
         });
