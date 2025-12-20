@@ -188,5 +188,7 @@ return [
     'international_payment' => 'Международный платеж',
 
     'order_id' => 'ID заказа',
+    'user_phone'   => 'Телефон пользователя',
+    'target_phone' => 'Телефон получателя',
 
 ];

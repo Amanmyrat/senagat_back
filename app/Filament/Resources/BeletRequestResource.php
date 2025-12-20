@@ -58,8 +58,10 @@ class BeletRequestResource extends Resource
             ->columns([
                 TextColumn::make('user.phone')
                     ->sortable()
-                    ->label(__('resource.phone')),
-
+                    ->label(__('resource.user_phone')),
+                TextColumn::make('payment_value')
+                    ->label(__('resource.target_phone'))
+                    ->searchable(),
                 TextColumn::make('type')
                     ->label(__('resource.type'))
                     ->colors([
@@ -93,7 +95,7 @@ class BeletRequestResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
