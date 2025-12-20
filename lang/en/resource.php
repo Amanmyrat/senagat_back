@@ -188,6 +188,8 @@ return [
     'required_files'=>'Required Files',
     'international_payment'=>'International Payment',
 
-    'order_id'=> 'Order Id'
+    'order_id'=> 'Order Id',
+    'user_phone'=> 'User Phone',
+    'target_phone'=>' Target phone'
 
 ];

@@ -192,4 +192,6 @@ return [
     'required_files' => 'Talap edilýän resminamalar',
     'international_payment' => 'Halkara Töleg',
     'order_id' => 'Sargyt ID-si',
+    'user_phone'   => 'Ulanyjynyň telefon belgisi',
+    'target_phone' => 'Alyjynyň telefon belgisi',
 ];
