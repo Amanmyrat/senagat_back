@@ -14,10 +14,18 @@ class BeletRequest extends Model
         'status',
         'response_code',
         'response_body',
+        'payment_target'
     ];
-
+    protected $casts = [
+        'payment_target' => 'array',
+    ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+    public function getPaymentValueAttribute(): ?string
+    {
+        return $this->payment_target['phone'] ?? null;
+    }
+
 }

@@ -34,6 +34,9 @@ class BeletService
             'user_id' => $userId,
             'type' => 'topup',
             'status' => 'sent',
+            'payment_target' => [
+                'phone' => $payload['phone'],
+            ],
         ]);
 
         $response = $this->client->topUp($payload);
