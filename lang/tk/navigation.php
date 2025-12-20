@@ -23,5 +23,7 @@ return [
     'content_management' => 'Mazmuny dolandyrmak',
     'tariffs' => 'Taryflar',
     'belet_requests' => 'Belet talaplary',
+    'payment' => 'Töleg',
+    'belet_payment' => 'Belet tölegi',
 
 ];

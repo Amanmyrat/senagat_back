@@ -21,27 +21,27 @@ class BeletRequestResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $cluster = \App\Filament\Clusters\ContentManagement::class;
+    protected static ?string $cluster = \App\Filament\Clusters\Payments::class;
 
     protected static ?int $navigationSort = 8;
     public static function getNavigationLabel(): string
     {
-        return __('navigation.belet_requests');
+        return __('navigation.belet_payment');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('navigation.belet_requests');
+        return __('navigation.belet_payment');
     }
 
     public static function getModelLabel(): string
     {
-        return __('navigation.belet_requests');
+        return __('navigation.belet_payment');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('navigation.belet_requests');
+        return $record ? (string) $record->name : __('navigation.belet_payment');
     }
 
     public static function form(Form $form): Form
@@ -78,7 +78,7 @@ class BeletRequestResource extends Resource
                     ->label(__('resource.status'))
                     ->colors([
                         'gray'    => 'sent',
-                        'info'    => 'acknowledged',
+                        'info'    => 'notConfirmed',
                         'warning' => 'confirming',
                         'success' => 'confirmed',
                         'danger'  => 'failed',

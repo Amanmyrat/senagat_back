@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('external_id')->nullable();
             $table->enum('status', [
                 'sent',
-                'acknowledged',
+                'notConfirmed',
                 'confirming',
                 'confirmed',
                 'failed',

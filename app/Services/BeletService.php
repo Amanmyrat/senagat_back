@@ -40,7 +40,7 @@ class BeletService
 
         $log->update([
             'status' => ($response['success'] ?? false)
-                ? 'acknowledged'
+                ? 'notConfirmed'
                 : 'failed',
             'external_id' => $response['data']['order_id'] ?? null,
         ]);

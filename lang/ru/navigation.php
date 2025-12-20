@@ -23,5 +23,7 @@ return [
     'content_management' => 'Управление контентом',
     'tariffs' => 'Тарифы',
     'belet_requests' => 'Запросы на Belet',
+    'payment' => 'Платеж',
+    'belet_payment' => 'Платеж Belet',
 
 ];
