@@ -122,7 +122,12 @@ return [
             'driver' => 'monolog',
             'handler' => NullHandler::class,
         ],
-
+        'belet' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/belet/belet.log'),
+            'level' => 'info',
+            'days' => 60,
+        ],
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],

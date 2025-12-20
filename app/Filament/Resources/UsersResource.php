@@ -138,7 +138,7 @@ class UsersResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('phone')->translateLabel()
-                    ->label(_('resource.phone')),
+                    ->label(__('resource.phone')),
                 TextColumn::make('profile.first_name')
                     ->label(__('resource.first_name'))
                     ->default('No Profile')

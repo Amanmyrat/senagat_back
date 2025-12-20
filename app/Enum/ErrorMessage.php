@@ -114,4 +114,14 @@ enum ErrorMessage: string
     case UPLOADED_FILE_MAX = 'each_file_cannot_exceed_10mb_in_size';
     case UPLOADED_FILES_COUNT = 'exactly_{count}_files_must_be_uploaded';
 
+    case BANK_ID_REQUIRED = 'bank_id_is_required.';
+    case BANK_ID_INVALID = 'bank_id_must_be_a_valid_integer.';
+    case AMOUNT_INVALID = 'amount_must_be_a_numeric_value.';
+    case RETURN_URL_REQUIRED = 'return_URL_is_required.';
+    case RETURN_URL_INVALID = 'return_URL_must_be_a_valid_URL.';
+    case ORDER_ID_OR_PAY_ID_REQUIRED = 'either_orderId_or_pay_id_is_required.';
+    case ORDER_ID_INVALID = 'orderId_must_be_a_valid_string.';
+    case PAY_ID_INVALID = 'pay_id_must_be_a_valid_string.';
+    case ID_REQUIRED = 'order_ID_is_required';
+
 }

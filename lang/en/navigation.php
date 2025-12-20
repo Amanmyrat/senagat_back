@@ -22,4 +22,6 @@ return [
     'certificate' => 'Certificate',
     'content_management' => 'Content Management',
     'tariffs' => 'Tariffs',
+    'belet_payment' => 'Belet Payment',
+    'payment'=>'Payment'
 ];
