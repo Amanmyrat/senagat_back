@@ -22,4 +22,5 @@ return [
     'certificate' => 'Certificate',
     'content_management' => 'Content Management',
     'tariffs' => 'Tariffs',
+    'belet_requests' => 'Belet Requests',
 ];

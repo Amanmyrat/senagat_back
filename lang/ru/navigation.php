@@ -22,4 +22,6 @@ return [
     'certificate' => 'Сертификат',
     'content_management' => 'Управление контентом',
     'tariffs' => 'Тарифы',
+    'belet_requests' => 'Запросы на Belet',
+
 ];

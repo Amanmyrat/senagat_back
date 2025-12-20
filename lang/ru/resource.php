@@ -186,4 +186,7 @@ return [
     'international_payment_order' => 'Международный платежный заказ',
     'required_files'=> 'Необходимые файлы',
     'international_payment' => 'Международный платеж',
+
+    'order_id' => 'ID заказа',
+
 ];

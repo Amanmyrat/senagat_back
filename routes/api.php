@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuditReportController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AwardController;
+use App\Http\Controllers\Api\BeletController;
 use App\Http\Controllers\Api\CardOrderController;
 use App\Http\Controllers\Api\CardTypeController;
 use App\Http\Controllers\Api\CertificateOrderController;
@@ -55,6 +56,16 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::post('/international-payment-order', [\App\Http\Controllers\Api\InternationalPaymentOrderController::class, 'store']);
     Route::post('/certificate-order', [CertificateOrderController::class, 'store']);
+//Belet CRUD
+
+    Route::prefix('v1/belet')->group(function () {
+        Route::get('/banks', [BeletController::class, 'banks']);
+        Route::get('/balances', [BeletController::class, 'getBalanceRecommendations']);
+        Route::get('/orders/{id}/status', [BeletController::class, 'checkStatus']);
+        Route::post('/belet/check-phone',[BeletController::class,'checkPhone']);
+        Route::post('/top-up', [BeletController::class, 'topUp']);
+        Route::post('/confirm', [BeletController::class, 'confirm']);
+    });
 
 });
 Route::prefix('location')->group(function () {
