@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BeletRequestResource\Pages;
+use App\Filament\Resources\CharityResource\Pages;
 use App\Models\PaymentRequest;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -11,40 +11,52 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
-class BeletRequestResource extends Resource
+class CharityResource extends Resource
 {
     protected static ?string $model = PaymentRequest::class;
 
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->whereIn('type', ['topup', 'confirm']);
+            ->where('type', 'charity');
     }
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $cluster = \App\Filament\Clusters\Payments::class;
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.belet_payment');
+        return __('navigation.charity');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('navigation.belet_payment');
+        return __('navigation.charity');
     }
 
     public static function getModelLabel(): string
     {
-        return __('navigation.belet_payment');
+        return __('navigation.charity');
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function canViewAny(): bool
+    {
+
+        return optional(auth()->user())->role === 'super-admin';
+
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('navigation.belet_payment');
+        return $record ? (string) $record->name : __('navigation.charity');
     }
 
     public static function form(Form $form): Form
@@ -59,36 +71,18 @@ class BeletRequestResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user.phone')
-                    ->sortable()
-                    ->label(__('resource.user_phone')),
+                TextColumn::make('user.profile.first_name')->label(__('resource.first_name')),
+                TextColumn::make('user.profile.last_name')->label(__('resource.last_name')),
+                TextColumn::make('amount')->label(__('resource.amount')),
                 TextColumn::make('payment_target.value')
                     ->label(__('resource.target_phone'))
                     ->searchable(),
                 TextColumn::make('type')
                     ->label(__('resource.type'))
                     ->colors([
-                        'success' => 'topup',
-                        'danger' => 'confirm',
+                        'success' => 'charity',
                     ])
                     ->badge(),
-
-                TextColumn::make('external_id')
-                    ->label(__('resource.order_id'))
-
-                    ->copyable()
-                    ->searchable(),
-
-                TextColumn::make('status')
-                    ->label(__('resource.status'))
-                    ->colors([
-                        'gray' => 'sent',
-                        'info' => 'notConfirmed',
-                        'warning' => 'confirming',
-                        'success' => 'confirmed',
-                        'danger' => 'failed',
-                    ])->badge(),
-
                 TextColumn::make('created_at')
                     ->label(__('resource.created_at'))
                     ->dateTime()
@@ -98,7 +92,6 @@ class BeletRequestResource extends Resource
                 //
             ])
             ->actions([
-
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -114,24 +107,12 @@ class BeletRequestResource extends Resource
         ];
     }
 
-    public static function canCreate(): bool
-    {
-        return false;
-    }
-
-    public static function canViewAny(): bool
-    {
-
-        return optional(auth()->user())->role === 'super-admin';
-
-    }
-
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBeletRequests::route('/'),
-            'create' => Pages\CreateBeletRequest::route('/create'),
-            'edit' => Pages\EditBeletRequest::route('/{record}/edit'),
+            'index' => Pages\ListCharities::route('/'),
+            'create' => Pages\CreateCharity::route('/create'),
+            'edit' => Pages\EditCharity::route('/{record}/edit'),
         ];
     }
 }

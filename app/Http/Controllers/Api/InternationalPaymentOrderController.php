@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CertificateOrderRequest;
 use App\Http\Requests\InternationalPaymentOrderRequest;
-use App\Http\Resources\CertificateOrderResource;
 use App\Http\Resources\InternationalPaymentOrderResource;
 use App\Services\InternationalPaymentOrderService;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Http\JsonResponse;
+
 class InternationalPaymentOrderController extends Controller
 {
     protected InternationalPaymentOrderService $service;
@@ -44,6 +42,3 @@ class InternationalPaymentOrderController extends Controller
         }
     }
 }
-
-
-

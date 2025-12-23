@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CardOrderController;
 use App\Http\Controllers\Api\CardTypeController;
 use App\Http\Controllers\Api\CertificateOrderController;
 use App\Http\Controllers\Api\CertificateTypeController;
+use App\Http\Controllers\Api\CharityController;
 use App\Http\Controllers\Api\ClientsController;
 use App\Http\Controllers\Api\ContactMessageController;
 use App\Http\Controllers\Api\CreditApplicationController;
@@ -45,7 +46,6 @@ Route::middleware('auth:sanctum')->group(function () {
     //    Route::post('/application/branch-info', [CreditApplicationController::class, 'submitBranchInfo']);
     Route::post('/application/credit/order', [CreditApplicationController::class, 'store']);
 
-
     Route::prefix('contact-message')->group(function () {
         Route::post('/', [ContactMessageController::class, 'store']);
     });
@@ -56,17 +56,18 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::post('/international-payment-order', [\App\Http\Controllers\Api\InternationalPaymentOrderController::class, 'store']);
     Route::post('/certificate-order', [CertificateOrderController::class, 'store']);
-//Belet CRUD
 
-    Route::prefix('v1/belet')->group(function () {
+    // Belet CRUD
+    Route::prefix('/belet')->group(function () {
         Route::get('/banks', [BeletController::class, 'banks']);
         Route::get('/balances', [BeletController::class, 'getBalanceRecommendations']);
         Route::get('/orders/{id}/status', [BeletController::class, 'checkStatus']);
-        Route::post('/belet/check-phone',[BeletController::class,'checkPhone']);
+        Route::post('/belet/check-phone', [BeletController::class, 'checkPhone']);
         Route::post('/top-up', [BeletController::class, 'topUp']);
         Route::post('/confirm', [BeletController::class, 'confirm']);
     });
-
+    // Charity CRUD
+    Route::post('/charity', [CharityController::class, 'store']);
 });
 Route::prefix('location')->group(function () {
     Route::get('/', [LocationController::class, 'index']);

@@ -9,7 +9,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class DepositTypeResource extends JsonResource
 {
-    use ImageUrlTrait,HasAdvantagesTrait;
+    use HasAdvantagesTrait,ImageUrlTrait;
+
     /**
      * Transform the resource into an array.
      *
@@ -19,10 +20,11 @@ class DepositTypeResource extends JsonResource
     {
         $locale = app()->getLocale();
         $advantageData = $this->resolveAdvantages($this->resource, $locale);
+
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),
-            'sub_title' => $advantageData['sub_title'] ,
+            'sub_title' => $advantageData['sub_title'],
             'advantages' => $advantageData['advantages'],
             'image_url' => $this->imageUrl($this->resource->image_url),
             'background_color' => $this->resource->background_color,

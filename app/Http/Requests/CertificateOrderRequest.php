@@ -25,7 +25,6 @@ class CertificateOrderRequest extends FormRequest
              */
             'certificate_type_id' => ['required', 'integer', 'exists:certificate_types,id'],
 
-
             /**
              * Bank Branch
              *

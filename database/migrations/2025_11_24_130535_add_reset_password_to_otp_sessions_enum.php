@@ -20,8 +20,9 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    { Schema::table('otp_sessions', function (Blueprint $table) {
-        $table->enum('purpose', ['register', 'login'])->change();
-    });
+    {
+        Schema::table('otp_sessions', function (Blueprint $table) {
+            $table->enum('purpose', ['register', 'login'])->change();
+        });
     }
 };

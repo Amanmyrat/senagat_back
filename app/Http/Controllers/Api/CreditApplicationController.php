@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enum\SuccessMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoanOrderRequest;
 use App\Http\Resources\LoanOrderResource;

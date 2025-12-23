@@ -6,12 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\InternationalPaymentTypeResource;
 use App\Models\InternationalPaymentTypes;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class InternationalPaymentTypesController extends Controller
 {
-
-
     /**
      * International Payment Types
      *

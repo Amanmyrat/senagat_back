@@ -75,6 +75,7 @@ class CardOrderRequest extends FormRequest
              * Secret Word
              *
              * @var string|null
+             *
              * @example abc123
              */
             'secret_word' => ['nullable', 'string'],

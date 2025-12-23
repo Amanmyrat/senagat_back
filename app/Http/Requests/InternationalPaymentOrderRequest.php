@@ -16,7 +16,6 @@ class InternationalPaymentOrderRequest extends FormRequest
         return true;
     }
 
-
     public function rules(): array
     {
         return [
@@ -24,18 +23,20 @@ class InternationalPaymentOrderRequest extends FormRequest
              * Payment Type
              *
              * @var int
+             *
              * @example 1
              */
             'payment_type_id' => [
                 'required',
                 'integer',
-                'exists:international_payment_types,id'
+                'exists:international_payment_types,id',
             ],
 
             /**
              * Branch
              *
              * @var int
+             *
              * @example 1
              */
             'branch_id' => [
@@ -52,7 +53,7 @@ class InternationalPaymentOrderRequest extends FormRequest
             'uploaded_files' => [
                 'required',
                 'array',
-                'min:1'
+                'min:1',
             ],
 
             /**

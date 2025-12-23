@@ -3,15 +3,12 @@
 namespace App\Http\Resources;
 
 use App\Traits\DateFormatTrait;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-
 
 class CardOrderResource extends JsonResource
 {
     use DateFormatTrait;
-
 
     public function toArray(Request $request): array
     {
@@ -31,5 +28,4 @@ class CardOrderResource extends JsonResource
             'created_at' => $this->formatDateLocalized($this->resource->created_at),
         ];
     }
-
 }

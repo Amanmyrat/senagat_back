@@ -1,14 +1,19 @@
 <?php
-namespace  App\Services;
-use App\Models\BeletRequest;
+
+namespace App\Services;
+
+use App\Models\PaymentRequest;
 use App\Services\Clients\BeletClient;
 use Illuminate\Support\Facades\Log;
 
 class BeletService
 {
     public function __construct(
-        protected BeletClient $client
+        protected BeletClient $client,
+        protected BankResolverService $bankResolver
+
     ) {}
+
     public function banks(): array
     {
         return $this->client->getBanks();
@@ -28,30 +33,52 @@ class BeletService
     {
         return $this->client->checkPhone($phone);
     }
+
     public function topUp(int $userId, array $payload): array
     {
-        $log = BeletRequest::create([
+        $bankId = $this->bankResolver->resolveIdByName($payload['bank_name']);
+        if (! $bankId) {
+            return [
+                'success' => false,
+                'error' => [
+                    'code' => 16,
+                    'message' => 'Invalid bank',
+                ],
+                'data' => null,
+            ];
+        }
+        $log = PaymentRequest::create([
             'user_id' => $userId,
             'type' => 'topup',
             'status' => 'sent',
+            'amount' => $payload['amount_in_manats'],
             'payment_target' => [
-                'phone' => $payload['phone'],
+                'type' => 'phone',
+                'value' => $payload['phone'],
             ],
         ]);
+        $beletPayload = [
+            'bank_id' => $bankId,
+            'amount_in_manats' => $payload['amount_in_manats'],
+            'phone' => $payload['phone'],
+        ];
 
-        $response = $this->client->topUp($payload);
+        $response = $this->client->topUp($beletPayload);
 
         $log->update([
             'status' => ($response['success'] ?? false)
                 ? 'notConfirmed'
                 : 'failed',
             'external_id' => $response['data']['order_id'] ?? null,
+            'error_code' => $response['error']['code'] ?? null,
+            'error_message' => $response['error']['message'] ?? null,
         ]);
 
-        if (!($response['success'] ?? false)) {
+        if (! ($response['success'] ?? false)) {
             Log::channel('belet')->error('TopUp failed', [
                 'request_id' => $log->id,
                 'user_id' => $userId,
+                'bank_name' => $payload['bank_name'],
                 'response' => $response,
             ]);
         } else {
@@ -61,7 +88,6 @@ class BeletService
             ]);
         }
 
-
         return $response;
     }
 
@@ -69,7 +95,7 @@ class BeletService
     {
         $externalId = $payload['orderId'] ?? $payload['pay_id'] ?? null;
 
-        if (!$externalId) {
+        if (! $externalId) {
             return [
                 'success' => false,
                 'error' => [
@@ -79,13 +105,13 @@ class BeletService
                 'data' => null,
             ];
         }
-        $topUpRequest = BeletRequest::where('user_id', $userId)
+        $topUpRequest = PaymentRequest::where('user_id', $userId)
             ->where('type', 'topup')
             ->where('external_id', $externalId)
             ->latest()
             ->first();
 
-        if (!$topUpRequest) {
+        if (! $topUpRequest) {
             return [
                 'success' => false,
                 'error' => [
@@ -96,26 +122,22 @@ class BeletService
             ];
         }
 
-        // 📝 Confirm request log oluştur
-        $confirmLog = BeletRequest::create([
-            'user_id'     => $userId,
-            'type'        => 'confirm',
+        $confirmLog = PaymentRequest::create([
+            'user_id' => $userId,
+            'type' => 'confirm',
             'external_id' => $externalId,
-            'status'      => 'confirming',
+            'status' => 'confirming',
         ]);
 
-        // 🌐 Belet API çağrısı
         $response = $this->client->confirm($payload);
 
-        // 🔄 Status güncelle
         $confirmLog->update([
             'status' => ($response['success'] ?? false)
                 ? 'confirmed'
                 : 'failed',
         ]);
 
-        // 📌 Log
-        if (!($response['success'] ?? false)) {
+        if (! ($response['success'] ?? false)) {
             Log::channel('belet')->error('Confirm failed', [
                 'request_id' => $confirmLog->id,
                 'external_id' => $externalId,
@@ -127,7 +149,7 @@ class BeletService
                 'external_id' => $externalId,
             ]);
         }
+
         return $response;
     }
-
 }

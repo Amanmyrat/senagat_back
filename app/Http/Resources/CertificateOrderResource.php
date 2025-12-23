@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use App\Traits\DateFormatTrait;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,8 +13,8 @@ class CertificateOrderResource extends JsonResource
     public function toArray(Request $request): array
     {
         $locale = app()->getLocale();
-        return [
 
+        return [
 
             'id' => $this->resource->id,
             'certificate_name' => optional($this->resource->certificateType)->title,
@@ -26,5 +25,4 @@ class CertificateOrderResource extends JsonResource
             'created_at' => $this->formatDateLocalized($this->resource->created_at),
         ];
     }
-
 }

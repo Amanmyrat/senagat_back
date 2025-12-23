@@ -20,6 +20,7 @@ class NewsController extends Controller
     {
 
         $news = News::orderBy('published_at', 'desc')->get();
+
         return new JsonResponse([
             'success' => true,
             'data' => NewsResource::collection($news),

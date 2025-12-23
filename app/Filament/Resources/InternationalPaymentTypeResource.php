@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Clusters\InternationalPayment;
 use App\Filament\Resources\InternationalPaymentTypeResource\Pages;
 use App\Models\InternationalPaymentTypes;
-use Filament\Forms;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -14,15 +13,17 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class InternationalPaymentTypeResource extends Resource
 {
     protected static ?string $model = InternationalPaymentTypes::class;
-    protected static ?string $cluster =  InternationalPayment::class;
+
+    protected static ?string $cluster = InternationalPayment::class;
+
     protected static ?int $navigationSort = 1;
+
     protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
+
     use Translatable;
 
     public static function getTranslatableLocales(): array
@@ -49,6 +50,7 @@ class InternationalPaymentTypeResource extends Resource
     {
         return $record ? (string) $record->name : __('resource.international_payment_types');
     }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -60,7 +62,7 @@ class InternationalPaymentTypeResource extends Resource
                     ->schema([
                         TextInput::make('title')->label(__('resource.name')),
 
-            ])
+                    ]),
             ]);
     }
 
@@ -83,10 +85,12 @@ class InternationalPaymentTypeResource extends Resource
                 ]),
             ]);
     }
+
     public static function canViewAny(): bool
     {
         return optional(auth()->user())->role === 'super-admin';
-         }
+    }
+
     public static function getRelations(): array
     {
         return [

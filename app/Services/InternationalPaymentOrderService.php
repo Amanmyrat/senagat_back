@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Enum\ErrorMessage;
@@ -9,8 +10,8 @@ class InternationalPaymentOrderService
     /**
      * Create International Payment Order
      *
-     * @param array $data Validated request data
-     * @param \App\Models\User $user
+     * @param  array  $data  Validated request data
+     * @param  \App\Models\User  $user
      */
     public function create(array $data, $user): InternationalPaymentOrder
     {
@@ -30,13 +31,13 @@ class InternationalPaymentOrderService
         foreach ($uploadedFiles as $file) {
             $storedFiles[] = $file->store('international_orders', 'public');
         }
+
         return InternationalPaymentOrder::create([
-            'user_id'        => $user->id,
-            'profile_id'     => $profile->id,
-            'payment_type_id'=> $data['payment_type_id'],
-            'branch_id'      => $data['branch_id'],
+            'user_id' => $user->id,
+            'profile_id' => $profile->id,
+            'payment_type_id' => $data['payment_type_id'],
+            'branch_id' => $data['branch_id'],
             'uploaded_files' => $storedFiles,
         ]);
     }
-
 }
