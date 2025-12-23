@@ -182,14 +182,14 @@ return [
     'no_profile' => 'No Profile',
     'profile_status' => 'Profile Status',
 
-    'published_at'=>'Published At',
-    'international_payment_types'=>'International Payment Types',
-    'international_payment_order'=>'International Payment Order',
-    'required_files'=>'Required Files',
-    'international_payment'=>'International Payment',
+    'published_at' => 'Published At',
+    'international_payment_types' => 'International Payment Types',
+    'international_payment_order' => 'International Payment Order',
+    'required_files' => 'Required Files',
+    'international_payment' => 'International Payment',
 
-    'order_id'=> 'Order Id',
-    'user_phone'=> 'User Phone',
-    'target_phone'=>' Target phone'
+    'order_id' => 'Order Id',
+    'user_phone' => 'User Phone',
+    'target_phone' => ' Target phone',
 
 ];

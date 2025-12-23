@@ -5,27 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class BeletRequest extends Model
+class PaymentRequest extends Model
 {
     protected $fillable = [
         'user_id',
         'type',
         'external_id',
         'status',
-        'response_code',
-        'response_body',
-        'payment_target'
+        'payment_target',
+        'meta',
+        'amount',
+
     ];
+
     protected $casts = [
         'payment_target' => 'array',
+        'meta' => 'array',
     ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    public function getPaymentValueAttribute(): ?string
-    {
-        return $this->payment_target['phone'] ?? null;
-    }
 
+    public function getTargetPhoneAttribute(): ?string
+    {
+        return $this->payment_target['value'] ?? null;
+    }
 }

@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListInternationalPaymentTypes extends ListRecords
 {
     use ListRecords\Concerns\Translatable;
+
     protected static string $resource = InternationalPaymentTypeResource::class;
 
     protected function getHeaderActions(): array

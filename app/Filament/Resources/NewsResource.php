@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\NewsResource\Pages;
 use App\Models\News;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
@@ -57,33 +56,30 @@ class NewsResource extends Resource
             ->schema([
 
                 Grid::make(2)
-                ->schema([
-                    Grid::make(1)
-                        ->schema([
-                            TextInput::make('title')
-                                ->translateLabel()
-                                ->label(__('resource.title'))
-                                ->required(),
-                            DatePicker::make('published_at')
-                                ->label(__('resource.published_at'))
-                                ->native(false)
-                                ->displayFormat('d.m.Y')
-                                ->format('Y-m-d')
+                    ->schema([
+                        Grid::make(1)
+                            ->schema([
+                                TextInput::make('title')
+                                    ->translateLabel()
+                                    ->label(__('resource.title'))
+                                    ->required(),
+                                DatePicker::make('published_at')
+                                    ->label(__('resource.published_at'))
+                                    ->native(false)
+                                    ->displayFormat('d.m.Y')
+                                    ->format('Y-m-d')
 
-                                ->nullable(),
+                                    ->nullable(),
 
-                        ])
-                        ->columnSpan(1),
+                            ])
+                            ->columnSpan(1),
 
+                        RichEditor::make('description')
+                            ->label(__('resource.description'))
+                            ->columnSpan(1),
+                    ]),
 
-                    RichEditor::make('description')
-                        ->label(__('resource.description'))
-                        ->columnSpan(1),
-                ]),
-
-
-
-        ]);
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -107,7 +103,7 @@ class NewsResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ])
+                ]),
             ])->defaultSort('published_at', 'desc');
     }
 

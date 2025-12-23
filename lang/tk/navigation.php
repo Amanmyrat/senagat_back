@@ -25,5 +25,5 @@ return [
     'belet_requests' => 'Belet talaplary',
     'payment' => 'Töleg',
     'belet_payment' => 'Belet tölegi',
-
+    'charity' => 'Haýyr-sahawat',
 ];

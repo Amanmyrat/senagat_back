@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Collection;
-
 trait HasAdvantagesTrait
 {
     protected function resolveAdvantages($model, string $locale, string $defaultLocale = 'tk'): array
@@ -16,8 +14,7 @@ trait HasAdvantagesTrait
         ])->values();
 
         $shortestIndex = $defaultAdvantages
-            ->sortBy(fn ($item) =>
-                strlen($item['name'] ?? '') + strlen($item['description'] ?? '')
+            ->sortBy(fn ($item) => strlen($item['name'] ?? '') + strlen($item['description'] ?? '')
             )
             ->keys()
             ->first();
@@ -34,7 +31,7 @@ trait HasAdvantagesTrait
         return [
             'advantages' => $advantages,
             'sub_title' => trim(
-                ($shortest['name'] ?? '') . ' ' . ($shortest['description'] ?? '')
+                ($shortest['name'] ?? '').' '.($shortest['description'] ?? '')
             ),
         ];
     }

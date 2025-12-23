@@ -96,8 +96,8 @@ enum ErrorMessage: string
     case TARIFF_TYPE_NOT_FOUND = 'tariff_type_not_found.';
     case AWARD_TYPE_NOT_FOUND = 'award_type_not_found.';
     case THIS_LOAN_CANNOT_BE_APPLIED_ONLINE = 'this_loan_cannot_be_applied_online';
-    case INVALID_OR_EXPIRED_OTP ='invalid_or_expired_otp';
-    case INVALID_SECRET_WORD_TYPE='secret_word_must_be_a_valid_string';
+    case INVALID_OR_EXPIRED_OTP = 'invalid_or_expired_otp';
+    case INVALID_SECRET_WORD_TYPE = 'secret_word_must_be_a_valid_string';
     case PAYMENT_TYPE_REQUIRED = 'payment_type_is_required';
     case PAYMENT_TYPE_INTEGER = 'payment_type_must_be_a_valid_id';
     case PAYMENT_TYPE_NOT_EXIST = 'selected_payment_type_does_not_exist';
@@ -114,7 +114,7 @@ enum ErrorMessage: string
     case UPLOADED_FILE_MAX = 'each_file_cannot_exceed_10mb_in_size';
     case UPLOADED_FILES_COUNT = 'exactly_{count}_files_must_be_uploaded';
 
-    case BANK_ID_REQUIRED = 'bank_id_is_required.';
+    case BANK_NAME_REQUIRED = 'bank_name_required.';
     case BANK_ID_INVALID = 'bank_id_must_be_a_valid_integer.';
     case AMOUNT_INVALID = 'amount_must_be_a_numeric_value.';
     case RETURN_URL_REQUIRED = 'return_URL_is_required.';

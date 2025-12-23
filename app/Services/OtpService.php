@@ -40,6 +40,7 @@ class OtpService
             throw new Exception(ErrorMessage::OTP_TIMEOUT_ERROR->value);
         }
     }
+
     public function resetPassword(array $data): void
     {
         $phone = $data['phone'];
@@ -53,7 +54,7 @@ class OtpService
             ->where('expires_at', '>', now())
             ->first();
 
-        if (!$session) {
+        if (! $session) {
             throw new \Exception(ErrorMessage::INVALID_OR_EXPIRED_OTP->value);
         }
 

@@ -121,8 +121,8 @@ class CardOrderResource extends Resource
                                 ->label(__('resource.email'))
                                 ->disabled(),
                             TextInput::make('secret_word')
-            ->label(__('resource.secret_word'))
-            ->disabled(),
+                                ->label(__('resource.secret_word'))
+                                ->disabled(),
                             Checkbox::make('internet_service')
                                 ->label(__('resource.internet_service'))
                                 ->disabled(),

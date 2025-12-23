@@ -9,6 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class ClientResource extends JsonResource
 {
     use ImageUrlTrait;
+
     /**
      * Transform the resource into an array.
      *

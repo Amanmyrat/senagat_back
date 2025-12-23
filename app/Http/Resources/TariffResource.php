@@ -14,7 +14,8 @@ class TariffResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    use SortsByNumberTrait, MapsTariffDetailsTrait;
+    use MapsTariffDetailsTrait, SortsByNumberTrait;
+
     public function toArray(Request $request): array
     {
         $items = $this->resource->details
@@ -26,5 +27,4 @@ class TariffResource extends JsonResource
             'items' => $this->sortByDottedNumber($items),
         ];
     }
-
 }

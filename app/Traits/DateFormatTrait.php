@@ -8,7 +8,7 @@ trait DateFormatTrait
 {
     protected function formatDateLocalized($date): ?string
     {
-        if (!$date) {
+        if (! $date) {
             return null;
         }
 
