@@ -44,11 +44,10 @@ class AuthService
             }
         }
         if ($purpose === 'reset_password') {
-            if (!User::where('phone', $phone)->exists()) {
+            if (! User::where('phone', $phone)->exists()) {
                 throw new \Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
             }
         }
-
 
         $this->otpService->sendOtp($data);
     }
@@ -174,7 +173,7 @@ class AuthService
             ->where('expires_at', '>', now())
             ->first();
 
-        if (!$session) {
+        if (! $session) {
             throw new \Exception(ErrorMessage::INVALID_OR_EXPIRED_OTP->value);
         }
 
@@ -182,9 +181,7 @@ class AuthService
             'password' => Hash::make($newPassword),
         ]);
 
-
         $session->delete();
         OtpCode::where('phone', $phone)->delete();
     }
-
 }

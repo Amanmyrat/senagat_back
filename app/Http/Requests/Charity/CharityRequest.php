@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Belet;
+namespace App\Http\Requests\Charity;
 
 use App\Enum\ErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BeletBalanceTopUpRequest extends FormRequest
+class CharityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -39,17 +39,7 @@ class BeletBalanceTopUpRequest extends FormRequest
              *
              * @example 35
              */
-            'amount_in_manats' => ['required', 'numeric', 'min:1'],
-
-            /**
-             * Phone number.
-             *
-             * @var string
-             *
-             * @example 99365021734
-             */
-            'phone' => ['required', 'string', 'regex:/^[0-9]{11}$/'],
-
+            'amount' => ['required', 'numeric', 'min:1'],
         ];
     }
 
@@ -57,14 +47,9 @@ class BeletBalanceTopUpRequest extends FormRequest
     {
         return [
             'bank_name.required' => ErrorMessage::BANK_NAME_REQUIRED->value,
-            // 'bank_id.integer' => ErrorMessage::BANK_ID_INVALID->value,
-            'amount_in_manats.required' => ErrorMessage::AMOUNT_REQUIRED->value,
-            'amount_in_manats.numeric' => ErrorMessage::AMOUNT_INVALID->value,
-            'amount_in_manats.min' => ErrorMessage::AMOUNT_MIN->value,
-            'phone.required' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
-            'phone.regex' => ErrorMessage::PHONE_NUMBER_INVALID->value,
-            'returnUrl.required' => ErrorMessage::RETURN_URL_REQUIRED->value,
-            'returnUrl.url' => ErrorMessage::RETURN_URL_INVALID->value,
+            'amount.required' => ErrorMessage::AMOUNT_REQUIRED->value,
+            'amount.numeric' => ErrorMessage::AMOUNT_INVALID->value,
+            'amount.min' => ErrorMessage::AMOUNT_MIN->value,
         ];
     }
 }

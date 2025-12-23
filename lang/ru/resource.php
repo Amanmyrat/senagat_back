@@ -181,14 +181,14 @@ return [
     'no_profile' => 'Нет профиля',
     'profile_status' => 'Статус профиля',
 
-    'published_at'=>'Дата публикации',
-    'international_payment_types'=>'Международные способы оплаты',
+    'published_at' => 'Дата публикации',
+    'international_payment_types' => 'Международные способы оплаты',
     'international_payment_order' => 'Международный платежный заказ',
-    'required_files'=> 'Необходимые файлы',
+    'required_files' => 'Необходимые файлы',
     'international_payment' => 'Международный платеж',
 
     'order_id' => 'ID заказа',
-    'user_phone'   => 'Телефон пользователя',
+    'user_phone' => 'Телефон пользователя',
     'target_phone' => 'Телефон получателя',
 
 ];

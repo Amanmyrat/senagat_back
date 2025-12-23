@@ -9,6 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class AwardResource extends JsonResource
 {
     use ImageUrlTrait;
+
     /**
      * Transform the resource into an array.
      *

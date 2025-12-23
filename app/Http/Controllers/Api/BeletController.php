@@ -7,7 +7,6 @@ use App\Http\Requests\Belet\BalanceConfirmRequest;
 use App\Http\Requests\Belet\BeletBalanceTopUpRequest;
 use App\Http\Requests\Belet\CheckPhoneRequest;
 use App\Services\BeletService;
-use App\Services\Clients\BeletClient;
 use Illuminate\Http\JsonResponse;
 
 class BeletController extends Controller
@@ -15,19 +14,19 @@ class BeletController extends Controller
     public function __construct(
         protected BeletService $beletService
     ) {}
+
     /**
      * Bank List
-     *
-      */
+     */
     public function banks(): JsonResponse
     {
         return new JsonResponse(
             $this->beletService->banks()
         );
     }
+
     /**
      * Balance Recommendations
-     *
      */
     public function getBalanceRecommendations(): JsonResponse
     {
@@ -35,9 +34,9 @@ class BeletController extends Controller
             $this->beletService->getBalanceRecommendations()
         );
     }
+
     /**
      * Check Status
-     *
      */
     public function checkStatus(int|string $id): JsonResponse
     {
@@ -45,9 +44,9 @@ class BeletController extends Controller
             $this->beletService->checkStatus($id)
         );
     }
+
     /**
      * Check Phone
-     *
      */
     public function checkPhone(CheckPhoneRequest $request): JsonResponse
     {
@@ -57,9 +56,9 @@ class BeletController extends Controller
             )
         );
     }
+
     /**
      * Belet Balance TopUp
-     *
      */
     public function topUp(BeletBalanceTopUpRequest $request): JsonResponse
     {
@@ -70,9 +69,9 @@ class BeletController extends Controller
             )
         );
     }
+
     /**
      * Balance Confirm
-     *
      */
     public function confirm(BalanceConfirmRequest $request): JsonResponse
     {
@@ -83,5 +82,4 @@ class BeletController extends Controller
             )
         );
     }
-
 }

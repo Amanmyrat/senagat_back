@@ -25,5 +25,6 @@ return [
     'belet_requests' => 'Запросы на Belet',
     'payment' => 'Платеж',
     'belet_payment' => 'Платеж Belet',
+    'charity' => 'Благотворительность',
 
 ];

@@ -18,8 +18,6 @@ class LoanOrderResource extends JsonResource
     public function toArray(Request $request): array
     {
 
-
-
         $locale = app()->getLocale();
         $data = [
             'id' => $this->resource->id,

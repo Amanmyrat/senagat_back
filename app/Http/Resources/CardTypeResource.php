@@ -9,7 +9,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CardTypeResource extends JsonResource
 {
-    use ImageUrlTrait,HasAdvantagesTrait;
+    use HasAdvantagesTrait,ImageUrlTrait;
+
     /**
      * Transform the resource into an array.
      *
@@ -28,7 +29,7 @@ class CardTypeResource extends JsonResource
             'description' => $this->resource->getTranslation('text', $locale),
             'price' => $this->resource->price,
             'category' => $this->resource->category,
-            'advantages' =>  $advantageData['advantages'],
+            'advantages' => $advantageData['advantages'],
             'image_url' => $this->imageUrl($this->resource->image_url),
         ];
     }

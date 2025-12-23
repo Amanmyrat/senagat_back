@@ -15,6 +15,7 @@ class MoneyTransferDetailsResource extends JsonResource
      * @return array<string, mixed>
      */
     use HasMoneyTransferMappingsTrait, ImageUrlTrait;
+
     public function toArray(Request $request): array
     {
         $locale = app()->getLocale();

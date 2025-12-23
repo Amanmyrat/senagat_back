@@ -25,11 +25,11 @@ return new class extends Migration
         foreach ($tables as $tableName) {
             Schema::table($tableName, function (Blueprint $table) use ($tableName) {
 
-                if (!Schema::hasColumn($tableName, 'sort')) {
+                if (! Schema::hasColumn($tableName, 'sort')) {
                     $table->integer('sort')->nullable();
                 }
-                 if ($tableName === 'tariff_categories') {
-                    if (!Schema::hasColumn('tariff_categories', 'numbers')) {
+                if ($tableName === 'tariff_categories') {
+                    if (! Schema::hasColumn('tariff_categories', 'numbers')) {
                         $table->string('numbers')->nullable();
                     }
                 }

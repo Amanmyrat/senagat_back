@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Enum\ErrorMessage;
 use App\Enum\SuccessMessage;
-use App\Http\Requests\CheckPhoneExistenceRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\PreLoginRequest;
 use App\Http\Requests\RegisterRequest;
@@ -182,7 +181,6 @@ class AuthController
         }
     }
 
-
     /**
      * Reset password with OTP token
      *
@@ -212,5 +210,4 @@ class AuthController
             ], 400);
         }
     }
-
 }

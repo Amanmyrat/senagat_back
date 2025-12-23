@@ -185,13 +185,12 @@ return [
     'profile_status' => 'Profil statusy',
     'rejected' => 'Ret edildi',
 
-
-    'published_at'=>'Neşir edilen sagat',
-    'international_payment_types'=>'Halkara töleg görnüşleri',
+    'published_at' => 'Neşir edilen sagat',
+    'international_payment_types' => 'Halkara töleg görnüşleri',
     'international_payment_order' => 'Halkara Töleg Buýrugy',
     'required_files' => 'Talap edilýän resminamalar',
     'international_payment' => 'Halkara Töleg',
     'order_id' => 'Sargyt ID-si',
-    'user_phone'   => 'Ulanyjynyň telefon belgisi',
+    'user_phone' => 'Ulanyjynyň telefon belgisi',
     'target_phone' => 'Alyjynyň telefon belgisi',
 ];
