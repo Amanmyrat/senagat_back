@@ -13,7 +13,7 @@ class BeletClient
 
     public function __construct()
     {
-        $this->baseUrl = config('services.belet_api.url');
+        $this->baseUrl = config('services.payment_api.url');
 
     }
 
@@ -37,27 +37,48 @@ class BeletClient
 
     public function getBanks(): array
     {
+        $cacheKey = 'belet:banks';
+        if (Cache::has($cacheKey)) {
+            $cached = Cache::get($cacheKey);
 
-        return Cache::remember('belet:banks', now()->addDay(), function () {
-            try {
-                $ip = request()->ip();
-
-                Log::channel('belet')->info('Belet getBanks called (API)', [
-                    'ip' => $ip,
-                ]);
-
-                return $this->client()
-                    ->get($this->baseUrl.'/api/v1/belet/banks')
-                    ->json();
-
-            } catch (ConnectionException $e) {
-                Log::channel('belet')->error('Belet getBanks connection error', [
-                    'message' => $e->getMessage(),
-                ]);
-
-                return $this->noConnection();
+            if (
+                is_array($cached) &&
+                ($cached['success'] ?? true) === true
+            ) {
+                return $cached;
             }
-        });
+            Cache::forget($cacheKey);
+        }
+
+        try {
+            $ip = request()->ip();
+            Log::channel('belet')->info('Belet getBanks called (API)', [
+                'ip' => $ip,
+            ]);
+            $response = $this->client()
+                ->timeout(30)
+                ->get($this->baseUrl.'/api/v1/belet/banks');
+            if ($response->successful()) {
+                $data = $response->json();
+                Cache::put($cacheKey, $data, now()->addDay());
+                return $data;
+            }
+
+            return [
+                'success' => false,
+                'error' => [
+                    'code' => $response->status(),
+                    'message' => $response->body(),
+                ],
+                'data' => null,
+            ];
+
+        } catch (ConnectionException $e) {
+            Log::channel('belet')->error('Belet getBanks connection error', [
+                'message' => $e->getMessage(),
+            ]);
+            return $this->noConnection();
+        }
     }
 
     public function topUp(array $payload): array

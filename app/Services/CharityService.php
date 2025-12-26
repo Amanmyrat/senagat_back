@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\PaymentRequest;
 use App\Models\User;
 use App\Services\Clients\CharityClient;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Log;
 
 class CharityService
 {
@@ -15,18 +17,7 @@ class CharityService
 
     public function create(User $user, array $data): array
     {
-        $bankId = $this->bankResolver->resolveIdByName($data['bank_name']);
 
-        if (! $bankId) {
-            return [
-                'success' => false,
-                'error' => [
-                    'code' => 16,
-                    'message' => 'Invalid bank',
-                ],
-                'data' => null,
-            ];
-        }
         $payment = PaymentRequest::create([
             'user_id' => $user->id,
             'type' => 'charity',
@@ -39,7 +30,7 @@ class CharityService
         ]);
         $profile = $user->profile;
         $payload = [
-            'bank_id' => $bankId,
+            'bank_name' =>$data['bank_name'],
             'amount' => $data['amount'],
             'name' => $profile->first_name,
             'surname' => $profile->last_name,
@@ -60,4 +51,13 @@ class CharityService
         return $response;
 
     }
+
+
+    public function checkStatus(string $orderId): array
+    {
+        return $this->client->checkStatus([
+            'orderId' => $orderId,
+        ]);
+    }
+
 }

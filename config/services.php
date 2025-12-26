@@ -35,8 +35,8 @@ return [
         ],
     ],
 
-    'belet_api' => [
-        'url' => env('BELET_API_URL'),
+    'payment_api' => [
+        'url' => env('Payment_API_URL'),
     ],
 
 ];

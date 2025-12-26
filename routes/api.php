@@ -68,6 +68,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     // Charity CRUD
     Route::post('/charity', [CharityController::class, 'store']);
+    Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
+
 });
 Route::prefix('location')->group(function () {
     Route::get('/', [LocationController::class, 'index']);
@@ -110,3 +112,6 @@ Route::prefix('money-transfers')->group(function () {
 });
 
 Route::get('audit-reports', [AuditReportController::class, 'index']);
+
+
+Route::get('/charity/return', [CharityController::class, 'return']);

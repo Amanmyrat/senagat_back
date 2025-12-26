@@ -73,7 +73,9 @@ class CharityResource extends Resource
             ->columns([
                 TextColumn::make('user.profile.first_name')->label(__('resource.first_name')),
                 TextColumn::make('user.profile.last_name')->label(__('resource.last_name')),
-                TextColumn::make('amount')->label(__('resource.amount')),
+                TextColumn::make('amount')
+                    ->suffix(' TMT')
+                    ->label(__('resource.amount')),
                 TextColumn::make('payment_target.value')
                     ->label(__('resource.target_phone'))
                     ->searchable(),
