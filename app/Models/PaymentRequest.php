@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -21,6 +22,7 @@ class PaymentRequest extends Model
     protected $casts = [
         'payment_target' => 'array',
         'meta' => 'array',
+        'amount'=> MoneyCast::class,
     ];
 
     public function user(): BelongsTo
