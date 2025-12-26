@@ -72,7 +72,9 @@ class BeletRequestResource extends Resource
                         'danger' => 'confirm',
                     ])
                     ->badge(),
-
+                TextColumn::make('amount')
+                    ->suffix(' TMT')
+                    ->label(__('resource.amount')),
                 TextColumn::make('external_id')
                     ->label(__('resource.order_id'))
 

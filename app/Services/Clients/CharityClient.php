@@ -11,7 +11,7 @@ class CharityClient
 
     public function __construct()
     {
-        $this->baseUrl = config('services.belet_api.url');
+        $this->baseUrl = config('services.payment_api.url');
 
     }
 
@@ -48,5 +48,26 @@ class CharityClient
                 'data' => null,
             ];
         }
+    }
+    public function checkStatus(array $payload): array
+    {
+        try {
+            return $this->client()
+                ->post($this->baseUrl.'/api/v1/check-status', $payload)
+                ->json();
+        } catch (ConnectionException $e) {
+            return $this->noConnection();
+        }
+    }
+    protected function noConnection(): array
+    {
+        return [
+            'success' => false,
+            'error' => [
+                'code' => 500,
+                'message' => 'Charity service unavailable',
+            ],
+            'data' => null,
+        ];
     }
 }
