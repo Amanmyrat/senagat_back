@@ -19,7 +19,7 @@ return [
     'exchange_rate' => 'Walýuta Kurslary',
     'card' => 'Kart',
     'loan' => 'Karz',
-    'certificate' => 'Şahadetnama',
+    'certificate' => 'Şahadatnama',
     'content_management' => 'Mazmuny dolandyrmak',
     'tariffs' => 'Taryflar',
     'belet_requests' => 'Belet talaplary',
