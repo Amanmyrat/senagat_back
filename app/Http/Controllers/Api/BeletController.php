@@ -8,6 +8,7 @@ use App\Http\Requests\Belet\BeletBalanceTopUpRequest;
 use App\Http\Requests\Belet\CheckPhoneRequest;
 use App\Services\BeletService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class BeletController extends Controller
 {
@@ -75,6 +76,25 @@ class BeletController extends Controller
      */
     public function confirm(BalanceConfirmRequest $request): JsonResponse
     {
+        return new JsonResponse(
+            $this->beletService->confirm(
+                auth()->id(),
+                $request->validated()
+            )
+        );
+    }
+    /**
+     * Belet returnUrl
+     *
+     * @unauthenticated
+     */
+    public function return(Request $request): JsonResponse
+    {
+        $request->validate([
+            'orderId' => ['required', 'string'],
+        ]);
+
+
         return new JsonResponse(
             $this->beletService->confirm(
                 auth()->id(),
