@@ -88,18 +88,17 @@ class BeletController extends Controller
      *
      * @unauthenticated
      */
+
     public function return(Request $request): JsonResponse
     {
         $request->validate([
             'orderId' => ['required', 'string'],
         ]);
 
+        $orderId = $request->query('orderId');
 
-        return new JsonResponse(
-            $this->beletService->confirm(
-                auth()->id(),
-                $request->validated()
-            )
+        return response()->json(
+            $this->beletService->confirmByOrderId($orderId)
         );
     }
 }

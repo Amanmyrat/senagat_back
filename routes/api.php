@@ -115,3 +115,4 @@ Route::get('audit-reports', [AuditReportController::class, 'index']);
 
 
 Route::get('/charity/return', [CharityController::class, 'return']);
+Route::get('/belet/return', [BeletController::class, 'return']);
