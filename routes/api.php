@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\InternationalPaymentTypesController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\MoneyTransferController;
 use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\PaymentHistoryController;
 use App\Http\Controllers\Api\TariffController;
 use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +70,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // Charity CRUD
     Route::post('/charity', [CharityController::class, 'store']);
     Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
+    //Payment History
+    Route::get('/payment-history', [PaymentHistoryController::class, 'index']);
 
 });
 Route::prefix('location')->group(function () {
