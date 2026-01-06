@@ -40,7 +40,8 @@ class CharityService
         if (($response['success'] ?? false) === true) {
             $payment->update([
                 'status' => 'pending',
-                'external_id' => $response['data']['payment_id'] ?? null,
+                'external_id' => $response['data']['orderId'] ?? null,
+
             ]);
         } else {
             $payment->update([
@@ -55,9 +56,54 @@ class CharityService
 
     public function checkStatus(string $orderId): array
     {
-        return $this->client->checkStatus([
+        $payment = PaymentRequest::where('external_id', $orderId)->first();
+        if (!$payment) {
+            return [
+                'success' => false,
+                'error' => [
+                    'code' => 404,
+                    'message' => 'Payment request not found',
+                ],
+                'data' => null,
+            ];
+        }
+        $response = $this->client->checkStatus([
             'orderId' => $orderId,
         ]);
+
+        if (($response['success'] ?? false) !== true) {
+            return $response;
+        }
+
+        $orderStatus = $response['data']['orderStatus'] ?? null;
+        $errorMessage = $response['data']['errorMessage'] ?? null;
+
+        $mappedStatus = match ($orderStatus) {
+            2 => 'confirmed',
+            1 => 'pending',
+            0 => 'failed',
+            default => 'pending',
+        };
+
+        $payment->update([
+            'status' => $mappedStatus,
+            'error_message' => $errorMessage,
+        ]);
+
+        Log::info('Charity payment status updated', [
+            'payment_id' => $payment->id,
+            'external_id' => $orderId,
+            'status' => $mappedStatus,
+        ]);
+
+        return [
+            'success' => true,
+            'data' => [
+                'status' => $mappedStatus,
+                'orderStatus' => $orderStatus,
+                'message' => $errorMessage,
+            ],
+        ];
     }
 
 }
