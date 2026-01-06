@@ -70,7 +70,8 @@ class CardTypesResource extends Resource
                     ->label(__('resource.category'))
                     ->options([
                         'individual' => __('resource.individual'),
-                        'entrepreneur' => __('resource.entrepreneur'),
+                        'legal_entity' => __('resource.for_legal_entities'),
+                        // 'entrepreneur' => __('resource.entrepreneur'),
                     ]),
                 FileUpload::make('image_url')->image()
                     ->label(__('resource.image_url')),

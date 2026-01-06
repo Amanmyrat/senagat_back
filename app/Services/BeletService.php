@@ -47,9 +47,9 @@ class BeletService
                 'data' => null,
             ];
         }
-        $log = PaymentRequest::create([
+        $payment = PaymentRequest::create([
             'user_id' => $userId,
-            'type' => 'topup',
+            'type' => 'belet',
             'status' => 'sent',
             'amount' => $payload['amount_in_manats'],
             'payment_target' => [
@@ -65,7 +65,7 @@ class BeletService
 
         $response = $this->client->topUp($beletPayload);
 
-        $log->update([
+        $payment->update([
             'status' => ($response['success'] ?? false)
                 ? 'notConfirmed'
                 : 'failed',
@@ -76,14 +76,14 @@ class BeletService
 
         if (! ($response['success'] ?? false)) {
             Log::channel('belet')->error('TopUp failed', [
-                'request_id' => $log->id,
+                'request_id' => $payment->id,
                 'user_id' => $userId,
                 'bank_name' => $payload['bank_name'],
                 'response' => $response,
             ]);
         } else {
             Log::channel('belet')->info('TopUp success', [
-                'request_id' => $log->id,
+                'request_id' => $payment->id,
                 'external_id' => $response['data']['order_id'] ?? null,
             ]);
         }
@@ -106,7 +106,7 @@ class BeletService
             ];
         }
         $topUpRequest = PaymentRequest::where('user_id', $userId)
-            ->where('type', 'topup')
+            ->where('type', 'belet')
             ->where('external_id', $externalId)
             ->latest()
             ->first();
@@ -116,36 +116,41 @@ class BeletService
                 'success' => false,
                 'error' => [
                     'code' => 404,
-                    'message' => 'TopUp request not found',
+                    'message' => 'Payment  request not found',
                 ],
                 'data' => null,
             ];
         }
-
-        $confirmLog = PaymentRequest::create([
-            'user_id' => $userId,
-            'type' => 'confirm',
-            'external_id' => $externalId,
+        if ($topUpRequest->status === 'confirmed') {
+            return [
+                'success' => true,
+                'data' => [
+                    'status' => 'confirmed',
+                    'message' => 'Already confirmed',
+                ],
+            ];
+        }
+        $topUpRequest->update([
             'status' => 'confirming',
         ]);
 
         $response = $this->client->confirm($payload);
 
-        $confirmLog->update([
-            'status' => ($response['success'] ?? false)
-                ? 'confirmed'
-                : 'failed',
+        $topUpRequest->update([
+            'status' => ($response['success'] ?? false) ? 'confirmed' : 'failed',
+            'error_code' => $response['error']['code'] ?? null,
+            'error_message' => $response['error']['message'] ?? null,
         ]);
 
         if (! ($response['success'] ?? false)) {
             Log::channel('belet')->error('Confirm failed', [
-                'request_id' => $confirmLog->id,
+                'request_id' => $topUpRequest->id,
                 'external_id' => $externalId,
                 'response' => $response,
             ]);
         } else {
             Log::channel('belet')->info('Confirm success', [
-                'request_id' => $confirmLog->id,
+                'request_id' => $topUpRequest->id,
                 'external_id' => $externalId,
             ]);
         }
@@ -154,7 +159,7 @@ class BeletService
     }
     public function confirmByOrderId(string $orderId): array
     {
-        $topUpRequest = PaymentRequest::where('type', 'topup')
+        $topUpRequest = PaymentRequest::where('type', 'belet')
             ->where('external_id', $orderId)
             ->latest()
             ->first();
@@ -178,36 +183,26 @@ class BeletService
                 ],
             ];
         }
-
-        $confirmLog = PaymentRequest::create([
-            'user_id' => $topUpRequest->user_id,
-            'type' => 'confirm',
-            'external_id' => $orderId,
+        $topUpRequest->update([
             'status' => 'confirming',
         ]);
+
 
         $response = $this->client->confirm([
             'orderId' => $orderId,
         ]);
 
-        $confirmLog->update([
-            'status' => ($response['success'] ?? false)
-                ? 'confirmed'
-                : 'failed',
+        $topUpRequest->update([
+            'status' => ($response['success'] ?? false) ? 'confirmed' : 'failed',
+            'error_code' => $response['data']['code'] ?? null,
+            'error_message' => $response['data']['message'] ?? null,
         ]);
 
-        if (! ($response['success'] ?? false)) {
-            Log::channel('belet')->error('Confirm failed', [
-                'request_id' => $confirmLog->id,
-                'order_id' => $orderId,
-                'response' => $response,
-            ]);
-        } else {
-            Log::channel('belet')->info('Confirm success', [
-                'request_id' => $confirmLog->id,
-                'order_id' => $orderId,
-            ]);
-        }
+        Log::channel('belet')->info('Belet confirmByOrderId', [
+            'payment_id' => $topUpRequest->id,
+            'external_id' => $orderId,
+            'status' => $topUpRequest->status,
+        ]);
 
         return $response;
     }
