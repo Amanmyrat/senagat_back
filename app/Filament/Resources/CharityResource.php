@@ -71,8 +71,8 @@ class CharityResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user.profile.first_name')->label(__('resource.first_name')),
-                TextColumn::make('user.profile.last_name')->label(__('resource.last_name')),
+                TextColumn::make('meta.name')->label(__('resource.first_name')),
+                TextColumn::make('meta.surname')->label(__('resource.last_name')),
                 TextColumn::make('amount')
                     ->suffix(' TMT')
                     ->label(__('resource.amount')),
