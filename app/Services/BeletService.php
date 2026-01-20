@@ -34,7 +34,7 @@ class BeletService
         return $this->client->checkPhone($phone);
     }
 
-    public function topUp(int $userId, array $payload): array
+    public function topUp(?int $userId, array $payload): array
     {
         $bankId = $this->bankResolver->resolveIdByName($payload['bank_name']);
         if (! $bankId) {
@@ -91,7 +91,7 @@ class BeletService
         return $response;
     }
 
-    public function confirm(int $userId, array $payload): array
+    public function confirm(?int $userId, array $payload): array
     {
         $externalId = $payload['orderId'] ?? $payload['pay_id'] ?? null;
 
@@ -105,12 +105,15 @@ class BeletService
                 'data' => null,
             ];
         }
-        $topUpRequest = PaymentRequest::where('user_id', $userId)
-            ->where('type', 'belet')
-            ->where('external_id', $externalId)
-            ->latest()
-            ->first();
 
+        $query = PaymentRequest::where('type', 'belet')
+            ->where('external_id', $externalId);
+
+        if ($userId) {
+            $query->where('user_id', $userId);
+        }
+
+        $topUpRequest = $query->latest()->first();
         if (! $topUpRequest) {
             return [
                 'success' => false,
@@ -157,6 +160,7 @@ class BeletService
 
         return $response;
     }
+
     public function confirmByOrderId(string $orderId): array
     {
         $topUpRequest = PaymentRequest::where('type', 'belet')

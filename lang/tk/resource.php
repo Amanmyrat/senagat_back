@@ -192,4 +192,6 @@ return [
     'order_id' => 'Sargyt ID-si',
     'user_phone' => 'Ulanyjynyň telefon belgisi',
     'target_phone' => 'Alyjynyň telefon belgisi',
+    'guest'=>'Myhman'
+
 ];
