@@ -33,23 +33,51 @@ class CharityRequest extends FormRequest
             'bank_name' => ['required', 'string'],
 
             /**
+             * Name.
+             *
+             * @var string
+             *
+             * @example Aman
+             */
+            'name' => ['required', 'string', 'max:100'],
+            /**
+             * Surname.
+             *
+             * @var string
+             *
+             * @example Amanow
+             */
+            'surname' => ['required', 'string', 'max:100'],
+            /**
+             * Phone number.
+             *
+             * @var string
+             *
+             * @example 65021730
+             */
+            'phone' => ['required', 'string', 'regex:/^[0-9]{8}$/'],
+            /**
              * Amount in manats.
              *
              * @var int
              *
-             * @example 35
+             * @example 1
              */
             'amount' => ['required', 'numeric', 'min:1'],
+
         ];
     }
-
     public function messages(): array
     {
         return [
+
             'bank_name.required' => ErrorMessage::BANK_NAME_REQUIRED->value,
             'amount.required' => ErrorMessage::AMOUNT_REQUIRED->value,
             'amount.numeric' => ErrorMessage::AMOUNT_INVALID->value,
             'amount.min' => ErrorMessage::AMOUNT_MIN->value,
+            'phone.required' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
+            'phone.regex' => ErrorMessage::PHONE_NUMBER_INVALID->value,
+
         ];
     }
 }

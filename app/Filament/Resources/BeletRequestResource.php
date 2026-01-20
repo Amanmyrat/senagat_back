@@ -59,9 +59,6 @@ class BeletRequestResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user.phone')
-                    ->sortable()
-                    ->label(__('resource.user_phone')),
                 TextColumn::make('payment_target.value')
                     ->label(__('resource.target_phone'))
                     ->searchable(),

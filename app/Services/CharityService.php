@@ -15,26 +15,30 @@ class CharityService
         protected CharityClient $client
     ) {}
 
-    public function create(User $user, array $data): array
+    public function create(?User $user, array $data): array
     {
 
         $payment = PaymentRequest::create([
-            'user_id' => $user->id,
+            'user_id' => $user?->id,
             'type' => 'charity',
             'status' => 'sent',
             'amount' => $data['amount'],
             'payment_target' => [
                 'type' => 'phone',
-                'value' => $user->phone,
+                'value' => $data['phone'],
+            ],
+            'meta' => [
+                'name' => $data['name'],
+                'surname' => $data['surname'],
             ],
         ]);
-        $profile = $user->profile;
+
         $payload = [
             'bank_name' =>$data['bank_name'],
             'amount' => $data['amount'],
-            'name' => $profile->first_name,
-            'surname' => $profile->last_name,
-            'phone' => '993'.$user->phone,
+            'name' => $data['name'],
+            'surname' => $data['surname'],
+            'phone' => '993'.$data['phone'],
         ];
         $response = $this->client->create($payload);
         if (($response['success'] ?? false) === true) {
