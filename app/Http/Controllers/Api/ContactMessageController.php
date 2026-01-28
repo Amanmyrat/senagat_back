@@ -13,7 +13,8 @@ class ContactMessageController extends Controller
 {
     /**
      *  Contact Messages
-     *
+     * @unauthenticated
+
      * @localizationHeader
      */
     public function store(ContactMessageRequest $request)
