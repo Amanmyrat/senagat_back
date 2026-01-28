@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\MoneyTransferController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PaymentHistoryController;
+use App\Http\Controllers\Api\PaymentStatusController;
 use App\Http\Controllers\Api\TariffController;
 use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -133,3 +134,5 @@ Route::middleware('optional:sanctum')->group(function () {
 Route::prefix('contact-message')->group(function () {
     Route::post('/', [ContactMessageController::class, 'store']);
 });
+//Payment CheckStatus CRUD
+Route::get('payments/status/{orderId}', [PaymentStatusController::class, 'checkStatus']);
