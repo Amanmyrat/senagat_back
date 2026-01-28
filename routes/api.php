@@ -47,9 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //    Route::post('/application/branch-info', [CreditApplicationController::class, 'submitBranchInfo']);
     Route::post('/application/credit/order', [CreditApplicationController::class, 'store']);
 
-    Route::prefix('contact-message')->group(function () {
-        Route::post('/', [ContactMessageController::class, 'store']);
-    });
+
     Route::prefix('card')->group(function () {
 
         Route::post('/order', [CardOrderController::class, 'store']);
@@ -130,4 +128,8 @@ Route::middleware('optional:sanctum')->group(function () {
 // Charity CRUD
     Route::post('/charity', [CharityController::class, 'store']);
     Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
+});
+//CONTACT MESSAGE CRUD
+Route::prefix('contact-message')->group(function () {
+    Route::post('/', [ContactMessageController::class, 'store']);
 });
