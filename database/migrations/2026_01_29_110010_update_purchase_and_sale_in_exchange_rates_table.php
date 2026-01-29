@@ -16,8 +16,8 @@ return new class extends Migration
         });
 
         Schema::table('exchange_rates', function (Blueprint $table) {
-            $table->decimal('purchase', 15, 4)->default(0)->after('currency');
-            $table->decimal('sale', 15, 4)->default(0)->after('purchase');
+            $table->string('purchase')->nullable()->after('currency');
+            $table->string('sale')->nullable()->after('purchase');
         });
     }
 
