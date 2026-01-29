@@ -12,10 +12,7 @@ class ExchangeRate extends Model
     public array $translatable = ['currency'];
 
     protected $fillable = ['currency', 'purchase', 'sale', 'flag'];
-    protected $casts = [
-        'purchase' => 'decimal:4',
-        'sale' => 'decimal:4',
-    ];
+
     protected $appends = ['flag_path'];
 
     public function getFlagPathAttribute(): ?string
