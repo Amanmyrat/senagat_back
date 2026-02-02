@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use App\Jobs\AutoConfirmPaymentJob;
 use App\Models\PaymentRequest;
 use App\Services\Clients\BeletClient;
 use Illuminate\Support\Facades\Log;
+use App\Contracts\PollingPaymentProvider;
 
-class BeletService
+class BeletService implements PollingPaymentProvider
 {
     public function __construct(
         protected BeletClient $client,
@@ -73,19 +75,11 @@ class BeletService
             'error_code' => $response['error']['code'] ?? null,
             'error_message' => $response['error']['message'] ?? null,
         ]);
+        if (($response['success'] ?? false) && isset($response['data']['order_id'])) {
+            AutoConfirmPaymentJob::dispatch(static::class, $payment->id)
+                ->delay(now()->addSeconds(30));
 
-        if (! ($response['success'] ?? false)) {
-            Log::channel('belet')->error('TopUp failed', [
-                'request_id' => $payment->id,
-                'user_id' => $userId,
-                'bank_name' => $payload['bank_name'],
-                'response' => $response,
-            ]);
-        } else {
-            Log::channel('belet')->info('TopUp success', [
-                'request_id' => $payment->id,
-                'external_id' => $response['data']['order_id'] ?? null,
-            ]);
+            Log::channel('belet')->info('Job dispatched', ['payment_id' => $payment->id]);
         }
 
         return $response;
@@ -95,70 +89,30 @@ class BeletService
     {
         $externalId = $payload['orderId'] ?? $payload['pay_id'] ?? null;
 
-        if (! $externalId) {
+        if (!$externalId) {
             return [
                 'success' => false,
-                'error' => [
-                    'code' => 4,
-                    'message' => 'Invalid Query Params',
-                ],
+                'error' => ['code' => 4, 'message' => 'Invalid Query Params'],
                 'data' => null,
             ];
         }
 
-        $query = PaymentRequest::where('type', 'belet')
-            ->where('external_id', $externalId);
 
-        if ($userId) {
-            $query->where('user_id', $userId);
-        }
+        $payment = PaymentRequest::where('type', 'belet')
+            ->where('external_id', $externalId)
+            ->when($userId, fn($q) => $q->where('user_id', $userId))
+            ->latest()
+            ->first();
 
-        $topUpRequest = $query->latest()->first();
-        if (! $topUpRequest) {
+        if (!$payment) {
             return [
                 'success' => false,
-                'error' => [
-                    'code' => 404,
-                    'message' => 'Payment  request not found',
-                ],
+                'error' => ['code' => 404, 'message' => 'Payment request not found'],
                 'data' => null,
             ];
         }
-        if ($topUpRequest->status === 'confirmed') {
-            return [
-                'success' => true,
-                'data' => [
-                    'status' => 'confirmed',
-                    'message' => 'Already confirmed',
-                ],
-            ];
-        }
-        $topUpRequest->update([
-            'status' => 'confirming',
-        ]);
 
-        $response = $this->client->confirm($payload);
-
-        $topUpRequest->update([
-            'status' => ($response['success'] ?? false) ? 'confirmed' : 'failed',
-            'error_code' => $response['error']['code'] ?? null,
-            'error_message' => $response['error']['message'] ?? null,
-        ]);
-
-        if (! ($response['success'] ?? false)) {
-            Log::channel('belet')->error('Confirm failed', [
-                'request_id' => $topUpRequest->id,
-                'external_id' => $externalId,
-                'response' => $response,
-            ]);
-        } else {
-            Log::channel('belet')->info('Confirm success', [
-                'request_id' => $topUpRequest->id,
-                'external_id' => $externalId,
-            ]);
-        }
-
-        return $response;
+        return $this->confirmByOrderId($externalId);
     }
 
     public function confirmByOrderId(string $orderId): array
@@ -169,46 +123,59 @@ class BeletService
             ->first();
 
         if (!$topUpRequest) {
-            return [
-                'success' => false,
-                'error' => [
-                    'code' => 404,
-                    'message' => 'Payment request not found',
-                ],
-                'data' => null,
-            ];
+            return ['success' => false, 'error' => ['code' => 404, 'message' => 'Not found']];
         }
 
         if ($topUpRequest->status === 'confirmed') {
-            return [
-                'success' => true,
-                'data' => [
-                    'message' => 'Already confirmed',
-                ],
-            ];
+            return ['success' => true, 'data' => ['status' => 'confirmed', 'message' => 'Already confirmed']];
         }
-        $topUpRequest->update([
-            'status' => 'confirming',
-        ]);
 
+        $response = $this->client->confirm(['orderId' => $orderId]);
 
-        $response = $this->client->confirm([
-            'orderId' => $orderId,
-        ]);
+        $isConfirmed = ($response['success'] ?? false) === true ||
+            ($response['data']['success'] ?? false) === true ||
+            str_contains(strtolower($response['data']['message'] ?? ''), 'already confirmed');
 
-        $topUpRequest->update([
-            'status' => ($response['success'] ?? false) ? 'confirmed' : 'failed',
-            'error_code' => $response['data']['code'] ?? null,
-            'error_message' => $response['data']['message'] ?? null,
-        ]);
-
-        Log::channel('belet')->info('Belet confirmByOrderId', [
-            'payment_id' => $topUpRequest->id,
-            'external_id' => $orderId,
-            'status' => $topUpRequest->status,
-        ]);
-
+        if ($isConfirmed) {
+            $topUpRequest->update(['status' => 'confirmed', 'error_message' => null]);
+        } else {
+            $topUpRequest->update([
+                'status' => 'notConfirmed',
+                'error_message' => $response['data']['message'] ?? $response['message'] ?? null,
+            ]);
+        }
         return $response;
     }
 
+    public function pollStatusByOrderId(string|int $id): array
+    {
+        Log::channel('belet')->info("Polling Metodu Tetiklendi", ['gelen_id' => $id]);
+
+        $payment = is_numeric($id)
+            ? PaymentRequest::find($id)
+            : PaymentRequest::where('external_id', $id)->first();
+
+        if (!$payment) {
+            Log::channel('belet')->warning("Polling: DB'de kayit bulunamadi!");
+            return ['success' => true];
+        }
+
+        Log::channel('belet')->info("API Sorgusu Hazirlaniyor", [
+            'db_id' => $payment->id,
+            'gonderilecek_uuid' => $payment->external_id
+        ]);
+
+        $this->confirmByOrderId($payment->external_id);
+
+        $payment->refresh();
+
+        Log::channel('belet')->info("Polling Bitti", [
+            'son_durum' => $payment->status
+        ]);
+
+        return [
+            'success' => ($payment->status === 'confirmed'),
+            'status'  => $payment->status
+        ];
+    }
 }
