@@ -2,14 +2,15 @@
 
 namespace App\Services;
 
+use App\Jobs\AutoConfirmPaymentJob;
 use App\Models\PaymentRequest;
 use App\Models\User;
 use App\Services\Clients\CharityClient;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Log;
+use App\Contracts\PollingPaymentProvider;
 
-class CharityService
-{
+class CharityService implements PollingPaymentProvider{
     public function __construct(
         protected BankResolverService $bankResolver,
         protected CharityClient $client
@@ -40,13 +41,22 @@ class CharityService
             'surname' => $data['surname'],
             'phone' => '993'.$data['phone'],
         ];
+
         $response = $this->client->create($payload);
+
         if (($response['success'] ?? false) === true) {
+            $orderId = $response['data']['orderId'] ?? null;
             $payment->update([
                 'status' => 'pending',
                 'external_id' => $response['data']['orderId'] ?? null,
 
             ]);
+            if ($orderId) {
+                AutoConfirmPaymentJob::dispatch(
+                    static::class,
+                    (string)$orderId
+                )->delay(now()->addSeconds(30));
+            }
         } else {
             $payment->update([
                 'status' => 'failed',
@@ -107,6 +117,18 @@ class CharityService
                 'orderStatus' => $orderStatus,
                 'message' => $errorMessage,
             ],
+        ];
+    }
+    public function pollStatusByOrderId(string $orderId): array
+    {
+        $response = $this->checkStatus($orderId);
+        $status = $response['data']['status'] ?? 'pending';
+        $isFinished = in_array($status, ['confirmed', 'failed']);
+
+
+        return [
+            'success' => $isFinished,
+            'status'  => $status
         ];
     }
 
