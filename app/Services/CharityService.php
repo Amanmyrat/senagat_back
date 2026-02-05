@@ -54,7 +54,8 @@ class CharityService implements PollingPaymentProvider{
             if ($orderId) {
                 AutoConfirmPaymentJob::dispatch(
                     static::class,
-                    (string)$orderId
+                    $payment->id,
+                    now()
                 )->delay(now()->addSeconds(30));
             }
         } else {
@@ -119,16 +120,35 @@ class CharityService implements PollingPaymentProvider{
             ],
         ];
     }
-    public function pollStatusByOrderId(string $orderId): array
+    public function pollStatusByOrderId(string|int $id): array
     {
-        $response = $this->checkStatus($orderId);
-        $status = $response['data']['status'] ?? 'pending';
-        $isFinished = in_array($status, ['confirmed', 'failed']);
+        Log::channel('belet')->info("Polling Metodu Tetiklendi (Charity)", ['gelen_id' => $id]);
 
+        $payment = is_numeric($id)
+            ? PaymentRequest::find($id)
+            : PaymentRequest::where('external_id', $id)->first();
+
+        if (!$payment) {
+            Log::channel('belet')->warning("Polling: DB'de kayit bulunamadi!");
+            return ['success' => true];
+        }
+
+        Log::channel('belet')->info("API Sorgusu Hazirlaniyor", [
+            'db_id' => $payment->id,
+            'gonderilecek_uuid' => $payment->external_id
+        ]);
+
+    $this->checkStatus($payment->external_id);
+
+        $payment->refresh();
+
+        Log::channel('belet')->info("Polling Bitti", [
+            'son_durum' => $payment->status
+        ]);
 
         return [
-            'success' => $isFinished,
-            'status'  => $status
+            'success' => in_array($payment->status, ['confirmed']),
+            'status'  => $payment->status
         ];
     }
 
