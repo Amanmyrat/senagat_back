@@ -15,18 +15,12 @@ class AuditReportResource extends JsonResource
     public function toArray(Request $request): array
     {
         $locale = app()->getLocale();
+        $pdfPath = fn ($file) => $file ? '/storage/' . $file : null;
 
-        // Get the appropriate PDF file based on locale
         $pdfFile = match ($locale) {
-            'en' => $this->resource->pdf_file_en
-                ? asset('storage/'.$this->resource->pdf_file_en)
-                : null,
-            'ru' => $this->resource->pdf_file_ru
-                ? asset('storage/'.$this->resource->pdf_file_ru)
-                : null,
-            default => $this->resource->pdf_file_tk
-                ? asset('storage/'.$this->resource->pdf_file_tk)
-                : null,
+            'en' => $pdfPath($this->resource->pdf_file_en),
+            'ru' => $pdfPath($this->resource->pdf_file_ru),
+            default => $pdfPath($this->resource->pdf_file_tk),
         };
 
         return [
@@ -34,15 +28,9 @@ class AuditReportResource extends JsonResource
             'title' => $this->resource->getTranslation('title', $locale),
             'pdf_file' => $pdfFile,
             'pdf_files' => [
-                'tk' => $this->resource->pdf_file_tk
-                    ? asset('storage/'.$this->resource->pdf_file_tk)
-                    : null,
-                'en' => $this->resource->pdf_file_en
-                    ? asset('storage/'.$this->resource->pdf_file_en)
-                    : null,
-                'ru' => $this->resource->pdf_file_ru
-                    ? asset('storage/'.$this->resource->pdf_file_ru)
-                    : null,
+                'tk' => $pdfPath($this->resource->pdf_file_tk),
+                'en' => $pdfPath($this->resource->pdf_file_en),
+                'ru' => $pdfPath($this->resource->pdf_file_ru),
             ],
         ];
     }
