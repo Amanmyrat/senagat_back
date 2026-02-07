@@ -124,7 +124,7 @@ Route::middleware('optional:sanctum')->group(function () {
         Route::get('/orders/{id}/status', [BeletController::class, 'checkStatus']);
         Route::post('/belet/check-phone', [BeletController::class, 'checkPhone']);
         Route::post('/top-up', [BeletController::class, 'topUp']);
-        Route::post('/confirm', [BeletController::class, 'confirm']);
+
     });
 // Charity CRUD
     Route::post('/charity', [CharityController::class, 'store']);

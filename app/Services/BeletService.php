@@ -85,35 +85,35 @@ class BeletService implements PollingPaymentProvider
         return $response;
     }
 
-    public function confirm(?int $userId, array $payload): array
-    {
-        $externalId = $payload['orderId'] ?? $payload['pay_id'] ?? null;
-
-        if (!$externalId) {
-            return [
-                'success' => false,
-                'error' => ['code' => 4, 'message' => 'Invalid Query Params'],
-                'data' => null,
-            ];
-        }
-
-
-        $payment = PaymentRequest::where('type', 'belet')
-            ->where('external_id', $externalId)
-            ->when($userId, fn($q) => $q->where('user_id', $userId))
-            ->latest()
-            ->first();
-
-        if (!$payment) {
-            return [
-                'success' => false,
-                'error' => ['code' => 404, 'message' => 'Payment request not found'],
-                'data' => null,
-            ];
-        }
-
-        return $this->confirmByOrderId($externalId);
-    }
+//    public function confirm(?int $userId, array $payload): array
+//    {
+//        $externalId = $payload['orderId'] ?? $payload['pay_id'] ?? null;
+//
+//        if (!$externalId) {
+//            return [
+//                'success' => false,
+//                'error' => ['code' => 4, 'message' => 'Invalid Query Params'],
+//                'data' => null,
+//            ];
+//        }
+//
+//
+//        $payment = PaymentRequest::where('type', 'belet')
+//            ->where('external_id', $externalId)
+//            ->when($userId, fn($q) => $q->where('user_id', $userId))
+//            ->latest()
+//            ->first();
+//
+//        if (!$payment) {
+//            return [
+//                'success' => false,
+//                'error' => ['code' => 404, 'message' => 'Payment request not found'],
+//                'data' => null,
+//            ];
+//        }
+//
+//        return $this->confirmByOrderId($externalId);
+//    }
 
     public function confirmByOrderId(string $orderId): array
     {
