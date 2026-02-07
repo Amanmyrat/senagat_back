@@ -27,7 +27,7 @@ class AwardDetailsResource extends JsonResource
             'description' => $this->resource->getTranslation('description', $locale),
             'description_images' => $this->resource->description_images
                 ? collect($this->resource->description_images)
-                    ->map(fn ($img) => asset('storage/'.$img))
+                    ->map(fn ($img) => $this->imageUrl($img))
                     ->toArray()
                 : [],
 

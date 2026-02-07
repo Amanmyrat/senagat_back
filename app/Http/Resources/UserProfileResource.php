@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Traits\ImageUrlTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserProfileResource extends JsonResource
 {
+    use ImageUrlTrait;
     /**
      * Transform the resource into an array.
      *
@@ -26,7 +28,7 @@ class UserProfileResource extends JsonResource
             'citizenship' => $this->resource->citizenship,
             'home_phone' => $this->resource->home_phone,
             'home_address' => $this->resource->home_address,
-            'scan_passport' => $this->resource->scan_passport ? asset('storage/'.$this->resource->scan_passport) : null,
+            'scan_passport' =>   $this->imageUrl($this->resource->scan_passport),
 
         ];
     }
