@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Clusters\ContentManagement;
 use App\Filament\Resources\MoneyTransferResource\Pages;
 use App\Models\MoneyTransfer;
 use Filament\Forms\Components\FileUpload;
@@ -21,7 +22,7 @@ class MoneyTransferResource extends Resource
 
     protected static ?string $model = MoneyTransfer::class;
 
-    protected static ?string $cluster = \App\Filament\Clusters\ContentManagement::class;
+    protected static ?string $cluster =ContentManagement::class;
 
     protected static ?int $navigationSort = 2;
 
@@ -98,7 +99,7 @@ class MoneyTransferResource extends Resource
                             ->itemLabel(fn (array $state): ?string => $state['service_type'] ?? null),
                     ])
                     ->collapsible()
-                    ->itemLabel(fn (array $state): ?string => $state['table_title'] ?? __('resource.tariff_table'))
+                    ->itemLabel(fn (array $state): string => $state['table_title'] ?? __('resource.tariff_table'))
                     ->defaultItems(1),
                 TextInput::make('background_color')
                     ->label(__('resource.background_color').' (HEX code)')

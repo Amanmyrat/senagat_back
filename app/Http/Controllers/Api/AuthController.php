@@ -70,7 +70,6 @@ class AuthController
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
-                //                'code' => ErrorMessage::OTP_DID_NOT_SENT_ERROR->value,
                 'error_message' => $e->getMessage(),
             ], 400);
         }
@@ -95,7 +94,6 @@ class AuthController
             ], 200);
         } catch (Exception $e) {
             return new JsonResponse([
-                // 'code' => ErrorMessage::OTP_DID_NOT_MATCH_ERROR->value,
                 'error' => $e->getMessage(),
             ], 400);
         }
@@ -148,7 +146,6 @@ class AuthController
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
-                //   'code' => ErrorMessage::PRE_LOGIN_FAILED->value,
                 'error_message' => $e->getMessage(),
             ], 400);
         }
