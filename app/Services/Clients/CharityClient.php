@@ -49,6 +49,7 @@ class CharityClient
             ];
         }
     }
+
     public function checkStatus(array $payload): array
     {
         try {
@@ -59,6 +60,7 @@ class CharityClient
             return $this->noConnection();
         }
     }
+
     protected function noConnection(): array
     {
         return [

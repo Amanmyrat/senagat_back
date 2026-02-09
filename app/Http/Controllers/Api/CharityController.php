@@ -17,28 +17,30 @@ class CharityController extends Controller
     {
         $this->charityService = $charityService;
     }
+
     /**
      * Charity
      */
-
-    public function store(CharityRequest $request): JsonResponse {
+    public function store(CharityRequest $request): JsonResponse
+    {
         $response = $this->charityService->create(
             $request->user(),
             $request->validated());
 
         return new JsonResponse($response);
     }
-    /**
-     * Charity status
-     */
-    public function checkStatus(CheckPaymentStatusRequest $request): JsonResponse
-    {
-        return new JsonResponse(
-            $this->charityService->checkStatus(
-                $request->validated('orderId')
-            )
-        );
-    }
+
+    //    /**
+    //     * Charity status
+    //     */
+    //    public function checkStatus(CheckPaymentStatusRequest $request): JsonResponse
+    //    {
+    //        return new JsonResponse(
+    //            $this->charityService->checkStatus(
+    //                $request->validated('orderId')
+    //            )
+    //        );
+    //    }
     /**
      * Bank returnUrl
      *

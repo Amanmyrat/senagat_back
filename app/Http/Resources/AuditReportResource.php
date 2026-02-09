@@ -15,7 +15,7 @@ class AuditReportResource extends JsonResource
     public function toArray(Request $request): array
     {
         $locale = app()->getLocale();
-        $pdfPath = fn ($file) => $file ? '/storage/' . $file : null;
+        $pdfPath = fn ($file) => $file ? '/storage/'.$file : null;
 
         $pdfFile = match ($locale) {
             'en' => $pdfPath($this->resource->pdf_file_en),

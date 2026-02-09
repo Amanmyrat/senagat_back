@@ -1,10 +1,9 @@
 <?php
 
-
 namespace App\Services\Clients;
 
+use App\Models\PaymentRequest;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Client\ConnectionException;
 
 class PaymentStatusClient
 {
@@ -28,34 +27,35 @@ class PaymentStatusClient
     public function checkStatus(string $orderId, ?string $token = null): array
     {
         try {
-            $http = $this->client();
-            if ($token) {
-                $http = $http->withToken($token);
+            $payment = PaymentRequest::where('external_id', $orderId)
+                ->select('status', 'type')
+                ->first();
+
+            if (! $payment) {
+                return [
+                    'success' => false,
+                    'error' => [
+                        'code' => 404,
+                        'message' => 'Payment request not found with ID: '.$orderId,
+                    ],
+                    'status' => null,
+                ];
             }
 
-            $url = $this->baseUrl . "/api/v1/payments/status/{$orderId}";
-
-            $response = $http->get($url);
-
-            return $response->json();
-
-        } catch (ConnectionException $e) {
             return [
-                'success' => false,
-                'error' => [
-                    'code' => 500,
-                    'message' => 'Payment status service unavailable',
-                ],
-                'data' => null,
+                'success' => true,
+                'status' => $payment->status,
+
             ];
+
         } catch (\Throwable $e) {
             return [
                 'success' => false,
                 'error' => [
                     'code' => 500,
-                    'message' => $e->getMessage(),
+                    'message' => 'Database error: '.$e->getMessage(),
                 ],
-                'data' => null,
+                'status' => null,
             ];
         }
     }

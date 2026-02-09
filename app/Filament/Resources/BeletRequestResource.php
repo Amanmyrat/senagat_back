@@ -18,7 +18,7 @@ class BeletRequestResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->whereIn('type', ['belet',]);
+            ->whereIn('type', ['belet']);
     }
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

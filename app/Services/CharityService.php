@@ -2,15 +2,15 @@
 
 namespace App\Services;
 
+use App\Contracts\PollingPaymentProvider;
 use App\Jobs\AutoConfirmPaymentJob;
 use App\Models\PaymentRequest;
 use App\Models\User;
 use App\Services\Clients\CharityClient;
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Log;
-use App\Contracts\PollingPaymentProvider;
 
-class CharityService implements PollingPaymentProvider{
+class CharityService implements PollingPaymentProvider
+{
     public function __construct(
         protected BankResolverService $bankResolver,
         protected CharityClient $client
@@ -35,7 +35,7 @@ class CharityService implements PollingPaymentProvider{
         ]);
 
         $payload = [
-            'bank_name' =>$data['bank_name'],
+            'bank_name' => $data['bank_name'],
             'amount' => $data['amount'],
             'name' => $data['name'],
             'surname' => $data['surname'],
@@ -68,11 +68,10 @@ class CharityService implements PollingPaymentProvider{
 
     }
 
-
     public function checkStatus(string $orderId): array
     {
         $payment = PaymentRequest::where('external_id', $orderId)->first();
-        if (!$payment) {
+        if (! $payment) {
             return [
                 'success' => false,
                 'error' => [
@@ -95,7 +94,6 @@ class CharityService implements PollingPaymentProvider{
 
         $mappedStatus = match ($orderStatus) {
             2 => 'confirmed',
-            1 => 'pending',
             0 => 'failed',
             default => 'pending',
         };
@@ -120,36 +118,37 @@ class CharityService implements PollingPaymentProvider{
             ],
         ];
     }
+
     public function pollStatusByOrderId(string|int $id): array
     {
-        Log::channel('belet')->info("Polling Metodu Tetiklendi (Charity)", ['gelen_id' => $id]);
+        Log::channel('belet')->info('Polling Metodu Tetiklendi (Charity)', ['gelen_id' => $id]);
 
         $payment = is_numeric($id)
             ? PaymentRequest::find($id)
             : PaymentRequest::where('external_id', $id)->first();
 
-        if (!$payment) {
+        if (! $payment) {
             Log::channel('belet')->warning("Polling: DB'de kayit bulunamadi!");
+
             return ['success' => true];
         }
 
-        Log::channel('belet')->info("API Sorgusu Hazirlaniyor", [
+        Log::channel('belet')->info('API Sorgusu Hazirlaniyor', [
             'db_id' => $payment->id,
-            'gonderilecek_uuid' => $payment->external_id
+            'gonderilecek_uuid' => $payment->external_id,
         ]);
 
-    $this->checkStatus($payment->external_id);
+        $this->checkStatus($payment->external_id);
 
         $payment->refresh();
 
-        Log::channel('belet')->info("Polling Bitti", [
-            'son_durum' => $payment->status
+        Log::channel('belet')->info('Polling Bitti', [
+            'son_durum' => $payment->status,
         ]);
 
         return [
-            'success' => in_array($payment->status, ['confirmed']),
-            'status'  => $payment->status
+            'success' => $payment->status === 'confirmed',
+            'status' => $payment->status,
         ];
     }
-
 }

@@ -10,8 +10,6 @@ class PaymentHistoryController extends Controller
 {
     /**
      * Payment History
-     *
-
      */
     public function index()
     {
@@ -20,7 +18,6 @@ class PaymentHistoryController extends Controller
    //         ->where('type', '!=', 'charity')
             ->latest()
             ->get();
-
 
         return new JsonResponse(PaymentHistoryResource::collection($payments));
     }
