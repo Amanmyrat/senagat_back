@@ -22,7 +22,7 @@ class PaymentRequest extends Model
     protected $casts = [
         'payment_target' => 'array',
         'meta' => 'array',
-        'amount'=> MoneyCast::class,
+        'amount' => MoneyCast::class,
     ];
 
     public function user(): BelongsTo

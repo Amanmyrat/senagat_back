@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-
-use Illuminate\Http\Request;
-use App\Services\Clients\PaymentStatusClient;
 use App\Http\Controllers\Controller;
+use App\Services\Clients\PaymentStatusClient;
 
 class PaymentStatusController extends Controller
 {

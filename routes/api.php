@@ -48,7 +48,6 @@ Route::middleware('auth:sanctum')->group(function () {
     //    Route::post('/application/branch-info', [CreditApplicationController::class, 'submitBranchInfo']);
     Route::post('/application/credit/order', [CreditApplicationController::class, 'store']);
 
-
     Route::prefix('card')->group(function () {
 
         Route::post('/order', [CardOrderController::class, 'store']);
@@ -57,11 +56,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/international-payment-order', [\App\Http\Controllers\Api\InternationalPaymentOrderController::class, 'store']);
     Route::post('/certificate-order', [CertificateOrderController::class, 'store']);
 
-    //Payment History
+    // Payment History
     Route::get('/payment-history', [PaymentHistoryController::class, 'index']);
 
 });
-//Location CRUD
+// Location CRUD
 Route::prefix('location')->group(function () {
     Route::get('/', [LocationController::class, 'index']);
     Route::get('/branches', [LocationController::class, 'branchLocations']);
@@ -72,34 +71,34 @@ Route::prefix('credit/types')->group(function () {
     Route::get('/{id}', [CreditTypeController::class, 'show']);
 });
 
-//Card CRUD
+// Card CRUD
 Route::prefix('card/types')->group(function () {
     Route::get('/', [CardTypeController::class, 'index']);
     Route::get('/{id}', [CardTypeController::class, 'show']);
 });
-//News
+// News
 Route::prefix('news')->group(function () {
     Route::get('/', [NewsController::class, 'index']);
 });
-//Exchange
+// Exchange
 Route::get('/exchange-rate', [ExchangeRateController::class, 'index']);
-//Certificate
+// Certificate
 Route::get('/certificate-types', [CertificateTypeController::class, 'index']);
-//International Payment
+// International Payment
 Route::get('/international-payment-types', [InternationalPaymentTypesController::class, 'index']);
-//Deposit
+// Deposit
 Route::prefix('deposits')->group(function () {
     Route::get('/', [DepositController::class, 'index']);
     Route::get('/{id}', [DepositController::class, 'show']);
 });
-//Tariff
+// Tariff
 Route::prefix('tariff')->group(function () {
     Route::get('/', [TariffController::class, 'index']);
     Route::get('/{id}', [TariffController::class, 'show']);
 });
-//Clients
+// Clients
 Route::get('clients', [ClientsController::class, 'index']);
-//Awards
+// Awards
 Route::prefix('awards')->group(function () {
     Route::get('/', [AwardController::class, 'index']);
     Route::get('/{id}', [AwardController::class, 'show']);
@@ -109,30 +108,29 @@ Route::prefix('money-transfers')->group(function () {
     Route::get('/', [MoneyTransferController::class, 'index']);
     Route::get('/{id}', [MoneyTransferController::class, 'show']);
 });
-//Audit
+// Audit
 Route::get('audit-reports', [AuditReportController::class, 'index']);
-//Charity & Belet return
+// Charity & Belet return
 Route::get('/charity/return', [CharityController::class, 'return']);
 Route::get('/belet/return', [BeletController::class, 'return']);
 
-
 Route::middleware('optional:sanctum')->group(function () {
-// Belet CRUD
+    // Belet CRUD
     Route::prefix('/belet')->group(function () {
         Route::get('/banks', [BeletController::class, 'banks']);
         Route::get('/balances', [BeletController::class, 'getBalanceRecommendations']);
-        Route::get('/orders/{id}/status', [BeletController::class, 'checkStatus']);
+        //        Route::get('/orders/{id}/status', [BeletController::class, 'checkStatus']);
         Route::post('/belet/check-phone', [BeletController::class, 'checkPhone']);
         Route::post('/top-up', [BeletController::class, 'topUp']);
 
     });
-// Charity CRUD
+    // Charity CRUD
     Route::post('/charity', [CharityController::class, 'store']);
-    Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
+    //    Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
 });
-//CONTACT MESSAGE CRUD
+// CONTACT MESSAGE CRUD
 Route::prefix('contact-message')->group(function () {
     Route::post('/', [ContactMessageController::class, 'store']);
 });
-//Payment CheckStatus CRUD
+// Payment CheckStatus CRUD
 Route::get('payments/status/{orderId}', [PaymentStatusController::class, 'checkStatus']);

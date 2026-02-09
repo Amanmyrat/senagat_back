@@ -61,6 +61,7 @@ class BeletClient
             if ($response->successful()) {
                 $data = $response->json();
                 Cache::put($cacheKey, $data, now()->addDay());
+
                 return $data;
             }
 
@@ -77,6 +78,7 @@ class BeletClient
             Log::channel('belet')->error('Belet getBanks connection error', [
                 'message' => $e->getMessage(),
             ]);
+
             return $this->noConnection();
         }
     }

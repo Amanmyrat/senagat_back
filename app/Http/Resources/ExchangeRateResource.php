@@ -9,6 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class ExchangeRateResource extends JsonResource
 {
     use ImageUrlTrait;
+
     /**
      * Transform the resource into an array.
      *

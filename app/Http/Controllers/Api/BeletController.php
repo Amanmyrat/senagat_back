@@ -39,12 +39,12 @@ class BeletController extends Controller
     /**
      * Check Status
      */
-    public function checkStatus(int|string $id): JsonResponse
-    {
-        return new JsonResponse(
-            $this->beletService->checkStatus($id)
-        );
-    }
+    //    public function checkStatus(int|string $id): JsonResponse
+    //    {
+    //        return new JsonResponse(
+    //            $this->beletService->checkStatus($id)
+    //        );
+    //    }
 
     /**
      * Check Phone
@@ -74,21 +74,20 @@ class BeletController extends Controller
     /**
      * Balance Confirm
      */
-//    public function confirm(BalanceConfirmRequest $request): JsonResponse
-//    {
-//        return new JsonResponse(
-//            $this->beletService->confirm(
-//                auth()->id(),
-//                $request->validated()
-//            )
-//        );
-//    }
+//        public function confirm(BalanceConfirmRequest $request): JsonResponse
+//        {
+//            return new JsonResponse(
+//                $this->beletService->confirm(
+//                    auth()->id(),
+//                    $request->validated()
+//                )
+//            );
+//        }
     /**
      * Belet returnUrl
      *
      * @unauthenticated
      */
-
     public function return(Request $request): JsonResponse
     {
         $request->validate([

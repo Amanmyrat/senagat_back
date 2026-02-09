@@ -30,7 +30,7 @@ class CheckPaymentStatusRequest extends FormRequest
              *
              * @example 1
              */
-            'orderId' => ['required', 'string',],
+            'orderId' => ['required', 'string'],
         ];
     }
 
