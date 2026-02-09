@@ -35,7 +35,7 @@ class MoneyTransferDetailsResource extends JsonResource
             'tariff_details' => $this->mapTariffDetails(
                 $this->resource->getTranslation('tariff_details', $locale) ?? []
             ),
-           'image_url'=> $this->imageUrl($this->resource->image_url),
+            'image_url' => $this->imageUrl($this->resource->image_url),
             'background_color' => $this->resource->background_color,
         ];
     }

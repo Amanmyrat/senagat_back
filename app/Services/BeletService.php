@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
+use App\Contracts\PollingPaymentProvider;
 use App\Jobs\AutoConfirmPaymentJob;
 use App\Models\PaymentRequest;
 use App\Services\Clients\BeletClient;
 use Illuminate\Support\Facades\Log;
-use App\Contracts\PollingPaymentProvider;
 
 class BeletService implements PollingPaymentProvider
 {
@@ -85,35 +85,35 @@ class BeletService implements PollingPaymentProvider
         return $response;
     }
 
-//    public function confirm(?int $userId, array $payload): array
-//    {
-//        $externalId = $payload['orderId'] ?? $payload['pay_id'] ?? null;
-//
-//        if (!$externalId) {
-//            return [
-//                'success' => false,
-//                'error' => ['code' => 4, 'message' => 'Invalid Query Params'],
-//                'data' => null,
-//            ];
-//        }
-//
-//
-//        $payment = PaymentRequest::where('type', 'belet')
-//            ->where('external_id', $externalId)
-//            ->when($userId, fn($q) => $q->where('user_id', $userId))
-//            ->latest()
-//            ->first();
-//
-//        if (!$payment) {
-//            return [
-//                'success' => false,
-//                'error' => ['code' => 404, 'message' => 'Payment request not found'],
-//                'data' => null,
-//            ];
-//        }
-//
-//        return $this->confirmByOrderId($externalId);
-//    }
+    //    public function confirm(?int $userId, array $payload): array
+    //    {
+    //        $externalId = $payload['orderId'] ?? $payload['pay_id'] ?? null;
+    //
+    //        if (!$externalId) {
+    //            return [
+    //                'success' => false,
+    //                'error' => ['code' => 4, 'message' => 'Invalid Query Params'],
+    //                'data' => null,
+    //            ];
+    //        }
+    //
+    //
+    //        $payment = PaymentRequest::where('type', 'belet')
+    //            ->where('external_id', $externalId)
+    //            ->when($userId, fn($q) => $q->where('user_id', $userId))
+    //            ->latest()
+    //            ->first();
+    //
+    //        if (!$payment) {
+    //            return [
+    //                'success' => false,
+    //                'error' => ['code' => 404, 'message' => 'Payment request not found'],
+    //                'data' => null,
+    //            ];
+    //        }
+    //
+    //        return $this->confirmByOrderId($externalId);
+    //    }
 
     public function confirmByOrderId(string $orderId): array
     {
@@ -122,7 +122,7 @@ class BeletService implements PollingPaymentProvider
             ->latest()
             ->first();
 
-        if (!$topUpRequest) {
+        if (! $topUpRequest) {
             return ['success' => false, 'error' => ['code' => 404, 'message' => 'Not found']];
         }
 
@@ -144,38 +144,40 @@ class BeletService implements PollingPaymentProvider
                 'error_message' => $response['data']['message'] ?? $response['message'] ?? null,
             ]);
         }
+
         return $response;
     }
 
     public function pollStatusByOrderId(string|int $id): array
     {
-        Log::channel('belet')->info("Polling Metodu Tetiklendi", ['gelen_id' => $id]);
+        Log::channel('belet')->info('Polling Metodu Tetiklendi', ['gelen_id' => $id]);
 
         $payment = is_numeric($id)
             ? PaymentRequest::find($id)
             : PaymentRequest::where('external_id', $id)->first();
 
-        if (!$payment) {
+        if (! $payment) {
             Log::channel('belet')->warning("Polling: DB'de kayit bulunamadi!");
+
             return ['success' => true];
         }
 
-        Log::channel('belet')->info("API Sorgusu Hazirlaniyor", [
+        Log::channel('belet')->info('API Sorgusu Hazirlaniyor', [
             'db_id' => $payment->id,
-            'gonderilecek_uuid' => $payment->external_id
+            'gonderilecek_uuid' => $payment->external_id,
         ]);
 
         $this->confirmByOrderId($payment->external_id);
 
         $payment->refresh();
 
-        Log::channel('belet')->info("Polling Bitti", [
-            'son_durum' => $payment->status
+        Log::channel('belet')->info('Polling Bitti', [
+            'son_durum' => $payment->status,
         ]);
 
         return [
             'success' => ($payment->status === 'confirmed'),
-            'status'  => $payment->status
+            'status' => $payment->status,
         ];
     }
 }
