@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Enum\ErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class ConfirmResetPasswordRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -16,7 +16,7 @@ class LoginRequest extends FormRequest
     {
         return [
             /**
-             * Phone.
+             * Phone number.
              *
              * @var string
              *
@@ -31,26 +31,17 @@ class LoginRequest extends FormRequest
              *
              * @example 12345
              */
-            'otp' => ['nullable', 'string', 'size:5'],
-            /**
-             * Password.
-             *
-             * @var string
-             *
-             * @example 12345678
-             */
-            'password' => ['nullable', 'string', 'min:4'],
+            'code' => ['required', 'string', 'size:5'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'phone.required' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
-            'phone.regex' => ErrorMessage::PHONE_NUMBER_INVALID->value,
-            'otp.required' => ErrorMessage::OTP_REQUIRED->value,
-            'otp.size' => ErrorMessage::OTP_INVALID->value,
-            'password.min' => ErrorMessage::PASSWORD_MIN->value,
+            'phone.required' => ErrorMessage::PHONE_REQUIRED->value,
+            'phone.regex' => ErrorMessage::PHONE_INVALID->value,
+            'code.required' => ErrorMessage::OTP_CODE_REQUIRED->value,
+            'code.size' => ErrorMessage::OTP_CODE_INVALID->value,
 
         ];
     }

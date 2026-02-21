@@ -14,6 +14,27 @@ class RegisterRequest extends FormRequest
 
     public function rules(): array
     {
+        if (! config('app.otp.enabled')) {
+            return [
+                /**
+                 * Phone.
+                 *
+                 * @var string
+                 *
+                 * @example 65021734
+                 */
+                'phone' => ['required', 'string', 'regex:/^[0-9]{8}$/'],
+                /**
+                 * Password.
+                 *
+                 * @var string
+                 *
+                 * @example 12345678
+                 */
+                'password' => ['nullable', 'string', 'min:4'],
+            ];
+        }
+
         return [
             /**
              * OTP session token from verify-otp step.

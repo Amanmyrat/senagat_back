@@ -22,7 +22,7 @@ class MoneyTransferResource extends Resource
 
     protected static ?string $model = MoneyTransfer::class;
 
-    protected static ?string $cluster =ContentManagement::class;
+    protected static ?string $cluster = ContentManagement::class;
 
     protected static ?int $navigationSort = 2;
 
