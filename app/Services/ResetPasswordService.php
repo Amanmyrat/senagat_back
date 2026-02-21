@@ -16,35 +16,28 @@ class ResetPasswordService
         private OtpService $otpService
     ) {}
 
-    private function otpEnabled(): bool
+    /**
+     * @throws Exception
+     */
+    private function ensureOtpIsEnabled(): void
     {
-        return (bool) config('app.otp.enabled', false);
-    }
-
-    private function authUser(): User
-    {
-        $user = auth()->user();
-
-        if (! $user instanceof User) {
-            throw new Exception(ErrorMessage::PHONE_MISMATCH->value);
+        if (!(bool) config('app.otp.enabled', false)) {
+            throw new Exception(ErrorMessage::OTP_DISABLED->value);
         }
-
-        return $user;
     }
 
     /**
      * Step 1: Request reset password (send OTP)
+     * @throws Exception
      */
     public function request(string $phone): void
     {
 
-        if (! $this->otpEnabled()) {
-            throw new Exception(ErrorMessage::OTP_DISABLED->value);
+        $this->ensureOtpIsEnabled();
+        if (!User::where('phone', $phone)->exists()) {
+            throw new Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
         }
-        $user = $this->authUser();
-        if ($user->phone !== $phone) {
-            throw new Exception(ErrorMessage::PHONE_MISMATCH->value);
-        }
+
 
         OtpSession::where('phone', $phone)
             ->delete();
@@ -56,19 +49,12 @@ class ResetPasswordService
 
     /**
      * Step 2: Confirm OTP and create reset token
+     * @throws Exception
      */
     public function confirm(string $phone, string $code): string
     {
-        if (! $this->otpEnabled()) {
-            throw new Exception(ErrorMessage::OTP_DISABLED->value);
-        }
 
-        $user = $this->authUser();
-
-        if ($user->phone !== $phone) {
-            throw new Exception(ErrorMessage::PHONE_MISMATCH->value);
-        }
-
+        $this->ensureOtpIsEnabled();
         OtpService::confirmOtp([
             'phone' => $phone,
             'code' => $code,
@@ -88,17 +74,13 @@ class ResetPasswordService
 
     /**
      * Step 3: Reset password with token
+     * @throws Exception
+     *
      */
     public function reset(string $phone, string $token, string $password): void
     {
-        if (! $this->otpEnabled()) {
-            throw new Exception(ErrorMessage::OTP_DISABLED->value);
-        }
-        $user = $this->authUser();
+        $this->ensureOtpIsEnabled();
 
-        if ($user->phone !== $phone) {
-            throw new Exception(ErrorMessage::PHONE_MISMATCH->value);
-        }
         $session = OtpSession::where('phone', $phone)
             ->where('token', $token)
             ->where('is_verified', true)
@@ -118,7 +100,6 @@ class ResetPasswordService
             'password' => Hash::make($password),
         ]);
 
-        // cleanup
         $session->delete();
         OtpCode::where('phone', $phone)->delete();
     }
