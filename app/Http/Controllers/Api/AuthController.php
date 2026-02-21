@@ -187,6 +187,7 @@ class AuthController
     /**
      * Reset Password Request
      *
+     * @unauthenticated
      *
      * @throws Exception
      */
@@ -209,7 +210,7 @@ class AuthController
 
     /**
      * Reset Password Confirm
-     *
+     * @unauthenticated
      *
      * @throws Exception
      */
@@ -235,7 +236,7 @@ class AuthController
 
     /**
      * Reset Password
-     *
+     * @unauthenticated
      *
      * @throws Exception
      */

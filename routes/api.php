@@ -134,7 +134,7 @@ Route::prefix('contact-message')->group(function () {
 // Payment CheckStatus CRUD
 Route::get('payments/status/{orderId}', [PaymentStatusController::class, 'checkStatus']);
 // Reset Password
-Route::middleware('auth:sanctum')->prefix('auth/password')->group(function () {
+
     Route::post('reset/request', [
         AuthController::class,
         'request',
@@ -147,4 +147,4 @@ Route::middleware('auth:sanctum')->prefix('auth/password')->group(function () {
         AuthController::class,
         'reset',
     ]);
-});
+
