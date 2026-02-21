@@ -4,15 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Enum\ErrorMessage;
 use App\Enum\SuccessMessage;
+use App\Http\Requests\ConfirmResetPasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\PreLoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\RequestOtpRequest;
+use App\Http\Requests\RequestResetPasswordRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\VerifyOtpRequest;
 use App\Http\Resources\UserInformationResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\AuthService;
+use App\Services\ResetPasswordService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,7 +24,8 @@ use Illuminate\Http\Request;
 class AuthController
 {
     public function __construct(
-        protected AuthService $service
+        protected AuthService $service,
+        protected ResetPasswordService $resetService
     ) {}
 
     /**
@@ -70,7 +75,6 @@ class AuthController
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
-                //                'code' => ErrorMessage::OTP_DID_NOT_SENT_ERROR->value,
                 'error_message' => $e->getMessage(),
             ], 400);
         }
@@ -95,7 +99,6 @@ class AuthController
             ], 200);
         } catch (Exception $e) {
             return new JsonResponse([
-                // 'code' => ErrorMessage::OTP_DID_NOT_MATCH_ERROR->value,
                 'error' => $e->getMessage(),
             ], 400);
         }
@@ -148,7 +151,6 @@ class AuthController
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
-                //   'code' => ErrorMessage::PRE_LOGIN_FAILED->value,
                 'error_message' => $e->getMessage(),
             ], 400);
         }
@@ -164,6 +166,7 @@ class AuthController
     public function login(LoginRequest $request): JsonResponse
     {
         try {
+
             $user = $this->service->login($request);
             $token = $user->createToken('mobile')->plainTextToken;
             $user->token = $token;
@@ -182,32 +185,78 @@ class AuthController
     }
 
     /**
-     * Reset password with OTP token
+     * Reset Password Request
      *
-     * @unauthenticated
      *
      * @throws Exception
      */
-    public function resetPassword(Request $request): JsonResponse
+    public function request(RequestResetPasswordRequest $request): JsonResponse
     {
         try {
-            $request->validate([
-                'phone' => ['required', 'string'],
-                'token' => ['required', 'string'],
-                'password' => ['required', 'string', 'min:6'],
-            ]);
+            $this->resetService->request($request->phone);
 
-            $this->service->resetPassword($request->only('phone', 'token', 'password'));
-
-            return new JsonResponse([
+            return response()->json([
                 'success' => true,
-            ], 200);
-
+            ]);
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
                 'error_message' => $e->getMessage(),
             ], 400);
         }
+
+    }
+
+    /**
+     * Reset Password Confirm
+     *
+     *
+     * @throws Exception
+     */
+    public function confirm(ConfirmResetPasswordRequest $request): JsonResponse
+    {
+        try {
+            $token = $this->resetService->confirm(
+                $request->phone,
+                $request->code
+            );
+
+            return response()->json([
+                'token' => $token,
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'success' => false,
+                'error_message' => $e->getMessage(),
+            ], 400);
+        }
+
+    }
+
+    /**
+     * Reset Password
+     *
+     *
+     * @throws Exception
+     */
+    public function reset(ResetPasswordRequest $request): JsonResponse
+    {
+        try {
+            $this->resetService->reset(
+                $request->phone,
+                $request->token,
+                $request->password
+            );
+
+            return response()->json([
+                'success' => true,
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'success' => false,
+                'error_message' => $e->getMessage(),
+            ], 400);
+        }
+
     }
 }

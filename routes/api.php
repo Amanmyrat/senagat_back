@@ -36,12 +36,11 @@ Route::prefix('users')->group(function () {
         Route::get('/user-information', [AuthController::class, 'userInfo']);
     });
 
-    Route::post('/check', [AuthController::class, 'checkPhoneExists']);
+    // Route::post('/check', [AuthController::class, 'checkPhoneExists']);
 
 });
-Route::post('/resetPassword', [AuthController::class, 'resetPassword']);
-Route::middleware('auth:sanctum')->group(function () {
 
+Route::middleware('auth:sanctum')->group(function () {
     Route::post('/profile', [UserProfileController::class, 'storeOrUpdate']);
     //    Route::post('/application/credit-details', [CreditApplicationController::class, 'submitCreditDetails']);
     //    Route::post('/application/work-info', [CreditApplicationController::class, 'submitWorkInfo']);
@@ -134,3 +133,18 @@ Route::prefix('contact-message')->group(function () {
 });
 // Payment CheckStatus CRUD
 Route::get('payments/status/{orderId}', [PaymentStatusController::class, 'checkStatus']);
+// Reset Password
+Route::middleware('auth:sanctum')->prefix('auth/password')->group(function () {
+    Route::post('reset/request', [
+        AuthController::class,
+        'request',
+    ]);
+    Route::post('reset/confirm', [
+        AuthController::class,
+        'confirm',
+    ]);
+    Route::post('reset/password', [
+        AuthController::class,
+        'reset',
+    ]);
+});

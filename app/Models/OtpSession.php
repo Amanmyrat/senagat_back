@@ -41,7 +41,6 @@ class OtpSession extends Model
     protected $fillable = [
         'phone',
         'token',
-        'purpose',
         'expires_at',
         'is_verified',
     ];
@@ -62,8 +61,8 @@ class OtpSession extends Model
             ->where('is_verified', false);
     }
 
-    public function scopeForPurpose($query, string $purpose)
-    {
-        return $query->where('purpose', $purpose);
-    }
+//    public function scopeForPurpose($query, string $purpose)
+//    {
+//        return $query->where('purpose', $purpose);
+//    }
 }

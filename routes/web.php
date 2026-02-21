@@ -4,10 +4,17 @@ use App\Http\Controllers\ApprovedCardOrderPrintController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    /** @phpstan-var string $view */
+    $view = 'welcome';
+
+    return view($view);
 });
+
 Route::get('/anketa', function () {
-    return view('questionnaire');
+    /** @phpstan-var string $view */
+    $view = 'questionnaire';
+
+    return view($view);
 });
 
 // Route::get('/approved-orders/{order}/pdf', [ApprovedCardOrderPrintController::class, 'generatePdf'])

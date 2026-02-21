@@ -74,15 +74,15 @@ class BeletController extends Controller
     /**
      * Balance Confirm
      */
-//        public function confirm(BalanceConfirmRequest $request): JsonResponse
-//        {
-//            return new JsonResponse(
-//                $this->beletService->confirm(
-//                    auth()->id(),
-//                    $request->validated()
-//                )
-//            );
-//        }
+    //        public function confirm(BalanceConfirmRequest $request): JsonResponse
+    //        {
+    //            return new JsonResponse(
+    //                $this->beletService->confirm(
+    //                    auth()->id(),
+    //                    $request->validated()
+    //                )
+    //            );
+    //        }
     /**
      * Belet returnUrl
      *

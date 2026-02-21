@@ -10,7 +10,9 @@ class ApprovedCardOrderPrintController extends Controller
     public function printDirect(ApprovedCardOrder $order)
     {
         $order->load(['profile', 'branch', 'cardType']);
-        $html = view('questionnaire', ['orders' => collect([$order])])->render();
+        /** @var string $view */
+        $view = 'questionnaire';
+        $html = view($view, ['orders' => collect([$order])])->render();
 
         $pdf = Pdf::loadHTML($html)
             ->setPaper('A4', 'portrait')

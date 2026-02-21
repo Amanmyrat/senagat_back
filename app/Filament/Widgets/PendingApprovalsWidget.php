@@ -14,6 +14,7 @@ use Filament\Widgets\Widget;
 
 class PendingApprovalsWidget extends Widget
 {
+    /** @phpstan-ignore-next-line */
     protected static string $view = 'filament.widgets.pending-approvals-widget';
 
     protected static ?int $sort = 0;

@@ -32,6 +32,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read \App\Models\UserProfile|null $profile
  * @property-read Collection<int, PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
+ * @property string|null $token
  *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static Builder<static>|User newModelQuery()
