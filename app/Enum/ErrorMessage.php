@@ -124,4 +124,7 @@ enum ErrorMessage: string
     case PAY_ID_INVALID = 'pay_id_must_be_a_valid_string.';
     case ID_REQUIRED = 'order_ID_is_required';
 
+    case OTP_DISABLED = 'otp_disabled';
+    case PHONE_MISMATCH = 'phone_mismatch';
+
 }

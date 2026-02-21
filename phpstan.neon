@@ -3,14 +3,15 @@ includes:
 
 parameters:
     level: 5
+
     paths:
-        - app
-        - routes
-        - database
-        - config
-    excludePaths:
-        - vendor
-        - storage
-        - bootstrap
-        # - .phpstorm.meta.php (?)  # Optional: keep if using PhpStorm
+            - app
+            - config
+            - database
+            - routes
+
     reportUnmatchedIgnoredErrors: false
+
+    ignoreErrors:
+        - '#Static property .+ \$view .+ does not accept default value of type string#'
+        - '#Parameter .+ \$view of method Filament\\Support\\Components\\ViewComponent::view\(\) expects view-string\|null, string given#'

@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Enum\ErrorMessage;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\PreLoginRequest;
-use App\Models\OtpCode;
 use App\Models\OtpSession;
 use App\Models\User;
 use Carbon\Carbon;
@@ -22,6 +21,11 @@ class AuthService
         $this->otpService = $otpService;
     }
 
+    private function otpEnabled(): bool
+    {
+        return (bool) config('app.otp.enabled', false);
+    }
+
     /**
      * Request OTP for registration or login
      *
@@ -29,25 +33,15 @@ class AuthService
      */
     public function requestOtp(array $data): void
     {
+        if (! $this->otpEnabled()) {
+            throw new Exception(ErrorMessage::OTP_DISABLED->value);
+        }
+
         $phone = $data['phone'];
-        $purpose = $data['purpose'];
-
-        if ($purpose === 'register') {
-            if (User::where('phone', $phone)->exists()) {
-                throw new \Exception(ErrorMessage::PHONE_ALREADY_REGISTERED->value);
-            }
+        if (User::where('phone', $phone)->exists()) {
+            throw new Exception(ErrorMessage::PHONE_ALREADY_REGISTERED->value);
         }
 
-        if ($purpose === 'login') {
-            if (! User::where('phone', $phone)->exists()) {
-                throw new \Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
-            }
-        }
-        if ($purpose === 'reset_password') {
-            if (! User::where('phone', $phone)->exists()) {
-                throw new \Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
-            }
-        }
 
         $this->otpService->sendOtp($data);
     }
@@ -59,14 +53,20 @@ class AuthService
      */
     public function verifyOtp(array $data): string
     {
+        if (! $this->otpEnabled()) {
+            throw new Exception(ErrorMessage::OTP_DISABLED->value);
+        }
         OtpService::confirmOtp($data);
+
+        if (User::where('phone', $data['phone'])->exists()) {
+            throw new Exception(ErrorMessage::PHONE_ALREADY_REGISTERED->value);
+        }
 
         $token = Str::random(60);
 
         OtpSession::create([
             'phone' => $data['phone'],
             'token' => $token,
-            'purpose' => $data['purpose'],
             'expires_at' => Carbon::now()->addMinutes(10),
             'is_verified' => true,
         ]);
@@ -81,26 +81,36 @@ class AuthService
      */
     public function register(array $registerData): User
     {
-        $otpSession = OtpSession::where('token', $registerData['otp_session_token'])
-            ->where('purpose', 'register')
-            ->where('is_verified', true)
-            ->first();
+        if ($this->otpEnabled()) {
+            $otpSession = OtpSession::where('token', $registerData['otp_session_token'])
+                ->where('is_verified', true)
+                ->first();
 
-        if (! $otpSession || $otpSession->isExpired()) {
-            throw new \Exception(ErrorMessage::OTP_SESSION_INVALID->value);
+            if (! $otpSession || $otpSession->isExpired()) {
+                throw new \Exception(ErrorMessage::OTP_SESSION_INVALID->value);
+            }
+            $phone = $otpSession->phone;
+        } else {
+            $phone = $registerData['phone'];
         }
 
-        $existingUser = User::where('phone', $otpSession->phone)->first();
-        if ($existingUser) {
-            throw new \Exception(ErrorMessage::PHONE_ALREADY_REGISTERED->value);
+        if (User::where('phone', $phone)->exists()) {
+            throw new Exception(ErrorMessage::PHONE_ALREADY_REGISTERED->value);
         }
+
+        //        $existingUser = User::where('phone', $otpSession->phone)->first();
+        //        if ($existingUser) {
+        //            throw new \Exception(ErrorMessage::PHONE_ALREADY_REGISTERED->value);
+        //        }
 
         $user = User::create([
-            'phone' => $otpSession->phone,
+            'phone' => $phone,
             'password' => Hash::make($registerData['password']),
         ]);
 
-        $otpSession->delete();
+        if ($this->otpEnabled()) {
+            $otpSession->delete();
+        }
 
         return $user;
     }
@@ -112,6 +122,9 @@ class AuthService
      */
     public function preLogin(PreLoginRequest $request): void
     {
+        if (! $this->otpEnabled()) {
+            throw new \Exception(ErrorMessage::OTP_DISABLED->value);
+        }
         $phone = $request->input('phone');
         $password = $request->input('password');
 
@@ -126,7 +139,6 @@ class AuthService
 
         $this->otpService->sendOtp([
             'phone' => $phone,
-            'purpose' => 'login',
         ]);
     }
 
@@ -138,50 +150,33 @@ class AuthService
     public function login(LoginRequest $request): User
     {
         $phone = $request->input('phone');
-        $otp = $request->input('otp');
-
-        OtpService::confirmOtp([
-            'phone' => $phone,
-            'code' => $otp,
-        ]);
-
-        $user = User::with('profile')->where('phone', $phone)->
-        first();
+        $password = $request->input('password');
+        $user = User::with('profile')->where('phone', $phone)->first();
         if (! $user) {
-
             throw new \Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
         }
-
-        return $user;
-    }
-
-    /**
-     * Reset password with otp
-     *
-     * @throws Exception
-     */
-    public function resetPassword(array $data): void
-    {
-        $phone = $data['phone'];
-        $token = $data['token'];
-        $newPassword = $data['password'];
-
-        $session = OtpSession::where('phone', $phone)
-            ->where('token', $token)
-            ->where('purpose', 'reset_password')
-            ->where('is_verified', true)
-            ->where('expires_at', '>', now())
-            ->first();
-
-        if (! $session) {
-            throw new \Exception(ErrorMessage::INVALID_OR_EXPIRED_OTP->value);
+        if ($this->otpEnabled()) {
+            $otp = $request->input('otp');
+            if (! $otp) {
+                throw new \Exception(ErrorMessage::OTP_REQUIRED->value);
+            }
+            OtpService::confirmOtp([
+                'phone' => $phone,
+                'code' => $otp,
+            ]);
+        } else {
+            if (! $password || ! Hash::check($password, $user->password)) {
+                throw new \Exception(ErrorMessage::INCORRECT_PASSWORD->value);
+            }
         }
 
-        User::where('phone', $phone)->update([
-            'password' => Hash::make($newPassword),
-        ]);
+        //        $user = User::with('profile')->where('phone', $phone)->
+        //        first();
+        //        if (! $user) {
+        //
+        //            throw new \Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
+        //        }
 
-        $session->delete();
-        OtpCode::where('phone', $phone)->delete();
+        return $user;
     }
 }
