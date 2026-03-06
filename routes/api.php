@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PaymentHistoryController;
 use App\Http\Controllers\Api\PaymentStatusController;
 use App\Http\Controllers\Api\TariffController;
+use App\Http\Controllers\Api\TelecomController;
 use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -125,6 +126,10 @@ Route::middleware('optional:sanctum')->group(function () {
     });
     // Charity CRUD
     Route::post('/charity', [CharityController::class, 'store']);
+    Route::post('/telecom', [TelecomController::class, 'store']);
+    Route::post('telecom/balances', [TelecomController::class, 'balance']);
+
+
     //    Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
 });
 // CONTACT MESSAGE CRUD
