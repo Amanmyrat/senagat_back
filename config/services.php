@@ -36,7 +36,7 @@ return [
     ],
 
     'payment_api' => [
-        'url' => env('Payment_API_URL'),
+        'url' => env('PAYMENT_API_URL'),
     ],
 
 ];
