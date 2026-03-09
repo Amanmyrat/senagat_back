@@ -127,7 +127,7 @@ Route::middleware('optional:sanctum')->group(function () {
     // Charity CRUD
     Route::post('/charity', [CharityController::class, 'store']);
     Route::post('/telecom', [TelecomController::class, 'store']);
-    Route::post('telecom/balances', [TelecomController::class, 'balance']);
+    Route::post('telecom/balance', [TelecomController::class, 'balance']);
 
 
     //    Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
