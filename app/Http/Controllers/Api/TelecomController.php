@@ -26,7 +26,7 @@ class TelecomController extends Controller
     {
         return new JsonResponse(
             $this->telecomService->getBalance(
-                $request->validated('account')
+                $request->validated('phone')
             )
         );
     }

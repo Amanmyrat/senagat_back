@@ -20,10 +20,11 @@ class TelecomService
 
     }
 
-    public function getBalance(string $account): array
+    public function getBalance(string $phone): array
     {
-        return $this->client->getBalance($account);
+        return $this->client->getBalance($phone);
     }
+
     public function create(?User $user, array $data): array
     {
 

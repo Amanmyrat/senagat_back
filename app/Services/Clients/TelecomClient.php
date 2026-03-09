@@ -37,12 +37,12 @@ class TelecomClient
         }
     }
 
-    public function getBalance(string $account): array
+    public function getBalance(string $phone): array
     {
         try {
             return $this->client()
                 ->get($this->baseUrl . '/api/v1/telecom/balances', [
-                    'account' => $account,
+                    'account' => $phone,
                 ])
                 ->json();
         } catch (ConnectionException $e) {
