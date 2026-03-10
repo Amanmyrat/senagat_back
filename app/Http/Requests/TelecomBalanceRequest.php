@@ -29,8 +29,6 @@ class TelecomBalanceRequest extends FormRequest
     public function messages(): array
     {
         return [
-
-
             'phone.required' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
             'phone.regex' => ErrorMessage::PHONE_NUMBER_INVALID->value,
 
