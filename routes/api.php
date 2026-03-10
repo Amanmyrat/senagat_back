@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AstuController;
 use App\Http\Controllers\Api\AuditReportController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AwardController;
@@ -126,10 +127,15 @@ Route::middleware('optional:sanctum')->group(function () {
     });
     // Charity CRUD
     Route::post('/charity', [CharityController::class, 'store']);
+    //Telecom CRUD
     Route::post('telecom/balance', [TelecomController::class, 'getBalance']);
     Route::post('/telecom/pay', [TelecomController::class, 'pay']);
+    //ASTU CRUD
 
-
+    Route::prefix('astu')->group(function () {
+        Route::post('balance', [AstuController::class, 'getBalance']);
+        Route::post('/pay', [AstuController::class, 'pay']);
+    });
     //    Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
 });
 // CONTACT MESSAGE CRUD
