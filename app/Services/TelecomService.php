@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Log;
 
 class TelecomService
 {
-    public function __construct(
-        protected TelecomClient       $client
-    )
+    public function __construct(protected TelecomClient $client)
     {
 
     }

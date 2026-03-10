@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TelecomBalanceRequest;
 use App\Http\Requests\TelecomTopupRequest;
+use App\Http\Resources\TelecomBalanceResource;
 use App\Services\TelecomService;
 use Illuminate\Http\JsonResponse;
 
@@ -20,13 +21,12 @@ class TelecomController extends Controller
      * Telecom balance
      * @queryParam account string required Telecom account number. Example: 12932701
      */
-    public function getBalance(TelecomBalanceRequest $request): JsonResponse
+    public function getBalance(TelecomBalanceRequest $request)
     {
-        return new JsonResponse(
-            $this->telecomService->getBalance(
-                $request->validated('phone')
-            )
-        );
+        $result = $this->telecomService->getBalance(
+            $request->validated('phone'));
+        return new TelecomBalanceResource($result);
+
     }
 
     /**

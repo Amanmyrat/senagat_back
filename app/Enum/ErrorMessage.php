@@ -127,4 +127,7 @@ enum ErrorMessage: string
     case OTP_DISABLED = 'otp_disabled';
     case PHONE_MISMATCH = 'phone_mismatch';
 
+    case NO_INTERNET_CONNECTION = 'no_internet_connection';
+
+
 }
