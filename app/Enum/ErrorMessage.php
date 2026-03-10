@@ -128,6 +128,9 @@ enum ErrorMessage: string
     case PHONE_MISMATCH = 'phone_mismatch';
 
     case NO_INTERNET_CONNECTION = 'no_internet_connection';
-
-
+    case TYPE_REQUIRED = 'type_field_is_required.';
+    case TYPE_INVALID = 'type_must_be_a_string.';
+    case TYPE_NOT_SUPPORTED = 'type_must_be_one_of:phone_iptv_inet.';
+    case BANK_NAME_INVALID = 'invalid_bank_name.';
+    case ACCOUNT_REQUIRED = 'account_is_required.';
 }

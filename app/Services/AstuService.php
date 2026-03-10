@@ -5,18 +5,17 @@ namespace App\Services;
 
 use App\Models\PaymentRequest;
 use App\Models\User;
-use App\Services\Clients\TelecomClient;
+use App\Services\Clients\AstuClient;
 
-class TelecomService
+class AstuService
 {
-    public function __construct(protected TelecomClient $client)
+    public function __construct(protected AstuClient $client)
     {
-
     }
 
-    public function getBalance(string $phone): array
+    public function getBalance(string $phone,string $type): array
     {
-        return $this->client->getBalance($phone);
+        return $this->client->getBalance($phone,$type);
     }
 
     public function create(?User $user, array $data): array
@@ -24,7 +23,7 @@ class TelecomService
 
         $payment = PaymentRequest::create([
             'user_id' => $user?->id,
-            'type' => 'telecom',
+            'type' => "astu ". $data['type'],
             'status' => 'sent',
             'amount' => $data['amount'],
             'payment_target' => [
@@ -36,7 +35,8 @@ class TelecomService
         $payload = [
             'bank_name' => $data['bank_name'],
             'amount' => $data['amount'],
-            'phone'=> $data['phone'],
+            'account'=> $data['phone'],
+            'type' => $data['type'],
         ];
 
         $response = $this->client->create($payload);
