@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Belet\BalanceConfirmRequest;
 use App\Http\Requests\Belet\BeletBalanceTopUpRequest;
 use App\Http\Requests\Belet\CheckPhoneRequest;
 use App\Services\BeletService;
@@ -71,18 +70,6 @@ class BeletController extends Controller
         );
     }
 
-    /**
-     * Balance Confirm
-     */
-    //        public function confirm(BalanceConfirmRequest $request): JsonResponse
-    //        {
-    //            return new JsonResponse(
-    //                $this->beletService->confirm(
-    //                    auth()->id(),
-    //                    $request->validated()
-    //                )
-    //            );
-    //        }
     /**
      * Belet returnUrl
      *
