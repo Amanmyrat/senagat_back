@@ -36,16 +36,6 @@ class BeletController extends Controller
     }
 
     /**
-     * Check Status
-     */
-    //    public function checkStatus(int|string $id): JsonResponse
-    //    {
-    //        return new JsonResponse(
-    //            $this->beletService->checkStatus($id)
-    //        );
-    //    }
-
-    /**
      * Check Phone
      */
     public function checkPhone(CheckPhoneRequest $request): JsonResponse

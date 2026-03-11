@@ -26,4 +26,6 @@ return [
     'payment' => 'Töleg',
     'belet_payment' => 'Belet tölegi',
     'charity' => 'Haýyr-sahawat',
+    'telecom_payment' => 'Telekom tölegi',
+    'astu_payment' => 'ASTU tölegi',
 ];

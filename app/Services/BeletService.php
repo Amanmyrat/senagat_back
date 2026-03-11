@@ -84,38 +84,7 @@ class BeletService implements PollingPaymentProvider
 
         return $response;
     }
-
-    //    public function confirm(?int $userId, array $payload): array
-    //    {
-    //        $externalId = $payload['orderId'] ?? $payload['pay_id'] ?? null;
-    //
-    //        if (!$externalId) {
-    //            return [
-    //                'success' => false,
-    //                'error' => ['code' => 4, 'message' => 'Invalid Query Params'],
-    //                'data' => null,
-    //            ];
-    //        }
-    //
-    //
-    //        $payment = PaymentRequest::where('type', 'belet')
-    //            ->where('external_id', $externalId)
-    //            ->when($userId, fn($q) => $q->where('user_id', $userId))
-    //            ->latest()
-    //            ->first();
-    //
-    //        if (!$payment) {
-    //            return [
-    //                'success' => false,
-    //                'error' => ['code' => 404, 'message' => 'Payment request not found'],
-    //                'data' => null,
-    //            ];
-    //        }
-    //
-    //        return $this->confirmByOrderId($externalId);
-    //    }
-
-    public function confirmByOrderId(string $orderId): array
+        public function confirmByOrderId(string $orderId): array
     {
         $topUpRequest = PaymentRequest::where('type', 'belet')
             ->where('external_id', $orderId)
@@ -150,29 +119,23 @@ class BeletService implements PollingPaymentProvider
 
     public function pollStatusByOrderId(string|int $id): array
     {
-        Log::channel('belet')->info('Polling Metodu Tetiklendi', ['gelen_id' => $id]);
+        Log::channel('belet')->info('Polling Method Triggered', ['incoming_id' => $id]);
 
         $payment = is_numeric($id)
             ? PaymentRequest::find($id)
             : PaymentRequest::where('external_id', $id)->first();
 
         if (! $payment) {
-            Log::channel('belet')->warning("Polling: DB'de kayit bulunamadi!");
+            Log::channel('belet')->warning("Polling: No records found in DB.!");
 
             return ['success' => true];
         }
-
-        Log::channel('belet')->info('API Sorgusu Hazirlaniyor', [
-            'db_id' => $payment->id,
-            'gonderilecek_uuid' => $payment->external_id,
-        ]);
-
         $this->confirmByOrderId($payment->external_id);
 
         $payment->refresh();
 
-        Log::channel('belet')->info('Polling Bitti', [
-            'son_durum' => $payment->status,
+        Log::channel('belet')->info('Polling completed', [
+            'status' => $payment->status,
         ]);
 
         return [

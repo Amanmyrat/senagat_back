@@ -33,14 +33,6 @@ class VerifyOtpRequest extends FormRequest
              */
             'code' => ['required', 'string', 'size:5'],
 
-//            /**
-//             * Purpose of OTP verification.
-//             *
-//             * @var string
-//             *
-//             * @example register
-//             */
-//            'purpose' => ['required', 'string', 'in:register,login,reset_password'],
         ];
     }
 
@@ -51,8 +43,6 @@ class VerifyOtpRequest extends FormRequest
             'phone.regex' => ErrorMessage::PHONE_INVALID->value,
             'code.required' => ErrorMessage::OTP_CODE_REQUIRED->value,
             'code.size' => ErrorMessage::OTP_CODE_INVALID->value,
-//            'purpose.required' => ErrorMessage::OTP_PURPOSE_REQUIRED->value,
-//            'purpose.in' => ErrorMessage::OTP_PURPOSE_INVALID->value,
         ];
     }
 }

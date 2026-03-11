@@ -30,10 +30,8 @@ class LoanOrderResource extends JsonResource
             'role' => $this->resource->role,
             'status' => $this->resource->status,
             'created_at' => $this->formatDateLocalized($this->resource->created_at),
-
         ];
 
-        // Rol bazlı ek alanlar
         if ($this->resource->role === 'entrepreneur') {
             $data = array_merge($data, [
                 'patent_number' => $this->resource->patent_number,

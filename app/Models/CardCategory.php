@@ -30,7 +30,6 @@ class CardCategory extends Model
     protected $fillable = [
         'title',
     ];
-
     public function cardTypes(): BelongsToMany
     {
         return $this->belongsToMany(CardType::class, 'card_category_card_type');

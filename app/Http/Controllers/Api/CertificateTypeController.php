@@ -19,7 +19,6 @@ class CertificateTypeController extends Controller
     public function index(): JsonResponse
     {
         $certificate = CertificateType::orderBy('sort')->get();
-
         return new JsonResponse([
             'success' => true,
             'data' => FormTypeResource::collection($certificate),

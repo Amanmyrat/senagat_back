@@ -97,12 +97,6 @@ class AuthService
         if (User::where('phone', $phone)->exists()) {
             throw new Exception(ErrorMessage::PHONE_ALREADY_REGISTERED->value);
         }
-
-        //        $existingUser = User::where('phone', $otpSession->phone)->first();
-        //        if ($existingUser) {
-        //            throw new \Exception(ErrorMessage::PHONE_ALREADY_REGISTERED->value);
-        //        }
-
         $user = User::create([
             'phone' => $phone,
             'password' => Hash::make($registerData['password']),
@@ -169,14 +163,6 @@ class AuthService
                 throw new \Exception(ErrorMessage::INCORRECT_PASSWORD->value);
             }
         }
-
-        //        $user = User::with('profile')->where('phone', $phone)->
-        //        first();
-        //        if (! $user) {
-        //
-        //            throw new \Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
-        //        }
-
         return $user;
     }
 }

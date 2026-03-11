@@ -31,7 +31,6 @@ class TelecomBalanceRequest extends FormRequest
         return [
             'phone.required' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
             'phone.regex' => ErrorMessage::PHONE_NUMBER_INVALID->value,
-
         ];
     }
 }

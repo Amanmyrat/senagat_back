@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enum\ErrorMessage;
 use App\Models\InternationalPaymentOrder;
+use App\Models\InternationalPaymentTypes;
 
 class InternationalPaymentOrderService
 {
@@ -17,7 +18,7 @@ class InternationalPaymentOrderService
     {
         $profile = $user->profile ?? throw new \Exception(ErrorMessage::USER_PROFILE_REQUIRED->value);
 
-        $type = \App\Models\InternationalPaymentTypes::findOrFail($data['payment_type_id']);
+        $type = InternationalPaymentTypes::findOrFail($data['payment_type_id']);
 
         $requiredCount = count($type->required_files);
         $uploadedFiles = $data['uploaded_files'] ?? [];
@@ -31,7 +32,6 @@ class InternationalPaymentOrderService
         foreach ($uploadedFiles as $file) {
             $storedFiles[] = $file->store('international_orders', 'public');
         }
-
         return InternationalPaymentOrder::create([
             'user_id' => $user->id,
             'profile_id' => $profile->id,
