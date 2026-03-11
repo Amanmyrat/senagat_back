@@ -26,9 +26,7 @@ class PaymentHistoryResource extends JsonResource
                     'value' => $this->payment_target['value'] ?? null,
                 ]
                 : null,
-
             'created_at' => $this->resource->created_at->format('d/m/Y'),
-
         ];
     }
 }

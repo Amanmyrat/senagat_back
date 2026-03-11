@@ -30,7 +30,6 @@ class UserProfileResource extends JsonResource
             'home_phone' => $this->resource->home_phone,
             'home_address' => $this->resource->home_address,
             'scan_passport' => $this->imageUrl($this->resource->scan_passport),
-
         ];
     }
 }

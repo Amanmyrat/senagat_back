@@ -33,7 +33,6 @@ class CreditTypeResource extends JsonResource
             'interest' => $this->resource->interest,
             'background_color' => $this->resource->background_color,
             'image_url' => $this->imageUrl($this->resource->image_url),
-
             'requirements_description' => $this->resource->getTranslation('requirements_description', $locale) ?: null,
             'requirements' => collect($this->resource->getTranslation('requirements', $locale) ?? [])
                 ->map(function ($item) {

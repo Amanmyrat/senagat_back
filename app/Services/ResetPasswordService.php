@@ -80,26 +80,21 @@ class ResetPasswordService
     public function reset(string $phone, string $token, string $password): void
     {
         $this->ensureOtpIsEnabled();
-
         $session = OtpSession::where('phone', $phone)
             ->where('token', $token)
             ->where('is_verified', true)
             ->where('expires_at', '>', now())
             ->first();
-
         if (! $session) {
             throw new Exception(ErrorMessage::INVALID_OR_EXPIRED_OTP->value);
         }
-
         $user = User::where('phone', $phone)->first();
         if (! $user) {
             throw new Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
         }
-
         $user->update([
             'password' => Hash::make($password),
         ]);
-
         $session->delete();
         OtpCode::where('phone', $phone)->delete();
     }

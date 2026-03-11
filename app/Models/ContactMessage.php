@@ -35,6 +35,5 @@ class ContactMessage extends Model
         'email',
         'phone_number',
         'message',
-
     ];
 }

@@ -14,12 +14,10 @@ use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\VerifyOtpRequest;
 use App\Http\Resources\UserInformationResource;
 use App\Http\Resources\UserResource;
-use App\Models\User;
 use App\Services\AuthService;
 use App\Services\ResetPasswordService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class AuthController
 {

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -60,9 +59,4 @@ class OtpSession extends Model
         return $query->where('expires_at', '>', Carbon::now())
             ->where('is_verified', false);
     }
-
-//    public function scopeForPurpose($query, string $purpose)
-//    {
-//        return $query->where('purpose', $purpose);
-//    }
 }

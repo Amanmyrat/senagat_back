@@ -32,7 +32,6 @@ class TelecomService
                 'value' => $data['phone'],
             ],
         ]);
-
         $payload = [
             'bank_name' => $data['bank_name'],
             'amount' => $data['amount'],

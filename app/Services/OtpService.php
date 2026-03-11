@@ -12,7 +12,6 @@ class OtpService
     public function sendOtp(array $validated): string
     {
         $code = '12345';
-
         OtpCode::create([
             'phone' => $validated['phone'],
             'code' => $code,
@@ -36,6 +35,5 @@ class OtpService
         if (Carbon::now() > $otpCode->expires_at) {
             throw new Exception(ErrorMessage::OTP_TIMEOUT_ERROR->value);
         }
-        //        $otpCode->delete();
     }
 }

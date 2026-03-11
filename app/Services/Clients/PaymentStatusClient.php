@@ -47,7 +47,6 @@ class PaymentStatusClient
                 'status' => $payment->status,
 
             ];
-
         } catch (\Throwable $e) {
             return [
                 'success' => false,

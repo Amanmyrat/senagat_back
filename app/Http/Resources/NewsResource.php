@@ -24,7 +24,6 @@ class NewsResource extends JsonResource
             'published_at' => Carbon::parse($this->resource->published_at)
                 ->locale($locale)
                 ->translatedFormat('d F Y'),
-
         ];
     }
 }

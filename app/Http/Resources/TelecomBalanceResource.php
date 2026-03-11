@@ -15,7 +15,6 @@ class TelecomBalanceResource extends JsonResource
     public function toArray($request): array
     {
         $result = $this->resource['result'] ?? null;
-
         if ($result === 0) {
             return [
                 'success' => true,
@@ -24,7 +23,6 @@ class TelecomBalanceResource extends JsonResource
                 ]
             ];
         }
-
         if ($result === 5) {
             return [
                 'success' => false,
@@ -33,9 +31,6 @@ class TelecomBalanceResource extends JsonResource
                 ]
             ];
         }
-
-
-
         return [
             'success' => false,
             'error' => [

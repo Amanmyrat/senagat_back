@@ -31,8 +31,6 @@ class TelecomTopupRequest extends FormRequest
              * @example senagat
              */
             'bank_name' => ['required', 'string'],
-
-
             /**
              * Phone number.
              *
@@ -49,7 +47,6 @@ class TelecomTopupRequest extends FormRequest
              * @example 35
              */
             'amount' => ['required', 'numeric', 'min:1'],
-
         ];
     }
 

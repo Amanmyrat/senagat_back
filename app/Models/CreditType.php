@@ -54,7 +54,6 @@ class CreditType extends Model
 
     protected $casts = [
         'requirements' => 'array',
-
         'advantages' => 'array',
         'term' => MoneyCast::class,
         'min_amount' => MoneyCast::class,

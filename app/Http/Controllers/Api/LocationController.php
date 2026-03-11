@@ -38,7 +38,6 @@ class LocationController extends Controller
         $locations = Location::where('branch_services', true)
             ->where('type', 'Branch')
             ->get();
-
         return new JsonResponse([
             'success' => true,
             'data' => LocationResource::collection($locations),

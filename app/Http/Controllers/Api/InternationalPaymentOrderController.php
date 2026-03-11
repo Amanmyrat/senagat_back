@@ -30,14 +30,12 @@ class InternationalPaymentOrderController extends Controller
             return new JsonResponse([
                 'success' => true,
                 'data' => new InternationalPaymentOrderResource($order),
-
             ], 201);
 
         } catch (Exception $e) {
             return new JsonResponse([
                 'success' => false,
                 'error_message' => $e->getMessage(),
-
             ], 400);
         }
     }

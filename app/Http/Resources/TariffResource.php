@@ -20,7 +20,6 @@ class TariffResource extends JsonResource
     {
         $items = $this->resource->details
             ->map(fn ($detail) => $this->mapTariffDetail($detail));
-
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', 'tk'),
