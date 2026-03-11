@@ -54,8 +54,6 @@ class AstuService
                 'status' => 'failed',
             ]);
         }
-
         return $response;
-
     }
 }

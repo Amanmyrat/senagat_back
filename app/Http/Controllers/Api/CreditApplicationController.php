@@ -25,10 +25,8 @@ class CreditApplicationController extends Controller
     {
         try {
             $application = $this->service->createLoanOrder($request->validated(), $request->user());
-
             return new JsonResponse([
                 'success' => true,
-
                 'data' => collect((new LoanOrderResource($application))->toArray($request))
                     ->except('status'),
             ], 201);
@@ -36,7 +34,6 @@ class CreditApplicationController extends Controller
             return new JsonResponse([
                 'success' => false,
                 'error_message' => $e->getMessage(),
-                //    'code' => ErrorMessage::LOAN_ORDER_CREATION_FAILED->value,
             ], 400);
         }
     }

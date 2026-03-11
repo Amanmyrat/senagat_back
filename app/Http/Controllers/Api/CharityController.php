@@ -28,18 +28,6 @@ class CharityController extends Controller
 
         return new JsonResponse($response);
     }
-
-    //    /**
-    //     * Charity status
-    //     */
-    //    public function checkStatus(CheckPaymentStatusRequest $request): JsonResponse
-    //    {
-    //        return new JsonResponse(
-    //            $this->charityService->checkStatus(
-    //                $request->validated('orderId')
-    //            )
-    //        );
-    //    }
     /**
      * Bank returnUrl
      *
@@ -50,9 +38,7 @@ class CharityController extends Controller
         $request->validate([
             'orderId' => ['required', 'string'],
         ]);
-
         $orderId = $request->query('orderId');
-
         return response()->json(
             $this->charityService->checkStatus($orderId)
         );

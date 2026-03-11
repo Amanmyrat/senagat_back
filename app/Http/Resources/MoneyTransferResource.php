@@ -18,7 +18,6 @@ class MoneyTransferResource extends JsonResource
     public function toArray(Request $request): array
     {
         $locale = app()->getLocale();
-
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->getTranslation('title', $locale),

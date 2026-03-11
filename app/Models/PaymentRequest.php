@@ -16,7 +16,6 @@ class PaymentRequest extends Model
         'payment_target',
         'meta',
         'amount',
-
     ];
 
     protected $casts = [

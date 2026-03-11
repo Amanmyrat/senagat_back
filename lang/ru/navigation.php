@@ -26,5 +26,7 @@ return [
     'payment' => 'Платеж',
     'belet_payment' => 'Платеж Belet',
     'charity' => 'Благотворительность',
+    'telecom_payment' => 'Оплата телекоммуникаций',
+    'astu_payment' => 'Оплата ASTU',
 
 ];

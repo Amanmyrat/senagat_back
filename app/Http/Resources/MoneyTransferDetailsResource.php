@@ -31,7 +31,6 @@ class MoneyTransferDetailsResource extends JsonResource
             'advantages' => $this->mapAdvantages(
                 $this->resource->getTranslation('advantages', $locale) ?? []
             ),
-
             'tariff_details' => $this->mapTariffDetails(
                 $this->resource->getTranslation('tariff_details', $locale) ?? []
             ),

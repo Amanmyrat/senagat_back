@@ -37,7 +37,6 @@ class CardOrderController extends Controller
             return new JsonResponse([
                 'success' => false,
                 'error_message' => $e->getMessage(),
-                //  'code' => ErrorMessage::ORDER_CREATION_FAILED->value,
             ], 400);
         }
     }

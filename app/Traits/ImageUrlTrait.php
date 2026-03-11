@@ -16,7 +16,4 @@ trait ImageUrlTrait
 
         return parse_url($url, PHP_URL_PATH);
     }
-
-    //        return $path ? Storage::disk('public')->url($path) : null;
-
 }

@@ -18,7 +18,6 @@ class LocationResource extends JsonResource
         $locale = app()->getLocale();
 
         $hours = $this->resource->getTranslation('hours', $locale);
-
         return [
             'id' => $this->resource->id,
             'type' => $this->resource->type,
@@ -30,8 +29,6 @@ class LocationResource extends JsonResource
             'help_desk_number' => $this->resource->home_number,
             'branch_services' => $this->resource->branch_services,
             'working_hours' => is_array($hours) ? array_values($hours) : [],
-            //       'working_hours' => array_values($hours ?? []),
-
         ];
     }
 }

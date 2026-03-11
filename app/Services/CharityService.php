@@ -18,7 +18,6 @@ class CharityService implements PollingPaymentProvider
 
     public function create(?User $user, array $data): array
     {
-
         $payment = PaymentRequest::create([
             'user_id' => $user?->id,
             'type' => 'charity',
@@ -33,7 +32,6 @@ class CharityService implements PollingPaymentProvider
                 'surname' => $data['surname'],
             ],
         ]);
-
         $payload = [
             'bank_name' => $data['bank_name'],
             'amount' => $data['amount'],
@@ -41,15 +39,12 @@ class CharityService implements PollingPaymentProvider
             'surname' => $data['surname'],
             'phone' => '993'.$data['phone'],
         ];
-
         $response = $this->client->create($payload);
-
         if (($response['success'] ?? false) === true) {
             $orderId = $response['data']['orderId'] ?? null;
             $payment->update([
                 'status' => 'pending',
                 'external_id' => $response['data']['orderId'] ?? null,
-
             ]);
             if ($orderId) {
                 AutoConfirmPaymentJob::dispatch(
@@ -63,9 +58,7 @@ class CharityService implements PollingPaymentProvider
                 'status' => 'failed',
             ]);
         }
-
         return $response;
-
     }
 
     public function checkStatus(string $orderId): array
@@ -102,13 +95,11 @@ class CharityService implements PollingPaymentProvider
             'status' => $mappedStatus,
             'error_message' => $errorMessage,
         ]);
-
-        Log::info('Charity payment status updated', [
+        Log::channel('charity')->info('Charity payment status updated', [
             'payment_id' => $payment->id,
             'external_id' => $orderId,
             'status' => $mappedStatus,
         ]);
-
         return [
             'success' => true,
             'data' => [
@@ -121,29 +112,21 @@ class CharityService implements PollingPaymentProvider
 
     public function pollStatusByOrderId(string|int $id): array
     {
-        Log::channel('belet')->info('Polling Metodu Tetiklendi (Charity)', ['gelen_id' => $id]);
+        Log::channel('charity')->info('Polling Method Triggered (Charity)', ['id' => $id]);
 
         $payment = is_numeric($id)
             ? PaymentRequest::find($id)
             : PaymentRequest::where('external_id', $id)->first();
 
         if (! $payment) {
-            Log::channel('belet')->warning("Polling: DB'de kayit bulunamadi!");
-
+            Log::channel('charity')->warning("Polling: No records found in the database!");
             return ['success' => true];
         }
+       $this->checkStatus($payment->external_id);
+       $payment->refresh();
 
-        Log::channel('belet')->info('API Sorgusu Hazirlaniyor', [
-            'db_id' => $payment->id,
-            'gonderilecek_uuid' => $payment->external_id,
-        ]);
-
-        $this->checkStatus($payment->external_id);
-
-        $payment->refresh();
-
-        Log::channel('belet')->info('Polling Bitti', [
-            'son_durum' => $payment->status,
+        Log::channel('charity')->info('Polling completed', [
+            'status' => $payment->status,
         ]);
 
         return [

@@ -34,7 +34,6 @@ class ContactMessageController extends Controller
             return new JsonResponse([
                 'success' => false,
                 'error_message' => $e->getMessage(),
-                //       'code' => ErrorMessage::CONTACT_MESSAGE_FAILED->value,
             ], 400);
         }
     }

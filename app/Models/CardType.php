@@ -60,7 +60,4 @@ class CardType extends Model
             ? asset('storage/'.$this->image_url)
             : null;
     }
-
-    // Relations
-
 }

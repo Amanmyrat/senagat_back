@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enum\LocationType;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Spatie\Translatable\HasTranslations;
