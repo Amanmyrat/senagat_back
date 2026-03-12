@@ -26,5 +26,6 @@ return [
     'payment' => 'Payment',
     'charity' => 'Charity',
     'telecom_payment'=>'Telecom Payment',
-    'astu_payment'=>'ASTU Payment'
+    'astu_payment'=>'ASTU Payment',
+    'tm_cell_payment'=>'TmCell Payment'
 ];

@@ -28,4 +28,5 @@ return [
     'charity' => 'Haýyr-sahawat',
     'telecom_payment' => 'Telekom tölegi',
     'astu_payment' => 'ASTU tölegi',
+    'tm_cell_payment'=>'TmCell tölegi'
 ];
