@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\PaymentHistoryController;
 use App\Http\Controllers\Api\PaymentStatusController;
 use App\Http\Controllers\Api\TariffController;
 use App\Http\Controllers\Api\TelecomController;
+use App\Http\Controllers\Api\TmCellController;
 use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -135,6 +136,10 @@ Route::middleware('optional:sanctum')->group(function () {
     Route::prefix('astu')->group(function () {
         Route::post('balance', [AstuController::class, 'getBalance']);
         Route::post('/pay', [AstuController::class, 'pay']);
+    });
+    Route::prefix('tm_cell')->group(function () {
+        Route::post('balance', [TmCellController::class, 'getBalance']);
+        Route::post('/pay', [TmCellController::class, 'pay']);
     });
     //    Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
 });
