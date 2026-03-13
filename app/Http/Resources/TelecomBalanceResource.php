@@ -12,6 +12,7 @@ class TelecomBalanceResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+    public static $wrap = null;
     public function toArray($request): array
     {
         $data = $this->resource['data'] ?? [];
@@ -20,7 +21,7 @@ class TelecomBalanceResource extends JsonResource
             return [
                 'success' => true,
                 'data' => [
-                    'balance' => $this->resource['balance'],
+                    'balance' => $data['balance'] ?? null,
                 ],
             ];
         }
@@ -33,6 +34,11 @@ class TelecomBalanceResource extends JsonResource
             ];
         }
 
-        return $this->resource;
+        return [
+            'success' => false,
+            'error' => [
+                'message' => $data['comment'] ?? 'unknown_error',
+            ],
+        ];
     }
 }
