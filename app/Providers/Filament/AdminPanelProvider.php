@@ -57,6 +57,8 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->font('System', provider: 'App\\Filament\\FontProviders\\LocalFontProvider')
+            ->defaultAvatarProvider('App\\Filament\\AvatarProviders\\LocalAvatarProvider')
             ->plugins([
 
                 SpatieLaravelTranslatablePlugin::make()->defaultLocales(['tk', 'en', 'ru']),
