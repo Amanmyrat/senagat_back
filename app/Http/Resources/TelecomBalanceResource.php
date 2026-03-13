@@ -31,11 +31,6 @@ class TelecomBalanceResource extends JsonResource
                 ]
             ];
         }
-        return [
-            'success' => false,
-            'error' => [
-                'message' => ErrorMessage::NO_INTERNET_CONNECTION
-            ]
-        ];
+        return $this->resource;
     }
 }
