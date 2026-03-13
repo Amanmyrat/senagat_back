@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Services;
 
 use App\Models\PaymentRequest;
@@ -9,13 +8,11 @@ use App\Services\Clients\AstuClient;
 
 class AstuService
 {
-    public function __construct(protected AstuClient $client)
-    {
-    }
+    public function __construct(protected AstuClient $client) {}
 
-    public function getBalance(string $phone,string $type): array
+    public function getBalance(string $phone, string $type): array
     {
-        return $this->client->getBalance($phone,$type);
+        return $this->client->getBalance($phone, $type);
     }
 
     public function create(?User $user, array $data): array
@@ -23,7 +20,7 @@ class AstuService
 
         $payment = PaymentRequest::create([
             'user_id' => $user?->id,
-            'type' => "astu ". $data['type'],
+            'type' => 'astu '.$data['type'],
             'status' => 'sent',
             'amount' => $data['amount'],
             'payment_target' => [
@@ -35,7 +32,7 @@ class AstuService
         $payload = [
             'bank_name' => $data['bank_name'],
             'amount' => $data['amount'],
-            'account'=> $data['phone'],
+            'account' => $data['phone'],
             'type' => $data['type'],
         ];
 
@@ -54,6 +51,7 @@ class AstuService
                 'status' => 'failed',
             ]);
         }
+
         return $response;
     }
 }

@@ -16,8 +16,10 @@ class AstuController extends Controller
     {
         $this->astuService = $astuService;
     }
+
     /**
      * Astu balance
+     *
      * @queryParam account string required Astu account number. Example: 12932701
      */
     public function getBalance(AstuBalanceRequest $request)
@@ -28,6 +30,7 @@ class AstuController extends Controller
             $data['phone'],
             $data['type']
         );
+
         return new JsonResponse($result);
 
     }

@@ -18,6 +18,7 @@ class LocationResource extends JsonResource
         $locale = app()->getLocale();
 
         $hours = $this->resource->getTranslation('hours', $locale);
+
         return [
             'id' => $this->resource->id,
             'type' => $this->resource->type,

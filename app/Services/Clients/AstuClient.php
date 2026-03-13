@@ -26,7 +26,7 @@ class AstuClient
     {
         try {
             return $this->client()
-                ->post($this->baseUrl . '/api/v1/astu/topup', $payload)
+                ->post($this->baseUrl.'/api/v1/astu/topup', $payload)
                 ->json();
 
         } catch (ConnectionException $e) {
@@ -36,11 +36,11 @@ class AstuClient
         }
     }
 
-    public function getBalance(string $phone,string $type): array
+    public function getBalance(string $phone, string $type): array
     {
         try {
             return $this->client()
-                ->post($this->baseUrl . '/api/v1/astu/balance', [
+                ->post($this->baseUrl.'/api/v1/astu/balance', [
                     'account' => $phone,
                     'type' => $type,
                 ])
@@ -51,7 +51,6 @@ class AstuClient
             return $this->error(500, $e->getMessage());
         }
     }
-
 
     protected function noConnection(): array
     {

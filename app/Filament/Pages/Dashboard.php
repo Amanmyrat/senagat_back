@@ -15,5 +15,4 @@ class Dashboard extends BaseDashboard
     {
         return optional(auth('admin')->user())->role === 'super-admin';
     }
-
 }

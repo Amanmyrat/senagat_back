@@ -50,15 +50,14 @@ class AstuBalanceRequest extends FormRequest
         ];
     }
 
-
     public function messages(): array
     {
         return [
             'phone.required' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
             'phone.regex' => ErrorMessage::PHONE_NUMBER_INVALID->value,
             'type.required' => ErrorMessage::TYPE_REQUIRED->value,
-            'type.string'   => ErrorMessage::TYPE_INVALID->value,
-            'type.in'       => ErrorMessage::TYPE_NOT_SUPPORTED->value,
+            'type.string' => ErrorMessage::TYPE_INVALID->value,
+            'type.in' => ErrorMessage::TYPE_NOT_SUPPORTED->value,
         ];
     }
 }

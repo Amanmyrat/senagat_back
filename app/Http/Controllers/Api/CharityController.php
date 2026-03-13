@@ -28,6 +28,7 @@ class CharityController extends Controller
 
         return new JsonResponse($response);
     }
+
     /**
      * Bank returnUrl
      *
@@ -39,6 +40,7 @@ class CharityController extends Controller
             'orderId' => ['required', 'string'],
         ]);
         $orderId = $request->query('orderId');
+
         return response()->json(
             $this->charityService->checkStatus($orderId)
         );

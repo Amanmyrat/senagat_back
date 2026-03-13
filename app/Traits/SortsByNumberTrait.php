@@ -20,6 +20,7 @@ trait SortsByNumberTrait
                     return $aVal <=> $bVal;
                 }
             }
+
             return 0;
         })->values();
     }

@@ -84,7 +84,8 @@ class BeletService implements PollingPaymentProvider
 
         return $response;
     }
-        public function confirmByOrderId(string $orderId): array
+
+    public function confirmByOrderId(string $orderId): array
     {
         $topUpRequest = PaymentRequest::where('type', 'belet')
             ->where('external_id', $orderId)
@@ -126,7 +127,7 @@ class BeletService implements PollingPaymentProvider
             : PaymentRequest::where('external_id', $id)->first();
 
         if (! $payment) {
-            Log::channel('belet')->warning("Polling: No records found in DB.!");
+            Log::channel('belet')->warning('Polling: No records found in DB.!');
 
             return ['success' => true];
         }

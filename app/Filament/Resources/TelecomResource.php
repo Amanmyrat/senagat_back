@@ -17,11 +17,13 @@ class TelecomResource extends Resource
     protected static ?string $model = PaymentRequest::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
             ->whereIn('type', ['telecom']);
     }
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.telecom_payment');
@@ -41,6 +43,7 @@ class TelecomResource extends Resource
     {
         return $record ? (string) $record->name : __('navigation.telecom_payment');
     }
+
     public static function canViewAny(): bool
     {
         return optional(auth()->user())->role === 'super-admin';
@@ -49,6 +52,7 @@ class TelecomResource extends Resource
     protected static ?string $cluster = Payments::class;
 
     protected static ?int $navigationSort = 3;
+
     public static function form(Form $form): Form
     {
         return $form

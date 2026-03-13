@@ -17,14 +17,17 @@ class TmCellController extends Controller
     {
         $this->telecomService = $telecomService;
     }
+
     /**
      * Telecom balance
+     *
      * @queryParam account string required Telecom account number. Example: 12932701
      */
     public function getBalance(TmCellBalanceRequest $request)
     {
         $result = $this->telecomService->getBalance(
             $request->validated('phone'));
+
         return new TelecomBalanceResource($result);
 
     }

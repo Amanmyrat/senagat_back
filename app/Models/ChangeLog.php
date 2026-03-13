@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property array<array-key, mixed> $changes
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChangeLog newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChangeLog newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChangeLog query()
@@ -23,7 +22,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChangeLog whereModelType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChangeLog whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChangeLog whereUserId($value)
- *
  * @mixin \Eloquent
  */
 class ChangeLog extends Model

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Services\Clients;
 
 use Illuminate\Http\Client\ConnectionException;
@@ -28,7 +27,7 @@ class TelecomClient
     {
         try {
             return $this->client()
-                ->post($this->baseUrl . '/api/v1/telecom/top-up', $payload)
+                ->post($this->baseUrl.'/api/v1/telecom/top-up', $payload)
                 ->json();
 
         } catch (ConnectionException $e) {
@@ -42,27 +41,27 @@ class TelecomClient
     {
         try {
             return $this->client()
-                ->get($this->baseUrl . '/api/v1/telecom/balances', [
+                ->get($this->baseUrl.'/api/v1/telecom/balances', [
                     'account' => $phone,
                 ])
                 ->json();
-        }
-        catch (ConnectionException $e) {
+        } catch (ConnectionException $e) {
             Log::error('TelecomClient::getBalance ConnectionException', [
-                'phone'   => $phone,
+                'phone' => $phone,
                 'message' => $e->getMessage(),
             ]);
+
             return $this->noConnection();
         } catch (\Throwable $e) {
             Log::error('TelecomClient::getBalance Throwable', [
-                'phone'   => $phone,
+                'phone' => $phone,
                 'message' => $e->getMessage(),
-                'class'   => get_class($e), // hangi exception olduğunu göster
+                'class' => get_class($e), // hangi exception olduğunu göster
             ]);
+
             return $this->error(500, $e->getMessage());
         }
     }
-
 
     protected function noConnection(): array
     {
@@ -75,15 +74,16 @@ class TelecomClient
             'data' => null,
         ];
     }
+
     protected function error(int $code, string $message): array
     {
         return [
             'success' => false,
-            'error'   => [
-                'code'    => $code,
+            'error' => [
+                'code' => $code,
                 'message' => $message,
             ],
-            'data'    => null,
+            'data' => null,
         ];
     }
 }

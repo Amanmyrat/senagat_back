@@ -15,8 +15,6 @@ use Spatie\Translatable\HasTranslations;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $translations
-
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType query()
@@ -35,7 +33,27 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereRequirements($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereTerm($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereUpdatedAt($value)
- *
+ * @property $interest
+ * @property string|null $background_color
+ * @property bool $can_offer_online
+ * @property array<array-key, mixed>|null $term_text
+ * @property array<array-key, mixed>|null $amount_text
+ * @property $term
+ * @property $min_amount
+ * @property $max_amount
+ * @property string|null $category
+ * @property array<array-key, mixed>|null $requirements_description
+ * @property int|null $sort
+ * @property-read mixed $effective_amount
+ * @property-read mixed $effective_term
+ * @property-read string|null $image_path
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereAmountText($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereBackgroundColor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereCanOfferOnline($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereCategory($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereRequirementsDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereSort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditType whereTermText($value)
  * @mixin \Eloquent
  */
 class CreditType extends Model
