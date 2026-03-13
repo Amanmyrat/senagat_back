@@ -42,6 +42,7 @@ class CardTypeController extends Controller
             ], 404);
 
         }
+
         return new JsonResponse([
             'success' => true,
             'data' => new CardTypeResource($card),

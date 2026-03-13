@@ -4,28 +4,26 @@ namespace App\Filament\Resources;
 
 use App\Filament\Clusters\Payments;
 use App\Filament\Resources\TmCellRequestResource\Pages;
-use App\Filament\Resources\TmCellRequestResource\RelationManagers;
 use App\Models\PaymentRequest;
-use App\Models\TmCellRequest;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TmCellRequestResource extends Resource
 {
     protected static ?string $model = PaymentRequest::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
             ->whereIn('type', ['tmcell']);
     }
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.tm_cell_payment');
@@ -45,6 +43,7 @@ class TmCellRequestResource extends Resource
     {
         return $record ? (string) $record->name : __('navigation.tm_cell_payment');
     }
+
     public static function canViewAny(): bool
     {
         return optional(auth()->user())->role === 'super-admin';
@@ -53,6 +52,7 @@ class TmCellRequestResource extends Resource
     protected static ?string $cluster = Payments::class;
 
     protected static ?int $navigationSort = 4;
+
     public static function form(Form $form): Form
     {
         return $form

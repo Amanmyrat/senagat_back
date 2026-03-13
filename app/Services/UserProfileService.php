@@ -105,6 +105,7 @@ class UserProfileService
         if (isset($data['issued_date'])) {
             $data['issued_date'] = Carbon::createFromFormat('d-m-Y', $data['issued_date'])->format('Y-m-d');
         }
+
         return $data;
     }
 }

@@ -43,6 +43,7 @@ class DepositController extends Controller
             ], 404);
 
         }
+
         return new JsonResponse([
             'success' => true,
             'data' => new DepositTypeDetailsResource($deposit),

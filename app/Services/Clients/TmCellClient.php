@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Services\Clients;
 
 use Illuminate\Http\Client\ConnectionException;
@@ -27,7 +26,7 @@ class TmCellClient
     {
         try {
             return $this->client()
-                ->post($this->baseUrl . '/api/v1/tm_cell/pay', $payload)
+                ->post($this->baseUrl.'/api/v1/tm_cell/pay', $payload)
                 ->json();
 
         } catch (ConnectionException $e) {
@@ -41,7 +40,7 @@ class TmCellClient
     {
         try {
             return $this->client()
-                ->get($this->baseUrl . '/api/v1/tm_cell/balance', [
+                ->get($this->baseUrl.'/api/v1/tm_cell/balance', [
                     'account' => $phone,
                 ])
                 ->json();
@@ -51,7 +50,6 @@ class TmCellClient
             return $this->error(500, $e->getMessage());
         }
     }
-
 
     protected function noConnection(): array
     {

@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\CreditType $credit
  * @property-read \App\Models\UserProfile $profile
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication query()
@@ -53,7 +52,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereWorkAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereWorkplace($value)
- *
+ * @property $term
+ * @property $amount
+ * @property $interest
+ * @property $monthly_payment
+ * @property $salary
+ * @property int $bank_branch_id
+ * @property-read \App\Models\Location $branch
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereBankBranchId($value)
  * @mixin \Eloquent
  */
 class CreditApplication extends Model

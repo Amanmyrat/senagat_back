@@ -13,7 +13,7 @@ class LocalAvatarProvider implements AvatarProvider
         $name = $record->name ?? 'User';
         $initials = collect(explode(' ', $name))
             ->take(2)
-            ->map(fn($part) => strtoupper(substr(trim($part), 0, 1)))
+            ->map(fn ($part) => strtoupper(substr(trim($part), 0, 1)))
             ->filter()
             ->join('');
 
@@ -29,6 +29,6 @@ class LocalAvatarProvider implements AvatarProvider
             htmlspecialchars($initials, ENT_QUOTES, 'UTF-8')
         );
 
-        return 'data:image/svg+xml;base64,' . base64_encode($svg);
+        return 'data:image/svg+xml;base64,'.base64_encode($svg);
     }
 }

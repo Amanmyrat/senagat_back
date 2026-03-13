@@ -25,7 +25,7 @@ return [
     'belet_payment' => 'Belet Payment',
     'payment' => 'Payment',
     'charity' => 'Charity',
-    'telecom_payment'=>'Telecom Payment',
-    'astu_payment'=>'ASTU Payment',
-    'tm_cell_payment'=>'TmCell Payment'
+    'telecom_payment' => 'Telecom Payment',
+    'astu_payment' => 'ASTU Payment',
+    'tm_cell_payment' => 'TmCell Payment',
 ];

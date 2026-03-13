@@ -17,11 +17,13 @@ class AstuRequestResource extends Resource
     protected static ?string $model = PaymentRequest::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->whereIn('type', ['astu inet','astu cdma','astu phone','astu iptv']);
+            ->whereIn('type', ['astu inet', 'astu cdma', 'astu phone', 'astu iptv']);
     }
+
     public static function getNavigationLabel(): string
     {
         return __('navigation.astu_payment');
@@ -41,6 +43,7 @@ class AstuRequestResource extends Resource
     {
         return $record ? (string) $record->name : __('navigation.astu_payment');
     }
+
     public static function canViewAny(): bool
     {
         return optional(auth()->user())->role === 'super-admin';

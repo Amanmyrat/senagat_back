@@ -58,6 +58,7 @@ class CharityService implements PollingPaymentProvider
                 'status' => 'failed',
             ]);
         }
+
         return $response;
     }
 
@@ -100,6 +101,7 @@ class CharityService implements PollingPaymentProvider
             'external_id' => $orderId,
             'status' => $mappedStatus,
         ]);
+
         return [
             'success' => true,
             'data' => [
@@ -119,11 +121,12 @@ class CharityService implements PollingPaymentProvider
             : PaymentRequest::where('external_id', $id)->first();
 
         if (! $payment) {
-            Log::channel('charity')->warning("Polling: No records found in the database!");
+            Log::channel('charity')->warning('Polling: No records found in the database!');
+
             return ['success' => true];
         }
-       $this->checkStatus($payment->external_id);
-       $payment->refresh();
+        $this->checkStatus($payment->external_id);
+        $payment->refresh();
 
         Log::channel('charity')->info('Polling completed', [
             'status' => $payment->status,

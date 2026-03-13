@@ -21,23 +21,23 @@ class ResetPasswordService
      */
     private function ensureOtpIsEnabled(): void
     {
-        if (!(bool) config('app.otp.enabled', false)) {
+        if (! (bool) config('app.otp.enabled', false)) {
             throw new Exception(ErrorMessage::OTP_DISABLED->value);
         }
     }
 
     /**
      * Step 1: Request reset password (send OTP)
+     *
      * @throws Exception
      */
     public function request(string $phone): void
     {
 
         $this->ensureOtpIsEnabled();
-        if (!User::where('phone', $phone)->exists()) {
+        if (! User::where('phone', $phone)->exists()) {
             throw new Exception(ErrorMessage::PHONE_NOT_REGISTERED->value);
         }
-
 
         OtpSession::where('phone', $phone)
             ->delete();
@@ -49,6 +49,7 @@ class ResetPasswordService
 
     /**
      * Step 2: Confirm OTP and create reset token
+     *
      * @throws Exception
      */
     public function confirm(string $phone, string $code): string
@@ -74,8 +75,8 @@ class ResetPasswordService
 
     /**
      * Step 3: Reset password with token
-     * @throws Exception
      *
+     * @throws Exception
      */
     public function reset(string $phone, string $token, string $password): void
     {

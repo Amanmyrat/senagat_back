@@ -33,6 +33,7 @@ class TmCellBalanceRequest extends FormRequest
             'phone' => ['required', 'string', 'regex:/^[0-9]{8}$/'],
         ];
     }
+
     public function messages(): array
     {
         return [

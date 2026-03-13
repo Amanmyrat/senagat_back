@@ -14,5 +14,4 @@ class Payments extends Cluster
     {
         return __('navigation.payment');
     }
-
 }

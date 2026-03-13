@@ -128,10 +128,10 @@ Route::middleware('optional:sanctum')->group(function () {
     });
     // Charity CRUD
     Route::post('/charity', [CharityController::class, 'store']);
-    //Telecom CRUD
+    // Telecom CRUD
     Route::post('telecom/balance', [TelecomController::class, 'getBalance']);
     Route::post('/telecom/pay', [TelecomController::class, 'pay']);
-    //ASTU CRUD
+    // ASTU CRUD
 
     Route::prefix('astu')->group(function () {
         Route::post('balance', [AstuController::class, 'getBalance']);
@@ -151,16 +151,15 @@ Route::prefix('contact-message')->group(function () {
 Route::get('payments/status/{orderId}', [PaymentStatusController::class, 'checkStatus']);
 // Reset Password
 
-    Route::post('reset/request', [
-        AuthController::class,
-        'request',
-    ]);
-    Route::post('reset/confirm', [
-        AuthController::class,
-        'confirm',
-    ]);
-    Route::post('reset/password', [
-        AuthController::class,
-        'reset',
-    ]);
-
+Route::post('reset/request', [
+    AuthController::class,
+    'request',
+]);
+Route::post('reset/confirm', [
+    AuthController::class,
+    'confirm',
+]);
+Route::post('reset/password', [
+    AuthController::class,
+    'reset',
+]);

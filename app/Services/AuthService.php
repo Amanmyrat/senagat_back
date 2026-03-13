@@ -42,7 +42,6 @@ class AuthService
             throw new Exception(ErrorMessage::PHONE_ALREADY_REGISTERED->value);
         }
 
-
         $this->otpService->sendOtp($data);
     }
 
@@ -163,6 +162,7 @@ class AuthService
                 throw new \Exception(ErrorMessage::INCORRECT_PASSWORD->value);
             }
         }
+
         return $user;
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Services;
 
 use App\Models\PaymentRequest;
@@ -9,10 +8,7 @@ use App\Services\Clients\TelecomClient;
 
 class TmCellService
 {
-    public function __construct(protected TelecomClient $client)
-    {
-
-    }
+    public function __construct(protected TelecomClient $client) {}
 
     public function getBalance(string $phone): array
     {
@@ -35,13 +31,13 @@ class TmCellService
         $payload = [
             'bank_name' => $data['bank_name'],
             'amount' => $data['amount'],
-            'phone'=> $data['phone'],
+            'phone' => $data['phone'],
         ];
 
         $response = $this->client->create($payload);
 
         if (($response['success'] ?? false) === true) {
-//            $orderId = $response['data']['orderId'] ?? null;
+            //            $orderId = $response['data']['orderId'] ?? null;
             $payment->update([
                 'status' => 'pending',
                 'external_id' => $response['data']['orderId'] ?? null,
@@ -51,6 +47,7 @@ class TmCellService
                 'status' => 'failed',
             ]);
         }
+
         return $response;
     }
 }

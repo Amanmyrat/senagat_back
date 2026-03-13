@@ -14,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @property int $id
@@ -31,19 +32,13 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read Collection<int, PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @property string|null $token
- *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
- * @method static Builder<static>|User newModelQuery()
- * @method static Builder<static>|User newQuery()
- * @method static Builder<static>|User query()
- * @method static Builder<static>|User whereCreatedAt($value)
- * @method static Builder<static>|User whereId($value)
- * @method static Builder<static>|User whereName($value)
- * @method static Builder<static>|User wherePassword($value)
- * @method static Builder<static>|User wherePhone($value)
- * @method static Builder<static>|User whereRememberToken($value)
- * @method static Builder<static>|User whereUpdatedAt($value)
- *
+ * @property-read Collection<int, \App\Models\CardOrder> $cards
+ * @property-read int|null $cards_count
+ * @property-read Collection<int, \App\Models\CertificateOrder> $certificates
+ * @property-read int|null $certificates_count
+ * @property-read Collection<int, \App\Models\PaymentRequest> $paymentRequests
+ * @property-read int|null $payment_requests_count
  * @mixin Eloquent
  */
 class User extends Authenticatable

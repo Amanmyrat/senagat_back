@@ -24,6 +24,7 @@ class BankResolverService
                 return $bank['id'];
             }
         }
+
         return null;
     }
 }

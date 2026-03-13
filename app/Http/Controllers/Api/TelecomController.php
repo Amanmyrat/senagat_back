@@ -17,16 +17,22 @@ class TelecomController extends Controller
     {
         $this->telecomService = $telecomService;
     }
+
     /**
      * Telecom balance
+     *
      * @queryParam account string required Telecom account number. Example: 12932701
      */
     public function getBalance(TelecomBalanceRequest $request)
     {
         $result = $this->telecomService->getBalance(
             $request->validated('phone'));
-        return new TelecomBalanceResource($result);
-
+        if (!isset($result['result'])) {
+            return new JsonResponse($result);
+        }
+        return new JsonResponse(
+            (new TelecomBalanceResource($result))->toArray($request)
+        );
     }
 
     /**
@@ -40,5 +46,4 @@ class TelecomController extends Controller
 
         return new JsonResponse($response);
     }
-
 }
