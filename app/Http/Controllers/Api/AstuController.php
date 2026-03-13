@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AstuBalanceRequest;
 use App\Http\Requests\AstuTopUpRequest;
+use App\Http\Resources\AstuBalanceResource;
 use App\Services\AstuService;
 use Illuminate\Http\JsonResponse;
 
@@ -31,7 +32,7 @@ class AstuController extends Controller
             $data['type']
         );
 
-        return new JsonResponse($result);
+        return new AstuBalanceResource($result);
 
     }
 
