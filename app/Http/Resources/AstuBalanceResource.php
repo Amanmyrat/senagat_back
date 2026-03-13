@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Enum\ErrorMessage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,7 +26,7 @@ class AstuBalanceResource extends JsonResource
 
         return [
             'success' => false,
-            'error' => $this->resource['error'],
+            'message' => ErrorMessage::ACCOUNT_NOT_FOUNT,
         ];
     }
 }
