@@ -40,23 +40,22 @@ class TelecomClient
     public function getBalance(string $phone): array
     {
         try {
-            return $this->client()
+            $response = $this->client()
                 ->get($this->baseUrl.'/api/v1/telecom/balances', [
                     'account' => $phone,
                 ])
                 ->json();
+
+            return $response;
         } catch (ConnectionException $e) {
             Log::error('TelecomClient::getBalance ConnectionException', [
-                'phone' => $phone,
                 'message' => $e->getMessage(),
             ]);
 
             return $this->noConnection();
         } catch (\Throwable $e) {
             Log::error('TelecomClient::getBalance Throwable', [
-                'phone' => $phone,
                 'message' => $e->getMessage(),
-                'class' => get_class($e), // hangi exception olduğunu göster
             ]);
 
             return $this->error(500, $e->getMessage());
