@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\CertificateType $certificateType
  * @property-read \App\Models\UserProfile $profile
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateOrder newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateOrder newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateOrder query()
@@ -33,7 +32,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateOrder whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateOrder whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateOrder whereUserId($value)
- *
+ * @property int $bank_branch_id
+ * @property-read \App\Models\Location $branch
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateOrder whereBankBranchId($value)
  * @mixin \Eloquent
  */
 class CertificateOrder extends Model

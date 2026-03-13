@@ -12,7 +12,6 @@ use Spatie\Translatable\HasTranslations;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $translations
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateType query()
@@ -25,7 +24,8 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateType wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateType whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateType whereUpdatedAt($value)
- *
+ * @property int|null $sort
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateType whereSort($value)
  * @mixin \Eloquent
  */
 class CertificateType extends Model

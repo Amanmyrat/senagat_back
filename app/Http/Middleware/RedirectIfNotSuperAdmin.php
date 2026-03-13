@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\Filament\AdminPanelProvider;
 use Closure;
 use Illuminate\Http\Request;
-use App\Providers\Filament\AdminPanelProvider;
 
 class RedirectIfNotSuperAdmin
 {

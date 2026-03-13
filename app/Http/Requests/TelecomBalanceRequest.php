@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-
 use App\Enum\ErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -19,13 +18,14 @@ class TelecomBalanceRequest extends FormRequest
              * @example 12932701
              */
             'phone' => ['required', 'string'],
-            ];
+        ];
     }
 
     public function authorize(): bool
     {
         return true;
     }
+
     public function messages(): array
     {
         return [

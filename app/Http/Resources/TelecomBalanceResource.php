@@ -20,17 +20,18 @@ class TelecomBalanceResource extends JsonResource
                 'success' => true,
                 'data' => [
                     'balance' => $this->resource['balance'],
-                ]
+                ],
             ];
         }
         if ($result === 5) {
             return [
                 'success' => false,
                 'error' => [
-                    'message' => ErrorMessage::PHONE_NOT_FOUND
-                ]
+                    'message' => ErrorMessage::ACCOUNT_NOT_FOUNT,
+                ],
             ];
         }
+
         return $this->resource;
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Services;
 
 use App\Models\PaymentRequest;
@@ -9,10 +8,7 @@ use App\Services\Clients\TelecomClient;
 
 class TelecomService
 {
-    public function __construct(protected TelecomClient $client)
-    {
-
-    }
+    public function __construct(protected TelecomClient $client) {}
 
     public function getBalance(string $phone): array
     {
@@ -35,7 +31,7 @@ class TelecomService
         $payload = [
             'bank_name' => $data['bank_name'],
             'amount' => $data['amount'],
-            'phone'=> $data['phone'],
+            'phone' => $data['phone'],
         ];
 
         $response = $this->client->create($payload);

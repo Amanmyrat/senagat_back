@@ -8,7 +8,6 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\SpatieLaravelTranslatablePlugin;
@@ -26,13 +25,14 @@ class AdminPanelProvider extends PanelProvider
     public static function getHomeUrlForRole(?string $role): string
     {
         return match ($role) {
-            'super-admin'        => '/admin',
-            'operator','credit-card-viewer'=> '/admin/card-orders/card-orders',
+            'super-admin' => '/admin',
+            'operator','credit-card-viewer' => '/admin/card-orders/card-orders',
             'certificate-viewer' => '/admin/certificate-order',
-            'loan-viewer'        => '/admin/credit-application/loan-orders',
-            default              => '/admin/card-orders',
+            'loan-viewer' => '/admin/credit-application/loan-orders',
+            default => '/admin/card-orders',
         };
     }
+
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -65,7 +65,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                RedirectIfNotSuperAdmin::class
+                RedirectIfNotSuperAdmin::class,
             ])
             ->authMiddleware([
                 Authenticate::class,

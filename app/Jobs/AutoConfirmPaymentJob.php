@@ -34,18 +34,21 @@ class AutoConfirmPaymentJob implements ShouldQueue
             : PaymentRequest::where('external_id', $this->orderId)->first();
         if (! $payment) {
             Log::channel('belet')->error('JOB ABORTED: No record found ', ['sent_value' => $this->orderId]);
+
             return;
         }
         if ($payment->status === 'confirmed') {
             Log::channel('belet')->info('JOB STOPPED: Payment already confirmed.', [
                 'payment_id' => $payment->id,
             ]);
+
             return;
         }
         $start = Carbon::parse($this->startTime);
         if ($start->diffInSeconds(now()) > 1200) {
             $payment->update(['status' => 'failed', 'error_message' => 'Payment polling timeout (20 mins)']);
             Log::channel('belet')->warning('JOB TERMINATED: 20 mins limit reached.', ['payment_id' => $payment->id]);
+
             return;
         }
         try {

@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\CardType $cardType
  * @property-read \App\Models\UserProfile $profile
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder query()
@@ -33,7 +32,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereUserId($value)
- *
+ * @property int $bank_branch_id
+ * @property string|null $work_position
+ * @property int|null $work_phone
+ * @property bool $internet_service
+ * @property bool $delivery
+ * @property string|null $email
+ * @property string|null $secret_word
+ * @property-read \App\Models\Location $branch
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereBankBranchId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereDelivery($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereInternetService($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereSecretWord($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereWorkPhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereWorkPosition($value)
  * @mixin \Eloquent
  */
 class CardOrder extends Model

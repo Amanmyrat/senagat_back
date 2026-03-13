@@ -28,6 +28,6 @@ return [
     'charity' => 'Благотворительность',
     'telecom_payment' => 'Оплата телекоммуникаций',
     'astu_payment' => 'Оплата ASTU',
-    'tm_cell_payment'=>'Оплата TmCell'
+    'tm_cell_payment' => 'Оплата TmCell',
 
 ];

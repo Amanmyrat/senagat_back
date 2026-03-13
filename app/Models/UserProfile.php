@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read int|null $change_logs_count
  * @property-read \App\Models\ChangeLog|null $latestChangeLog
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile query()
@@ -45,7 +44,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereScanPassport($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereUserId($value)
- *
+ * @property string $citizenship
+ * @property int|null $home_phone
+ * @property string $home_address
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereCitizenship($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereHomeAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereHomePhone($value)
  * @mixin \Eloquent
  */
 class UserProfile extends Model

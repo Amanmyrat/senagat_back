@@ -25,6 +25,7 @@ class CreditApplicationController extends Controller
     {
         try {
             $application = $this->service->createLoanOrder($request->validated(), $request->user());
+
             return new JsonResponse([
                 'success' => true,
                 'data' => collect((new LoanOrderResource($application))->toArray($request))

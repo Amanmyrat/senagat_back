@@ -133,4 +133,5 @@ enum ErrorMessage: string
     case TYPE_NOT_SUPPORTED = 'type_must_be_one_of:phone_iptv_inet.';
     case BANK_NAME_INVALID = 'invalid_bank_name.';
     case ACCOUNT_REQUIRED = 'account_is_required.';
+    case ACCOUNT_NOT_FOUNT = 'account_not_found';
 }
