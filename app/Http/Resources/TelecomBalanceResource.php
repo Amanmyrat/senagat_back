@@ -14,7 +14,8 @@ class TelecomBalanceResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $result = $this->resource['result'] ?? null;
+        $data = $this->resource['data'] ?? [];
+        $result = $data['result'] ?? null;
         if ($result === 0) {
             return [
                 'success' => true,

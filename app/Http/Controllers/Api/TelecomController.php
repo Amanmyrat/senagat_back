@@ -27,12 +27,8 @@ class TelecomController extends Controller
     {
         $result = $this->telecomService->getBalance(
             $request->validated('phone'));
-        if (!isset($result['result'])) {
-            return new JsonResponse($result);
-        }
-        return new JsonResponse(
-            (new TelecomBalanceResource($result))->toArray($request)
-        );
+
+        return new TelecomBalanceResource($result);
     }
 
     /**
