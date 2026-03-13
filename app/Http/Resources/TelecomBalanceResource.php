@@ -21,7 +21,7 @@ class TelecomBalanceResource extends JsonResource
             return [
                 'success' => true,
                 'data' => [
-                    'balance' => rtrim(number_format((float)($data['balance'] ?? 0), 2), '0'),
+                    'balance' => sprintf('%.2f', (float)($data['balance'] ?? 0)),
                 ],
             ];
         }
