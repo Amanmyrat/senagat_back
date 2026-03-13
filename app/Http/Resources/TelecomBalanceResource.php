@@ -21,24 +21,20 @@ class TelecomBalanceResource extends JsonResource
             return [
                 'success' => true,
                 'data' => [
-                    'balance' => $data['balance'] ?? null,
+                    'balance' => rtrim(number_format((float)($data['balance'] ?? 0), 2), '0'),
                 ],
             ];
         }
         if ($result === 5) {
             return [
                 'success' => false,
-                'error' => [
-                    'message' => ErrorMessage::ACCOUNT_NOT_FOUNT,
-                ],
+                'message' => ErrorMessage::ACCOUNT_NOT_FOUNT,
             ];
         }
 
         return [
             'success' => false,
-            'error' => [
-                'message' => $data['comment'] ?? 'unknown_error',
-            ],
+            'message' => $data['comment'] ?? 'unknown_error',
         ];
     }
 }

@@ -18,9 +18,13 @@ class AstuBalanceResource extends JsonResource
     public function toArray(Request $request): array
     {
         if (($this->resource['success'] ?? false) === true) {
+            $data = $this->resource['data'];
             return [
                 'success' => true,
-                'data' => $this->resource['data'],
+                'data' => [
+                    'number'  => $data['number'],
+                    'balance' => number_format((float)($data['balance'] ?? 0), 2),
+                ],
             ];
         }
 
