@@ -22,8 +22,7 @@ class AstuBalanceResource extends JsonResource
             return [
                 'success' => true,
                 'data' => [
-                    'number'  => $data['number'],
-                    'balance' => number_format((float)($data['balance'] ?? 0), 2),
+                    'balance' => sprintf('%.2f', (float)($data['balance'] ?? 0)),
                 ],
             ];
         }
