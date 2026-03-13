@@ -2,12 +2,18 @@
 
 namespace App\Filament\Auth;
 
+use App\Providers\Filament\AdminPanelProvider;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\Auth\Login;
 use Illuminate\Validation\ValidationException;
 
 class CustomLogin extends Login
 {
+    protected function getRedirectUrl(): string
+    {
+        return AdminPanelProvider::getHomeUrlForRole(auth('admin')->user()?->role);
+    }
+
     protected function getForms(): array
     {
         return [

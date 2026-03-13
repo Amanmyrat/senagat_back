@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Auth\CustomLogin;
+use App\Http\Middleware\RedirectIfNotSuperAdmin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -22,12 +23,23 @@ use Kenepa\TranslationManager\TranslationManagerPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
+    public static function getHomeUrlForRole(?string $role): string
+    {
+        return match ($role) {
+            'super-admin'        => '/admin',
+            'operator','credit-card-viewer'=> '/admin/card-orders/card-orders',
+            'certificate-viewer' => '/admin/certificate-order',
+            'loan-viewer'        => '/admin/credit-application/loan-orders',
+            default              => '/admin/card-orders',
+        };
+    }
     public function panel(Panel $panel): Panel
     {
         return $panel
             ->default()
             ->id('admin')
             ->path('admin')
+            ->homeUrl(fn () => self::getHomeUrlForRole(auth('admin')->user()?->role))
             ->login(CustomLogin::class)
             ->colors([
                 'primary' => Color::Amber,
@@ -36,7 +48,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->pages([
-                Pages\Dashboard::class,
+
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
@@ -53,6 +65,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                RedirectIfNotSuperAdmin::class
             ])
             ->authMiddleware([
                 Authenticate::class,

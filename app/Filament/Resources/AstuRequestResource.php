@@ -41,7 +41,10 @@ class AstuRequestResource extends Resource
     {
         return $record ? (string) $record->name : __('navigation.astu_payment');
     }
-
+    public static function canViewAny(): bool
+    {
+        return optional(auth()->user())->role === 'super-admin';
+    }
 
     protected static ?string $cluster = Payments::class;
 

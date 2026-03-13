@@ -45,8 +45,9 @@ class TelecomClient
                     'account' => $phone,
                 ])
                 ->json();
-        } catch (ConnectionException $e) {
-            return $this->noConnection();
+    //    }
+   //     catch (ConnectionException $e) {
+ //           return $this->noConnection();
         } catch (\Throwable $e) {
             return $this->error(500, $e->getMessage());
         }
