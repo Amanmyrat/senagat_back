@@ -5,6 +5,7 @@ namespace App\Services\Clients;
 
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class TelecomClient
 {
@@ -45,10 +46,19 @@ class TelecomClient
                     'account' => $phone,
                 ])
                 ->json();
-    //    }
-   //     catch (ConnectionException $e) {
- //           return $this->noConnection();
+        }
+        catch (ConnectionException $e) {
+            Log::error('TelecomClient::getBalance ConnectionException', [
+                'phone'   => $phone,
+                'message' => $e->getMessage(),
+            ]);
+            return $this->noConnection();
         } catch (\Throwable $e) {
+            Log::error('TelecomClient::getBalance Throwable', [
+                'phone'   => $phone,
+                'message' => $e->getMessage(),
+                'class'   => get_class($e), // hangi exception olduğunu göster
+            ]);
             return $this->error(500, $e->getMessage());
         }
     }
