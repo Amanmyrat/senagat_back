@@ -23,22 +23,22 @@ class ClientsResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('resource.clients');
+        return __('resource.sponsors');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('resource.clients');
+        return __('resource.sponsors');
     }
 
     public static function getModelLabel(): string
     {
-        return __('resource.clients');
+        return __('resource.sponsors');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('resource.clients');
+        return $record ? (string) $record->name : __('resource.sponsors');
     }
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';

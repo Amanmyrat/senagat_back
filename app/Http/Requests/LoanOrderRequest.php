@@ -43,16 +43,6 @@ class LoanOrderRequest extends FormRequest
              * @example 50000.00
              */
             'amount' => ['required', 'numeric', 'min:1'],
-
-            /**
-             * Monthly payment
-             *
-             * @var float
-             *
-             * @example 12.5
-             */
-            'monthly_payment' => ['required', 'numeric'],
-
             /**
              * Role
              *
@@ -147,7 +137,6 @@ class LoanOrderRequest extends FormRequest
             'term.min' => ErrorMessage::TERM_MIN->value,
             'amount.required' => ErrorMessage::AMOUNT_REQUIRED->value,
             'amount.min' => ErrorMessage::AMOUNT_MIN->value,
-            'monthly_payment.required' => ErrorMessage::MONTHLY_PAYMENT_REQUIRED->value,
             'role.required' => ErrorMessage::ROLE_REQUIRED->value,
             'role.in' => ErrorMessage::ROLE_INVALID->value,
             'patent_number.required_if' => ErrorMessage::PATENT_NUMBER_REQUIRED->value,

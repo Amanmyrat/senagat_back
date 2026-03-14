@@ -234,7 +234,7 @@ class PendingProfileResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])->defaultSort('created_at', 'desc');
     }
 
     public static function canViewAny(): bool
@@ -262,6 +262,6 @@ class PendingProfileResource extends Resource
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
 
-        return parent::getEloquentQuery()->whereIn('approved', ['pending', 'rejected']);
+        return parent::getEloquentQuery()->whereIn('approved', ['pending',]);
     }
 }
