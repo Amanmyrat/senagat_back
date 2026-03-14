@@ -31,12 +31,12 @@ class RecentOrdersWidget extends BaseWidget
                     ->label(__('resource.order_number'))
                     ->sortable(),
 
-                TextColumn::make('user.name')
+                TextColumn::make('profile.first_name')
                     ->label(__('resource.user'))
                     ->searchable()
                     ->limit(20),
 
-                TextColumn::make('cardType.name')
+                TextColumn::make('cardType.title')
                     ->label(__('resource.card_type'))
                     ->limit(20)
                     ->default('-'),
