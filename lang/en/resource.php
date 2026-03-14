@@ -193,4 +193,6 @@ return [
     'target_phone' => ' Target phone',
     'guest' => 'Guest',
 
+    'atm'=>"ATM",
+    'complaint' => 'Complaint',
 ];

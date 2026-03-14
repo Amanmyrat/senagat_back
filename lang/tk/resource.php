@@ -193,5 +193,6 @@ return [
     'user_phone' => 'Ulanyjynyň telefon belgisi',
     'target_phone' => 'Alyjynyň telefon belgisi',
     'guest' => 'Myhman',
-
+    'atm' => 'Bankomat',
+    'complaint' => 'Şikaýat',
 ];

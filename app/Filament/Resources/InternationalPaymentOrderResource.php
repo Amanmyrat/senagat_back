@@ -123,9 +123,8 @@ class InternationalPaymentOrderResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return optional(auth()->user())->role === 'super-admin';
+        return in_array(optional(auth()->user())->role, ['super-admin', 'int_payment',]);
     }
-
     public static function getRelations(): array
     {
         return [
