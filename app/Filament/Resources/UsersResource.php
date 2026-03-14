@@ -99,15 +99,6 @@ class UsersResource extends Resource
                                         ->displayFormat('Y-m-d')
                                         ->format('Y-m-d'),
                                     TextInput::make('passport_number')->label(__('resource.passport_number'))->disabled(),
-                                    //                                    Select::make('gender')->disabled()
-                                    //                                        ->label(__('resource.gender'))
-                                    //                                        ->options([
-                                    //                                            'male' => 'Male',
-                                    //                                            'female' => 'Female',
-                                    //                                        ])
-                                    //                                        ->nullable()
-                                    //                                        ->searchable()
-                                    //                                        ->native(false),
                                     TextInput::make('issued_by')->label(__('resource.issued_by'))->disabled(),
                                     DatePicker::make('issued_date')->disabled()
                                         ->label(__('resource.issued_date'))
@@ -140,11 +131,11 @@ class UsersResource extends Resource
                     ->label(__('resource.phone')),
                 TextColumn::make('profile.first_name')
                     ->label(__('resource.first_name'))
-                    ->default('No Profile')
+                    ->default('---')
                     ->sortable(),
                 TextColumn::make('profile.last_name')
                     ->label(__('resource.last_name'))
-                    ->default('No Profile')
+                    ->default('---')
                     ->sortable(),
                 TextColumn::make('profile.approved')
                     ->label(__('resource.approval_status'))
@@ -163,7 +154,7 @@ class UsersResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array

@@ -195,4 +195,5 @@ return [
 
     'atm'=>"ATM",
     'complaint' => 'Complaint',
+    'sponsors' => 'Sponsors',
 ];
