@@ -32,22 +32,22 @@ class ContactMessageResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('resource.contact_messages');
+        return __('resource.complaint');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('resource.contact_messages');
+        return __('resource.complaint');
     }
 
     public static function getModelLabel(): string
     {
-        return __('resource.contact_messages');
+        return __('resource.complaint');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('resource.contact_messages');
+        return $record ? (string) $record->name : __('resource.complaint');
     }
 
     public static function form(Form $form): Form
@@ -101,9 +101,7 @@ class ContactMessageResource extends Resource
 
     public static function canViewAny(): bool
     {
-
-        return optional(auth()->user())->role === 'super-admin';
-
+        return in_array(optional(auth()->user())->role, ['super-admin', 'complaint',]);
     }
 
     public static function getPages(): array

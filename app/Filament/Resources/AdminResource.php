@@ -72,27 +72,28 @@ class AdminResource extends Resource
                 Select::make('role')
                     ->label(__('resource.role'))
                     ->required()
-
+                    ->live()
                     ->options([
                         'operator' => __('resource.operator'),
                         'certificate-viewer' => __('resource.certificate'),
                         'credit-card-viewer' => __('resource.card'),
                         'loan-viewer' => __('resource.loan'),
+                        'int_payment'=> __('resource.international_payment'),
+                        'complaint'=> __('resource.complaint'),
                     ]
-
                     ),
 
                 Select::make('branch_id')
                     ->label(__('resource.branch'))
                     ->options(function () {
-                        return Location::all()->mapWithKeys(function ($branch) {
-
+                        return Location::where('type', 'Branch')->get()->mapWithKeys(function ($branch) {
                             return [$branch->id => $branch->getTranslation('name', 'tk')];
                         })->toArray();
                     })
                     ->default(function () {
                         return Location::first()?->id;
-                    }),
+                    })
+                    ->visible(fn ($get) => !in_array($get('role'), ['int_payment', 'complaint'])),
 
             ]);
     }
@@ -112,6 +113,8 @@ class AdminResource extends Resource
                             'certificate-viewer' => __('resource.certificate'),
                             'credit-card-viewer' => __('resource.card'),
                             'loan-viewer' => __('resource.loan'),
+                            'int_payment'=> __('resource.international_payment'),
+                            'complaint'=> __('resource.complaint'),
                             default => $state,
                         };
                     })
