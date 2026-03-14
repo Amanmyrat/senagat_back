@@ -31,12 +31,13 @@ class LatestUsersWidget extends BaseWidget
                     ->label('ID')
                     ->sortable(),
 
-                TextColumn::make('name')
+                TextColumn::make('profile.first_name')
                     ->label(__('resource.name'))
+                    ->default('---')
                     ->searchable()
                     ->limit(25),
 
-                TextColumn::make('phone_number')
+                TextColumn::make('phone')
                     ->label(__('resource.phone'))
                     ->searchable(),
 
