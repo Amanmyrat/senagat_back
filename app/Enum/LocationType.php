@@ -13,8 +13,8 @@ enum LocationType: string implements HasColor, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::ATM => 'ATM',
-            self::BRANCH => 'Branch',
+            self::ATM => __('resource.atm'),
+            self::BRANCH => __('resource.branch'),
         };
     }
 

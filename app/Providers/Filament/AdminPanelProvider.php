@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Auth\CustomLogin;
 use App\Http\Middleware\RedirectIfNotSuperAdmin;
+use App\Http\Middleware\SetLocale;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -29,6 +30,8 @@ class AdminPanelProvider extends PanelProvider
             'operator','credit-card-viewer' => '/admin/card-orders/card-orders',
             'certificate-viewer' => '/admin/certificate-order',
             'loan-viewer' => '/admin/credit-application/loan-orders',
+            'complaint'=>'admin/contact-messages',
+            'int_payment'=>'admin/international-payment/international-payment-orders',
             default => '/admin/card-orders',
         };
     }
@@ -66,15 +69,17 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 RedirectIfNotSuperAdmin::class,
+                SetLocale::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
+
             ])
             ->font('System', provider: 'App\\Filament\\FontProviders\\LocalFontProvider')
             ->defaultAvatarProvider('App\\Filament\\AvatarProviders\\LocalAvatarProvider')
             ->plugins([
 
-                SpatieLaravelTranslatablePlugin::make()->defaultLocales(['tk', 'en', 'ru']),
+                SpatieLaravelTranslatablePlugin::make()->defaultLocales(['tk', 'ru']),
                 TranslationManagerPlugin::make(),
             ])
             ->authGuard('admin');

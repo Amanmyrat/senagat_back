@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'location' => 'Локации',
+    'location' => 'Расположение',
     'users' => 'Пользователи',
     'news' => 'Новости',
     'pending_profiles' => 'Ожидающие профили',

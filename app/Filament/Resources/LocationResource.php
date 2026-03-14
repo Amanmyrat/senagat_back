@@ -70,8 +70,8 @@ class LocationResource extends Resource
                                 ->translateLabel()
                                 ->label(_('resource.type'))
                                 ->options([
-                                    'ATM' => 'ATM',
-                                    'Branch' => 'Branch',
+                                    'ATM' => __('resource.atm'),
+                                    'Branch' => __('resource.branch'),
                                 ])
                                 ->required(),
                             TextInput::make('name')
