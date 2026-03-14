@@ -195,4 +195,5 @@ return [
     'guest' => 'Myhman',
     'atm' => 'Bankomat',
     'complaint' => 'Şikaýat',
+    'sponsors' => 'Hemaýatkärler',
 ];

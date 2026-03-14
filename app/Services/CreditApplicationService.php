@@ -20,6 +20,11 @@ class CreditApplicationService
         $credit = CreditType::findOrFail($data['credit_id']);
         $data['interest'] = $credit->interest;
         $data['status'] = 'pending';
+        $data['monthly_payment'] = $this->calculateMonthlyPayment(
+            $data['amount'],
+            $credit->interest,
+            $data['term']
+        );
 
         return CreditApplication::create(array_merge($data, [
             'user_id' => $user->id,
@@ -36,5 +41,16 @@ class CreditApplicationService
             ->where('status', 'pending')
             ->latest()
             ->firstOrFail();
+    }
+    /**
+     * Calculate Monthly Payment Method
+     */
+    private function calculateMonthlyPayment(float $amount, float $annualInterest, int $term): float
+    {
+        $termInMonths = $term * 12;
+        $yearlyInterest = $amount * $annualInterest / 100;
+        $monthlyInterest = $yearlyInterest / 12;
+        $monthlyPrincipal = $amount / $termInMonths;
+        return round($monthlyInterest + $monthlyPrincipal, 2);
     }
 }
