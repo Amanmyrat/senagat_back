@@ -107,6 +107,18 @@ class BeletClient
         }
     }
 
+    public function checkPhoneBalance(string $phone)
+    {
+        try {
+            return $this->client()
+                ->get($this->baseUrl.'/api/v1/belet/checkBalance', [
+                    'phone' => $phone,
+                ])
+                ->json();
+        } catch (ConnectionException $e) {
+            return $this->noConnection();
+        }
+    }
     public function checkStatus(int|string $id): array
     {
         $url = $this->baseUrl."/api/v1/belet/orders/{$id}/status";
@@ -137,7 +149,7 @@ class BeletClient
             'success' => false,
             'error' => [
                 'code' => 500,
-                'message' => 'Belet service unavailable',
+                'message' => 'belet_service_unavailable',
             ],
             'data' => null,
         ];

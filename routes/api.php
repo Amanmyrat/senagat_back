@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\MoneyTransferController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PaymentHistoryController;
 use App\Http\Controllers\Api\PaymentStatusController;
+use App\Http\Controllers\Api\PaymentWebhookController;
 use App\Http\Controllers\Api\TariffController;
 use App\Http\Controllers\Api\TelecomController;
 use App\Http\Controllers\Api\TmCellController;
@@ -123,6 +124,7 @@ Route::middleware('optional:sanctum')->group(function () {
         Route::get('/balances', [BeletController::class, 'getBalanceRecommendations']);
         //        Route::get('/orders/{id}/status', [BeletController::class, 'checkStatus']);
         Route::post('/belet/check-phone', [BeletController::class, 'checkPhone']);
+        Route::post('/belet/check-phone-balance', [BeletController::class, 'checkPhoneBalance']);
         Route::post('/top-up', [BeletController::class, 'topUp']);
 
     });
@@ -163,3 +165,4 @@ Route::post('reset/password', [
     AuthController::class,
     'reset',
 ]);
+Route::post('/webhooks/payment-status', [PaymentWebhookController::class, 'handle']);

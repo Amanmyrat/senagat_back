@@ -15,7 +15,6 @@ class TelecomClient
         $this->baseUrl = config('services.payment_api.url');
 
     }
-
     protected function client()
     {
         return Http::withHeaders([
@@ -61,7 +60,6 @@ class TelecomClient
             return $this->error(500, $e->getMessage());
         }
     }
-
     protected function noConnection(): array
     {
         return [
@@ -73,7 +71,6 @@ class TelecomClient
             'data' => null,
         ];
     }
-
     protected function error(int $code, string $message): array
     {
         return [
@@ -85,4 +82,5 @@ class TelecomClient
             'data' => null,
         ];
     }
+
 }

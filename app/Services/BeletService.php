@@ -36,6 +36,10 @@ class BeletService implements PollingPaymentProvider
         return $this->client->checkPhone($phone);
     }
 
+    public function checkPhoneBalance(string $phone): array
+    {
+        return $this->client->checkPhoneBalance($phone);
+    }
     public function topUp(?int $userId, array $payload): array
     {
         $bankId = $this->bankResolver->resolveIdByName($payload['bank_name']);
@@ -129,7 +133,7 @@ class BeletService implements PollingPaymentProvider
         if (! $payment) {
             Log::channel('belet')->warning('Polling: No records found in DB.!');
 
-            return ['success' => true];
+            return ['success' => false];
         }
         $this->confirmByOrderId($payment->external_id);
 
