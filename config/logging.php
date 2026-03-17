@@ -134,6 +134,12 @@ return [
             'level' => 'info',
             'days' => 60,
         ],
+        'payment_webhook' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/payment_webhook/payment_webhook.log'),
+            'level' => 'info',
+            'days' => 60,
+        ],
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
