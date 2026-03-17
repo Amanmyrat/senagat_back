@@ -64,8 +64,10 @@ class CharityService implements PollingPaymentProvider
 
     public function checkStatus(string $orderId): array
     {
+        Log::channel('charity')->info('--- CHECK STATUS START ---', ['external_id' => $orderId]);
         $payment = PaymentRequest::where('external_id', $orderId)->first();
         if (! $payment) {
+            Log::channel('charity')->error('CHECK STATUS: Payment not found in DB', ['external_id' => $orderId]);
             return [
                 'success' => false,
                 'error' => [
@@ -78,20 +80,24 @@ class CharityService implements PollingPaymentProvider
         $response = $this->client->checkStatus([
             'orderId' => $orderId,
         ]);
-
+        Log::channel('charity')->info('API RESPONSE RAW:', ['response' => $response]);
         if (($response['success'] ?? false) !== true) {
+            Log::channel('charity')->warning('API SUCCESS FALSE', ['response' => $response]);
+
             return $response;
         }
 
         $orderStatus = $response['data']['orderStatus'] ?? null;
         $errorMessage = $response['data']['errorMessage'] ?? null;
-
+        Log::channel('charity')->info('Processing Status Match', ['orderStatus' => $orderStatus]);
         $mappedStatus = match ($orderStatus) {
             2 => 'confirmed',
             0 => 'failed',
             default => 'pending',
         };
-
+        if ($payment->status === $mappedStatus) {
+            Log::channel('charity')->info('No Status Change Needed', ['current' => $payment->status, 'new' => $mappedStatus]);
+        }
         $payment->update([
             'status' => $mappedStatus,
             'error_message' => $errorMessage,
@@ -101,7 +107,7 @@ class CharityService implements PollingPaymentProvider
             'external_id' => $orderId,
             'status' => $mappedStatus,
         ]);
-
+        Log::channel('charity')->info('--- CHECK STATUS END ---', ['final_status' => $mappedStatus]);
         return [
             'success' => true,
             'data' => [
@@ -114,24 +120,22 @@ class CharityService implements PollingPaymentProvider
 
     public function pollStatusByOrderId(string|int $id): array
     {
-        Log::channel('charity')->info('Polling Method Triggered (Charity)', ['id' => $id]);
 
         $payment = is_numeric($id)
             ? PaymentRequest::find($id)
             : PaymentRequest::where('external_id', $id)->first();
 
         if (! $payment) {
-            Log::channel('charity')->warning('Polling: No records found in the database!');
 
-            return ['success' => true];
+            return ['success' => false];
+        }
+        if (empty($payment->external_id)) {
+
+            return ['success' => false];
         }
         $this->checkStatus($payment->external_id);
+
         $payment->refresh();
-
-        Log::channel('charity')->info('Polling completed', [
-            'status' => $payment->status,
-        ]);
-
         return [
             'success' => $payment->status === 'confirmed',
             'status' => $payment->status,

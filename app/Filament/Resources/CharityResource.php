@@ -85,6 +85,21 @@ class CharityResource extends Resource
                         'success' => 'charity',
                     ])
                     ->badge(),
+                TextColumn::make('external_id')
+                    ->label(__('resource.order_id'))
+
+                    ->copyable()
+                    ->searchable(),
+                TextColumn::make('status')
+                    ->label(__('resource.status'))
+                    ->colors([
+                        'gray' => 'sent',
+                        'info' => 'notConfirmed',
+                        'warning' => 'confirming',
+                        'success' => 'confirmed',
+                        'danger' => 'failed',
+                    ])->badge(),
+
                 TextColumn::make('created_at')
                     ->label(__('resource.created_at'))
                     ->dateTime()
