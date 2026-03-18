@@ -41,7 +41,7 @@ class TmCellClient
         try {
             return $this->client()
                 ->get($this->baseUrl.'/api/v1/tmcell/balance', [
-                    'account' => $phone,
+                    'phone' => $phone,
                 ])
                 ->json();
         } catch (ConnectionException $e) {
