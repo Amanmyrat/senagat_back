@@ -28,7 +28,7 @@ class TmCellBalanceResource extends JsonResource
             'success' => true,
             'data' => [
                 'phone'    => $data['phone'] ?? null,
-                'balance'  => (float) sprintf('%.2f', (float) ($data['balance'] ?? 0)),
+                'balance' => sprintf('%.2f', (float) ($data['balance'] ?? 0)),
                 'currency' => $data['currency'] ?? 'TMT',
             ],
         ];
