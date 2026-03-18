@@ -197,4 +197,8 @@ return [
     'complaint' => 'Complaint',
     'sponsors' => 'Sponsors',
     'dashboard'=>'Dashboard',
+    'sent' => 'Sent',
+    'notConfirmed' => 'Not Confirmed',
+    'confirming'=>'Confirming',
+    'confirmed'=>'confirmed',
 ];
