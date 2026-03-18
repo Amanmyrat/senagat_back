@@ -4,11 +4,11 @@ namespace App\Services;
 
 use App\Models\PaymentRequest;
 use App\Models\User;
-use App\Services\Clients\TelecomClient;
+use App\Services\Clients\TmCellClient;
 
 class TmCellService
 {
-    public function __construct(protected TelecomClient $client) {}
+    public function __construct(protected TmCellClient $client) {}
 
     public function getBalance(string $phone): array
     {
