@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TmCell\BaseTopUpRequest;
 use App\Http\Requests\TmCell\TmCellBalanceRequest;
 use App\Http\Resources\TelecomBalanceResource;
+use App\Http\Resources\TmCellBalanceResource;
 use App\Services\TmCellService;
 use Illuminate\Http\JsonResponse;
 
@@ -28,8 +29,7 @@ class TmCellController extends Controller
         $result = $this->telecomService->getBalance(
             $request->validated('phone'));
 
-        return new TelecomBalanceResource($result);
-
+        return new TmCellBalanceResource($result);
     }
 
     /**
