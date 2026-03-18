@@ -123,7 +123,10 @@ class LoanOrderRequest extends FormRequest
                 'required',
                 'integer',
                 Rule::exists('locations', 'id')
-                    ->where(fn ($q) => $q->where('type', 'Branch')->where('branch_services', true)),
+                    ->where(fn ($q) => $q
+                        ->where('type', 'Branch')
+                    //              ->where('branch_services', true)
+                    ),
             ],
 
         ];

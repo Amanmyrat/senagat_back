@@ -62,28 +62,6 @@ class RejectedCertificateOrderResource extends Resource
         return $form
             ->schema([
                 Wizard::make([
-                    Step::make('Certificate Order Status')
-                        ->label(__('resource.certificate_order_status'))
-                        ->schema([
-                            Section::make(__('resource.certificate_order_status'))
-                                ->schema([
-                                    ToggleButtons::make('status')
-                                        ->label(__('resource.certificate_order_status'))
-                                        ->options([
-                                            'approved' => __('resource.approved'),
-                                            'rejected' => __('resource.rejected'),
-                                        ])
-                                        ->icons([
-                                            'approved' => 'heroicon-o-check-badge',
-                                            'rejected' => 'heroicon-o-x-circle',
-                                        ])
-                                        ->colors([
-                                            'approved' => 'success',
-                                            'rejected' => 'danger',
-                                        ])
-                                        ->inline(),
-                                ]),
-                        ]),
                     Step::make('Profile Information')
                         ->label(__('resource.profile_information'))
                         ->schema([
@@ -117,7 +95,28 @@ class RejectedCertificateOrderResource extends Resource
                                 ->label(__('resource.home_address'))
                                 ->disabled(),
                         ]),
-
+                    Step::make('Certificate Order Status')
+                        ->label(__('resource.certificate_order_status'))
+                        ->schema([
+                            Section::make(__('resource.certificate_order_status'))
+                                ->schema([
+                                    ToggleButtons::make('status')
+                                        ->label(__('resource.certificate_order_status'))
+                                        ->options([
+                                            'approved' => __('resource.approved'),
+                                            'rejected' => __('resource.rejected'),
+                                        ])
+                                        ->icons([
+                                            'approved' => 'heroicon-o-check-badge',
+                                            'rejected' => 'heroicon-o-x-circle',
+                                        ])
+                                        ->colors([
+                                            'approved' => 'success',
+                                            'rejected' => 'danger',
+                                        ])
+                                        ->inline(),
+                                ]),
+                        ]),
                 ])->skippable()
                     ->columnSpanFull(),
             ]);

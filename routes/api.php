@@ -123,7 +123,6 @@ Route::middleware('optional:sanctum')->group(function () {
         Route::get('/banks', [BeletController::class, 'banks']);
         Route::get('/balances', [BeletController::class, 'getBalanceRecommendations']);
         //        Route::get('/orders/{id}/status', [BeletController::class, 'checkStatus']);
-        Route::post('/belet/check-phone', [BeletController::class, 'checkPhone']);
         Route::post('/belet/check-phone-balance', [BeletController::class, 'checkPhoneBalance']);
         Route::post('/top-up', [BeletController::class, 'topUp']);
 
