@@ -25,7 +25,7 @@ class CharityResource extends Resource
 
     protected static ?string $cluster = \App\Filament\Clusters\Payments::class;
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     public static function getNavigationLabel(): string
     {
@@ -98,7 +98,8 @@ class CharityResource extends Resource
                         'warning' => 'confirming',
                         'success' => 'confirmed',
                         'danger' => 'failed',
-                    ])->badge(),
+                    ])->badge()
+                    ->formatStateUsing(fn($state) => __('resource.' . $state)),
 
                 TextColumn::make('created_at')
                     ->label(__('resource.created_at'))

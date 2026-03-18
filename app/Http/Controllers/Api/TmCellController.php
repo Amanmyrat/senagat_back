@@ -19,7 +19,7 @@ class TmCellController extends Controller
     }
 
     /**
-     * Telecom balance
+     * Tm Cell balance
      *
      * @queryParam account string required Telecom account number. Example: 12932701
      */
@@ -33,7 +33,7 @@ class TmCellController extends Controller
     }
 
     /**
-     * Telecom Pay
+     * Tm Cell Pay
      */
     public function pay(BaseTopupRequest $request): JsonResponse
     {
