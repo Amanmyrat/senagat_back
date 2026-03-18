@@ -35,17 +35,7 @@ class BeletController extends Controller
         );
     }
 
-    /**
-     * Check Phone
-     */
-    public function checkPhone(CheckPhoneRequest $request): JsonResponse
-    {
-        return new JsonResponse(
-            $this->beletService->checkPhone(
-                $request->validated('phone')
-            )
-        );
-    }
+
     /**
      * Check Phone Balance
      */

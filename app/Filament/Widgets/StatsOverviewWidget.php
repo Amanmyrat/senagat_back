@@ -62,7 +62,7 @@ class StatsOverviewWidget extends BaseWidget
                 ->descriptionIcon('heroicon-o-document-check')
                 ->color('success'),
 
-            Stat::make(__('resource.contact_messages'), ContactMessage::count())
+            Stat::make(__('resource.complaint'), ContactMessage::count())
                 ->description(__('resource.total_inquiries'))
                 ->descriptionIcon('heroicon-o-envelope')
                 ->color('danger')

@@ -42,6 +42,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandName('Senagat Bank')
             ->homeUrl(fn () => self::getHomeUrlForRole(auth('admin')->user()?->role))
             ->login(CustomLogin::class)
             ->colors([

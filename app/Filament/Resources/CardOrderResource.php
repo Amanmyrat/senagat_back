@@ -69,29 +69,7 @@ class CardOrderResource extends Resource
             ->schema([
 
                 Wizard::make([
-                    Step::make('Card Order Status')
-                        ->label(__('resource.card_order_status'))
-                        ->schema([
-                            Section::make(__('resource.card_order_status'))
-                                ->schema([
-                                    ToggleButtons::make('status')
-                                        ->label(__('resource.card_order_status'))
-                                        ->options([
-                                            'approved' => __('resource.approved'),
-                                            'rejected' => __('resource.rejected'),
-                                        ])
-                                        ->icons([
-                                            'approved' => 'heroicon-o-check-badge',
-                                            'rejected' => 'heroicon-o-x-circle',
-                                        ])
-                                        ->colors([
-                                            'approved' => 'success',
-                                            'rejected' => 'danger',
-                                        ])
-                                        ->inline(),
-                                ]),
-                        ]),
-                    Step::make('Profile Information')
+                   Step::make('Profile Information')
                         ->label(__('resource.profile_information'))
                         ->schema([
                             ProfileInfo::make(),
@@ -135,7 +113,28 @@ class CardOrderResource extends Resource
                                 )
                                 ->disabled(),
                         ]),
-
+                    Step::make('Card Order Status')
+                        ->label(__('resource.card_order_status'))
+                        ->schema([
+                            Section::make(__('resource.card_order_status'))
+                                ->schema([
+                                    ToggleButtons::make('status')
+                                        ->label(__('resource.card_order_status'))
+                                        ->options([
+                                            'approved' => __('resource.approved'),
+                                            'rejected' => __('resource.rejected'),
+                                        ])
+                                        ->icons([
+                                            'approved' => 'heroicon-o-check-badge',
+                                            'rejected' => 'heroicon-o-x-circle',
+                                        ])
+                                        ->colors([
+                                            'approved' => 'success',
+                                            'rejected' => 'danger',
+                                        ])
+                                        ->inline(),
+                                ]),
+                        ]),
                 ])->skippable()
                     ->columnSpanFull(),
             ]);
