@@ -25,7 +25,7 @@ class BeletRequestResource extends Resource
 
     protected static ?string $cluster = \App\Filament\Clusters\Payments::class;
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 5;
 
     public static function getNavigationLabel(): string
     {

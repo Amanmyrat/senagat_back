@@ -138,7 +138,7 @@ Route::middleware('optional:sanctum')->group(function () {
         Route::post('balance', [AstuController::class, 'getBalance']);
         Route::post('/pay', [AstuController::class, 'pay']);
     });
-    Route::prefix('tm_cell')->group(function () {
+    Route::prefix('tmcell')->group(function () {
         Route::post('balance', [TmCellController::class, 'getBalance']);
         Route::post('/pay', [TmCellController::class, 'pay']);
     });

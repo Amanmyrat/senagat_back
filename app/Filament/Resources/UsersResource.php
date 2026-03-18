@@ -178,4 +178,11 @@ class UsersResource extends Resource
             'edit' => Pages\EditUsers::route('/{record}/edit'),
         ];
     }
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()
+            ->whereHas('profile', function ($query) {
+                $query->whereIn('approved', ['pending', 'approved', 'rejected']);
+            });
+    }
 }
