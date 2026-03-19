@@ -79,12 +79,7 @@ class CharityResource extends Resource
                 TextColumn::make('payment_target.value')
                     ->label(__('resource.target_phone'))
                     ->searchable(),
-                TextColumn::make('type')
-                    ->label(__('resource.type'))
-                    ->colors([
-                        'success' => 'charity',
-                    ])
-                    ->badge(),
+
                 TextColumn::make('external_id')
                     ->label(__('resource.order_id'))
 

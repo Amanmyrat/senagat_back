@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AwardController;
 use App\Http\Controllers\Api\BeletController;
 use App\Http\Controllers\Api\CardOrderController;
 use App\Http\Controllers\Api\CardTypeController;
+use App\Http\Controllers\Api\CdmaController;
 use App\Http\Controllers\Api\CertificateOrderController;
 use App\Http\Controllers\Api\CertificateTypeController;
 use App\Http\Controllers\Api\CharityController;
@@ -141,6 +142,10 @@ Route::middleware('optional:sanctum')->group(function () {
     Route::prefix('tmcell')->group(function () {
         Route::post('balance', [TmCellController::class, 'getBalance']);
         Route::post('/pay', [TmCellController::class, 'pay']);
+    });
+    Route::prefix('cdma')->group(function () {
+        Route::get('/cdma/balance', [CdmaController::class, 'getBalance']);
+        Route::post('/cdma/pay', [CdmaController::class, 'pay']);
     });
     //    Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
 });
