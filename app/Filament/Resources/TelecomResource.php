@@ -68,13 +68,7 @@ class TelecomResource extends Resource
                 TextColumn::make('payment_target.value')
                     ->label(__('resource.target_phone'))
                     ->searchable(),
-                TextColumn::make('type')
-                    ->label(__('resource.type'))
-                    ->colors([
-                        'success' => 'topup',
-                        'danger' => 'confirm',
-                    ])
-                    ->badge(),
+                
                 TextColumn::make('amount')
                     ->suffix(' TMT')
                     ->label(__('resource.amount')),
@@ -92,7 +86,8 @@ class TelecomResource extends Resource
                         'warning' => 'confirming',
                         'success' => 'confirmed',
                         'danger' => 'failed',
-                    ])->badge(),
+                    ])->badge()
+                    ->formatStateUsing(fn($state) => __('resource.' . $state)),
 
                 TextColumn::make('created_at')
                     ->label(__('resource.created_at'))

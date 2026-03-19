@@ -91,4 +91,5 @@ class UserProfile extends Model
             ->where('model_type', '=', self::class)
             ->latestOfMany();
     }
+
 }

@@ -57,30 +57,7 @@ class PendingProfileResource extends Resource
         return $form
             ->schema([
                 Wizard::make([
-                    Step::make('Approval Status')
-                        ->label(__('resource.approval_status'))
-                        ->icon('heroicon-o-check-badge')
-                        ->completedIcon('heroicon-o-check-badge')
-                        ->schema([
-                            Section::make(__('resource.approval_status'))
-                                ->schema([
-                                    ToggleButtons::make('approved')
-                                        ->label(__('resource.approval_status'))
-                                        ->options([
-                                            'approved' => __('resource.approved'),
-                                            'rejected' => __('resource.rejected'),
-                                        ])
-                                        ->icons([
-                                            'approved' => 'heroicon-o-check-badge',
-                                            'rejected' => 'heroicon-o-x-circle',
-                                        ])
-                                        ->colors([
-                                            'approved' => 'success',
-                                            'rejected' => 'danger',
-                                        ])
-                                        ->inline(),
-                                ]),
-                        ]),
+
                     Step::make('Profile Information')
                         ->label(__('resource.profile_information'))
                         ->icon('heroicon-o-user')
@@ -129,8 +106,8 @@ class PendingProfileResource extends Resource
                         ->schema(function ($record) {
                             if (! $record || ! $record->latestChangeLog) {
                                 return [
-                                    Placeholder::make('no_changes')
-                                        ->content('No changes logged.'),
+                                    Placeholder::make(__('resource.no_change'))
+
                                 ];
                             }
 
@@ -209,7 +186,30 @@ class PendingProfileResource extends Resource
                                     ->columnSpanFull(),
                             ];
                         }),
-
+                    Step::make('Approval Status')
+                        ->label(__('resource.approval_status'))
+                        ->icon('heroicon-o-check-badge')
+                        ->completedIcon('heroicon-o-check-badge')
+                        ->schema([
+                            Section::make(__('resource.approval_status'))
+                                ->schema([
+                                    ToggleButtons::make('approved')
+                                        ->label(__('resource.approval_status'))
+                                        ->options([
+                                            'approved' => __('resource.approved'),
+                                            'rejected' => __('resource.rejected'),
+                                        ])
+                                        ->icons([
+                                            'approved' => 'heroicon-o-check-badge',
+                                            'rejected' => 'heroicon-o-x-circle',
+                                        ])
+                                        ->colors([
+                                            'approved' => 'success',
+                                            'rejected' => 'danger',
+                                        ])
+                                        ->inline(),
+                                ]),
+                        ]),
                 ])->skippable()
                     ->columnSpanFull(),
 

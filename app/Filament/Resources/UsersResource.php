@@ -55,32 +55,7 @@ class UsersResource extends Resource
         return $form
             ->schema([
                 Wizard::make([
-                    Step::make('Approval Status')
-                        ->label(__('resource.approval_status'))
-                        ->icon('heroicon-o-check-badge')
-                        ->completedIcon('heroicon-o-check-badge')
-                        ->schema([
-                            Section::make(__('resource.approval_status'))
-                                ->relationship('profile')
-                                ->schema([
-                                    ToggleButtons::make('approved')
-                                        ->label(__('resource.approval_status'))
-                                        ->options([
-                                            'approved' => __('resource.approved'),
-                                            'rejected' => __('resource.rejected'),
-                                        ])
-                                        ->icons([
-                                            'approved' => 'heroicon-o-check-badge',
-                                            'rejected' => 'heroicon-o-x-circle',
-                                        ])
-                                        ->colors([
-                                            'approved' => 'success',
-                                            'rejected' => 'danger',
-                                        ])
-                                        ->inline(),
-                                ]),
-                        ]),
-                    Step::make('Profile Information')
+                   Step::make('Profile Information')
                         ->label(__('resource.profile_information'))
                         ->icon('heroicon-o-user')
                         ->completedIcon('heroicon-o-user')
@@ -108,14 +83,51 @@ class UsersResource extends Resource
                                     TextInput::make('citizenship')->label(__('resource.citizenship'))->disabled(),
                                     TextInput::make('home_phone')->label(__('resource.home_phone_number'))->disabled(),
                                     TextInput::make('home_address')->label(__('resource.home_address'))->disabled(),
-                                    FileUpload::make('scan_passport')->disabled()
-                                        ->label(__('resource.scan_passport'))
-                                        ->directory('scans')
-                                        ->disk('public')
-                                        ->downloadable(),
+                                    Section::make(__('resource.profile_information'))
+                                        ->relationship('profile')
+                                        ->mutateRelationshipDataBeforeFillUsing(function (array $data) {
+                                            if (isset($data['scan_passport']) && is_string($data['scan_passport'])) {
+                                                $data['scan_passport'] = [$data['scan_passport']];
+                                            }
 
+                                            return $data;
+                                        })
+                                        ->schema([
+                                            FileUpload::make('scan_passport')
+                                                ->disabled()
+                                                ->openable()
+                                                ->downloadable()
+                                                ->directory('scans')
+                                                ->disk('public')
+                                                ->dehydrateStateUsing(fn ($state) => is_array($state) ? $state[0] ?? null : $state),
+                                        ])
                                 ])
                                 ->columns(2),
+                        ]),
+                    Step::make('Approval Status')
+                        ->label(__('resource.approval_status'))
+                        ->icon('heroicon-o-check-badge')
+                        ->completedIcon('heroicon-o-check-badge')
+                        ->schema([
+                            Section::make(__('resource.approval_status'))
+                                ->relationship('profile')
+                                ->schema([
+                                    ToggleButtons::make('approved')
+                                        ->label(__('resource.approval_status'))
+                                        ->options([
+                                            'approved' => __('resource.approved'),
+                                            'rejected' => __('resource.rejected'),
+                                        ])
+                                        ->icons([
+                                            'approved' => 'heroicon-o-check-badge',
+                                            'rejected' => 'heroicon-o-x-circle',
+                                        ])
+                                        ->colors([
+                                            'approved' => 'success',
+                                            'rejected' => 'danger',
+                                        ])
+                                        ->inline(),
+                                ]),
                         ]),
                 ])->skippable()
                     ->columnSpanFull(),
