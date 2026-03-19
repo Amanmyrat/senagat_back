@@ -86,7 +86,7 @@ class BeletRequestResource extends Resource
                         'warning' => 'confirming',
                         'success' => 'confirmed',
                         'danger' => 'failed',
-                    ])->badge(),
+                    ])->badge()->formatStateUsing(fn($state) => __('resource.' . $state)),
 
                 TextColumn::make('created_at')
                     ->label(__('resource.created_at'))

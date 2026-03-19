@@ -196,5 +196,11 @@ return [
     'atm' => 'Bankomat',
     'complaint' => 'Arz şikaýatlar',
     'sponsors' => 'Hemaýatkärler',
-    'dashboard' => 'Dolandyryş paneli'
+    'dashboard' => 'Dolandyryş paneli',
+    'sent' => 'Ugradylan',
+    'notConfirmed' => 'Tassyklanmadyk',
+    'confirming' => 'Tassyklanylýar',
+    'confirmed' => 'Tassyklanyldy',
+    'failed'=>'Şowsuz',
+    'no_change' => 'Üýtgeşme ýok',
 ];

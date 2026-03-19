@@ -200,5 +200,7 @@ return [
     'sent' => 'Sent',
     'notConfirmed' => 'Not Confirmed',
     'confirming'=>'Confirming',
-    'confirmed'=>'confirmed',
+    'confirmed'=>'Confirmed',
+    'failed'=>'Failed',
+    'no_change'=>'No Changes'
 ];
