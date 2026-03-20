@@ -16,7 +16,7 @@ class ContactMessageResource extends Resource
 {
     public static function getNavigationGroup(): ?string
     {
-        return 'Contact';
+        return __('resource.complaint');
     }
 
     protected static ?string $model = ContactMessage::class;
