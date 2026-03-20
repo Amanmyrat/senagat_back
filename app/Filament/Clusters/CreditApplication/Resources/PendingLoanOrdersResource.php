@@ -62,24 +62,6 @@ class PendingLoanOrdersResource extends Resource
     {
         return $form
             ->schema([
-                Section::make(__('resource.loan_status'))
-                    ->schema([
-                        ToggleButtons::make('status')
-                            ->label(__('resource.loan_status'))
-                            ->options([
-                                'approved' => __('resource.approved'),
-                                'rejected' => __('resource.rejected'),
-                            ])
-                            ->icons([
-                                'approved' => 'heroicon-o-check-badge',
-                                'rejected' => 'heroicon-o-x-circle',
-                            ])
-                            ->colors([
-                                'approved' => 'success',
-                                'rejected' => 'danger',
-                            ])
-                            ->inline(),
-                    ]),
                 Wizard::make([
                     Step::make('Credit Details')
                         ->label(__('resource.credit_details'))
@@ -148,6 +130,27 @@ class PendingLoanOrdersResource extends Resource
                                 )
                                 ->disabled(),
                         ]),
+                    Step::make('Status')
+                        ->label(__('resource.loan_status'))
+                    ->schema([
+
+                                ToggleButtons::make('status')
+                                    ->label(__('resource.loan_status'))
+                                    ->options([
+                                        'approved' => __('resource.approved'),
+                                        'rejected' => __('resource.rejected'),
+                                    ])
+                                    ->icons([
+                                        'approved' => 'heroicon-o-check-badge',
+                                        'rejected' => 'heroicon-o-x-circle',
+                                    ])
+                                    ->colors([
+                                        'approved' => 'success',
+                                        'rejected' => 'danger',
+                                    ])
+                                    ->inline(),
+
+                    ])
                 ]
                 )
                     ->skippable()
