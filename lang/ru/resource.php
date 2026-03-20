@@ -200,6 +200,12 @@ return [
     'confirmed' => 'Подтверждено',
     'failed'=>'Неуспешный',
     'no_change' => 'Без изменений',
-
+    'home_phone' => 'Домашний телефонный номер',
+    'open' => 'Открыть',
+    'download' => 'Скачать',
+    'citizenship' => 'Гражданство',
+    'secret_word' => 'Секретное слово',
+    'requirements_description' => 'Описание требований',
+    'super-admin' => 'Супер администратор'
 
 ];

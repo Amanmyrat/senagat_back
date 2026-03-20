@@ -202,5 +202,11 @@ return [
     'confirming'=>'Confirming',
     'confirmed'=>'Confirmed',
     'failed'=>'Failed',
-    'no_change'=>'No Changes'
+    'no_change'=>'No Changes',
+    'home_phone' => 'Home Phone Number',
+    'open' => 'Open',
+    'download'=>'Download',
+    'requirements_description'=>'Requirements Description',
+    'super-admin'=>'Super Admin'
+
 ];

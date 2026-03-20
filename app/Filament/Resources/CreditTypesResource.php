@@ -116,6 +116,7 @@ class CreditTypesResource extends Resource
                                     ->label(__('resource.background_color').' (HEX code)'),
                             ]),
                         Step::make('Requirements Description')
+                            ->label(__('resource.requirements_description'))
                             ->schema([
                                 RichEditor::make('requirements_description')
                                     ->label(__('resource.requirements'))
@@ -172,7 +173,8 @@ class CreditTypesResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->label(__('resource.name')),
-                ToggleColumn::make('can_offer_online'),
+                ToggleColumn::make('can_offer_online')
+                    ->label(__('resource.can_offer_online')),
 
             ])
             ->filters([

@@ -23,7 +23,7 @@ class PendingProfileResource extends Resource
 {
     public static function getNavigationGroup(): ?string
     {
-        return 'Users';
+        return __('navigation.users');
     }
 
     protected static ?string $model = UserProfile::class;

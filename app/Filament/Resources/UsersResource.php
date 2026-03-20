@@ -21,7 +21,7 @@ class UsersResource extends Resource
 {
     public static function getNavigationGroup(): ?string
     {
-        return 'Users';
+        return __('navigation.users');
     }
 
     protected static ?string $model = User::class;
@@ -63,7 +63,6 @@ class UsersResource extends Resource
                             TextInput::make('phone')->label(__('resource.phone'))->disabled(),
                             Section::make(__('resource.profile_information'))
                                 ->relationship('profile')
-
                                 ->schema([
                                     TextInput::make('first_name')->label(__('resource.first_name'))->disabled(),
                                     TextInput::make('last_name')->label(__('resource.last_name'))->disabled(),
@@ -83,24 +82,20 @@ class UsersResource extends Resource
                                     TextInput::make('citizenship')->label(__('resource.citizenship'))->disabled(),
                                     TextInput::make('home_phone')->label(__('resource.home_phone_number'))->disabled(),
                                     TextInput::make('home_address')->label(__('resource.home_address'))->disabled(),
-                                    Section::make(__('resource.profile_information'))
-                                        ->relationship('profile')
-                                        ->mutateRelationshipDataBeforeFillUsing(function (array $data) {
-                                            if (isset($data['scan_passport']) && is_string($data['scan_passport'])) {
-                                                $data['scan_passport'] = [$data['scan_passport']];
-                                            }
-
-                                            return $data;
-                                        })
-                                        ->schema([
-                                            FileUpload::make('scan_passport')
-                                                ->disabled()
-                                                ->openable()
-                                                ->downloadable()
-                                                ->directory('scans')
-                                                ->disk('public')
-                                                ->dehydrateStateUsing(fn ($state) => is_array($state) ? $state[0] ?? null : $state),
-                                        ])
+                                    TextInput::make('scan_passport')
+                                        ->label(__('resource.scan_passport'))
+                                        ->disabled()
+                                        ->hintActions([
+                                            \Filament\Forms\Components\Actions\Action::make(__('resource.open'))
+                                                ->icon('heroicon-o-arrow-top-right-on-square')
+                                                ->url(fn ($state) => $state ? \Illuminate\Support\Facades\Storage::disk('public')->url($state) : null)
+                                                ->openUrlInNewTab()
+                                                ->visible(fn ($state) => !empty($state)),
+                                            \Filament\Forms\Components\Actions\Action::make(__('resource.download'))
+                                                ->icon('heroicon-o-arrow-down-tray')
+                                                ->url(fn ($state) => $state ? \Illuminate\Support\Facades\Storage::disk('public')->url($state) : null)
+                                                ->visible(fn ($state) => !empty($state)),
+                                        ]),
                                 ])
                                 ->columns(2),
                         ]),

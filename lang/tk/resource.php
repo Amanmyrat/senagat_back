@@ -203,4 +203,10 @@ return [
     'confirmed' => 'Tassyklanyldy',
     'failed'=>'Şowsuz',
     'no_change' => 'Üýtgeşme ýok',
+    'home_phone' => 'Öý telefon belgisi',
+    'open' => 'Aç',
+    'download' => 'Ýükle',
+    'secret_word' => 'Gizlin söz',
+    'requirements_description' => 'Talaplaryň beýany',
+    'super-admin' => 'Super admin'
 ];

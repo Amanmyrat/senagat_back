@@ -109,6 +109,7 @@ class AdminResource extends Resource
                     ->label(__('resource.role'))
                     ->formatStateUsing(function ($state) {
                         return match ($state) {
+                            'super-admin'=> __('resource.super-admin'),
                             'operator' => __('resource.operator'),
                             'certificate-viewer' => __('resource.certificate'),
                             'credit-card-viewer' => __('resource.card'),
