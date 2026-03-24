@@ -144,8 +144,8 @@ Route::middleware('optional:sanctum')->group(function () {
         Route::post('/pay', [TmCellController::class, 'pay']);
     });
     Route::prefix('cdma')->group(function () {
-        Route::post('/cdma/balance', [CdmaController::class, 'getBalance']);
-        Route::post('/cdma/pay', [CdmaController::class, 'pay']);
+        Route::post('/balance', [CdmaController::class, 'getBalance']);
+        Route::post('/pay', [CdmaController::class, 'pay']);
     });
     //    Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
 });
