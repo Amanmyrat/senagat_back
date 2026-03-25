@@ -2,11 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Traits\DateFormatTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PaymentHistoryResource extends JsonResource
+
 {
+    use DateFormatTrait;
     /**
      * Transform the resource into an array.
      *
