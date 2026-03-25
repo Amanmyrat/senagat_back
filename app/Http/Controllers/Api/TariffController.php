@@ -21,7 +21,7 @@ class TariffController extends Controller
 
         $tariff = TariffCategory::with(['details' => function ($q) {
             $q->orderBy('number');
-        }])->orderBy('id')->get();
+        }])->orderBy('number')->get();
 
         return new JsonResponse([
             'success' => true,
