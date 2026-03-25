@@ -37,7 +37,7 @@ class TariffCategory extends Model
 
     public array $translatable = ['title'];
 
-    protected $fillable = ['title', 'numbers'];
+    protected $fillable = ['title', 'number'];
 
     public function details(): HasMany
     {

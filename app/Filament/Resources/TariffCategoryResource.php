@@ -5,10 +5,12 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TariffCategoryResource\Pages;
 use App\Models\TariffCategory;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class TariffCategoryResource extends Resource
@@ -52,9 +54,12 @@ class TariffCategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
+                TextInput::make('title')
                     ->required()
                     ->label(__('resource.title')),
+                TextInput::make('number')->required()
+                    ->label(__('resource.number'))
+                    ->nullable(),
             ]);
     }
 
@@ -62,8 +67,9 @@ class TariffCategoryResource extends Resource
     {
         return $table
             ->columns([
-
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('number')
+                    ->label(__('resource.number')),
+                TextColumn::make('title')
                     ->label(__('resource.title')),
             ])
             ->filters([
