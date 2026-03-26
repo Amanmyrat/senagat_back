@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApprovedCardOrderPrintController;
+use App\Http\Controllers\OrderPdfController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,3 +27,7 @@ Route::get('/approved-card-orders/{order}/print', [ApprovedCardOrderPrintControl
 // Route::get('/approved-card-orders/{order}/print', [ApprovedCardOrderPrintController::class, 'printDirect'])
 //    ->name('approved-card-orders.print-direct')
 //    ->withoutMiddleware(['auth', 'filament']);
+Route::get('/card-orders/{record}/pdf', [OrderPdfController::class, 'card'])
+    ->name('card-orders.pdf');
+Route::get('/credit-orders/{record}/pdf', [OrderPdfController::class, 'credit'])
+    ->name('credit-orders.pdf');

@@ -15,10 +15,11 @@ class TmCellBalanceResource extends JsonResource
         if (! $success) {
             $error = $this->resource['error'] ?? [];
             $message = $error['message'] ?? $this->resource['message'] ?? 'unknown_error';
+            $formattedMessage = strtolower(str_replace(' ', '_', $message));
 
             return [
                 'success' => false,
-                'message' => $message,
+                'message' => $formattedMessage,
             ];
         }
 
