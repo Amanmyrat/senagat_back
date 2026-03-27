@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\LoanOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\CreditApplication;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -117,6 +119,20 @@ class LoanOrderResource extends Resource
 
                             TextInput::make('salary')->visible(fn ($get) => $get('role') === 'manager')->disabled()
                                 ->label(__('resource.salary')),
+                            FileUpload::make('salary_document')
+                                ->label('Salary Document')
+                                ->disk('public')
+                                ->openable()
+                                ->downloadable()
+                                ->disabled(),
+
+                            FileUpload::make('profit_document')
+                                ->label('Profit Document')
+                                ->visible(fn ($get) => $get('role') === 'manager')
+                                ->disk('public')
+                                ->openable()
+                                ->downloadable()
+                                ->disabled(),
                         ]),
                     Step::make('Branch Info')
                         ->label(__('resource.branch_information'))
