@@ -2,31 +2,31 @@
 
 @section('content')
 {{-- ===================== CREDIT INFORMATION ===================== --}}
-<h2>{{ __('resource.card_information') }}</h2>
+<h2>{{ __('Kredit Barada') }}</h2>
 <div class="section">
     <div class="grid">
         <div class="field">
-            <label>{{ __('resource.title') }}</label>
+            <label>{{ __('Karzyň ady') }}</label>
             <span>{{ $record->credit?->getTranslation('name', 'tk') ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.phone') }}</label>
+            <label>{{ __('Telefon belgisi') }}</label>
             <span>{{ $record->user?->phone ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.branch_name') }}</label>
+            <label>{{ __('Şahamça ady') }}</label>
             <span>{{ $record->branch?->getTranslation('name', 'tk') ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.amount') }}</label>
+            <label>{{ __('Mukdar') }}</label>
             <span>{{ $record->amount ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.interest') }}</label>
+            <label>{{ __('Göterim') }}</label>
             <span>{{ $record->interest ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.monthly_payment') }}</label>
+            <label>{{ __('Aýlyk Töleg') }}</label>
             <span>{{ $record->monthly_payment ?? '—' }}</span>
         </div>
         <div class="field">
@@ -36,36 +36,36 @@
     </span>
         </div>
         <div class="field">
-            <label>{{ __('resource.patent_number') }}</label>
+            <label>{{ __('Patent Belgisi') }}</label>
             <span>{{ $record->patent_number ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.registration_number') }}</label>
+            <label>{{ __('Bellige Alynş Belgisi') }}</label>
             <span>{{ $record->patent_number ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.work_address') }}</label>
+            <label>{{ __('Iş Salgysy') }}</label>
             <span>{{ $record->work_address ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('workplace') }}</label>
+            <label>{{ __('Iş Orny') }}</label>
             <span>{{ $record->workplace ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.position') }}</label>
+            <label>{{ __('Orny') }}</label>
             <span>{{ $record->position ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.term') }}</label>
+            <label>{{ __('Möhlet') }}</label>
             <span>{{ $record->term ?? '—' }}</span>
         </div>
 
         <div class="field">
-            <label>{{ __('resource.manager_work_address') }}</label>
+            <label>{{ __('Iş Salgysy') }}</label>
             <span>{{ $record->manager_work_address ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.salary') }}</label>
+            <label>{{ __('Aýlyk Hak') }}</label>
             <span>{{ $record->salary ?? '—' }}</span>
         </div>
 {{--        <div class="field">--}}

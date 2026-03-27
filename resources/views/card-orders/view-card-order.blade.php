@@ -2,56 +2,56 @@
 
 @section('content')
 {{-- ===================== CARD INFORMATION ===================== --}}
-<h2>{{ __('resource.card_information') }}</h2>
+<h2>{{ __('Kart barada') }}</h2>
 <div class="section">
     <div class="grid">
         <div class="field">
-            <label>{{ __('resource.title') }}</label>
-            <span>{{ $record->cardType?->title ?? '—' }}</span>
+            <label>{{ __('Ady') }}</label>
+            <span>{{ $record->cardType?->getTranslation('title', 'tk') ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.phone') }}</label>
+            <label>{{ __('Telefon belgisi') }}</label>
             <span>{{ $record->user?->phone ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.branch_name') }}</label>
+            <label>{{ __('Şahamça ady') }}</label>
             <span>{{ $record->branch?->getTranslation('name', 'tk') ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.work_position') }}</label>
+            <label>{{ __('Iş Orny') }}</label>
             <span>
         {{ $record->work_position === 'jobless' ? 'Işsiz' : ($record->work_position ?? '—') }}
     </span>
         </div>
         <div class="field">
-            <label>{{ __('resource.work_phone') }}</label>
+            <label>{{ __('Iş Telefony') }}</label>
             <span>{{ $record->work_phone ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.email') }}</label>
+            <label>{{ __('E-poçta') }}</label>
             <span>{{ $record->email ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.secret_word') }}</label>
+            <label>{{ __('Gizlin söz') }}</label>
             <span>{{ $record->secret_word ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.price') }}</label>
+            <label>{{ __('Bahasy') }}</label>
             <span>{{ $record->cardType?->price ?? '—' }}</span>
         </div>
         <div class="field">
-            <label>{{ __('resource.internet_service') }}</label>
+            <label>{{ __('Internet Hyzmaty') }}</label>
             <span>
                 <span class="checkbox-val {{ $record->internet_service ? 'checkbox-yes' : 'checkbox-no' }}">
-                    {{ $record->internet_service ? '✔ ' . __('yes') : '✘ ' . __('no') }}
+                    {{ $record->internet_service ? '✔ ' . __('Howa') : '✘ ' . __('Ýok') }}
                 </span>
             </span>
         </div>
         <div class="field">
-            <label>{{ __('resource.delivery') }}</label>
+            <label>{{ __('Eltip bermek') }}</label>
             <span>
                 <span class="checkbox-val {{ $record->delivery ? 'checkbox-yes' : 'checkbox-no' }}">
-                    {{ $record->delivery ? '✔ ' . __('yes') : '✘ ' . __('no') }}
+                    {{ $record->delivery ? '✔ ' . __('Howa') : '✘ ' . __('Ýok') }}
                 </span>
             </span>
         </div>

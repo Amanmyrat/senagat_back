@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Traits\DateFormatTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class LoanOrderResource extends JsonResource
 {
@@ -29,6 +30,13 @@ class LoanOrderResource extends JsonResource
             'bank_branch' => optional($this->resource->branch)->getTranslation('name', $locale),
             'role' => $this->resource->role,
             'status' => $this->resource->status,
+            'salary_document' => $this->salary_document
+                ? Storage::url($this->salary_document)
+                : null,
+
+            'profit_document' => $this->profit_document
+                ? Storage::url($this->profit_document)
+                : null,
             'created_at' => $this->formatDateLocalized($this->resource->created_at),
         ];
 

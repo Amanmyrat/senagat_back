@@ -76,6 +76,8 @@ class CreditApplication extends Model
         'patent_number', 'registration_number', 'work_address',
         'workplace', 'position', 'manager_work_address', 'phone_number', 'salary',
         'bank_branch_id', 'status',
+        'salary_document',
+        'profit_document',
     ];
 
     protected $casts = [
@@ -105,4 +107,5 @@ class CreditApplication extends Model
     {
         return $this->belongsTo(Location::class, 'bank_branch_id');
     }
+
 }

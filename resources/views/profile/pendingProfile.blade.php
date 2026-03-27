@@ -1,19 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ $title ?? 'Document' }}</title>
+    @include('pdf.styles')
+</head>
+<body>
 
-{{-- ===================== PROFILE INFORMATION ===================== --}}
 <h2>{{ __('Profil Barada') }}</h2>
 <div class="section">
     <div class="grid">
         <div class="field">
             <label>{{ __('Ady') }}</label>
-            <span>{{ $record->profile?->first_name ?? '—' }}</span>
+            <span>{{ $record->first_name ?? '—' }}</span>
         </div>
         <div class="field">
             <label>{{ __('Familiýasy') }}</label>
-            <span>{{ $record->profile?->last_name ?? '—' }}</span>
+            <span>{{ $record->last_name ?? '—' }}</span>
         </div>
         <div class="field">
             <label>{{ __('Atasynyň ady') }}</label>
-            <span>{{ $record->profile?->middle_name ?? '—' }}</span>
+            <span>{{ $record->middle_name ?? '—' }}</span>
         </div>
         <div class="field">
             <label>{{ __('Telefon belgisi') }}</label>
@@ -22,47 +29,47 @@
         <div class="field">
             <label>{{ __('Doglan senesi') }}</label>
             <span>
-    {{ $record->profile?->birth_date
-        ? \Carbon\Carbon::parse($record->profile->birth_date)->format('d.m.Y')
+    {{ $record->birth_date
+        ? \Carbon\Carbon::parse($record->birth_date)->format('d.m.Y')
         : '—'
     }}
 </span>
         </div>
         <div class="field">
             <label>{{ __('Pasport belgisi') }}</label>
-            <span>{{ $record->profile?->passport_number ?? '—' }}</span>
+            <span>{{ $record->passport_number ?? '—' }}</span>
         </div>
         <div class="field">
             <label>{{ __('Berilen senesi') }}</label>
             <span>
-    {{ $record->profile?->issued_date
-        ? \Carbon\Carbon::parse($record->profile->issued_date)->format('d.m.Y')
+    {{ $record->issued_date
+        ? \Carbon\Carbon::parse($record->issued_date)->format('d.m.Y')
         : '—'
     }}
 </span>
         </div>
         <div class="field">
             <label>{{ __('Berilen ýeri') }}</label>
-            <span>{{ $record->profile?->issued_by ?? '—' }}</span>
+            <span>{{ $record->issued_by ?? '—' }}</span>
         </div>
         <div class="field">
             <label>{{ __('Raýatlygy') }}</label>
-            <span>{{ $record->profile?->citizenship ?? '—' }}</span>
+            <span>{{ $record->citizenship ?? '—' }}</span>
         </div>
         <div class="field">
             <label>{{ __('Öý telefon belgisi') }}</label>
-            <span>{{ $record->profile?->home_phone ?? '—' }}</span>
+            <span>{{ $record->home_phone ?? '—' }}</span>
         </div>
         <div class="field">
             <label>{{ __('Öý salgysy') }}</label>
-            <span>{{ $record->profile?->home_address ?? '—' }}</span>
+            <span>{{ $record->home_address ?? '—' }}</span>
         </div>
 
-        @if($record->profile?->scan_passport)
+        @if($record->scan_passport)
             <div class="field full-width">
                 <label>{{ __('Pasport skany') }}</label>
                 @php
-                    $scanPath = $record->profile->scan_passport;
+                    $scanPath = $record->scan_passport;
                     $ext      = strtolower(pathinfo($scanPath, PATHINFO_EXTENSION));
                     $pdfUrl   = asset('storage/' . $scanPath);
                     $fullPath = public_path('storage/' . $scanPath);
@@ -131,4 +138,12 @@
         @endif
     </div>
 </div>
+@yield('content')
+@include('pdf.partials.changes', ['record' => $record])
+@include('pdf.partials.status', ['record' => $record])
+
+</body>
+</html>
+
+
 
