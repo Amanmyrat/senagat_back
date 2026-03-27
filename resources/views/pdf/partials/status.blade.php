@@ -1,7 +1,7 @@
-<h2>{{ __('resource.card_order_status') }}</h2>
+<h2>{{ __('Statusy') }}</h2>
 <div class="section">
     <div class="field">
-        <label>{{ __('resource.card_order_status') }}</label>
+        <label>{{ __('Arzanyň ýagdaýy') }}</label>
         <span>
             @php
 
@@ -11,9 +11,10 @@
                     default    => 'badge-warning',
                 };
                 $statusLabel = match($record->status) {
-                    'approved' => __('resource.approved'),
-                    'rejected' => __('resource.rejected'),
-                    default    => ucfirst($record->status ?? __('resource.pending')),
+                    'approved' => 'Tassyklandy',
+                    'rejected' => 'Red edildi',
+                    'pending' => 'Garaşylýar',
+                    default    => ucfirst($record->status ?? __('Garaşylýar')),
                 };
             @endphp
             <span class="badge {{ $statusClass }}">{{ $statusLabel }}</span>

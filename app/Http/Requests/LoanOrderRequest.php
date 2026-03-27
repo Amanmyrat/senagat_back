@@ -128,6 +128,32 @@ class LoanOrderRequest extends FormRequest
                     //              ->where('branch_services', true)
                     ),
             ],
+            /**
+             * Salary Document
+             *
+             * @var string
+             *
+             * @example
+             */
+            'salary_document' => [
+                'required',
+                'file',
+                'mimes:pdf',
+                'max:30000'
+            ],
+            /**
+             * Profit Document
+             *
+             * @var string
+             *
+             * @example
+             */
+            'profit_document' => [
+                'required_if:role,manager',
+                'file',
+                'mimes:pdf',
+                'max:30000'
+            ],
 
         ];
     }
@@ -152,6 +178,8 @@ class LoanOrderRequest extends FormRequest
             'salary.required_if' => ErrorMessage::SALARY_REQUIRED->value,
             'salary.min' => ErrorMessage::SALARY_MIN->value,
             'bank_branch_id.required' => ErrorMessage::BANK_BRANCH_REQUIRED->value,
+            'salary_document.required' => ErrorMessage::SALARY_DOCUMENT_REQUIRED->value,
+            'profit_document.required_if' => ErrorMessage::PROFIT_DOCUMENT_REQUIRED->value,
         ];
     }
 

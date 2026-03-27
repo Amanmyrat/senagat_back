@@ -13,6 +13,7 @@ use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -87,6 +88,9 @@ class CertificateOrderResource extends Resource
                                 )
                                 ->disabled(),
                             TextInput::make('home_address')->disabled()
+                                ->afterStateHydrated(function ($component, $state, $record) {
+                                    $component->state($record->home_address);
+                                })
                                 ->label(__('resource.home_address')),
                         ]),
                     Step::make('Certificate Order Status')
@@ -148,6 +152,12 @@ class CertificateOrderResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
+                Action::make('pdf')
+                    ->label('PDF')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->color('info')
+                    ->url(fn ($record) => route('certificate.pdf', $record))
+                    ->openUrlInNewTab(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
