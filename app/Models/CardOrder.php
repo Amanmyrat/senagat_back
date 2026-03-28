@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\ClearsRejectionReasons;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -47,10 +48,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereSecretWord($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereWorkPhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereWorkPosition($value)
+ * @property array<array-key, mixed>|null $rejection_reasons
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CardOrder whereRejectionReasons($value)
  * @mixin \Eloquent
  */
 class CardOrder extends Model
 {
+    use ClearsRejectionReasons;
     protected $fillable = [
         'user_id',
         'profile_id',
@@ -63,9 +67,12 @@ class CardOrder extends Model
         'internet_service',
         'delivery',
         'email',
+        'rejection_reasons'
 
     ];
-
+    protected $casts = [
+        'rejection_reasons' => 'array',
+    ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

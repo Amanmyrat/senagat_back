@@ -208,5 +208,14 @@ return [
     'download' => 'Ýükle',
     'secret_word' => 'Gizlin söz',
     'requirements_description' => 'Talaplaryň beýany',
-    'super-admin' => 'Super admin'
+    'super-admin' => 'Super admin',
+    'scan_passport_incorrect' => 'Pasportyň skany nädogry',
+    'passport_number_incorrect' => 'Pasport belgisi nädogry',
+    'low_salary' => 'Aýlyk haky ýeterli däl',
+    'invalid_phone_number' => 'Telefon belgisi nädogry',
+    'salary_document_incorrect' => 'Aýlyk hakyndaky güwänama nädogry',
+    'profit_document_incorrect' => 'Zähmet depderçesiniň tassyklanynan göçürmesi nädogry',
+    'rejection_reasons'=>'Ret sebäpleri',
+    'salary_document'=>'Aýlyk haky barada güwanama',
+    'profit_document' =>'Zähmet depderçesiniň tassyklanylan göçürmesi'
 ];

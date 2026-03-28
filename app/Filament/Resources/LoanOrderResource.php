@@ -120,14 +120,14 @@ class LoanOrderResource extends Resource
                             TextInput::make('salary')->visible(fn ($get) => $get('role') === 'manager')->disabled()
                                 ->label(__('resource.salary')),
                             FileUpload::make('salary_document')
-                                ->label('Salary Document')
+                                ->label(__('resource.salary_document'))
                                 ->disk('public')
                                 ->openable()
                                 ->downloadable()
                                 ->disabled(),
 
                             FileUpload::make('profit_document')
-                                ->label('Profit Document')
+                                ->label(__('resource.profit_document'))
                                 ->visible(fn ($get) => $get('role') === 'manager')
                                 ->disk('public')
                                 ->openable()
@@ -149,6 +149,7 @@ class LoanOrderResource extends Resource
 
                                     ToggleButtons::make('status')
                                         ->label(__('resource.loan_status'))
+                                        ->live()
                                         ->options([
                                             'approved' => __('resource.approved'),
                                             'rejected' => __('resource.rejected'),
@@ -162,7 +163,19 @@ class LoanOrderResource extends Resource
                                             'rejected' => 'danger',
                                         ])
                                         ->inline(),
-
+                            Select::make('rejection_reasons')
+                                ->label(__('resource.rejection_reasons'))
+                                ->multiple()
+                                ->options([
+                                    'Pasportyň skany nädogry' => __('resource.scan_passport_incorrect'),
+                                    'Pasport belgisi nädogry' => __('resource.passport_number_incorrect'),
+                                    'Aýlyk haky ýeterli däl' => __('resource.low_salary'),
+                                    'Telefon belgisi nädogry' => __('resource.invalid_phone_number'),
+                                    'Aýlyk hakyndaky güwänama nädogry'=>__('resource.salary_document_incorrect'),
+                                    'Zähmet depderçesiniň tassyklanynan göçürmesi nädogry'=>__('resource.profit_document_incorrect'),
+                                ])
+                                ->visible(fn ($get) => $get('status') === 'rejected')
+                                ->searchable()
                         ])
                 ]
                 )

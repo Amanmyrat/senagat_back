@@ -14,15 +14,21 @@ class UserInformationResource extends JsonResource
             'profile' => $this->resource->profile
                 ? collect((new UserProfileResource($this->resource->profile))->toArray($request))
                     ->except(['id', 'gender'])
-                    ->merge(['status' => $this->resource->profile->approved])
+                    ->merge(['status' => $this->resource->profile->approved,
+                        'rejected_text' => $this->resource->profile->rejection_reasons,
+                        ])
                 : null,
+
             'certificates' => $this->whenLoaded('certificates', function () {
                 $certificates = CertificateOrderResource::collection($this->resource->certificates)->toArray(request());
 
                 return ! empty($certificates)
                     ? collect($certificates)->map(function ($item) {
                         return collect($item)
-                            ->except(['id', 'user_id', 'profile_id', 'certificate_type_id', 'phone_number', 'home_address']);
+                            ->except(['id', 'user_id', 'profile_id', 'certificate_type_id', 'phone_number', 'home_address'])
+                            ->merge([
+                                'rejected_text' => $item['rejected_text'] ?? null,
+                            ]);
                     })
                         ->values()
                     : null;
@@ -33,7 +39,10 @@ class UserInformationResource extends JsonResource
                 return ! empty($loans)
                     ? collect($loans)->map(function ($item) {
                         return collect($item)
-                            ->except(['id', 'user_id', 'profile_id', 'credit_id', 'term', 'interest', 'role', 'workplace', 'bank_branch_id', 'position', 'manager_work_address', 'phone_number', 'salary', 'patent_number', 'registration_number', 'work_address']);
+                            ->except(['id', 'user_id', 'profile_id', 'credit_id', 'term', 'interest', 'role', 'workplace', 'bank_branch_id', 'position', 'manager_work_address', 'phone_number', 'salary', 'patent_number', 'registration_number', 'work_address'])
+                            ->merge([
+                                'rejected_text' => $item['rejected_text'] ?? null,
+                            ]);
                     })
                         ->values()
                     : null;
@@ -44,7 +53,10 @@ class UserInformationResource extends JsonResource
                 return ! empty($cards)
                     ? collect($cards)->map(function ($item) {
                         return collect($item)
-                            ->except(['id', 'user_id', 'profile_id', 'card_type_id', 'phone_number', 'bank_branch_id', 'work_position', 'work_phone', 'internet_service', 'email']);
+                            ->except(['id', 'user_id', 'profile_id', 'card_type_id', 'phone_number', 'bank_branch_id', 'work_position', 'work_phone', 'internet_service', 'email'])
+                            ->merge([
+                                'rejected_text' => $item['rejected_text'] ?? null,
+                            ]);
                     })
                         ->values()
                     : null;

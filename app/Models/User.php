@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\ClearsRejectionReasons;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @property int $id
@@ -39,13 +39,24 @@ use Illuminate\Database\Eloquent\Builder;
  * @property-read int|null $certificates_count
  * @property-read Collection<int, \App\Models\PaymentRequest> $paymentRequests
  * @property-read int|null $payment_requests_count
+ * @method static Builder<static>|User newModelQuery()
+ * @method static Builder<static>|User newQuery()
+ * @method static Builder<static>|User query()
+ * @method static Builder<static>|User whereCreatedAt($value)
+ * @method static Builder<static>|User whereId($value)
+ * @method static Builder<static>|User whereName($value)
+ * @method static Builder<static>|User wherePassword($value)
+ * @method static Builder<static>|User wherePhone($value)
+ * @method static Builder<static>|User whereRememberToken($value)
+ * @method static Builder<static>|User whereUpdatedAt($value)
  * @mixin Eloquent
  */
 class User extends Authenticatable
 {
+
     /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, Notifiable;
-
+    use ClearsRejectionReasons;
     /**
      * The attributes that are mass assignable.
      *

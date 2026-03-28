@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enum\UserStatus;
+use App\Models\Traits\ClearsRejectionReasons;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -50,10 +51,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereCitizenship($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereHomeAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereHomePhone($value)
+ * @property array<array-key, mixed>|null $rejection_reasons
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereRejectionReasons($value)
  * @mixin \Eloquent
  */
 class UserProfile extends Model
 {
+    use ClearsRejectionReasons;
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -65,6 +70,7 @@ class UserProfile extends Model
         'issued_by',
         'scan_passport',
         'approved',
+        'rejection_reasons',
         'citizenship', 'home_phone', 'home_address',
     ];
 
@@ -72,6 +78,7 @@ class UserProfile extends Model
         'birth_date' => 'date',
         'issued_date' => 'date',
         'approved' => UserStatus::class,
+        'rejection_reasons' => 'array',
     ];
 
     public function user(): BelongsTo

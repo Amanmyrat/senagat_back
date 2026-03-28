@@ -40,6 +40,8 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder<static>|ApprovedCardOrder whereUserId($value)
  * @method static Builder<static>|ApprovedCardOrder whereWorkPhone($value)
  * @method static Builder<static>|ApprovedCardOrder whereWorkPosition($value)
+ * @property array<array-key, mixed>|null $rejection_reasons
+ * @method static Builder<static>|ApprovedCardOrder whereRejectionReasons($value)
  * @mixin \Eloquent
  */
 class ApprovedCardOrder extends CardOrder

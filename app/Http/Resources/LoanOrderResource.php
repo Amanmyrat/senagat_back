@@ -6,7 +6,9 @@ use App\Traits\DateFormatTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
-
+/**
+ * @mixin \App\Models\CreditApplication
+ */
 class LoanOrderResource extends JsonResource
 {
     use DateFormatTrait;
@@ -30,6 +32,7 @@ class LoanOrderResource extends JsonResource
             'bank_branch' => optional($this->resource->branch)->getTranslation('name', $locale),
             'role' => $this->resource->role,
             'status' => $this->resource->status,
+            'rejected_text' => $this->resource->rejection_reasons,
             'salary_document' => $this->salary_document
                 ? Storage::url($this->salary_document)
                 : null,

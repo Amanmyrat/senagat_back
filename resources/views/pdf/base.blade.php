@@ -11,6 +11,6 @@
 
 @yield('content')
 
-@include('pdf.partials.status', ['record' => $record])
+
 </body>
 </html>

@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder<static>|ApprovedCertificateOrder whereStatus($value)
  * @method static Builder<static>|ApprovedCertificateOrder whereUpdatedAt($value)
  * @method static Builder<static>|ApprovedCertificateOrder whereUserId($value)
+ * @property array<array-key, mixed>|null $rejection_reasons
+ * @method static Builder<static>|ApprovedCertificateOrder whereRejectionReasons($value)
  * @mixin \Eloquent
  */
 class ApprovedCertificateOrder extends CertificateOrder
