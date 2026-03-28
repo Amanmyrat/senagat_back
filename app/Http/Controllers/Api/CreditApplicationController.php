@@ -30,7 +30,7 @@ class CreditApplicationController extends Controller
             return new JsonResponse([
                 'success' => true,
                 'data' => collect((new LoanOrderResource($application))->toArray($request))
-                    ->except('status'),
+                    ->except('status','rejection_reasons'),
             ], 201);
         } catch (Exception $e) {
             return new JsonResponse([

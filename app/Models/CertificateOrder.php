@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\ClearsRejectionReasons;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -35,10 +36,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $bank_branch_id
  * @property-read \App\Models\Location $branch
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateOrder whereBankBranchId($value)
+ * @property array<array-key, mixed>|null $rejection_reasons
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CertificateOrder whereRejectionReasons($value)
  * @mixin \Eloquent
  */
 class CertificateOrder extends Model
 {
+    use ClearsRejectionReasons;
     protected $fillable = [
         'user_id',
         'profile_id',
@@ -46,6 +50,10 @@ class CertificateOrder extends Model
         'bank_branch_id',
         'home_address',
         'status',
+        'rejection_reasons'
+    ];
+    protected $casts = [
+        'rejection_reasons' => 'array',
     ];
 
     public function user(): BelongsTo

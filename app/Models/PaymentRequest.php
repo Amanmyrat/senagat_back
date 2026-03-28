@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $type
  * @property string|null $external_id
  * @property string $status
- * @property $amount
+ * @property float $amount
  * @property array<array-key, mixed>|null $payment_target
  * @property array<array-key, mixed>|null $meta
  * @property \Illuminate\Support\Carbon|null $created_at

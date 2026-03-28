@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\MoneyCast;
+use App\Models\Traits\ClearsRejectionReasons;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -53,17 +54,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereWorkAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereWorkplace($value)
  * @property $term
- * @property $amount
+ * @property float $amount
  * @property $interest
  * @property $monthly_payment
  * @property $salary
  * @property int $bank_branch_id
  * @property-read \App\Models\Location $branch
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereBankBranchId($value)
+ * @property string|null $salary_document
+ * @property string|null $profit_document
+ * @property array<array-key, mixed>|null $rejection_reasons
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereProfitDocument($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereRejectionReasons($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CreditApplication whereSalaryDocument($value)
  * @mixin \Eloquent
  */
 class CreditApplication extends Model
 {
+    use ClearsRejectionReasons;
     protected $fillable = [
         'user_id',
         'profile_id',
@@ -78,6 +86,7 @@ class CreditApplication extends Model
         'bank_branch_id', 'status',
         'salary_document',
         'profit_document',
+        'rejection_reasons'
     ];
 
     protected $casts = [
@@ -86,6 +95,7 @@ class CreditApplication extends Model
         'interest' => MoneyCast::class,
         'monthly_payment' => MoneyCast::class,
         'salary' => MoneyCast::class,
+        'rejection_reasons' => 'array',
     ];
 
     public function user(): BelongsTo

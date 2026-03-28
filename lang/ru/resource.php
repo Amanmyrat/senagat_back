@@ -206,6 +206,15 @@ return [
     'citizenship' => 'Гражданство',
     'secret_word' => 'Секретное слово',
     'requirements_description' => 'Описание требований',
-    'super-admin' => 'Супер администратор'
+    'super-admin' => 'Супер администратор',
+    'scan_passport_incorrect' => 'Неверный скан паспорта',
+    'passport_number_incorrect' => 'Неверный номер паспорта',
+    'low_salary' => 'Низкая зарплата',
+    'invalid_phone_number' => 'Неверный номер телефона',
+    'salary_document_incorrect' => 'Справка о заработной плате неверна',
+    'profit_document_incorrect' => 'Заверенная копия трудовой книжки неверна',
+    'rejection_reasons' => 'Причины отказа',
+    'salary_document' => 'Справка о заработной плате',
+    'profit_document' => 'Заверенная копия трудовой книжки',
 
 ];

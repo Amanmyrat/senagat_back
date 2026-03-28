@@ -15,3 +15,15 @@ parameters:
     ignoreErrors:
         - '#Static property .+ \$view .+ does not accept default value of type string#'
         - '#Parameter .+ \$view of method Filament\\Support\\Components\\ViewComponent::view\(\) expects view-string\|null, string given#'
+        # App\Models\Builder wrong namespace - PHPDoc error
+        - '#unknown class App\\Models\\Builder#'
+
+        # @property tag parse errors - type error
+        - '#PHPDoc tag @property has invalid value#'
+
+        # Trait property error - ClearsRejectionReasons
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$(status|rejection_reasons|approved)#'
+
+        # UserFactory namespace error
+        - '#PHPDoc tag @use has invalid type App\\Models\\UserFactory#'
+        - '#App\\Models\\UserFactory.+not subtype of template type#'

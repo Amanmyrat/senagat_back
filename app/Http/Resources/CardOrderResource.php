@@ -25,6 +25,7 @@ class CardOrderResource extends JsonResource
             'delivery' => (bool) $this->resource->delivery,
             'email' => $this->resource->email,
             'status' => $this->resource->status,
+            'rejected_text' => $this->resource->rejection_reasons,
             'created_at' => $this->formatDateLocalized($this->resource->created_at),
         ];
     }

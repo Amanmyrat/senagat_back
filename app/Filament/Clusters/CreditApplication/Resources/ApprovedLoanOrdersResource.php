@@ -136,6 +136,7 @@ class ApprovedLoanOrdersResource extends Resource
 
                                 ToggleButtons::make('status')
                                     ->label(__('resource.loan_status'))
+                                    ->live()
                                     ->options([
                                         'approved' => __('resource.approved'),
                                         'rejected' => __('resource.rejected'),
@@ -149,7 +150,19 @@ class ApprovedLoanOrdersResource extends Resource
                                         'rejected' => 'danger',
                                     ])
                                     ->inline(),
-
+                        Select::make('rejection_reasons')
+                            ->label(__('resource.rejection_reasons'))
+                            ->multiple()
+                            ->options([
+                                'Pasportyň skany nädogry' => __('resource.scan_passport_incorrect'),
+                                'Pasport belgisi nädogry' => __('resource.passport_number_incorrect'),
+                                'Aýlyk haky ýeterli däl' => __('resource.low_salary'),
+                                'Telefon belgisi nädogry' => __('resource.invalid_phone_number'),
+                                'Aýlyk hakyndaky güwänama nädogry'=>__('resource.salary_document_incorrect'),
+                                'Zähmet depderçesiniň tassyklanynan göçürmesi nädogry'=>__('resource.profit_document_incorrect'),
+                            ])
+                            ->visible(fn ($get) => $get('status') === 'rejected')
+                            ->searchable()
                     ])
                 ]
                 )
