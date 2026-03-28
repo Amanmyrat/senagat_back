@@ -58,75 +58,117 @@
             <span>{{ $record->profile?->home_address ?? '—' }}</span>
         </div>
 
-        @if($record->profile?->scan_passport)
-            <div class="field full-width">
-                <label>{{ __('Pasport skany') }}</label>
-                @php
-                    $scanPath = $record->profile->scan_passport;
-                    $ext      = strtolower(pathinfo($scanPath, PATHINFO_EXTENSION));
-                    $pdfUrl   = asset('storage/' . $scanPath);
-                    $fullPath = public_path('storage/' . $scanPath);
+{{--        @if($record->profile?->scan_passport)--}}
+{{--            <div class="field full-width">--}}
+{{--                <label>{{ __('Pasport skany') }}</label>--}}
+{{--                @php--}}
+{{--                    $scanPath = $record->profile->scan_passport;--}}
+{{--                    $ext      = strtolower(pathinfo($scanPath, PATHINFO_EXTENSION));--}}
+{{--                    $pdfUrl   = asset('storage/' . $scanPath);--}}
+{{--                    $fullPath = public_path('storage/' . $scanPath);--}}
 
-                    if (!file_exists($fullPath)) {
-                        $fullPath = storage_path('app/public/' . $scanPath);
-                    }
-                @endphp
+{{--                    if (!file_exists($fullPath)) {--}}
+{{--                        $fullPath = storage_path('app/public/' . $scanPath);--}}
+{{--                    }--}}
+{{--                @endphp--}}
 
-                @if(!file_exists($fullPath))
-                    <small style="color:#ef4444;">Dosya bulunamadı: {{ $scanPath }}</small>
+{{--                @if(!file_exists($fullPath))--}}
+{{--                    <small style="color:#ef4444;">Dosya bulunamadı: {{ $scanPath }}</small>--}}
 
-                @elseif(in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                    @php
-                        $mime = match($ext) {
-                            'jpg', 'jpeg' => 'image/jpeg',
-                            'png'         => 'image/png',
-                            'gif'         => 'image/gif',
-                            'webp'        => 'image/webp',
-                            default       => 'image/jpeg',
-                        };
-                        $base64 = base64_encode(file_get_contents($fullPath));
-                    @endphp
-                    <img src="data:{{ $mime }};base64,{{ $base64 }}"
-                         alt="Scan Passport" class="passport-img">
+{{--                @elseif(in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))--}}
+{{--                    @php--}}
+{{--                        $mime = match($ext) {--}}
+{{--                            'jpg', 'jpeg' => 'image/jpeg',--}}
+{{--                            'png'         => 'image/png',--}}
+{{--                            'gif'         => 'image/gif',--}}
+{{--                            'webp'        => 'image/webp',--}}
+{{--                            default       => 'image/jpeg',--}}
+{{--                        };--}}
+{{--                        $base64 = base64_encode(file_get_contents($fullPath));--}}
+{{--                    @endphp--}}
+{{--                    <img src="data:{{ $mime }};base64,{{ $base64 }}"--}}
+{{--                         alt="Scan Passport" class="passport-img">--}}
 
-                @elseif($ext === 'pdf')
-                    @php
-                        $pages = [];
-                        if (extension_loaded('imagick')) {
-                            try {
-                                $imagick = new \Imagick();
-                                $imagick->setResolution(150, 150);
-                                $imagick->readImage($fullPath);
-                                foreach ($imagick as $page) {
-                                    $page->setImageFormat('png');
-                                    $pages[] = base64_encode($page->getImageBlob());
-                                }
-                            } catch (\Exception $e) {
-                                $pages = [];
-                            }
-                        }
-                    @endphp
+{{--                @elseif($ext === 'pdf')--}}
+{{--                    @php--}}
+{{--                        $pages = [];--}}
+{{--                        if (extension_loaded('imagick')) {--}}
+{{--                            try {--}}
+{{--                                $imagick = new \Imagick();--}}
+{{--                                $imagick->setResolution(150, 150);--}}
+{{--                                $imagick->readImage($fullPath);--}}
+{{--                                foreach ($imagick as $page) {--}}
+{{--                                    $page->setImageFormat('png');--}}
+{{--                                    $pages[] = base64_encode($page->getImageBlob());--}}
+{{--                                }--}}
+{{--                            } catch (\Exception $e) {--}}
+{{--                                $pages = [];--}}
+{{--                            }--}}
+{{--                        }--}}
+{{--                    @endphp--}}
 
-                    @if(!empty($pages))
-                        @foreach($pages as $i => $page)
-                            <div style="font-size:11px; color:#6b7280; margin: 6px 0 2px;">
-                                Sahypa {{ $i + 1 }} / {{ count($pages) }}
-                            </div>
-                            <img src="data:image/png;base64,{{ $page }}"
-                                 style="width:60%; margin-bottom:10px; border:1px solid #d1d5db; border-radius:6px; display:block;">
-                        @endforeach
-                    @else
-                        <embed src="{{ $pdfUrl }}"
-                               type="application/pdf"
-                               width="100%"
-                               height="800px"
-                               style="border:1px solid #d1d5db; border-radius:8px; margin-top:8px; display:block;">
-                    @endif
+{{--                    @if(!empty($pages))--}}
+{{--                        @foreach($pages as $i => $page)--}}
+{{--                            <div style="font-size:11px; color:#6b7280; margin: 6px 0 2px;">--}}
+{{--                                Sahypa {{ $i + 1 }} / {{ count($pages) }}--}}
+{{--                            </div>--}}
+{{--                            <img src="data:image/png;base64,{{ $page }}"--}}
+{{--                                 style="width:60%; margin-bottom:10px; border:1px solid #d1d5db; border-radius:6px; display:block;">--}}
+{{--                        @endforeach--}}
+{{--                    @else--}}
+{{--                        <embed src="{{ $pdfUrl }}"--}}
+{{--                               type="application/pdf"--}}
+{{--                               width="100%"--}}
+{{--                               height="800px"--}}
+{{--                               style="border:1px solid #d1d5db; border-radius:8px; margin-top:8px; display:block;">--}}
+{{--                    @endif--}}
 
-                    <a href="{{ $pdfUrl }}" target="_blank" class="pdf-link no-print">
-                        📄 Open new Tab
-                    </a>
-                @endif
+{{--                    <a href="{{ $pdfUrl }}" target="_blank" class="pdf-link no-print">--}}
+{{--                        📄 Open new Tab--}}
+{{--                    </a>--}}
+{{--                @endif--}}
+{{--            </div>--}}
+{{--        @endif--}}
+
+    </div>
+    @include('pdf.partials.file-viewer', [
+'path' => $record->profile->scan_passport
+])
+    <h2>{{ __('Statusy') }}</h2>
+    <div class="section">
+        <div class="field">
+
+            <span>
+            @php
+
+                $statusClass = match($record->profile->approved?->value) {
+     'approved' => 'badge-success',
+     'rejected' => 'badge-danger',
+     default    => 'badge-warning',
+ };
+
+ $statusLabel = match($record->profile->approved?->value) {
+     'approved' => 'Tassyklandy',
+     'rejected' => 'Red edildi',
+     'pending'  => 'Garaşylýar',
+     default    => __('Garaşylýar'),
+ };
+            @endphp
+
+            <span class="badge {{ $statusClass }}">{{ $statusLabel }}</span>
+        </span>
+        </div>
+        @if($record->profile?->approved?->value === 'rejected' && !empty($record->profile?->rejection_reasons))
+            <div class="field">
+                <label>{{ __('Ret sebäpleri') }}</label>
+
+                <span style="display:flex; flex-wrap:wrap; gap:6px;">
+            @foreach($record->profile->rejection_reasons as $reason)
+                        <span class="badge badge-danger">
+                    {{ $reason }}
+                </span>
+                    @endforeach
+        </span>
             </div>
         @endif
     </div>

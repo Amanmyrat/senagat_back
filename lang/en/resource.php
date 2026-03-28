@@ -207,6 +207,14 @@ return [
     'open' => 'Open',
     'download'=>'Download',
     'requirements_description'=>'Requirements Description',
-    'super-admin'=>'Super Admin'
-
+    'super-admin'=>'Super Admin',
+    'scan_passport_incorrect' => 'Passport scan is incorrect',
+    'passport_number_incorrect' => 'Passport number incorrect',
+    'low_salary' => 'Low salary',
+    'invalid_phone_number' => 'Invalid phone number',
+    'salary_document_incorrect' => 'Salary certificate is incorrect',
+    'profit_document_incorrect' => 'Certified copy of the employment record is incorrect',
+    'rejection_reasons' => 'Rejection reasons',
+    'salary_document' => 'Salary certificate',
+    'profit_document' => 'Certified copy of the employment record',
 ];

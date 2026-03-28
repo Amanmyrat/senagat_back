@@ -22,4 +22,18 @@
             <span>{{ $record->home_address ?? '—' }}</span>
         </div>
 </div>
+    @include('pdf.partials.status', ['record' => $record])
+    @if($record->status === 'rejected' && !empty($record->rejection_reasons))
+        <div class="field">
+            <label>{{ __('Ret sebäpleri') }}</label>
+            <span style="display:flex; flex-wrap:wrap; gap:6px;">
+    @foreach($record->rejection_reasons as $reason)
+                    <span class="badge badge-danger">
+            {{ $reason }}
+        </span>
+                @endforeach
+</span>
+        </div>
+@endif
+
 @endsection

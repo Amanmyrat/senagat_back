@@ -22,6 +22,7 @@ class CertificateOrderResource extends JsonResource
             'bank_branch' => optional($this->resource->branch)->getTranslation('name', $locale),
             'certificate_price' => $this->resource->certificateType->price,
             'status' => $this->resource->status,
+            'rejected_text' => $this->resource->rejection_reasons,
             'created_at' => $this->formatDateLocalized($this->resource->created_at),
         ];
     }

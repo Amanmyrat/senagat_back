@@ -29,6 +29,8 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TariffCategory whereSort($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TariffCategory whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TariffCategory whereUpdatedAt($value)
+ * @property int|null $number
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TariffCategory whereNumber($value)
  * @mixin \Eloquent
  */
 class TariffCategory extends Model

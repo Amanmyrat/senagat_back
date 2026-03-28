@@ -6,6 +6,7 @@ use App\Filament\Resources\CertificateOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\CertificateOrder;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Components\Wizard;
@@ -100,6 +101,7 @@ class CertificateOrderResource extends Resource
                                 ->schema([
                                     ToggleButtons::make('status')
                                         ->label(__('resource.certificate_order_status'))
+                                        ->live()
                                         ->options([
                                             'approved' => __('resource.approved'),
                                             'rejected' => __('resource.rejected'),
@@ -113,6 +115,17 @@ class CertificateOrderResource extends Resource
                                             'rejected' => 'danger',
                                         ])
                                         ->inline(),
+                                    Select::make('rejection_reasons')
+                                        ->label(__('resource.rejection_reasons'))
+                                        ->multiple()
+                                        ->options([
+                                            'Pasportyň skany nädogry' => __('resource.scan_passport_incorrect'),
+                                            'Pasport belgisi nädogry' => __('resource.passport_number_incorrect'),
+                                            'Aýlyk haky ýeterli däl' => __('resource.low_salary'),
+                                            'Telefon belgisi nädogry' => __('resource.invalid_phone_number'),
+                                        ])
+                                        ->visible(fn ($get) => $get('status') === 'rejected')
+                                        ->searchable()
                                 ]),
                         ]),
                 ])->skippable()

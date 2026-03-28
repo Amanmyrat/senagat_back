@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property int $profile_id
  * @property int $credit_id
  * @property $term
- * @property $amount
+ * @property float $amount
  * @property $interest
  * @property $monthly_payment
  * @property string|null $role
@@ -52,6 +52,12 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder<static>|RejectedLoanOrder whereUserId($value)
  * @method static Builder<static>|RejectedLoanOrder whereWorkAddress($value)
  * @method static Builder<static>|RejectedLoanOrder whereWorkplace($value)
+ * @property string|null $salary_document
+ * @property string|null $profit_document
+ * @property array<array-key, mixed>|null $rejection_reasons
+ * @method static Builder<static>|RejectedLoanOrder whereProfitDocument($value)
+ * @method static Builder<static>|RejectedLoanOrder whereRejectionReasons($value)
+ * @method static Builder<static>|RejectedLoanOrder whereSalaryDocument($value)
  * @mixin \Eloquent
  */
 class RejectedLoanOrder extends CreditApplication
