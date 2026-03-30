@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\CardOrder;
 use App\Models\CertificateOrder;
 use App\Models\CreditApplication;
+use App\Models\InternationalPaymentOrder;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
@@ -39,6 +40,12 @@ class OrderPdfController extends Controller
         $record = UserProfile::with(['user'])->findOrFail($id);
 
         return view('profile.pendingProfile', compact('record'));
+    }
+    public function internationalPayment($id)
+    {
+        $record = InternationalPaymentOrder::with(['user', 'profile', 'branch'])->findOrFail($id);
+
+        return view('international-payment.view-international-payment', ['record' => $record]);
     }
 
 }
