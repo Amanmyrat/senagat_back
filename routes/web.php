@@ -35,3 +35,5 @@ Route::get('/certificate/{id}/pdf', [OrderPdfController::class, 'certificate'])-
 Route::get('/profile/{id}/pdf', [OrderPdfController::class, 'profile'])->name('profile.pdf');
 Route::get('/profile/{id}/pending-pdf', [OrderPdfController::class, 'pendingProfile'])
     ->name('pendingProfile.pdf');
+Route::get('/international-payment-orders/{record}/pdf', [OrderPdfController::class, 'internationalPayment'])
+    ->name('international-payments.pdf');
