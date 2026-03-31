@@ -119,20 +119,22 @@ class LoanOrderResource extends Resource
 
                             TextInput::make('salary')->visible(fn ($get) => $get('role') === 'manager')->disabled()
                                 ->label(__('resource.salary')),
-                            FileUpload::make('salary_document')
+
+                            FileUpload::make('profit_document')
+
                                 ->label(__('resource.salary_document'))
                                 ->disk('public')
                                 ->openable()
                                 ->downloadable()
                                 ->disabled(),
-
-                            FileUpload::make('profit_document')
+                            FileUpload::make('work_document')
                                 ->label(__('resource.profit_document'))
                                 ->visible(fn ($get) => $get('role') === 'manager')
                                 ->disk('public')
                                 ->openable()
                                 ->downloadable()
                                 ->disabled(),
+
                         ]),
                     Step::make('Branch Info')
                         ->label(__('resource.branch_information'))
