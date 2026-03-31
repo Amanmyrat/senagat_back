@@ -63,7 +63,7 @@ class InternationalPaymentOrderRequest extends FormRequest
              */
             'uploaded_files.*' => [
                 'file',
-                'max:10240',
+                'max:15000',
                 'mimes:pdf,png,jpeg,jpg',
             ],
         ];

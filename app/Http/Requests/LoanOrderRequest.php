@@ -139,7 +139,7 @@ class LoanOrderRequest extends FormRequest
                 'required_if:role,manager' ,
                 'file',
                 'mimes:pdf',
-                'max:30000'
+                'max:15000'
             ],
             /**
              * Profit Document
@@ -152,7 +152,7 @@ class LoanOrderRequest extends FormRequest
                 'required',
                 'file',
                 'mimes:pdf',
-                'max:30000'
+                'max:15000'
             ],
 
         ];
