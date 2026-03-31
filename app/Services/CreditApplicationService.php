@@ -30,11 +30,12 @@ class CreditApplicationService
                 $credit->interest,
                 $data['term']
             );
-            if (isset($data['salary_document'])) {
-                $data['salary_document'] = $this->storeFile($data['salary_document']);
-            }
             if (isset($data['profit_document'])) {
                 $data['profit_document'] = $this->storeFile($data['profit_document']);
+            }
+
+            if (isset($data['work_document'])) {
+                $data['work_document'] = $this->storeFile($data['work_document']);
             }
 
             return CreditApplication::create(array_merge($data, [
