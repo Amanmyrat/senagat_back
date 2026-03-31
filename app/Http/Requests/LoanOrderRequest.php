@@ -129,14 +129,14 @@ class LoanOrderRequest extends FormRequest
                     ),
             ],
             /**
-             * Salary Document
+             * Work Document
              *
              * @var string
              *
              * @example
              */
-            'salary_document' => [
-                'required',
+            'work_document' => [
+                'required_if:role,manager' ,
                 'file',
                 'mimes:pdf',
                 'max:30000'
@@ -149,7 +149,7 @@ class LoanOrderRequest extends FormRequest
              * @example
              */
             'profit_document' => [
-                'required_if:role,manager',
+                'required',
                 'file',
                 'mimes:pdf',
                 'max:30000'
@@ -178,7 +178,7 @@ class LoanOrderRequest extends FormRequest
             'salary.required_if' => ErrorMessage::SALARY_REQUIRED->value,
             'salary.min' => ErrorMessage::SALARY_MIN->value,
             'bank_branch_id.required' => ErrorMessage::BANK_BRANCH_REQUIRED->value,
-            'salary_document.required' => ErrorMessage::SALARY_DOCUMENT_REQUIRED->value,
+            'work_document.required' => ErrorMessage::WORK_DOCUMENT_REQUIRED->value,
             'profit_document.required_if' => ErrorMessage::PROFIT_DOCUMENT_REQUIRED->value,
         ];
     }

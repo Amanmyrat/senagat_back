@@ -33,8 +33,8 @@ class LoanOrderResource extends JsonResource
             'role' => $this->resource->role,
             'status' => $this->resource->status,
             'rejected_text' => $this->resource->rejection_reasons,
-            'salary_document' => $this->salary_document
-                ? Storage::url($this->salary_document)
+            'work_document' => $this->work_document
+                ? Storage::url($this->work_document)
                 : null,
 
             'profit_document' => $this->profit_document

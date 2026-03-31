@@ -134,6 +134,6 @@ enum ErrorMessage: string
     case BANK_NAME_INVALID = 'invalid_bank_name.';
     case ACCOUNT_REQUIRED = 'account_is_required.';
     case ACCOUNT_NOT_FOUNT = 'account_not_found';
-    case SALARY_DOCUMENT_REQUIRED = 'salary_document_is_required';
+    case WORK_DOCUMENT_REQUIRED = 'work_document_is_required';
     case PROFIT_DOCUMENT_REQUIRED = 'profit_document_is_required';
 }
