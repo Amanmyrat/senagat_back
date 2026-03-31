@@ -75,6 +75,7 @@ class NewsResource extends Resource
                             ->columnSpan(1),
 
                         RichEditor::make('description')
+                            ->translateLabel()
                             ->label(__('resource.description'))
                             ->columnSpan(1),
                     ]),
