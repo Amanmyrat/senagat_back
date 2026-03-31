@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('credit_applications', function (Blueprint $table) {
-            $table->string('salary_document')->nullable()->after('status');
-            $table->string('profit_document')->nullable()->after('salary_document');
+            $table->string('work_document')->nullable();
+            $table->string('profit_document')->nullable();
         });
     }
 
@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('credit_applications', function (Blueprint $table) {
-            $table->dropColumn(['salary_document', 'profit_document']);
+            $table->dropColumn(['work_document', 'profit_document']);
         });
     }
 };
