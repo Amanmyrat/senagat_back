@@ -70,22 +70,21 @@
             <label>{{ __('Aýlyk Hak') }}</label>
             <span>{{ $record->salary ?? '—' }}</span>
         </div>
-        @if($record->salary_document)
+        @if($record->profit_document)
             <div class="field full-width">
                 <h2>{{ __('Aýlyk haky barada güwanama') }}</h2>
 
                 @include('pdf.partials.file-viewer', [
-                    'path' => $record->salary_document
+                    'path' => $record->profit_document
                 ])
             </div>
         @endif
         @if($record->role === 'manager')
-        @if($record->profit_document)
+        @if($record->work_document)
             <div class="field full-width">
                 <h2>{{ __('Zähmet depderçesiniň tassyklanylan göçürmesi') }}</h2>
-
                 @include('pdf.partials.file-viewer', [
-                    'path' => $record->profit_document
+                    'path' => $record->work_document
                 ])
             </div>
         @endif
