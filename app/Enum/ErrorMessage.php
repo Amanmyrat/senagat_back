@@ -136,4 +136,5 @@ enum ErrorMessage: string
     case ACCOUNT_NOT_FOUNT = 'account_not_found';
     case WORK_DOCUMENT_REQUIRED = 'work_document_is_required';
     case PROFIT_DOCUMENT_REQUIRED = 'profit_document_is_required';
+    case SALARY_MAX = 'salary_maximum_value_error';
 }

@@ -111,7 +111,7 @@ class LoanOrderRequest extends FormRequest
              *
              *  @example 2500
              */
-            'salary' => ['required_if:role,manager', 'numeric', 'min:0'],
+            'salary' => ['required_if:role,manager', 'numeric', 'min:0','max:7'],
             /**
              * Bank_name
              *
@@ -177,6 +177,7 @@ class LoanOrderRequest extends FormRequest
             'phone_number.required_if' => ErrorMessage::PHONE_NUMBER_REQUIRED->value,
             'salary.required_if' => ErrorMessage::SALARY_REQUIRED->value,
             'salary.min' => ErrorMessage::SALARY_MIN->value,
+            'salary.max' => ErrorMessage::SALARY_MAX->value,
             'bank_branch_id.required' => ErrorMessage::BANK_BRANCH_REQUIRED->value,
             'work_document.required' => ErrorMessage::WORK_DOCUMENT_REQUIRED->value,
             'profit_document.required_if' => ErrorMessage::PROFIT_DOCUMENT_REQUIRED->value,
