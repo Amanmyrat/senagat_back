@@ -217,5 +217,6 @@ return [
     'profit_document_incorrect' => 'Zähmet depderçesiniň tassyklanynan göçürmesi nädogry',
     'rejection_reasons'=>'Ret sebäpleri',
     'salary_document'=>'Aýlyk haky barada güwanama',
-    'profit_document' =>'Zähmet depderçesiniň tassyklanylan göçürmesi'
+    'profit_document' =>'Zähmet depderçesiniň tassyklanylan göçürmesi',
+    'information' => 'Maglumat'
 ];

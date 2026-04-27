@@ -172,7 +172,7 @@ class UsersResource extends Resource
             ])
             ->actions([
                 Action::make('pdf')
-                    ->label('PDF')
+                    ->label(__('resource.information'))
                     ->icon('heroicon-o-document-arrow-down')
                     ->color('info')
                     ->url(fn ($record) => route('profile.pdf', $record))

@@ -18,7 +18,7 @@ class EditApprovedCardOrder extends EditRecord
                 ->label(__('resource.print'))
                 ->icon('heroicon-o-printer')
                 ->action(function ($record) {
-                    $url = route('approved-card-orders.print', $record->id);
+                    $url = route('approved-card-orders.print-view', $record->id);
 
                     $this->js(<<<JS
             fetch('{$url}')
