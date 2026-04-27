@@ -204,7 +204,7 @@ class PendingLoanOrdersResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
                 Action::make('pdf')
-                    ->label('PDF')
+                    ->label(__('resource.information'))
                     ->icon('heroicon-o-document-arrow-down')
                     ->color('info')
                     ->url(fn ($record) => route('credit-orders.pdf', $record))

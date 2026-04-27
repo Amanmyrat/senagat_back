@@ -241,7 +241,7 @@ class PendingProfileResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Action::make('pdf')
-                    ->label('PDF')
+                    ->label(__('resource.information'))
                     ->icon('heroicon-o-document-arrow-down')
                     ->color('info')
                     ->url(fn ($record) => route('pendingProfile.pdf', $record))
