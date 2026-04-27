@@ -216,5 +216,5 @@ return [
     'rejection_reasons' => 'Причины отказа',
     'salary_document' => 'Справка о заработной плате',
     'profit_document' => 'Заверенная копия трудовой книжки',
-
+    'information' => 'Информация',
 ];

@@ -58,6 +58,11 @@
 
 
         @media print {
+            @page {
+                margin: 0;
+                padding: 10mm 5mm 5mm 5mm;
+                size: A4;
+            }
             body {
                 margin: 0;
                 padding: 0;
@@ -287,15 +292,10 @@
             </td>
         </tr>
         <tr>
-            <td class="label" style="padding: 5px 0; width: 200px;">Internet-hyzmatyny birikdirmek:</td>
-            <td class="label" style="padding: 5px 0; width: 200px;">{{ $order->internet_service ? 'Hawa' : 'Ýok' }}</td>
-            <td class="label" style="padding: 5px 0; width: 100%;">
-                Internet hyzmatyny ibermeli telefon belgisi:
-            </td>
-            <td class="label" style="padding: 5px 0; width: 100%;">
-                {{ $order->internet_service ? $order->user->phone : '' }}
-
-            </td>
+            <td class="label" style="padding: 5px 0; width: 25%;">Internet-hyzmatyny birikdirmek:</td>
+            <td class="label" style="padding: 5px 0; width: 15%;">{{ $order->internet_service ? 'Hawa' : 'Ýok' }}</td>
+            <td class="label" style="padding: 5px 0; width: 35%;">Internet hyzmatyny ibermeli telefon belgisi:</td>
+            <td class="label" style="padding: 5px 0; width: 25%;">{{ $order->internet_service ? $order->user->phone : '' }}</td>
         </tr>
         <tr>
             <td class="label" style="padding: 0px 10px">
@@ -435,5 +435,10 @@
         </tr>
     </table>
 </div>
+<script>
+    window.onload = function() {
+        window.print();
+    };
+</script>
 </body>
 </html>

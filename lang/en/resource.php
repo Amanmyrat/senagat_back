@@ -217,4 +217,5 @@ return [
     'rejection_reasons' => 'Rejection reasons',
     'salary_document' => 'Salary certificate',
     'profit_document' => 'Certified copy of the employment record',
+    'information' => 'Information',
 ];
