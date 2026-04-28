@@ -181,6 +181,27 @@ class RejectedCardOrderResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
+                Action::make('print')
+                    ->label(__('resource.print'))
+                    ->icon('heroicon-o-printer')
+                    ->action(function ($record, $livewire) {
+                        $url = route('approved-card-orders.print-view', $record->id);
+                        $livewire->js(<<<JS
+        (function() {
+            const iframe = document.createElement('iframe');
+            iframe.style.cssText = 'display:none;';
+            iframe.src = '{$url}';
+            document.body.appendChild(iframe);
+            iframe.onload = function() {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+                setTimeout(function() {
+                    document.body.removeChild(iframe);
+                }, 60000);
+            };
+        })();
+    JS);
+                    }),
                 Action::make('pdf')
                     ->label(__('resource.information'))
                     ->icon('heroicon-o-document-arrow-down')
