@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ApprovedCardOrder;
+use App\Models\CardOrder;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class ApprovedCardOrderPrintController extends Controller
@@ -20,7 +21,7 @@ class ApprovedCardOrderPrintController extends Controller
 //
 //        return $pdf->stream("anketa-{$order->id}.pdf");
 //    }
-    public function printView(ApprovedCardOrder $order)
+    public function printView(CardOrder $order)
     {
         $order->load(['profile', 'branch', 'cardType']);
 
