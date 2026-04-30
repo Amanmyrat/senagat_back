@@ -137,4 +137,12 @@ enum ErrorMessage: string
     case WORK_DOCUMENT_REQUIRED = 'work_document_is_required';
     case PROFIT_DOCUMENT_REQUIRED = 'profit_document_is_required';
     case SALARY_MAX = 'salary_maximum_value_error';
+    case SUBJECT_REQUIRED = 'subject_is_required';
+    case SUBJECT_INVALID = 'subject_must_be_integer_or_start_with_dalem';
+    case TARIF_REQUIRED = 'tarif_is_required';
+    case TARIF_INVALID = 'tarif_must_be_a_string';
+    case PERIOD_REQUIRED = 'period_is_required';
+    case PERIOD_INVALID = 'period_must_be_an_integer';
+    case PERIOD_MIN_VALUE = 'period_must_be_at_least_1';
+
 }

@@ -314,7 +314,7 @@
                 Nagt pul serişdelerini almalydaky çäklendirme:
             </td>
             <td class="value center" style="padding: 5px 0; text-align: right; white-space: nowrap;">
-                800 TMT (günüň dowamynda)
+                1000 TMT (günüň dowamynda)
             </td>
         </tr>
         <tr>
@@ -429,7 +429,7 @@
     <table class="no-border">
         <tr>
             <td class="center" style="font-size: 10pt; padding-top: 10px">
-                Sorag-jogap gullugy: tel. (+99312) 444345, 445959.<br />
+                Sorag-jogap gullugy: tel. (+99312)44-44-44<br />
                 www.senagatbank.com.tm
             </td>
         </tr>
