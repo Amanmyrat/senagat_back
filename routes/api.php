@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AlemTvController;
 use App\Http\Controllers\Api\AstuController;
 use App\Http\Controllers\Api\AuditReportController;
 use App\Http\Controllers\Api\AuthController;
@@ -148,6 +149,11 @@ Route::middleware('optional:sanctum')->group(function () {
         Route::post('/pay', [CdmaController::class, 'pay']);
     });
     //    Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
+});
+// Alem Tv CRUD
+Route::prefix('v1/alemTv')->group(function () {
+ Route::get('/search', [AlemTvController::class, 'search']);
+ Route::post('/topup', [AlemTvController::class, 'payTopUp']);
 });
 // CONTACT MESSAGE CRUD
 Route::prefix('contact-message')->group(function () {
