@@ -17,16 +17,18 @@ class AlemTvController extends Controller
     /**
      * Alem Tv Search
      */
+
     public function search(AlemTvSearchRequest $request): JsonResponse
     {
+        $data = $request->validated();
+
         $response = $this->alemTvService->search(
-            $request->query('type'),
-            $request->query('account')
+            $data['type'],
+            $data['account']
         );
 
         return response()->json($response);
     }
-
     /**
      * Alem TV Top Up
      */
