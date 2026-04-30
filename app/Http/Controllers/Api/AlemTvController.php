@@ -16,7 +16,6 @@ class AlemTvController extends Controller
 
     /**
      * Alem Tv Search
-     * @unauthenticated
      */
     public function search(AlemTvSearchRequest $request): JsonResponse
     {
@@ -30,7 +29,6 @@ class AlemTvController extends Controller
 
     /**
      * Alem TV Top Up
-     * @unauthenticated
      */
     public function payTopUp(AlemTvTopupRequest $request): JsonResponse
     {

@@ -25,7 +25,7 @@ class AlemTvService
     {
         $payment = PaymentRequest::create([
             'user_id' => $user?->id,
-            'type' => 'alem_tv' . $data['type'],
+            'type' => 'alem_' . $data['type'],
             'status' => 'sent',
             'amount' => $data['period'] ?? 0,
             'payment_target' => [
