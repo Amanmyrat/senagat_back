@@ -51,6 +51,21 @@ class AlemTvClient
             return $this->error(500, $e->getMessage());
         }
     }
+    public function getTarifs(string $type): array
+    {
+        try {
+            return $this->client()
+                ->get($this->baseUrl . '/api/v1/alemTv/tarifs', [
+                    'type' => $type,
+                ])
+                ->json();
+
+        } catch (ConnectionException $e) {
+            return $this->noConnection();
+        } catch (\Throwable $e) {
+            return $this->error(500, $e->getMessage());
+        }
+    }
 
     protected function noConnection(): array
     {
