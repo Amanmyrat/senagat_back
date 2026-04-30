@@ -322,7 +322,7 @@
                 Nagt däl hasaplaşyklary etmeklige çäklendirme:
             </td>
             <td class="value center" style="padding: 5px 0; text-align: right; white-space: nowrap;">
-                1000 TMT (günüň dowamynda)
+{{--                1000 TMT (günüň dowamynda)--}}
             </td>
         </tr>
     </table>
