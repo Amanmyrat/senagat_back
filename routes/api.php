@@ -150,8 +150,8 @@ Route::middleware('optional:sanctum')->group(function () {
     });
     //    Route::post('/charity/check-status', [CharityController::class, 'checkStatus']);
     // Alem Tv CRUD
-    Route::prefix('v1/alemTv')->group(function () {
-        Route::get('/search', [AlemTvController::class, 'search']);
+    Route::prefix('/alemTv')->group(function () {
+        Route::post('/search', [AlemTvController::class, 'search']);
         Route::post('/topup', [AlemTvController::class, 'payTopUp']);
     });
 });
