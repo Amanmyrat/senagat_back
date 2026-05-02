@@ -28,4 +28,5 @@ return [
     'telecom_payment' => 'Telecom Payment',
     'astu_payment' => 'ASTU Payment',
     'tm_cell_payment' => 'TmCell Payment',
+    'alem_tv_payment' => 'Alem Tv Payment',
 ];

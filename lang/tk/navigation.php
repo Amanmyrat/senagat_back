@@ -29,4 +29,5 @@ return [
     'telecom_payment' => 'Telekom tölegi',
     'astu_payment' => 'ASTU tölegi',
     'tm_cell_payment' => 'TmCell tölegi',
+    'alem_payment' => 'Alem Tv tölegi',
 ];

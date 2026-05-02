@@ -104,7 +104,6 @@ class AstuRequestResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

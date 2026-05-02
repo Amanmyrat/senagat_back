@@ -68,7 +68,7 @@ class TelecomResource extends Resource
                 TextColumn::make('payment_target.value')
                     ->label(__('resource.target_phone'))
                     ->searchable(),
-                
+
                 TextColumn::make('amount')
                     ->suffix(' TMT')
                     ->label(__('resource.amount')),
@@ -98,7 +98,6 @@ class TelecomResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
