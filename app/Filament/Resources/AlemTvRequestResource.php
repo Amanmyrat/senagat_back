@@ -3,45 +3,46 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Clusters\Payments;
-use App\Filament\Resources\TmCellRequestResource\Pages;
+use App\Filament\Resources\AlemTvRequestResource\Pages;
 use App\Models\PaymentRequest;
+use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TmCellRequestResource extends Resource
+class AlemTvRequestResource extends Resource
 {
     protected static ?string $model = PaymentRequest::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->whereIn('type', ['tmcell']);
+            ->whereIn('type', ['alem_tv', 'alem_iptv']);
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('navigation.tm_cell_payment');
+        return __('navigation.alem_payment');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('navigation.tm_cell_payment');
+        return __('navigation.alem_payment');
     }
 
     public static function getModelLabel(): string
     {
-        return __('navigation.tm_cell_payment');
+        return __('navigation.alem_payment');
     }
 
     public static function getRecordTitle(?object $record = null): string
     {
-        return $record ? (string) $record->name : __('navigation.tm_cell_payment');
+        return $record ? (string) $record->name : __('navigation.alem_payment');
     }
 
     public static function canViewAny(): bool
@@ -51,7 +52,8 @@ class TmCellRequestResource extends Resource
 
     protected static ?string $cluster = Payments::class;
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 6;
+
 
     public static function form(Form $form): Form
     {
@@ -68,6 +70,13 @@ class TmCellRequestResource extends Resource
                 TextColumn::make('payment_target.value')
                     ->label(__('resource.target_phone'))
                     ->searchable(),
+                TextColumn::make('type')
+                    ->label(__('resource.type'))
+                    ->colors([
+                        'success' => 'topup',
+                        'danger' => 'confirm',
+                    ])
+                    ->badge(),
                 TextColumn::make('amount')
                     ->suffix(' TMT')
                     ->label(__('resource.amount')),
@@ -85,7 +94,8 @@ class TmCellRequestResource extends Resource
                         'warning' => 'confirming',
                         'success' => 'confirmed',
                         'danger' => 'failed',
-                    ])->badge()->formatStateUsing(fn($state) => __('resource.' . $state)),
+                    ])->badge()
+                    ->formatStateUsing(fn($state) => __('resource.' . $state)),
 
                 TextColumn::make('created_at')
                     ->label(__('resource.created_at'))
@@ -96,12 +106,13 @@ class TmCellRequestResource extends Resource
                 //
             ])
             ->actions([
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ])->defaultSort('created_at', 'desc');
+            ]);
     }
 
     public static function getRelations(): array
@@ -114,9 +125,9 @@ class TmCellRequestResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTmCellRequests::route('/'),
-            'create' => Pages\CreateTmCellRequest::route('/create'),
-            'edit' => Pages\EditTmCellRequest::route('/{record}/edit'),
+            'index' => Pages\ListAlemTvRequests::route('/'),
+            'create' => Pages\CreateAlemTvRequest::route('/create'),
+            'edit' => Pages\EditAlemTvRequest::route('/{record}/edit'),
         ];
     }
 }
