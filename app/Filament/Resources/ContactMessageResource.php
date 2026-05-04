@@ -78,6 +78,10 @@ class ContactMessageResource extends Resource
                     ->label(__('resource.name')),
                 TextColumn::make('email')
                     ->label(__('resource.email')),
+                TextColumn::make('created_at')
+                    ->label(__('resource.created_at'))
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //

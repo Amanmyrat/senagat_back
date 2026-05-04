@@ -159,7 +159,8 @@ class ApprovedCardOrderResource extends Resource
                     ->label(__('resource.last_name')),
                 TextColumn::make('cardType.title')
                     ->label(__('resource.card_type')),
-
+                TextColumn::make('branch.name')
+                    ->label(__('resource.branch_name')),
                 TextColumn::make('status')
                     ->label(__('resource.status'))
                     ->default('Pending')

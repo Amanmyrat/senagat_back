@@ -182,6 +182,8 @@ class PendingLoanOrdersResource extends Resource
                     ->label(__('resource.last_name')),
                 TextColumn::make('credit.name')
                     ->label(__('resource.credit_name')),
+                TextColumn::make('branch.name')
+                    ->label(__('resource.branch_name')),
                 TextColumn::make('status')
                     ->label(__('resource.status'))
                     ->default('Pending')

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactMessageRequest;
 use App\Http\Resources\ContactMessageResource;
+use App\Jobs\SendContactMessageJob;
 use App\Models\ContactMessage;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -24,6 +25,8 @@ class ContactMessageController extends Controller
         try {
             $validated = $request->validated();
             $message = ContactMessage::create($validated);
+            SendContactMessageJob::dispatch($message);
+
 
             return new JsonResponse([
                 'success' => true,

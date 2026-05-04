@@ -72,6 +72,11 @@ class InternationalPaymentTypeResource extends Resource
             ->columns([
                 TextColumn::make('title')
                     ->label(__('resource.title')),
+
+                TextColumn::make('created_at')
+                    ->label(__('resource.created_at'))
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //
@@ -82,8 +87,8 @@ class InternationalPaymentTypeResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+                ])
+            ])->defaultSort('created_at', 'desc');
     }
 
     public static function canViewAny(): bool
