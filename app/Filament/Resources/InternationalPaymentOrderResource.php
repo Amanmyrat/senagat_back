@@ -103,6 +103,8 @@ class InternationalPaymentOrderResource extends Resource
                     ->label(__('resource.last_name')),
                 TextColumn::make('type.title')
                     ->label(__('resource.title')),
+                TextColumn::make('branch.name')
+                    ->label(__('resource.branch_name')),
                 TextColumn::make('created_at')
                     ->label(__('resource.created_at'))
                     ->dateTime()

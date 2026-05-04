@@ -218,5 +218,7 @@ return [
     'rejection_reasons'=>'Ret sebäpleri',
     'salary_document'=>'Aýlyk haky barada güwanama',
     'profit_document' =>'Zähmet depderçesiniň tassyklanylan göçürmesi',
-    'information' => 'Maglumat'
+    'information' => 'Maglumat',
+    'contact_admin' => 'Administrator bilen habarlaşmak',
+    'active' => 'Aktiw',
 ];
