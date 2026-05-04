@@ -218,4 +218,7 @@ return [
     'salary_document' => 'Salary certificate',
     'profit_document' => 'Certified copy of the employment record',
     'information' => 'Information',
+    'contact_admin'=>'Contact Admin',
+    'active'=>'Active'
+
 ];

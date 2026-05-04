@@ -147,7 +147,8 @@ class ApprovedCertificateOrderResource extends Resource
                     ->label(__('resource.last_name')),
                 TextColumn::make('certificateType.title')
                     ->label(__('resource.title')),
-
+                TextColumn::make('branch.name')
+                    ->label(__('resource.branch_name')),
                 TextColumn::make('status')
                     ->label(__('resource.status'))
                     ->default('Pending')
