@@ -111,7 +111,7 @@ class LoanOrderRequest extends FormRequest
              *
              *  @example 2500
              */
-            'salary' => ['required_if:role,manager', 'numeric', 'min:0','max:7'],
+            'salary' => ['required_if:role,manager', 'numeric', 'min:0','max_digits:7'],
             /**
              * Bank_name
              *
