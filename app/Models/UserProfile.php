@@ -80,6 +80,10 @@ class UserProfile extends Model
         'approved' => UserStatus::class,
         'rejection_reasons' => 'array',
     ];
+    protected function setPassportNumberAttribute($value)
+    {
+        $this->attributes['passport_number'] = mb_strtoupper($value, 'UTF-8');
+    }
 
     public function user(): BelongsTo
     {

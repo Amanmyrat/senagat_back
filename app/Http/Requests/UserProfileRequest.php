@@ -65,8 +65,9 @@ class UserProfileRequest extends FormRequest
              *
              * @example 123456
              */
-            'passport_number' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
-
+            'passport_number' => $userHasProfile
+                ? ['sometimes', 'string', 'regex:/^(I|II)-(AS|AH|MR|LB|DZ|BN)\s?[0-9]+$/i']
+                : ['required', 'string', 'regex:/^(I|II)-(AS|AH|MR|LB|DZ|BN)\s?[0-9]+$/i'],
             /**
              * Issued Date
              *
@@ -131,6 +132,7 @@ class UserProfileRequest extends FormRequest
             'home_phone.integer' => ErrorMessage::HOME_PHONE_INTEGER->value,
             'birth_date.date_format' => ErrorMessage::BIRTH_DATE_INVALID->value,
             'issued_date.date_format' => ErrorMessage::ISSUED_DATE_INVALID->value,
+            'passport_number.regex' => ErrorMessage::PASSPORT_NUMBER_REGEX->value,
         ];
 
         if (! $this->profileExists()) {
