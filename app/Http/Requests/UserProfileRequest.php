@@ -28,7 +28,8 @@ class UserProfileRequest extends FormRequest
              *
              * @example Mergen
              */
-            'first_name' => ['required', 'string'],
+//            'first_name' => ['required', 'string'],
+            'first_name' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
 
             /**
              * Last Name.
