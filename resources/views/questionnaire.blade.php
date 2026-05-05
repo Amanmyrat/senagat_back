@@ -199,13 +199,13 @@
                             style="width: fit-content; padding: 5px 0; text-align: right"
                         >
                             berlen senesi:
-                            <span class="value" style="padding: 5px 0 5px 10px">{{ \Carbon\Carbon::parse($order->profile->issued_data)->format('d/m/Y') }}</span>
+                            <span class="value" style="padding: 5px 0 5px 10px">
+                                {{ \Carbon\Carbon::parse($order->profile->issued_date)->format('d/m/Y') }}
+                            </span>
                         </td>
                     </tr>
                 </table>
                     @endforeach
-
-
             </td>
         </tr>
     </table>
