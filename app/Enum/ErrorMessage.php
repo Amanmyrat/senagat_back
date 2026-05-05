@@ -144,5 +144,5 @@ enum ErrorMessage: string
     case PERIOD_REQUIRED = 'period_is_required';
     case PERIOD_INVALID = 'period_must_be_an_integer';
     case PERIOD_MIN_VALUE = 'period_must_be_at_least_1';
-
+    case PASSPORT_NUMBER_REGEX='the_passport_number_must_begin_with_the_format_I-AS_or_II-AS';
 }
