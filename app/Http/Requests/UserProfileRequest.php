@@ -28,7 +28,6 @@ class UserProfileRequest extends FormRequest
              *
              * @example Mergen
              */
-//            'first_name' => ['required', 'string'],
             'first_name' => $userHasProfile ? ['sometimes', 'string'] : ['required', 'string'],
 
             /**
@@ -63,11 +62,11 @@ class UserProfileRequest extends FormRequest
              *
              * @var string
              *
-             * @example 123456
+             * @example I-AH 123456
              */
             'passport_number' => $userHasProfile
-                ? ['sometimes', 'string', 'regex:/^(I|II)-(AS|AH|MR|LB|DZ|BN)\s?[0-9]+$/i']
-                : ['required', 'string', 'regex:/^(I|II)-(AS|AH|MR|LB|DZ|BN)\s?[0-9]+$/i'],
+                ? ['sometimes', 'string', 'regex:/^(I|II|III|IV)-(AŞ|AH|MR|LB|DZ|BN)\s?[0-9]+$/i']
+                : ['required', 'string', 'regex:/^(I|II|III|IV)-(AŞ|AH|MR|LB|DZ|BN)\s?[0-9]+$/i'],
             /**
              * Issued Date
              *
