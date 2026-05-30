@@ -7,6 +7,7 @@ use App\Models\CertificateOrder;
 use App\Models\CertificateType;
 use App\Models\PaymentRequest;
 use App\Models\UserProfile;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -20,13 +21,15 @@ class CertificateOrderService
             throw new \Exception(ErrorMessage::USER_PROFILE_REQUIRED->value);
         }
         $profile = UserProfile::where('user_id', $user->id)->firstOrFail();
+        $requiredPayment = $data['required_payment'] ?? false;
+
        $order = CertificateOrder::create([
             'user_id' => $user->id,
             'profile_id' => $profile->id,
             'certificate_type_id' => $data['certificate_type_id'],
             'home_address' => $data['home_address'] ?? null,
             'bank_branch_id' => $data['bank_branch_id'] ?? null,
-            'wants_payment' => $data['wants_payment'],
+            'wants_payment' => $requiredPayment,
             'status' => 'pending',
         ]);
         $certificateType = CertificateType::findOrFail($data['certificate_type_id']);
@@ -47,22 +50,12 @@ class CertificateOrderService
             ],
         ]);
 
-        if ($order->wants_payment) {
-            Log::channel('belet')->info('CERTIFICATE PAYMENT STARTED', [
-                'wants_payment' => $order->wants_payment,
-            ]);
-            Log::channel('belet')->info('CERTIFICATE PAYMENT REQUEST', [
-                'url' => config('services.payment_api.url') . '/api/v1/payment/create',
-                'payload' => [
-                    'location_id' => (string) $order->bank_branch_id,
-                    'amount' => (int) $certificateType->getRawOriginal('price'),
-                    'type' => 'certificate',
-                ],
-            ]);
+        if ($requiredPayment) {
+            try {
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-            ])->post(
+            ])->timeout(10)->post(
                 config('services.payment_api.url') . '/api/v1/payment/create',
                 [
                     'location_id' => (string) $order->bank_branch_id,
@@ -70,13 +63,10 @@ class CertificateOrderService
                     'type' => 'certificate',
                 ]
             );
-
+                if ($response->failed()) {
+                    throw new \Exception("please_try_again_later");
+                }
             $responseData = $response->json();
-            Log::channel('belet')->info('CERTIFICATE PAYMENT RESPONSE', [
-                'status' => $response->status(),
-                'body' => $response->body(),
-                'json' => $response->json(),
-            ]);
             $paymentReference =
                 $responseData['data']['body']['orderId']
                 ?? null;
@@ -90,6 +80,10 @@ class CertificateOrderService
             $paymentRequest->update([
                 'external_id' => $paymentReference,
             ]);
+
+        }catch (ConnectionException $e) {
+                throw new \Exception("no_internet_connection");
+            }
 
         } else {
            $order->update([

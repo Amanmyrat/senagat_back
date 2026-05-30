@@ -12,7 +12,12 @@ class CertificateOrderRequest extends FormRequest
     {
         return true;
     }
-
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'required_payment' => $this->boolean('required_payment'),
+        ]);
+    }
     public function rules(): array
     {
         return [
@@ -58,7 +63,7 @@ class CertificateOrderRequest extends FormRequest
              *
              * @example true
              */
-            'wants_payment' => ['required', 'boolean'],
+            'required_payment' => ['required', 'boolean'],
         ];
     }
 
