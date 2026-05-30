@@ -58,6 +58,17 @@
     </div>
 </div>
 @include('pdf.partials.status', ['record' => $record])
+<div class="field">
+    <label>{{ __('Arzanyň töleginiň ýagdaýy') }}</label>
+    <div>
+    <span>
+        {{ $record?->paymentRequest?->payment_status
+            ? __("resource." . $record->paymentRequest->payment_status, [], 'tk')
+            : '---'
+        }}
+    </span>
+    </div>
+</div>
 @if($record->status === 'rejected' && !empty($record->rejection_reasons))
     <div class="field">
         <label>{{ __('Ret sebäpleri') }}</label>

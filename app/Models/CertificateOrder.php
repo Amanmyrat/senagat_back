@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\ClearsRejectionReasons;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int $id
@@ -50,7 +51,8 @@ class CertificateOrder extends Model
         'bank_branch_id',
         'home_address',
         'status',
-        'rejection_reasons'
+        'rejection_reasons',
+        'wants_payment',
     ];
     protected $casts = [
         'rejection_reasons' => 'array',
@@ -74,5 +76,13 @@ class CertificateOrder extends Model
     public function branch(): BelongsTo
     {
         return $this->belongsTo(Location::class, 'bank_branch_id');
+    }
+    public function paymentRequest(): HasOne
+    {
+        return $this->hasOne(
+            PaymentRequest::class,
+            'related_id',
+            'id'
+        );
     }
 }

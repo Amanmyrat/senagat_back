@@ -41,8 +41,10 @@ class PaymentRequest extends Model
         'type',
         'external_id',
         'status',
+        'related_id',
         'payment_target',
         'meta',
+        'payment_status',
         'amount',
     ];
 
@@ -60,5 +62,9 @@ class PaymentRequest extends Model
     public function getTargetPhoneAttribute(): ?string
     {
         return $this->payment_target['value'] ?? null;
+    }
+    public function cardOrder(): BelongsTo
+    {
+        return $this->belongsTo(CardOrder::class, 'external_id', 'id');
     }
 }

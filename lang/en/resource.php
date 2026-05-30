@@ -219,6 +219,10 @@ return [
     'profit_document' => 'Certified copy of the employment record',
     'information' => 'Information',
     'contact_admin'=>'Contact Admin',
-    'active'=>'Active'
+    'active'=>'Active',
+    'payment_status'=>'Payment Status',
+    'not_required'=>'Unpaid',
+    'payment_username'=>'Payment username',
+    'payment_password'=>'Payment password'
 
 ];

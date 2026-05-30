@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Location;
+use App\Observers\LocationObserver;
 use Dedoc\Scramble\Scramble;
 use Dedoc\Scramble\Support\Generator\OpenApi;
 use Dedoc\Scramble\Support\Generator\SecurityScheme;
@@ -32,5 +34,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('use-translation-manager', function ($user) {
             return false;
         });
+        Location::observe(LocationObserver::class);
     }
 }
