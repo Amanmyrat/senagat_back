@@ -6,6 +6,7 @@ use App\Filament\Clusters\CertificateOrder;
 use App\Filament\Clusters\CertificateOrder\Resources\RejectedCertificateOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\RejectedCertificateOrder;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -121,6 +122,17 @@ class RejectedCertificateOrderResource extends Resource
                                             'rejected' => 'danger',
                                         ])
                                         ->inline(),
+                                    Placeholder::make('payment_status')
+                                        ->label(__('resource.payment_status'))
+                                        ->content(function ( $record) {
+                                            $status = $record->paymentRequest?->payment_status;
+
+                                            if (! $status) {
+                                                return '---';
+                                            }
+
+                                            return __("resource.{$status}");
+                                        }),
                                     Select::make('rejection_reasons')
                                         ->label(__('resource.rejection_reasons'))
                                         ->multiple()
@@ -165,6 +177,16 @@ class RejectedCertificateOrderResource extends Resource
                     ->label(__('resource.created_at'))
                     ->dateTime()
                     ->sortable(),
+                TextColumn::make('paymentRequest.payment_status')
+                    ->label(__('resource.payment_status'))
+                    ->formatStateUsing(fn ($state) => __("resource.$state"))
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'confirmed' => 'success',
+                        'pending' => 'warning',
+                        'failed' => 'danger',
+                        default => 'gray',
+                    }),
             ])
             ->filters([
                 //

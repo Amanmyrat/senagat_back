@@ -24,13 +24,33 @@ class CertificateOrderController extends Controller
     public function store(CertificateOrderRequest $request)
     {
         try {
-            $user = $request->user();
-            $order = $this->service->create($request->validated(), $user);
+//            $user = $request->user();
+//            $order = $this->service->create($request->validated(), $user);
+//
+//            return new JsonResponse([
+//                'success' => true,
+//                'data' => collect((new CertificateOrderResource($order))->toArray($request))
+//                    ->except(['status','rejection_reasons']),
+//            ], 201);
+
+            $result = $this->service->create(
+                $request->validated(),
+                $request->user()
+            );
+
+            $response = collect(
+                (new CertificateOrderResource($result['order']))
+                    ->toArray($request)
+            )->except('status', 'rejection_reasons')
+                ->toArray();
+
+            if ($result['payment_url']) {
+                $response['payment_url'] = $result['payment_url'];
+            }
 
             return new JsonResponse([
                 'success' => true,
-                'data' => collect((new CertificateOrderResource($order))->toArray($request))
-                    ->except(['status','rejection_reasons']),
+                'data' => $response,
             ], 201);
 
         } catch (Exception $e) {

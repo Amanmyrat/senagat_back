@@ -45,7 +45,7 @@ class AuthController
             ], 401);
         }
 
-        $user->load(['certificates.certificateType', 'applications', 'cards']);
+        $user->load(['certificates.certificateType', 'applications',  'cards.paymentRequest','certificates.paymentRequest']);
 
         return new JsonResponse([
             'success' => true,

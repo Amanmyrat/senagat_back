@@ -37,6 +37,7 @@ return [
 
     'payment_api' => [
         'url' => env('PAYMENT_API_URL'),
+        'token' => env('PAYMENT_SERVICE_TOKEN'),
     ],
     'payment_service' => [
         'webhook_secret' => env('PAYMENT_SERVICE_WEBHOOK_SECRET'),

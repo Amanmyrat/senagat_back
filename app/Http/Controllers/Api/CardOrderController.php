@@ -23,17 +23,29 @@ class CardOrderController extends Controller
      */
     public function store(CardOrderRequest $request)
     {
-
         try {
-            $order = $this->service->createOrder($request->validated(), $request->user());
+            $result = $this->service->createOrder(
+                $request->validated(),
+                $request->user()
+            );
+
+            $response = collect(
+                (new CardOrderResource($result['order']))
+                    ->toArray($request)
+            )->except('status', 'rejection_reasons')
+                ->toArray();
+
+            if ($result['payment_url']) {
+                $response['payment_url'] = $result['payment_url'];
+            }
 
             return new JsonResponse([
                 'success' => true,
-                'data' => collect((new CardOrderResource($order))->toArray($request))
-                    ->except('status','rejection_reasons'),
+                'data' => $response,
             ], 201);
 
         } catch (Exception $e) {
+
             return new JsonResponse([
                 'success' => false,
                 'error_message' => $e->getMessage(),

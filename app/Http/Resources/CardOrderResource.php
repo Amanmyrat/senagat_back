@@ -26,7 +26,9 @@ class CardOrderResource extends JsonResource
             'email' => $this->resource->email,
             'status' => $this->resource->status,
             'rejected_text' => $this->resource->rejection_reasons,
+            'payment_status' => $this->resource->paymentRequest?->payment_status,
             'created_at' => $this->formatDateLocalized($this->resource->created_at),
+
         ];
     }
 }
