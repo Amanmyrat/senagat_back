@@ -50,6 +50,15 @@ class CertificateOrderRequest extends FormRequest
              * @example 941265
              */
             'home_address' => ['required', 'string'],
+
+            /**
+             * Want Payment online
+             *
+             * @var boolean
+             *
+             * @example true
+             */
+            'wants_payment' => ['required', 'boolean'],
         ];
     }
 

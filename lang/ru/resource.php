@@ -219,4 +219,8 @@ return [
     'information' => 'Информация',
     'contact_admin' => 'Связаться с администратором',
     'active' => 'Активный',
+    'payment_status'=>'Статус платежа',
+    'not_required'=>'Неоплачиваемый',
+    'payment_username'=>'Имя пользователя для оплаты',
+    'payment_password'=>'Платежный пароль'
 ];

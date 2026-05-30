@@ -221,4 +221,8 @@ return [
     'information' => 'Maglumat',
     'contact_admin' => 'Administrator bilen habarlaşmak',
     'active' => 'Aktiw',
+    'payment_status'=>'Töleg ýagdaýy',
+    'not_required'=>'Tölenmedik',
+    'payment_username'=>'Töleg üçin ulanyjy ady',
+    'payment_password'=>'Töleg üçin parol'
 ];

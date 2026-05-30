@@ -4,18 +4,23 @@ namespace App\Services;
 
 use App\Enum\ErrorMessage;
 use App\Models\CardOrder;
+use App\Models\CardType;
+use App\Models\PaymentRequest;
 use App\Models\UserProfile;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CardOrderService
 {
-    public function createOrder(array $data, $user): CardOrder
+    public function createOrder(array $data, $user): array
     {
+        $paymentUrl = null;
         if (! $user->profile) {
             throw new \Exception(ErrorMessage::USER_PROFILE_REQUIRED->value);
         }
         $profile = UserProfile::where('user_id', $user->id)->firstOrFail();
 
-        return CardOrder::create([
+        $order= CardOrder::create([
             'user_id' => $user->id,
             'profile_id' => $profile->id,
             'card_type_id' => $data['card_type_id'],
@@ -24,10 +29,69 @@ class CardOrderService
             'work_phone' => $data['work_phone'] ?? null,
             'internet_service' => $data['internet_service'],
             'secret_word' => $data['secret_word'] ?? null,
+            'wants_payment' => $data['wants_payment'],
             'delivery' => $data['delivery'],
             'email' => $data['email'],
             'status' => 'pending',
         ]);
+        $cardType = CardType::findOrFail($data['card_type_id']);
+        $paymentStatus = $order->wants_payment
+            ? 'pending'
+            : 'not_required';
+
+       $paymentRequest = PaymentRequest::create([
+            'user_id' => $user->id,
+            'type' => 'card',
+           'related_id' => $order->id,
+            'external_id' => $order->id,
+            'payment_status' => $paymentStatus,
+            'amount' => $cardType->price,
+            'meta' => [
+                'card_type_id' => $order->card_type_id,
+                'bank_branch_id' => $order->bank_branch_id,
+            ],
+        ]);
+        if ($order->wants_payment) {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ])->post(
+                config('services.payment_api.url') . '/api/v1/payment/create',
+                [
+                    'location_id' => (string) $order->bank_branch_id,
+                    'amount' => (int) $cardType->getRawOriginal('price'),
+                    'type' => 'card',
+                ]
+            );
+
+            $responseData = $response->json();
+
+            $paymentReference =
+                $responseData['data']['body']['orderId']
+                ?? null;
+            $paymentUrl =
+                $responseData['data']['body']['formUrl']
+                ?? null;
+            $order->update([
+                'payment_status' => 'pending',
+            ]);
+
+            $paymentRequest->update([
+                'external_id' => $paymentReference,
+            ]);
+
+        } else {
+
+
+            $order->update([
+                'payment_status' => 'not_required',
+            ]);
+        }
+
+        return [
+            'order' => $order,
+            'payment_url' => $paymentUrl,
+        ];
     }
 
     public function getPending($user)

@@ -7,6 +7,7 @@ use App\Filament\Resources\CardOrderResource\Pages;
 use App\Forms\Components\ProfileInfo;
 use App\Models\CardOrder;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -146,7 +147,18 @@ class CardOrderResource extends Resource
                                             'Telefon belgisi nädogry' => __('resource.invalid_phone_number'),
                                         ])
                                         ->visible(fn ($get) => $get('status') === 'rejected')
-                                        ->searchable()
+                                        ->searchable(),
+                                    Placeholder::make('payment_status')
+                                        ->label(__('resource.payment_status'))
+                                        ->content(function (CardOrder $record): ?string {
+                                            $status = $record->paymentRequest?->payment_status;
+
+                                            if (! $status) {
+                                                return '---';
+                                            }
+
+                                            return __("resource.{$status}");
+                                        })
                                     ]),
                         ]),
                 ])->skippable()
@@ -182,6 +194,16 @@ class CardOrderResource extends Resource
                     ->label(__('resource.created_at'))
                     ->dateTime()
                     ->sortable(),
+                TextColumn::make('paymentRequest.payment_status')
+                    ->label(__('resource.payment_status'))
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => __("resource.$state"))
+                    ->color(fn (string $state): string => match ($state) {
+                        'confirmed' => 'success',
+                        'pending' => 'warning',
+                        'failed' => 'danger',
+                        default => 'gray',
+                    })
             ])
             ->filters([
 

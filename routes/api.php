@@ -177,3 +177,4 @@ Route::post('reset/password', [
     'reset',
 ]);
 Route::post('/webhooks/payment-status', [PaymentWebhookController::class, 'handle']);
+Route::post('/senagat/webhooks/payment-status', [PaymentWebhookController::class, 'update']);

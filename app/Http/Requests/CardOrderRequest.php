@@ -91,6 +91,14 @@ class CardOrderRequest extends FormRequest
              */
             'email' => ['required', 'email'],
 
+            /**
+             * Want Payment online
+             *
+             * @var boolean
+             *
+             * @example true
+             */
+            'wants_payment' => ['required', 'boolean'],
         ];
     }
 

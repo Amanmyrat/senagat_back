@@ -6,6 +6,7 @@ use App\Models\Traits\ClearsRejectionReasons;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int $id
@@ -68,7 +69,8 @@ class CardOrder extends Model
         'internet_service',
         'delivery',
         'email',
-        'rejection_reasons'
+        'rejection_reasons',
+        'wants_payment',
 
     ];
     protected $casts = [
@@ -93,5 +95,13 @@ class CardOrder extends Model
     public function branch(): BelongsTo
     {
         return $this->belongsTo(Location::class, 'bank_branch_id', 'id');
+    }
+    public function paymentRequest(): HasOne
+    {
+        return $this->hasOne(
+            PaymentRequest::class,
+            'related_id',
+            'id'
+        );
     }
 }

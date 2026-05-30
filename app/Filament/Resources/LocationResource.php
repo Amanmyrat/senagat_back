@@ -152,7 +152,12 @@ class LocationResource extends Resource
                                         ->label(__('resource.from')),
                                     TextInput::make('to')
                                         ->label(__('resource.to')),
-                                ])
+                                ]),
+                                TextInput::make('payment_username')
+                            ->label(__('resource.payment_username')),
+                                TextInput::make('payment_password')
+                                    ->label(__('resource.payment_password'))
+                                ->password()
                                 ->columns(3),
                         ]),
                 ])->columnSpanFull()
