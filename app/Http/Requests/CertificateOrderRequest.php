@@ -64,6 +64,20 @@ class CertificateOrderRequest extends FormRequest
              * @example true
              */
             'required_payment' => ['required', 'boolean'],
+
+            /**
+             * Bank name .
+             *
+             * @var string
+             *
+             * @example senagat
+             */
+            'bank_name' => [
+                'required_if:required_payment,true',
+                'string',
+                Rule::in(['senagat']),
+            ],
+
         ];
     }
 
@@ -75,6 +89,8 @@ class CertificateOrderRequest extends FormRequest
             'bank_branch_id.required' => ErrorMessage::BANK_BRANCH_REQUIRED->value,
             'bank_branch_id.exists' => ErrorMessage::BANK_BRANCH_INVALID->value,
             'home_address.required' => ErrorMessage::HOME_ADDRESS_REQUIRED->value,
+            'bank_name.required_if' => ErrorMessage::BANK_NAME_REQUIRED->value,
+            'bank_name.in' => ErrorMessage::BANK_NAME_INVALID->value,
         ];
     }
 }
