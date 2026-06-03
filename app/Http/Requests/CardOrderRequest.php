@@ -104,6 +104,18 @@ class CardOrderRequest extends FormRequest
              * @example true
              */
             'required_payment' => ['required', 'boolean'],
+            /**
+             * Bank name .
+             *
+             * @var string
+             *
+             * @example  senagat
+             */
+            'bank_name' => [
+                'required_if:required_payment,true',
+                'string',
+                Rule::in(['senagat']),
+            ],
         ];
     }
 
@@ -128,6 +140,8 @@ class CardOrderRequest extends FormRequest
             'work_position.string' => ErrorMessage::WORK_POSITION_STRING->value,
             'work_phone.integer' => ErrorMessage::WORK_PHONE_INTEGER->value,
             'secret_word.string' => ErrorMessage::INVALID_SECRET_WORD_TYPE,
+            'bank_name.required_if' => ErrorMessage::BANK_NAME_REQUIRED->value,
+            'bank_name.in' => ErrorMessage::BANK_NAME_INVALID->value,
         ];
     }
 }
