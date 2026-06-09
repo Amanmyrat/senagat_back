@@ -6,6 +6,7 @@ use App\Contracts\PollingPaymentProvider;
 use App\Jobs\AutoConfirmPaymentJob;
 use App\Models\PaymentRequest;
 use App\Services\Clients\BeletClient;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class BeletService implements PollingPaymentProvider
@@ -25,7 +26,28 @@ class BeletService implements PollingPaymentProvider
     {
         return $this->client->getBalanceRecommendations();
     }
+    public function getAllowedBalanceValues(): array
+    {
+        try {
+            $response = Cache::remember(
+                'belet_balance_recommendations',
+                now()->addHours(6),
+                fn () => $this->client->getBalanceRecommendations()
+            );
 
+            if (! ($response['success'] ?? false)) {
+                return [];
+            }
+
+            return collect($response['data']['items'] ?? [])
+                ->pluck('value')
+                ->map(fn ($value) => (int) $value)
+                ->toArray();
+
+        } catch (\Throwable $e) {
+            return [];
+        }
+    }
     public function checkStatus(int|string $id): array
     {
         return $this->client->checkStatus($id);
@@ -42,6 +64,32 @@ class BeletService implements PollingPaymentProvider
     }
     public function topUp(?int $userId, array $payload): array
     {
+        $allowedValues = $this->getAllowedBalanceValues();
+
+        if (empty($allowedValues)) {
+            return [
+                'success' => false,
+                'error' => [
+                    'code' => 503,
+                    'message' => 'belet_service_unavailable',
+                ],
+                'data' => null,
+            ];
+        }
+        if (! in_array(
+            (int) $payload['amount_in_manats'],
+            $allowedValues,
+            true
+        )) {
+            return [
+                'success' => false,
+                'error' => [
+                    'code' => 422,
+                    'message' => 'invalid_amount_in_manats',
+                ],
+                'data' => null,
+            ];
+        }
         $bankId = $this->bankResolver->resolveIdByName($payload['bank_name']);
         if (! $bankId) {
             return [
