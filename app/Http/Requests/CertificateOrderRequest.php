@@ -65,18 +65,6 @@ class CertificateOrderRequest extends FormRequest
              */
             'required_payment' => ['required', 'boolean'],
 
-            /**
-             * Bank name .
-             *
-             * @var string
-             *
-             * @example senagat
-             */
-            'bank_name' => [
-                'required_if:required_payment,true',
-                'string',
-                Rule::in(['senagat']),
-            ],
 
         ];
     }
