@@ -104,18 +104,7 @@ class CardOrderRequest extends FormRequest
              * @example true
              */
             'required_payment' => ['required', 'boolean'],
-            /**
-             * Bank name .
-             *
-             * @var string
-             *
-             * @example  senagat
-             */
-            'bank_name' => [
-                'required_if:required_payment,true',
-                'string',
-                Rule::in(['senagat']),
-            ],
+
         ];
     }
 

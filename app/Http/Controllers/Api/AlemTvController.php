@@ -38,8 +38,6 @@ class AlemTvController extends Controller
             $request->user(),
             $request->validated()
         );
-
-
         return response()->json($response);
     }
 }
