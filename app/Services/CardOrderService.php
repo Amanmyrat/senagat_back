@@ -37,9 +37,7 @@ class CardOrderService
             'status' => 'pending',
         ]);
         $cardType = CardType::findOrFail($data['card_type_id']);
-        $paymentStatus = $order->wants_payment
-            ? 'pending'
-            : 'not_required';
+        $paymentStatus = $requiredPayment ? 'pending' : 'not_required';
 
         $paymentRequest = PaymentRequest::create([
             'user_id' => $user->id,
@@ -74,6 +72,7 @@ class CardOrderService
                 ]
             );
                 if ($response->failed()) {
+                    $paymentRequest->update(['payment_status' => 'failed']);
                     throw new \Exception("please_try_again_later");
                 }
 
@@ -85,22 +84,19 @@ class CardOrderService
             $paymentUrl =
                 $responseData['data']['body']['formUrl']
                 ?? null;
-            $order->update([
-                'payment_status' => 'pending',
-            ]);
 
             $paymentRequest->update([
                 'external_id' => $paymentReference,
             ]);
-
+                $order->setRelation('paymentRequest', $paymentRequest);
         }catch (ConnectionException $e) {
+                $paymentRequest->update(['payment_status' => 'failed']);
+                $order->setRelation('paymentRequest', $paymentRequest);
                 throw new \Exception("no_internet_connection");
             } } else {
 
 
-            $order->update([
-                'payment_status' => 'not_required',
-            ]);
+            $order->setRelation('paymentRequest', $paymentRequest);
         }
 
         return [

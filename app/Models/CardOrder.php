@@ -75,6 +75,7 @@ class CardOrder extends Model
     ];
     protected $casts = [
         'rejection_reasons' => 'array',
+        'wants_payment' => 'boolean'
     ];
 
     public function user(): BelongsTo
@@ -102,6 +103,6 @@ class CardOrder extends Model
             PaymentRequest::class,
             'related_id',
             'id'
-        );
+        )->where('type', 'card');
     }
 }

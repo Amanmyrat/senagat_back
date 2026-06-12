@@ -21,7 +21,7 @@ class CertificateOrderService
             throw new \Exception(ErrorMessage::USER_PROFILE_REQUIRED->value);
         }
         $profile = UserProfile::where('user_id', $user->id)->firstOrFail();
-        $requiredPayment = $data['required_payment'] ?? false;
+        $requiredPayment = filter_var($data['required_payment'] ?? false, FILTER_VALIDATE_BOOLEAN);
 
        $order = CertificateOrder::create([
             'user_id' => $user->id,
@@ -34,9 +34,7 @@ class CertificateOrderService
         ]);
         $certificateType = CertificateType::findOrFail($data['certificate_type_id']);
 
-        $paymentStatus = $order->wants_payment
-            ? 'pending'
-            : 'not_required';
+        $paymentStatus = $requiredPayment ? 'pending' : 'not_required';
         $paymentRequest = PaymentRequest::create([
             'user_id' => $user->id,
             'type' => 'certificate',
@@ -69,6 +67,7 @@ class CertificateOrderService
                 ]
             );
                 if ($response->failed()) {
+                    $paymentRequest->update(['payment_status' => 'failed']);
                     throw new \Exception("please_try_again_later");
                 }
             $responseData = $response->json();
@@ -78,23 +77,18 @@ class CertificateOrderService
             $paymentUrl =
                 $responseData['data']['body']['formUrl']
                 ?? null;
-            $order->update([
-                'payment_status' => 'pending',
-            ]);
-
             $paymentRequest->update([
                 'external_id' => $paymentReference,
             ]);
 
         }catch (ConnectionException $e) {
+                $paymentRequest->update(['payment_status' => 'failed']);
                 throw new \Exception("no_internet_connection");
             }
 
-        } else {
-           $order->update([
-                'payment_status' => 'not_required',
-            ]);
         }
+        $order->setRelation('paymentRequest', $paymentRequest);
+
         return [
             'order' => $order,
             'payment_url' => $paymentUrl,

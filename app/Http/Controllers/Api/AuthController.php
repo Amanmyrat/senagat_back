@@ -45,9 +45,16 @@ class AuthController
             ], 401);
         }
 
-        $user->load(['certificates.certificateType', 'applications',  'cards.paymentRequest','certificates.paymentRequest']);
+        $user->load([
+            'certificates' => function ($query) {
+                $query->latest();
+            },'cards.paymentRequest' => function ($query) {
+                $query->where('type', 'card');
+            },
+            'certificates.certificateType', 'applications', 'certificates.paymentRequest']);
 
         return new JsonResponse([
+
             'success' => true,
             'code' => SuccessMessage::USER_INFO_RETRIEVED->value,
             'data' => new UserInformationResource($user),
