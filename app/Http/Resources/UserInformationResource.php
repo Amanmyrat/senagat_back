@@ -20,18 +20,12 @@ class UserInformationResource extends JsonResource
                 : null,
 
             'certificates' => $this->whenLoaded('certificates', function () {
-                $certificates = CertificateOrderResource::collection($this->resource->certificates)->toArray(request());
+                $collection = CertificateOrderResource::collection($this->resource->certificates);
+                $collection->each(function ($resource) {
+                    $resource->asHistory();
+                });
 
-                return ! empty($certificates)
-                    ? collect($certificates)->map(function ($item) {
-                        return collect($item)
-                            ->except(['id', 'user_id', 'profile_id', 'certificate_type_id', 'phone_number', 'home_address'])
-                            ->merge([
-                                'rejected_text' => $item['rejected_text'] ?? null,
-                            ]);
-                    })
-                        ->values()
-                    : null;
+                return $collection;
             }, null),
             'loans' => $this->whenLoaded('applications', function () {
                 $loans = LoanOrderResource::collection($this->resource->applications)->toArray(request());
@@ -47,20 +41,13 @@ class UserInformationResource extends JsonResource
                         ->values()
                     : null;
             }, null),
-            'cards' => $this->whenLoaded('cards', function () {
-                $cards = CardOrderResource::collection($this->resource->cards)->toArray(request());
-
-                return ! empty($cards)
-                    ? collect($cards)->map(function ($item) {
-                        return collect($item)
-                            ->except(['id', 'user_id', 'profile_id', 'card_type_id', 'phone_number', 'bank_branch_id', 'work_position', 'work_phone', 'internet_service', 'email'])
-                            ->merge([
-                                'rejected_text' => $item['rejected_text'] ?? null,
-                            ]);
-                    })
-                        ->values()
-                    : null;
-            }, null),
+           'cards' => $this->whenLoaded('cards', function () {
+        $collection = CardOrderResource::collection($this->resource->cards);
+        $collection->each(function ($resource) {
+            $resource->asHistory();
+        });
+        return $collection;
+    }, null),
         ];
     }
 }
