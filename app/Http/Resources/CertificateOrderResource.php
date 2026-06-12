@@ -9,22 +9,39 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class CertificateOrderResource extends JsonResource
 {
     use DateFormatTrait;
+    protected bool $isHistory = false;
+
+    public function asHistory(): self
+    {
+        $this->isHistory = true;
+        return $this;
+    }
 
     public function toArray(Request $request): array
     {
         $locale = app()->getLocale();
+        $paymentRequest = $this->resource->paymentRequest;
+        $data = [
 
-        return [
-
-            'id' => $this->resource->id,
-            'certificate_name' => optional($this->resource->certificateType)->title,
-            'home_address' => $this->resource->home_address,
-            'bank_branch' => optional($this->resource->branch)->getTranslation('name', $locale),
-            'certificate_price' => $this->resource->certificateType->price,
+            'certificate_name' => $this->resource->certificateType?->title ?? '----',
+            'bank_branch' => $this->resource->branch?->getTranslation('name', $locale) ?? '----',
+            'certificate_price' => $this->resource->certificateType?->price ?? 0,
             'status' => $this->resource->status,
-            'rejected_text' => $this->resource->rejection_reasons,
-            'payment_status' => $this->resource->paymentRequest?->payment_status,
+            'rejected_text' => $this->resource->rejection_reasons ?? null,
+            'payment_status' => $paymentRequest?->payment_status ?? '----',
             'created_at' => $this->formatDateLocalized($this->resource->created_at),
         ];
+
+
+        if (! $this->isHistory) {
+            $data = array_merge([
+                'id' => $this->resource->id,
+                'home_address' => $this->resource->home_address,
+
+            ], $data);
+        }
+
+        return $data;
     }
+
 }
