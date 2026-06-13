@@ -172,7 +172,7 @@
                     </tr>
                     @php
                         $passport = (string) ($order->profile->passport_number ?? '');
-                        preg_match('/([A-Za-z\- ]+)?\s*([0-9]+)/', $passport, $matches);
+                        preg_match('/^([\p{L}\s\-]+)\s*(\d+)$/u', $passport, $matches);
                         $stringPart = trim($matches[1] ?? '');
                         $numberPart = trim($matches[2] ?? '');
                     @endphp
