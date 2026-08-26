@@ -7,13 +7,12 @@ use App\Models\CreditApplication;
 use App\Models\InternationalPaymentOrder;
 use App\Models\User;
 use App\Models\UserProfile;
-use Illuminate\Http\Request;
 
 class OrderPdfController extends Controller
 {
     public function card($id)
     {
-        $record = CardOrder::with(['user', 'cardType', 'branch'])->findOrFail($id);
+        $record = CardOrder::with(['user', 'cardType', 'branch', 'paymentRequest'])->findOrFail($id);
 
         return view('card-orders.view-card-order', ['record' => $record]);
     }

@@ -295,7 +295,17 @@
             <td class="label" style="padding: 5px 0; width: 25%;">Internet-hyzmatyny birikdirmek:</td>
             <td class="label" style="padding: 5px 0; width: 15%;">{{ $order->internet_service ? 'Hawa' : 'Ýok' }}</td>
             <td class="label" style="padding: 5px 0; width: 35%;">Internet hyzmatyny ibermeli telefon belgisi:</td>
-            <td class="label" style="padding: 5px 0; width: 25%;">{{ $order->internet_service ? $order->user->phone : '' }}</td>
+            <td class="label" style="padding: 5px 0; width: 25%;">{{ $order->internet_service ? $order->user?->phone : '' }}</td>
+        </tr>
+        <tr>
+            <td class="label" style="padding: 5px 0; width: 25%;">Çaparçylyk hyzmaty gerekmi:</td>
+            <td class="label" style="padding: 5px 0; width: 15%;">{{ $order->delivery ? 'Hawa' : 'Ýok' }}</td>
+            <td class="label" style="padding: 5px 0; width: 35%;">Töleg ýagdaýy:</td>
+            <td class="label" style="padding: 5px 0; width: 25%;">
+                {{ $order->paymentRequest?->payment_status === 'confirmed'
+                    ? __('resource.confirmed', [], 'tk')
+                    : __('resource.not_required', [], 'tk') }}
+            </td>
         </tr>
         <tr>
             <td class="label" style="padding: 0px 10px">

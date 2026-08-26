@@ -48,7 +48,7 @@
             </span>
         </div>
         <div class="field">
-            <label>{{ __('Eltip bermek') }}</label>
+            <label>{{ __('Çaparçylyk hyzmaty gerekmi') }}</label>
             <span>
                 <span class="checkbox-val {{ $record->delivery ? 'checkbox-yes' : 'checkbox-no' }}">
                     {{ $record->delivery ? '✔ ' . __('Howa') : '✘ ' . __('Ýok') }}
@@ -62,9 +62,9 @@
     <label>{{ __('Arzanyň töleginiň ýagdaýy') }}</label>
     <div>
     <span>
-        {{ $record?->paymentRequest?->payment_status
-            ? __("resource." . $record->paymentRequest->payment_status, [], 'tk')
-            : '---'
+        {{ $record?->paymentRequest?->payment_status === 'confirmed'
+            ? __('resource.confirmed', [], 'tk')
+            : __('resource.not_required', [], 'tk')
         }}
     </span>
     </div>

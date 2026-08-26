@@ -283,7 +283,19 @@
                 Internet hyzmatyny ibermeli telefon belgisi:
             </td>
             <td class="label" style="padding: 5px 0; width: 100%;">
-                 {{ $order->internet_service ? $order->phone_number : '' }}
+                 {{ $order->internet_service ? $order->user?->phone : '' }}
+            </td>
+        </tr>
+        <tr>
+            <td class="label" style="padding: 5px 0; width: 200px;">Çaparçylyk hyzmaty gerekmi:</td>
+            <td class="label" style="padding: 5px 0; width: 200px;">{{ $order->delivery ? 'Hawa' : 'Ýok' }}</td>
+            <td class="label" style="padding: 5px 0; width: 100%;">
+                Töleg ýagdaýy:
+            </td>
+            <td class="label" style="padding: 5px 0; width: 100%;">
+                 {{ $order->paymentRequest?->payment_status === 'confirmed'
+                    ? __('resource.confirmed', [], 'tk')
+                    : __('resource.not_required', [], 'tk') }}
             </td>
         </tr>
         <tr>

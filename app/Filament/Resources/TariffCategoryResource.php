@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Clusters\Tariffs;
 use App\Filament\Resources\TariffCategoryResource\Pages;
 use App\Models\TariffCategory;
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
@@ -17,7 +17,7 @@ class TariffCategoryResource extends Resource
 {
     protected static ?string $model = TariffCategory::class;
 
-    protected static ?string $cluster = \App\Filament\Clusters\Tariffs::class;
+    protected static ?string $cluster = Tariffs::class;
 
     protected static ?int $navigationSort = 1;
 
@@ -57,9 +57,12 @@ class TariffCategoryResource extends Resource
                 TextInput::make('title')
                     ->required()
                     ->label(__('resource.title')),
-                TextInput::make('number')->required()
-                    ->label(__('resource.number'))
-                    ->nullable(),
+                TextInput::make('number')
+                    ->required()
+                    ->numeric()
+                    ->integer()
+                    ->minValue(1)
+                    ->label(__('resource.number')),
             ]);
     }
 
@@ -68,7 +71,9 @@ class TariffCategoryResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('number')
-                    ->label(__('resource.number')),
+                    ->label(__('resource.number'))
+                    ->sortable()
+                    ->alignCenter(),
                 TextColumn::make('title')
                     ->label(__('resource.title')),
             ])
@@ -82,8 +87,9 @@ class TariffCategoryResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ])->defaultSort(fn ($query) => $query->orderByRaw('CAST(number AS DECIMAL(10,2))'))
-            ->reorderable('sort');
+            ])
+            ->defaultSort('number')
+            ->reorderable('number');
     }
 
     public static function getRelations(): array

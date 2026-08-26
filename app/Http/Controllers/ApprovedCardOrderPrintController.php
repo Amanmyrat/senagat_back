@@ -23,7 +23,7 @@ class ApprovedCardOrderPrintController extends Controller
 //    }
     public function printView(CardOrder $order)
     {
-        $order->load(['profile', 'branch', 'cardType']);
+        $order->load(['profile', 'branch', 'cardType', 'user', 'paymentRequest']);
 
         return view('questionnaire', ['orders' => collect([$order])]);
     }
