@@ -35,6 +35,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType whereUpdatedAt($value)
  * @property $price
+ * @property $delivery_price
  * @property int|null $sort
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CardType whereSort($value)
  * @mixin \Eloquent
@@ -46,11 +47,12 @@ class CardType extends Model
 
     public array $translatable = ['title', 'advantages', 'text'];
 
-    protected $fillable = ['category_id', 'title', 'advantages', 'image_url', 'price', 'category', 'text'];
+    protected $fillable = ['category_id', 'title', 'advantages', 'image_url', 'price', 'delivery_price', 'category', 'text'];
 
     protected $casts = [
         'advantages' => 'array',
         'price' => MoneyCast::class,
+        'delivery_price' => MoneyCast::class,
     ];
 
     protected $appends = ['image_path'];

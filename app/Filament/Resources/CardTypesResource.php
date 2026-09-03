@@ -66,6 +66,12 @@ class CardTypesResource extends Resource
                     ->numeric()
                     ->step(0.01)
                     ->required(),
+                TextInput::make('delivery_price')
+                    ->label(__('resource.delivery_price'))
+                    ->numeric()
+                    ->step(0.01)
+                    ->default(20)
+                    ->required(),
                 Select::make('category')
                     ->label(__('resource.category'))
                     ->options([
@@ -98,6 +104,9 @@ class CardTypesResource extends Resource
                     ->label(__('resource.title')),
                 Tables\Columns\TextColumn::make('price')
                     ->label(__('resource.price'))
+                    ->formatStateUsing(fn ($state) => number_format($state, 2, ',', '.').' TMT'),
+                Tables\Columns\TextColumn::make('delivery_price')
+                    ->label(__('resource.delivery_price'))
                     ->formatStateUsing(fn ($state) => number_format($state, 2, ',', '.').' TMT'),
             ])
             ->filters([

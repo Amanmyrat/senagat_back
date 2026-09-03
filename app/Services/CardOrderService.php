@@ -38,6 +38,12 @@ class CardOrderService
         ]);
         $cardType = CardType::findOrFail($data['card_type_id']);
         $paymentStatus = $requiredPayment ? 'pending' : 'not_required';
+        $chargeDelivery = $requiredPayment && ! empty($data['delivery']);
+
+        $paymentAmount = $cardType->price;
+        if ($chargeDelivery) {
+            $paymentAmount += $cardType->delivery_price ?? 0;
+        }
 
         $paymentRequest = PaymentRequest::create([
             'user_id' => $user->id,
@@ -45,7 +51,7 @@ class CardOrderService
             'related_id' => $order->id,
             'external_id' => $order->id,
             'payment_status' => $paymentStatus,
-            'amount' => $cardType->price,
+            'amount' => $paymentAmount,
             'meta' => [
                 'card_type_id' => $order->card_type_id,
                 'bank_branch_id' => $order->bank_branch_id,
@@ -53,9 +59,12 @@ class CardOrderService
         ]);
 
         $amount = (int) $cardType->getRawOriginal('price');
+        if ($chargeDelivery) {
+            $amount += (int) ($cardType->getRawOriginal('delivery_price') ?? 0);
+        }
 
         if ($user->phone === '65021734') {
-            $amount = 1;
+            $amount = $chargeDelivery ? 2 : 1;
         }
         if ($requiredPayment) {
             try {

@@ -104,6 +104,7 @@ return [
     'work_phone' => 'Iş Telefoni',
     'internet_service' => 'Internet Hyzmaty',
     'delivery' => 'Eltip beriş',
+    'delivery_price' => 'Eltip berme bahasy',
     'print' => 'Çap et',
     'sub_title' => 'Gysgaldylan at',
     'main_image' => 'Esasy surat',

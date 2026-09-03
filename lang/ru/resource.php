@@ -106,6 +106,7 @@ return [
     'work_phone' => 'Рабочий телефон',
     'internet_service' => 'Интернет-сервис',
     'delivery' => 'Доставка',
+    'delivery_price' => 'Стоимость доставки',
     'print' => 'Печать',
     'sub_title' => 'Подзаголовок',
     'main_image' => 'Основное изображение',

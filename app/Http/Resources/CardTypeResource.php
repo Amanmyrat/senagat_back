@@ -28,6 +28,7 @@ class CardTypeResource extends JsonResource
             'sub_title' => trim($advantageData['sub_title']),
             'description' => $this->resource->getTranslation('text', $locale),
             'price' => $this->resource->price,
+            'delivery_price' => $this->resource->delivery_price,
             'category' => $this->resource->category,
             'advantages' => $advantageData['advantages'],
             'image_url' => $this->imageUrl($this->resource->image_url),

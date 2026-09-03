@@ -100,6 +100,7 @@ return [
     'work_phone' => 'Work Phone',
     'internet_service' => 'Internet Service',
     'delivery' => 'Delivery',
+    'delivery_price' => 'Delivery Price',
     'text' => 'Text',
     'category' => 'Category',
     'image_url' => 'Image',
