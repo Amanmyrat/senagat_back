@@ -15,7 +15,7 @@ class PaymentHistoryController extends Controller
     {
         $payments = auth()->user()
             ->paymentRequests()
-       ->where('type', '!=', 'certificate')
+            ->where('type', '!=', 'certificate')
             ->where('type', '!=', 'card')
             ->latest()
             ->get();
