@@ -18,7 +18,7 @@ class AuditReportController extends Controller
      */
     public function index(): JsonResponse
     {
-        $auditReports = AuditReport::orderBy('sort')->get();
+        $auditReports = AuditReport::active()->orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,

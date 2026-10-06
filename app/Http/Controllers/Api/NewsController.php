@@ -19,7 +19,7 @@ class NewsController extends Controller
     public function index(): JsonResponse
     {
 
-        $news = News::orderBy('published_at', 'desc')->get();
+        $news = News::active()->orderBy('published_at', 'desc')->get();
 
         return new JsonResponse([
             'success' => true,

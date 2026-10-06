@@ -11,6 +11,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
@@ -18,6 +19,7 @@ use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class LocationResource extends Resource
@@ -65,6 +67,9 @@ class LocationResource extends Resource
                     Step::make('First Step')
                         ->label(__('resource.first_step'))
                         ->schema([
+                            Toggle::make('is_active')
+                                ->label(__('resource.active'))
+                                ->default(true),
                             Select::make('type')
 
                                 ->translateLabel()
@@ -153,10 +158,10 @@ class LocationResource extends Resource
                                     TextInput::make('to')
                                         ->label(__('resource.to')),
                                 ]),
-                                TextInput::make('payment_username')
-                            ->label(__('resource.payment_username')),
-                                TextInput::make('payment_password')
-                                    ->label(__('resource.payment_password'))
+                            TextInput::make('payment_username')
+                                ->label(__('resource.payment_username')),
+                            TextInput::make('payment_password')
+                                ->label(__('resource.payment_password'))
                                 ->password()
                                 ->columns(3),
                         ]),
@@ -178,6 +183,8 @@ class LocationResource extends Resource
                     ->label(_('resource.name')),
                 TextColumn::make('address')->translateLabel()
                     ->label(_('resource.address')),
+                ToggleColumn::make('is_active')
+                    ->label(__('resource.active')),
 
             ])
             ->filters([])

@@ -8,11 +8,13 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class NewsResource extends Resource
@@ -79,6 +81,9 @@ class NewsResource extends Resource
                             ->label(__('resource.description'))
                             ->columnSpan(1),
                     ]),
+                Toggle::make('is_active')
+                    ->label(__('resource.active'))
+                    ->default(true),
 
             ]);
     }
@@ -92,6 +97,8 @@ class NewsResource extends Resource
                 TextColumn::make('published_at')
                     ->label(__('resource.published_at'))
                     ->dateTime('d.m.Y'),
+                ToggleColumn::make('is_active')
+                    ->label(__('resource.active')),
             ])
             ->filters([
                 //

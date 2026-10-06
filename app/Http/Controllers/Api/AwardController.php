@@ -20,7 +20,7 @@ class AwardController extends Controller
      */
     public function index(): JsonResponse
     {
-        $awards = Award::orderBy('sort')->get();
+        $awards = Award::active()->orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,
@@ -38,7 +38,7 @@ class AwardController extends Controller
     public function show($id): JsonResponse
     {
 
-        $award = Award::find($id);
+        $award = Award::active()->find($id);
 
         if (! $award) {
             return new JsonResponse([

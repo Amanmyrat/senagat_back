@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasActiveFlag;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +21,7 @@ use Spatie\Translatable\HasTranslations;
  * @property int|null $sort
  * @property-read TariffCategory $category
  * @property-read mixed $translations
+ *
  * @method static Builder<static>|TariffDetail newModelQuery()
  * @method static Builder<static>|TariffDetail newQuery()
  * @method static Builder<static>|TariffDetail query()
@@ -36,10 +38,12 @@ use Spatie\Translatable\HasTranslations;
  * @method static Builder<static>|TariffDetail whereTitle($value)
  * @method static Builder<static>|TariffDetail whereUpdatedAt($value)
  * @method static Builder<static>|TariffDetail orderByNumber(string $direction = 'asc')
+ *
  * @mixin Eloquent
  */
 class TariffDetail extends Model
 {
+    use HasActiveFlag;
     use HasTranslations;
 
     public array $translatable = ['title'];
@@ -47,9 +51,13 @@ class TariffDetail extends Model
     protected $fillable = ['tariff_category_id',
         'title',
         'number',
-        'details', ];
+        'details',
+        'is_active', ];
 
-    protected $casts = ['details' => 'array'];
+    protected $casts = [
+        'details' => 'array',
+        'is_active' => 'boolean',
+    ];
 
     public function category(): BelongsTo
     {

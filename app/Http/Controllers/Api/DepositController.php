@@ -19,7 +19,7 @@ class DepositController extends Controller
      */
     public function index(): JsonResponse
     {
-        $depositTypes = DepositType::orderBy('sort')->get();
+        $depositTypes = DepositType::active()->orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,
@@ -36,7 +36,7 @@ class DepositController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $deposit = DepositType::find($id);
+        $deposit = DepositType::active()->find($id);
         if (! $deposit) {
             return new JsonResponse([
                 'success' => false,

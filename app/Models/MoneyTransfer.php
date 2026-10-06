@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\HasActiveFlag;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -17,37 +21,40 @@ use Spatie\Translatable\HasTranslations;
  * @property array<array-key, mixed> $header_text
  * @property array<array-key, mixed> $footer_text
  * @property array<array-key, mixed> $tariff_details
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property array<array-key, mixed>|null $sub_title
  * @property int|null $sort
  * @property-read string|null $image_path
  * @property-read mixed $translations
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereAdvantages($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereBackgroundColor($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereFooterText($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereHeaderText($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereImageUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereJsonContainsLocale(string $column, string $locale, ?mixed $value, string $operand = '=')
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereJsonContainsLocales(string $column, array $locales, ?mixed $value, string $operand = '=')
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereLocale(string $column, string $locale)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereLocales(string $column, array $locales)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereMainTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereSort($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereSubTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereTariffDetails($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MoneyTransfer whereUpdatedAt($value)
- * @mixin \Eloquent
+ *
+ * @method static Builder<static>|MoneyTransfer newModelQuery()
+ * @method static Builder<static>|MoneyTransfer newQuery()
+ * @method static Builder<static>|MoneyTransfer query()
+ * @method static Builder<static>|MoneyTransfer whereAdvantages($value)
+ * @method static Builder<static>|MoneyTransfer whereBackgroundColor($value)
+ * @method static Builder<static>|MoneyTransfer whereCreatedAt($value)
+ * @method static Builder<static>|MoneyTransfer whereDescription($value)
+ * @method static Builder<static>|MoneyTransfer whereFooterText($value)
+ * @method static Builder<static>|MoneyTransfer whereHeaderText($value)
+ * @method static Builder<static>|MoneyTransfer whereId($value)
+ * @method static Builder<static>|MoneyTransfer whereImageUrl($value)
+ * @method static Builder<static>|MoneyTransfer whereJsonContainsLocale(string $column, string $locale, ?mixed $value, string $operand = '=')
+ * @method static Builder<static>|MoneyTransfer whereJsonContainsLocales(string $column, array $locales, ?mixed $value, string $operand = '=')
+ * @method static Builder<static>|MoneyTransfer whereLocale(string $column, string $locale)
+ * @method static Builder<static>|MoneyTransfer whereLocales(string $column, array $locales)
+ * @method static Builder<static>|MoneyTransfer whereMainTitle($value)
+ * @method static Builder<static>|MoneyTransfer whereSort($value)
+ * @method static Builder<static>|MoneyTransfer whereSubTitle($value)
+ * @method static Builder<static>|MoneyTransfer whereTariffDetails($value)
+ * @method static Builder<static>|MoneyTransfer whereTitle($value)
+ * @method static Builder<static>|MoneyTransfer whereUpdatedAt($value)
+ *
+ * @mixin Eloquent
  */
 class MoneyTransfer extends Model
 {
+    use HasActiveFlag;
     use HasFactory;
     use HasTranslations;
 
@@ -73,11 +80,13 @@ class MoneyTransfer extends Model
         'tariff_details',
         'background_color',
         'image_url',
+        'is_active',
     ];
 
     protected $casts = [
         'advantages' => 'array',
         'tariff_details' => 'array',
+        'is_active' => 'boolean',
     ];
 
     protected $appends = ['image_path'];

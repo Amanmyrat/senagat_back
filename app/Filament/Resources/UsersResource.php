@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UsersResource\Pages;
 use App\Models\User;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -17,7 +16,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class UsersResource extends Resource
 {
@@ -57,7 +58,7 @@ class UsersResource extends Resource
         return $form
             ->schema([
                 Wizard::make([
-                   Step::make('Profile Information')
+                    Step::make('Profile Information')
                         ->label(__('resource.profile_information'))
                         ->icon('heroicon-o-user')
                         ->completedIcon('heroicon-o-user')
@@ -92,11 +93,11 @@ class UsersResource extends Resource
                                                 ->icon('heroicon-o-arrow-top-right-on-square')
                                                 ->url(fn ($state) => $state ? \Illuminate\Support\Facades\Storage::disk('public')->url($state) : null)
                                                 ->openUrlInNewTab()
-                                                ->visible(fn ($state) => !empty($state)),
+                                                ->visible(fn ($state) => ! empty($state)),
                                             \Filament\Forms\Components\Actions\Action::make(__('resource.download'))
                                                 ->icon('heroicon-o-arrow-down-tray')
                                                 ->url(fn ($state) => $state ? \Illuminate\Support\Facades\Storage::disk('public')->url($state) : null)
-                                                ->visible(fn ($state) => !empty($state)),
+                                                ->visible(fn ($state) => ! empty($state)),
                                         ]),
                                 ])
                                 ->columns(2),
@@ -135,10 +136,9 @@ class UsersResource extends Resource
 
                                         ])
                                         ->visible(fn ($get) => $get('approved') === 'rejected')
-                                        ->searchable()
+                                        ->searchable(),
                                 ]),
-                                ]),
-
+                        ]),
 
                 ])->skippable()
                     ->columnSpanFull(),
@@ -151,24 +151,56 @@ class UsersResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('phone')->translateLabel()
-                    ->label(__('resource.phone')),
+                    ->label(__('resource.phone'))
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('profile.first_name')
                     ->label(__('resource.first_name'))
                     ->default('---')
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('profile.last_name')
                     ->label(__('resource.last_name'))
                     ->default('---')
+                    ->searchable()
                     ->sortable(),
+                TextColumn::make('profile.middle_name')
+                    ->label(__('resource.middle_name'))
+                    ->default('---')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('profile.approved')
                     ->label(__('resource.approval_status'))
                     ->default('Pending')
                     ->badge()
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->label(__('resource.created_at'))
+                    ->dateTime()
                     ->sortable(),
 
             ])
             ->filters([
-                //
+                SelectFilter::make('approved')
+                    ->label(__('resource.approval_status'))
+                    ->options([
+                        'pending' => 'Pending',
+                        'approved' => __('resource.approved'),
+                        'rejected' => __('resource.rejected'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        $value = $data['value'] ?? null;
+
+                        if (blank($value)) {
+                            return $query;
+                        }
+
+                        return $query->whereHas('profile', function (Builder $profileQuery) use ($value) {
+                            $profileQuery->where('approved', $value);
+                        });
+                    }),
             ])
             ->actions([
                 Action::make('pdf')
@@ -206,6 +238,7 @@ class UsersResource extends Resource
             'edit' => Pages\EditUsers::route('/{record}/edit'),
         ];
     }
+
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
         return parent::getEloquentQuery()

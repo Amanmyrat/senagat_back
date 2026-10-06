@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\HasActiveFlag;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -12,32 +16,35 @@ use Spatie\Translatable\HasTranslations;
  * @property string|null $pdf_file_tk
  * @property string|null $pdf_file_en
  * @property string|null $pdf_file_ru
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int|null $sort
  * @property-read string|null $pdf_file_en_path
  * @property-read string|null $pdf_file_ru_path
  * @property-read string|null $pdf_file_tk_path
  * @property-read mixed $translations
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport whereJsonContainsLocale(string $column, string $locale, ?mixed $value, string $operand = '=')
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport whereJsonContainsLocales(string $column, array $locales, ?mixed $value, string $operand = '=')
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport whereLocale(string $column, string $locale)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport whereLocales(string $column, array $locales)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport wherePdfFileEn($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport wherePdfFileRu($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport wherePdfFileTk($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport whereSort($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditReport whereUpdatedAt($value)
- * @mixin \Eloquent
+ *
+ * @method static Builder<static>|AuditReport newModelQuery()
+ * @method static Builder<static>|AuditReport newQuery()
+ * @method static Builder<static>|AuditReport query()
+ * @method static Builder<static>|AuditReport whereCreatedAt($value)
+ * @method static Builder<static>|AuditReport whereId($value)
+ * @method static Builder<static>|AuditReport whereJsonContainsLocale(string $column, string $locale, ?mixed $value, string $operand = '=')
+ * @method static Builder<static>|AuditReport whereJsonContainsLocales(string $column, array $locales, ?mixed $value, string $operand = '=')
+ * @method static Builder<static>|AuditReport whereLocale(string $column, string $locale)
+ * @method static Builder<static>|AuditReport whereLocales(string $column, array $locales)
+ * @method static Builder<static>|AuditReport wherePdfFileEn($value)
+ * @method static Builder<static>|AuditReport wherePdfFileRu($value)
+ * @method static Builder<static>|AuditReport wherePdfFileTk($value)
+ * @method static Builder<static>|AuditReport whereSort($value)
+ * @method static Builder<static>|AuditReport whereTitle($value)
+ * @method static Builder<static>|AuditReport whereUpdatedAt($value)
+ *
+ * @mixin Eloquent
  */
 class AuditReport extends Model
 {
+    use HasActiveFlag;
     use HasFactory;
     use HasTranslations;
 
@@ -48,6 +55,11 @@ class AuditReport extends Model
         'pdf_file_tk',
         'pdf_file_en',
         'pdf_file_ru',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     protected $appends = ['pdf_file_tk_path', 'pdf_file_en_path', 'pdf_file_ru_path'];

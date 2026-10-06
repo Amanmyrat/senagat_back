@@ -6,11 +6,13 @@ use App\Filament\Clusters\Tariffs;
 use App\Filament\Resources\TariffCategoryResource\Pages;
 use App\Models\TariffCategory;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class TariffCategoryResource extends Resource
@@ -63,6 +65,9 @@ class TariffCategoryResource extends Resource
                     ->integer()
                     ->minValue(1)
                     ->label(__('resource.number')),
+                Toggle::make('is_active')
+                    ->label(__('resource.active'))
+                    ->default(true),
             ]);
     }
 
@@ -76,6 +81,8 @@ class TariffCategoryResource extends Resource
                     ->alignCenter(),
                 TextColumn::make('title')
                     ->label(__('resource.title')),
+                ToggleColumn::make('is_active')
+                    ->label(__('resource.active')),
             ])
             ->filters([
                 //

@@ -7,10 +7,12 @@ use App\Models\Clients;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class ClientsResource extends Resource
@@ -64,6 +66,9 @@ class ClientsResource extends Resource
                 FileUpload::make('image_url')->image()
                     ->required()
                     ->label(__('resource.image')),
+                Toggle::make('is_active')
+                    ->label(__('resource.active'))
+                    ->default(true),
             ]);
     }
 
@@ -73,6 +78,8 @@ class ClientsResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')->label(__('resource.title')),
                 Tables\Columns\TextColumn::make('company_type')->label(__('resource.company_type')),
+                ToggleColumn::make('is_active')
+                    ->label(__('resource.active')),
             ])
             ->filters([
                 //

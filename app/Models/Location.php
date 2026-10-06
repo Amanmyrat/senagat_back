@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enum\LocationType;
+use App\Traits\HasActiveFlag;
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -21,6 +22,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string|null $home_number
  * @property array<array-key, mixed>|null $hours
  * @property-read mixed $translations
+ *
  * @method static Builder<static>|Location newModelQuery()
  * @method static Builder<static>|Location newQuery()
  * @method static Builder<static>|Location query()
@@ -39,20 +41,24 @@ use Spatie\Translatable\HasTranslations;
  * @method static Builder<static>|Location wherePhoneNumber($value)
  * @method static Builder<static>|Location whereType($value)
  * @method static Builder<static>|Location whereUpdatedAt($value)
+ *
  * @property bool $branch_services
  * @property int|null $sort
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Location whereBranchServices($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Location whereSort($value)
+ *
  * @mixin Eloquent
  */
 class Location extends Model
 {
+    use HasActiveFlag;
     use HasTranslations;
 
     public array $translatable = ['name', 'address', 'hours'];
 
     protected $fillable = ['type', 'name', 'address', 'location', 'hours', 'phone_number', 'fax_number', 'home_number',
-        'branch_services','payment_password','payment_username'];
+        'branch_services', 'payment_password', 'payment_username', 'is_active'];
 
     protected $casts = [
         'location' => 'array',
@@ -61,5 +67,6 @@ class Location extends Model
         'offers_card' => 'boolean',
         'offers_certificate' => 'boolean',
         'payment_password' => 'encrypted',
+        'is_active' => 'boolean',
     ];
 }

@@ -18,7 +18,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::orderBy('sort')->get();
+        $locations = Location::active()->orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,
@@ -35,9 +35,11 @@ class LocationController extends Controller
      */
     public function branchLocations()
     {
-        $locations = Location::where('type', 'Branch')
+        $locations = Location::active()
+            ->where('type', 'Branch')
             ->get();
-//where('branch_services', true)
+
+        // where('branch_services', true)
         return new JsonResponse([
             'success' => true,
             'data' => LocationResource::collection($locations),

@@ -7,11 +7,13 @@ use App\Filament\Resources\AuditReportResource\Pages;
 use App\Models\AuditReport;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class AuditReportResource extends Resource
@@ -76,6 +78,9 @@ class AuditReportResource extends Resource
                     ->maxSize(100000)
                     ->helperText(__('resource.pdf_file_helper'))
                     ->translateLabel(false),
+                Toggle::make('is_active')
+                    ->label(__('resource.active'))
+                    ->default(true),
             ]);
     }
 
@@ -90,6 +95,8 @@ class AuditReportResource extends Resource
                     ->label(__('resource.created_at'))
                     ->dateTime()
                     ->sortable(),
+                ToggleColumn::make('is_active')
+                    ->label(__('resource.active')),
             ])
             ->filters([
                 //

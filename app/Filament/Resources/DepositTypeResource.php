@@ -8,10 +8,12 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class DepositTypeResource extends Resource
@@ -80,6 +82,9 @@ class DepositTypeResource extends Resource
                     ])
                     ->label(__('resource.details'))
                     ->collapsible(),
+                Toggle::make('is_active')
+                    ->label(__('resource.active'))
+                    ->default(true),
             ]);
     }
 
@@ -89,6 +94,8 @@ class DepositTypeResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('resource.title')),
+                ToggleColumn::make('is_active')
+                    ->label(__('resource.active')),
             ])
             ->filters([
                 //

@@ -19,7 +19,7 @@ class MoneyTransferController extends Controller
      */
     public function index(): JsonResponse
     {
-        $moneyTransfers = MoneyTransfer::orderBy('sort')->get();
+        $moneyTransfers = MoneyTransfer::active()->orderBy('sort')->get();
 
         return new JsonResponse([
             'success' => true,
@@ -36,7 +36,7 @@ class MoneyTransferController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $moneyTransfer = MoneyTransfer::find($id);
+        $moneyTransfer = MoneyTransfer::active()->find($id);
 
         if (! $moneyTransfer) {
             return new JsonResponse([

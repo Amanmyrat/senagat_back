@@ -9,11 +9,13 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class MoneyTransferResource extends Resource
@@ -108,6 +110,9 @@ class MoneyTransferResource extends Resource
                     ->image()
                     ->label(__('resource.image_url'))
                     ->translateLabel(false),
+                Toggle::make('is_active')
+                    ->label(__('resource.active'))
+                    ->default(true),
             ]);
     }
 
@@ -125,6 +130,8 @@ class MoneyTransferResource extends Resource
                     ->label(__('resource.created_at'))
                     ->dateTime()
                     ->sortable(),
+                ToggleColumn::make('is_active')
+                    ->label(__('resource.active')),
             ])
             ->filters([
                 //

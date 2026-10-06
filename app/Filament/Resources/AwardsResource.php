@@ -7,10 +7,12 @@ use App\Models\Award;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class AwardsResource extends Resource
@@ -70,6 +72,9 @@ class AwardsResource extends Resource
                     ->multiple()
                     ->image()
                     ->directory('awards/description'),
+                Toggle::make('is_active')
+                    ->label(__('resource.active'))
+                    ->default(true),
 
             ]);
     }
@@ -81,6 +86,8 @@ class AwardsResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('resource.title'))
                     ->limit(30),
+                ToggleColumn::make('is_active')
+                    ->label(__('resource.active')),
             ])
             ->filters([
                 //

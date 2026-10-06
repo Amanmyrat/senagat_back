@@ -6,11 +6,13 @@ use App\Filament\Resources\ExchangeRateResource\Pages;
 use App\Models\ExchangeRate;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class ExchangeRateResource extends Resource
@@ -68,6 +70,9 @@ class ExchangeRateResource extends Resource
                 FileUpload::make('flag')->image()
                     ->required()
                     ->label(__('resource.flag')),
+                Toggle::make('is_active')
+                    ->label(__('resource.active'))
+                    ->default(true),
 
             ]);
     }
@@ -78,6 +83,8 @@ class ExchangeRateResource extends Resource
             ->columns([
                 TextColumn::make('currency')
                     ->label(__('resource.currency')),
+                ToggleColumn::make('is_active')
+                    ->label(__('resource.active')),
             ])
             ->filters([
                 //
