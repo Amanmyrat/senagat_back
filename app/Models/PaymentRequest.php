@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\MoneyCast;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read string|null $target_phone
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentRequest newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentRequest query()
@@ -32,10 +34,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentRequest whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentRequest whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentRequest whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class PaymentRequest extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'type',
@@ -63,6 +68,7 @@ class PaymentRequest extends Model
     {
         return $this->payment_target['value'] ?? null;
     }
+
     public function cardOrder(): BelongsTo
     {
         return $this->belongsTo(CardOrder::class, 'external_id', 'id');

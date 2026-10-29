@@ -24,9 +24,10 @@ return [
     'tariffs' => 'Tariffs',
     'belet_payment' => 'Belet Payment',
     'payment' => 'Payment',
-    'charity' => 'Charity',
+    'charity' => 'Arkadagyň haýyr-sahabat gaznasy',
     'telecom_payment' => 'Telecom Payment',
     'astu_payment' => 'ASTU Payment',
     'tm_cell_payment' => 'TmCell Payment',
     'alem_tv_payment' => 'Alem Tv Payment',
+    'payment_report' => 'Payment report',
 ];

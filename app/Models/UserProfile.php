@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\PassportScansCast;
 use App\Enum\UserStatus;
 use App\Models\Traits\ClearsRejectionReasons;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $gender
  * @property \Illuminate\Support\Carbon $issued_date
  * @property string $issued_by
- * @property string $scan_passport
+ * @property array<int, string> $scan_passport
  * @property UserStatus $approved
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read int|null $change_logs_count
  * @property-read \App\Models\ChangeLog|null $latestChangeLog
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile query()
@@ -45,19 +47,26 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereScanPassport($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereUserId($value)
+ *
  * @property string $citizenship
  * @property int|null $home_phone
  * @property string $home_address
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereCitizenship($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereHomeAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereHomePhone($value)
+ *
  * @property array<array-key, mixed>|null $rejection_reasons
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserProfile whereRejectionReasons($value)
+ *
  * @mixin \Eloquent
  */
 class UserProfile extends Model
 {
     use ClearsRejectionReasons;
+
+    public const MAX_PASSPORT_SCANS = 4;
 
     protected $fillable = [
         'first_name',
@@ -79,7 +88,57 @@ class UserProfile extends Model
         'issued_date' => 'date',
         'approved' => UserStatus::class,
         'rejection_reasons' => 'array',
+        'scan_passport' => PassportScansCast::class,
     ];
+
+    /**
+     * Passport files already saved for this profile.
+     *
+     * @return array<int, string>
+     */
+    public function passportScanPaths(): array
+    {
+        return self::normalizePassportPaths($this->scan_passport);
+    }
+
+    /**
+     * Accept a legacy single path, a JSON list, or an array of paths.
+     *
+     * @return array<int, string>
+     */
+    public static function normalizePassportPaths(mixed $value): array
+    {
+        if (is_array($value)) {
+            $paths = [];
+
+            foreach ($value as $item) {
+                if (is_string($item) && $item !== '') {
+                    $paths[] = $item;
+                }
+            }
+
+            return $paths;
+        }
+
+        if (! is_string($value)) {
+            return [];
+        }
+
+        $trimmed = trim($value);
+        if ($trimmed === '') {
+            return [];
+        }
+
+        if (str_starts_with($trimmed, '[')) {
+            $decoded = json_decode($trimmed, true);
+            if (is_array($decoded)) {
+                return self::normalizePassportPaths($decoded);
+            }
+        }
+
+        return [$value];
+    }
+
     protected function setPassportNumberAttribute($value)
     {
         $this->attributes['passport_number'] = mb_strtoupper($value, 'UTF-8');
@@ -102,5 +161,4 @@ class UserProfile extends Model
             ->where('model_type', '=', self::class)
             ->latestOfMany();
     }
-
 }

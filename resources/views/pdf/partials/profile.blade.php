@@ -131,9 +131,15 @@
 {{--        @endif--}}
 
     </div>
-    @include('pdf.partials.file-viewer', [
-'path' => $record->profile->scan_passport
-])
+    @php
+        $passportPaths = $record->profile?->passportScanPaths() ?? [];
+    @endphp
+    @foreach($passportPaths as $path)
+        <div style="font-size:12px; color:#6b7280; margin-top:8px;">
+            {{ $loop->iteration }} / {{ $loop->count }}
+        </div>
+        @include('pdf.partials.file-viewer', ['path' => $path])
+    @endforeach
     <h2>{{ __('Statusy') }}</h2>
     <div class="section">
         <div class="field">

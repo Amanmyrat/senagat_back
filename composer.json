@@ -6,7 +6,7 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "arbermustafa/filament-locationpickr-field": "^2.0.0",
         "barryvdh/laravel-dompdf": "^3.1",
         "dedoc/scramble": "^0.12.26",
@@ -17,6 +17,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/telescope": "^5.10",
         "laravel/tinker": "^2.10.1",
+        "maatwebsite/excel": "^4.0",
         "nesbot/carbon": "^3.10",
         "rawilk/laravel-printing": "^4.1",
         "spatie/laravel-translatable": "^6.11"

@@ -25,10 +25,10 @@ return [
     'belet_requests' => 'Запросы на Belet',
     'payment' => 'Платеж',
     'belet_payment' => 'Платеж Belet',
-    'charity' => 'Благотворительность',
+    'charity' => 'Arkadagyň haýyr-sahabat gaznasy',
     'telecom_payment' => 'Оплата телекоммуникаций',
     'astu_payment' => 'Оплата ASTU',
     'tm_cell_payment' => 'Оплата TmCell',
     'alem_payment' => 'Оплата Alem Tv',
-
+    'payment_report' => 'Отчёт по платежам',
 ];

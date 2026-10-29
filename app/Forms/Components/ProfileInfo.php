@@ -2,6 +2,7 @@
 
 namespace App\Forms\Components;
 
+use App\Models\UserProfile;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
@@ -58,15 +59,22 @@ class ProfileInfo
                 FileUpload::make('scan_passport')
                     ->label(__('resource.scan_passport'))
                     ->afterStateHydrated(function ($component, $state, $record) {
-                        if ($record->profile?->scan_passport) {
-                            $component->state([$record->profile->scan_passport]);
+                        $paths = $record->profile?->passportScanPaths() ?? [];
+
+                        if ($paths !== []) {
+                            $component->state($paths);
                         }
                     })
+                    ->multiple()
+                    ->maxFiles(UserProfile::MAX_PASSPORT_SCANS)
+                    ->panelLayout('grid')
                     ->disabled()
+                    ->dehydrated(false)
                     ->downloadable()
+                    ->openable()
                     ->disk('public')
                     ->directory('scans')
-                    ->image(),
+                    ->columnSpanFull(),
             ]);
     }
 }

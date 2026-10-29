@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UsersResource\Pages;
 use App\Models\User;
+use App\Models\UserProfile;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -85,20 +87,18 @@ class UsersResource extends Resource
                                     TextInput::make('citizenship')->label(__('resource.citizenship'))->disabled(),
                                     TextInput::make('home_phone')->label(__('resource.home_phone_number'))->disabled(),
                                     TextInput::make('home_address')->label(__('resource.home_address'))->disabled(),
-                                    TextInput::make('scan_passport')
+                                    FileUpload::make('scan_passport')
                                         ->label(__('resource.scan_passport'))
+                                        ->disk('public')
+                                        ->directory('scans')
+                                        ->multiple()
+                                        ->maxFiles(UserProfile::MAX_PASSPORT_SCANS)
+                                        ->panelLayout('grid')
                                         ->disabled()
-                                        ->hintActions([
-                                            \Filament\Forms\Components\Actions\Action::make(__('resource.open'))
-                                                ->icon('heroicon-o-arrow-top-right-on-square')
-                                                ->url(fn ($state) => $state ? \Illuminate\Support\Facades\Storage::disk('public')->url($state) : null)
-                                                ->openUrlInNewTab()
-                                                ->visible(fn ($state) => ! empty($state)),
-                                            \Filament\Forms\Components\Actions\Action::make(__('resource.download'))
-                                                ->icon('heroicon-o-arrow-down-tray')
-                                                ->url(fn ($state) => $state ? \Illuminate\Support\Facades\Storage::disk('public')->url($state) : null)
-                                                ->visible(fn ($state) => ! empty($state)),
-                                        ]),
+                                        ->dehydrated(false)
+                                        ->downloadable()
+                                        ->openable()
+                                        ->columnSpanFull(),
                                 ])
                                 ->columns(2),
                         ]),

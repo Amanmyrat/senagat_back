@@ -94,10 +94,16 @@ class PendingProfileResource extends Resource
                                     TextInput::make('home_phone')->label(__('resource.home_phone_number'))->disabled(),
                                     TextInput::make('home_address')->label(__('resource.home_address'))->disabled(),
                                     FileUpload::make('scan_passport')->disabled()
+                                        ->dehydrated(false)
                                         ->label(__('resource.scan_passport'))
                                         ->directory('scans')
                                         ->disk('public')
-                                        ->downloadable(),
+                                        ->multiple()
+                                        ->maxFiles(UserProfile::MAX_PASSPORT_SCANS)
+                                        ->panelLayout('grid')
+                                        ->downloadable()
+                                        ->openable()
+                                        ->columnSpanFull(),
 
                                 ])
                                 ->columns(2),
@@ -108,7 +114,7 @@ class PendingProfileResource extends Resource
                         ->schema(function ($record) {
                             if (! $record || ! $record->latestChangeLog) {
                                 return [
-                                    Placeholder::make(__('resource.no_change'))
+                                    Placeholder::make(__('resource.no_change')),
 
                                 ];
                             }
@@ -127,8 +133,8 @@ class PendingProfileResource extends Resource
                                     }
                                 }
                                 if ($field === 'scan_passport') {
-                                    $old = $old ? asset('storage/'.$old) : '-';
-                                    $new = $new ? asset('storage/'.$new) : '-';
+                                    $old = self::passportChangeUrls($values['old'] ?? null);
+                                    $new = self::passportChangeUrls($values['new'] ?? null);
 
                                 }
                                 if ($field === 'scan_passport') {
@@ -136,7 +142,7 @@ class PendingProfileResource extends Resource
                                         $columns[] = Grid::make()->schema([
                                             Placeholder::make("{$field}_old")
                                                 ->label(__('resource.scan_passport'))
-                                                ->content($old)
+                                                ->content(implode("\n", $old))
                                                 ->view('filament.components.change-field', [
                                                     'value' => $old,
                                                     'color' => 'brown',
@@ -145,7 +151,7 @@ class PendingProfileResource extends Resource
                                                 ]),
                                             Placeholder::make("{$field}_new")
                                                 ->label(__('resource.scan_passport'))
-                                                ->content($new)
+                                                ->content(implode("\n", $new))
                                                 ->view('filament.components.change-field', [
                                                     'value' => $new,
                                                     'color' => 'green',
@@ -218,8 +224,8 @@ class PendingProfileResource extends Resource
                                     'Pasportyň skany nädogry' => __('resource.scan_passport_incorrect'),
                                     'Pasport belgisi nädogry' => __('resource.passport_number_incorrect'),
                                 ])
-                              ->visible(fn ($get) => $get('approved') === 'rejected')
-                                ->searchable()
+                                ->visible(fn ($get) => $get('approved') === 'rejected')
+                                ->searchable(),
                         ]),
                 ])->skippable()
                     ->columnSpanFull(),
@@ -276,9 +282,23 @@ class PendingProfileResource extends Resource
         ];
     }
 
+    /**
+     * @return array<int, string>
+     */
+    private static function passportChangeUrls(mixed $value): array
+    {
+        $urls = [];
+
+        foreach (UserProfile::normalizePassportPaths($value) as $path) {
+            $urls[] = asset('storage/'.$path);
+        }
+
+        return $urls !== [] ? $urls : ['-'];
+    }
+
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
 
-        return parent::getEloquentQuery()->whereIn('approved', ['pending',]);
+        return parent::getEloquentQuery()->whereIn('approved', ['pending']);
     }
 }

@@ -49,12 +49,12 @@
 
                     @php
                         $paths = [
-                            'old' => $old,
-                            'new' => $new,
+                            'old' => \App\Models\UserProfile::normalizePassportPaths($values['old'] ?? null),
+                            'new' => \App\Models\UserProfile::normalizePassportPaths($values['new'] ?? null),
                         ];
                     @endphp
 
-                    @foreach($paths as $type => $file)
+                    @foreach($paths as $type => $files)
 
                         <div class="field full-width">
                             <H1>
@@ -62,75 +62,14 @@
                                 ({{ $type === 'old' ? 'Öňki' : 'Täze' }})
                             </H1>
 
-                            @php
-                                $scanPath = $file;
-                                $ext      = strtolower(pathinfo($scanPath, PATHINFO_EXTENSION));
-                                $pdfUrl   = asset('storage/' . $scanPath);
-                                $fullPath = public_path('storage/' . $scanPath);
-
-                                if (!file_exists($fullPath)) {
-                                    $fullPath = storage_path('app/public/' . $scanPath);
-                                }
-                            @endphp
-
-                            @if(!$scanPath || !file_exists($fullPath))
+                            @forelse($files as $scanPath)
+                                <div style="font-size:12px; color:#6b7280; margin-top:8px;">
+                                    {{ $loop->iteration }} / {{ $loop->count }}
+                                </div>
+                                @include('pdf.partials.file-viewer', ['path' => $scanPath])
+                            @empty
                                 <span>—</span>
-
-                            @elseif(in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                                @php
-                                    $mime = match($ext) {
-                                        'jpg', 'jpeg' => 'image/jpeg',
-                                        'png' => 'image/png',
-                                        'gif' => 'image/gif',
-                                        'webp' => 'image/webp',
-                                        default => 'image/jpeg',
-                                    };
-                                    $base64 = base64_encode(file_get_contents($fullPath));
-                                @endphp
-
-                                <img src="data:{{ $mime }};base64,{{ $base64 }}"
-                                     style="width:60%; border:1px solid #ccc; border-radius:6px; margin-bottom:10px;">
-
-                            @elseif($ext === 'pdf')
-                                @php
-                                    $pages = [];
-
-                                    if (extension_loaded('imagick')) {
-                                        try {
-                                            $imagick = new \Imagick();
-                                            $imagick->setResolution(150, 150);
-                                            $imagick->readImage($fullPath);
-
-                                            foreach ($imagick as $page) {
-                                                $page->setImageFormat('png');
-                                                $pages[] = base64_encode($page->getImageBlob());
-                                            }
-                                        } catch (\Exception $e) {
-                                            $pages = [];
-                                        }
-                                    }
-                                @endphp
-
-                                @if(!empty($pages))
-                                    @foreach($pages as $i => $page)
-                                        <div style="font-size:11px; color:#6b7280;">
-                                            Sahypa {{ $i + 1 }}
-                                        </div>
-                                        <img src="data:image/png;base64,{{ $page }}"
-                                             style="width:60%; margin-bottom:10px; border:1px solid #ccc;">
-                                    @endforeach
-                                @else
-                                    <embed src="{{ $pdfUrl }}"
-                                           type="application/pdf"
-                                           width="100%"
-                                           height="600px"
-                                           style="margin-bottom:10px;">
-                                @endif
-
-                                <a href="{{ $pdfUrl }}" target="_blank">
-                                    📄 Open PDF
-                                </a>
-                            @endif
+                            @endforelse
 
                         </div>
 

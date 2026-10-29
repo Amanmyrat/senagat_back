@@ -17,6 +17,11 @@ class UserProfileResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $passportUrls = array_map(
+            fn (string $path) => $this->imageUrl($path),
+            $this->resource->passportScanPaths()
+        );
+
         return [
             'id' => $this->resource->id,
             'first_name' => $this->resource->first_name,
@@ -29,7 +34,9 @@ class UserProfileResource extends JsonResource
             'citizenship' => $this->resource->citizenship,
             'home_phone' => $this->resource->home_phone,
             'home_address' => $this->resource->home_address,
-            'scan_passport' => $this->imageUrl($this->resource->scan_passport),
+            // First file only, so apps that still expect one string keep working.
+            'scan_passport' => $passportUrls[0] ?? null,
+            'scan_passports' => $passportUrls,
         ];
     }
 }
