@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,7 +44,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Admin whereUsername($value)
  * @mixin \Eloquent
  */
-class Admin extends Authenticatable
+class Admin extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory,Notifiable;
 
